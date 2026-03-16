@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenGlaze - Open Source Ceramic Glaze Management</title>
+    <meta name="description" content="Professional ceramic glaze management for studios and artists. Track recipes, manage firings, and perfect your glazes with our open-source platform.">
+    <meta name="keywords" content="ceramic glaze, pottery, glaze recipes, kiln management, ceramic studio">
+
+    <!-- Fonts: Fraunces (display) + DM Sans (body) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="icon" type="image/svg+xml" href="/static/favicon.svg">
+</head>
+<body>
+    <div id="app">
+        <!-- Header -->
+        <header class="header">
+            <div class="container">
+                <div class="header-inner">
+                    <a href="/" class="logo">
+                        <div class="logo-icon">O</div>
+                        <span class="logo-text">OpenGlaze</span>
+                    </a>
+                    <nav class="nav">
+                        <a href="#features" class="nav-link">Features</a>
+                        <a href="#pricing" class="nav-link">Pricing</a>
+                        <a href="#templates" class="nav-link">Templates</a>
+                    </nav>
+                    <div class="flex items-center gap-4">
+                        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode"></button>
+                        <div class="nav-auth" id="nav-auth">
+                            <a href="/auth/login" class="btn btn-ghost">Log In</a>
+                            <a href="/auth/register" class="btn btn-primary">Get Started</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-bg"></div>
+            <div class="container">
+                <div class="hero-content animate-slide-up">
+                    <h1 class="hero-title">Professional Glaze Management for Ceramicists</h1>
+                    <p class="hero-subtitle">
+                        Track recipes, manage firings, and perfect your glazes with the open-source
+                        ceramic studio management system.
+                    </p>
+                    <div class="hero-cta">
+                        <a href="/auth/register" class="btn btn-primary btn-lg">
+                            Start Free
+                        </a>
+                        <a href="#templates" class="btn btn-secondary btn-lg">
+                            Browse Templates
+                        </a>
+                    </div>
+                    <p class="hero-note">
+                        Free tier includes unlimited glazes. No credit card required.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section id="features" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Everything You Need</h2>
+                    <p class="section-subtitle">A complete toolkit for ceramic artists and studios.</p>
+                </div>
+                <div class="features-grid stagger">
+                    <div class="feature-card card card-hover">
+                        <div class="feature-icon">📝</div>
+                        <h3 class="feature-title">Recipe Tracking</h3>
+                        <p class="feature-description">Store unlimited glaze recipes with ingredients, percentages, and notes.</p>
+                    </div>
+                    <div class="feature-card card card-hover">
+                        <div class="feature-icon">🔥</div>
+                        <h3 class="feature-title">Firing Logs</h3>
+                        <p class="feature-description">Document each firing with temperature curves, atmosphere, and results.</p>
+                    </div>
+                    <div class="feature-card card card-hover">
+                        <div class="feature-icon">📸</div>
+                        <h3 class="feature-title">Photo Documentation</h3>
+                        <p class="feature-description">Upload photos to track glaze results across different firings.</p>
+                    </div>
+                    <div class="feature-card card card-hover">
+                        <div class="feature-icon">🧮</div>
+                        <h3 class="feature-title">Recipe Calculator</h3>
+                        <p class="feature-description">Auto-calculate batch sizes, unit conversions, and costs.</p>
+                    </div>
+                    <div class="feature-card card card-hover">
+                        <div class="feature-icon">📊</div>
+                        <h3 class="feature-title">Analytics</h3>
+                        <p class="feature-description">Visualize your glaze development over time with detailed analytics.</p>
+                    </div>
+                    <div class="feature-card card card-hover">
+                        <div class="feature-icon">👥</div>
+                        <h3 class="feature-title">Team Collaboration</h3>
+                        <p class="feature-description">Share recipes and firings with studio members (Pro+).</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pricing Section -->
+        <section id="pricing" class="section" style="background: var(--color-bg);">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Simple, Transparent Pricing</h2>
+                    <p class="section-subtitle">Start free, upgrade when you need more.</p>
+                </div>
+
+                <div class="pricing-grid stagger">
+                    <!-- Free Tier -->
+                    <div class="pricing-card card card-hover">
+                        <div class="pricing-header">
+                            <div class="pricing-tier">Free</div>
+                            <div class="pricing-price">$0<span>/month</span></div>
+                        </div>
+                        <ul class="pricing-features">
+                            <li>Unlimited glazes</li>
+                            <li>Basic recipe calculator</li>
+                            <li>50 firings/month</li>
+                            <li>Photo uploads</li>
+                            <li>Export to PDF</li>
+                        </ul>
+                        <a href="/auth/register" class="btn btn-secondary btn-block">
+                            Get Started
+                        </a>
+                    </div>
+
+                    <!-- Pro Tier -->
+                    <div class="pricing-card card card-hover featured">
+                        <div class="pricing-badge">Most Popular</div>
+                        <div class="pricing-header">
+                            <div class="pricing-tier">Pro</div>
+                            <div class="pricing-price">$9<span>/month</span></div>
+                        </div>
+                        <ul class="pricing-features">
+                            <li>Everything in Free, plus:</li>
+                            <li>Unlimited firings</li>
+                            <li>Advanced analytics</li>
+                            <li>Team sharing (2 users)</li>
+                            <li>API access</li>
+                            <li>Priority support</li>
+                        </ul>
+                        <a href="/auth/register?tier=pro" class="btn btn-accent btn-block">
+                            Start Pro Trial
+                        </a>
+                    </div>
+
+                    <!-- Studio Tier -->
+                    <div class="pricing-card card card-hover">
+                        <div class="pricing-header">
+                            <div class="pricing-tier">Studio</div>
+                            <div class="pricing-price">$29<span>/month</span></div>
+                        </div>
+                        <ul class="pricing-features">
+                            <li>Everything in Pro, plus:</li>
+                            <li>5 team members</li>
+                            <li>Custom branding</li>
+                            <li>Bulk operations</li>
+                            <li>Advanced exports</li>
+                            <li>Dedicated support</li>
+                        </ul>
+                        <a href="/auth/register?tier=studio" class="btn btn-secondary btn-block">
+                            Start Studio Trial
+                        </a>
+                    </div>
+
+                    <!-- Education Tier -->
+                    <div class="pricing-card card card-hover">
+                        <div class="pricing-header">
+                            <div class="pricing-tier">Education</div>
+                            <div class="pricing-price">$199<span>/year</span></div>
+                        </div>
+                        <ul class="pricing-features">
+                            <li>Everything in Studio, plus:</li>
+                            <li>Unlimited users</li>
+                            <li>LMS integration</li>
+                            <li>Curriculum templates</li>
+                            <li>Student portfolios</li>
+                            <li>Dedicated support</li>
+                        </ul>
+                        <a href="/auth/register?tier=education" class="btn btn-secondary btn-block">
+                            Contact for Education
+                        </a>
+                    </div>
+                </div>
+
+                <p class="pricing-note text-center" style="margin-top: var(--space-10);">
+                    All tiers include 14-day free trial. Cancel anytime.
+                    <br>Self-host for free with MIT license.
+                </p>
+            </div>
+        </section>
+
+        <!-- Templates Section -->
+        <section id="templates" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Start with a Template</h2>
+                    <p class="section-subtitle">Pre-built glaze collections to jumpstart your studio.</p>
+                </div>
+
+                <div class="features-grid" id="templates-list">
+                    <!-- Templates loaded via JavaScript -->
+                    <div class="card card-hover template-card">
+                        <div class="feature-icon">🔥</div>
+                        <h3 class="feature-title">Cone 10 Reduction</h3>
+                        <p class="feature-description">Classic reduction glazes for high-fire ceramics.</p>
+                        <span class="template-badge">Free</span>
+                    </div>
+                    <div class="card card-hover template-card">
+                        <div class="feature-icon">☀️</div>
+                        <h3 class="feature-title">Cone 6 Oxidation</h3>
+                        <p class="feature-description">Mid-range glazes for electric kilns.</p>
+                        <span class="template-badge">Free</span>
+                    </div>
+                    <div class="card card-hover template-card">
+                        <div class="feature-icon">🎓</div>
+                        <h3 class="feature-title">University Curriculum</h3>
+                        <p class="feature-description">Complete curriculum for ceramics programs.</p>
+                        <span class="template-badge premium">Premium</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Open Source Section -->
+        <section class="opensource">
+            <div class="container">
+                <div class="opensource-content">
+                    <h2>100% Open Source</h2>
+                    <p>
+                        OpenGlaze is fully open source under the MIT license.
+                        Self-host your own instance, contribute to development,
+                        or fork it for your own needs.
+                    </p>
+                    <div class="opensource-links">
+                        <a href="https://github.com/openglaze/openglaze" class="btn btn-secondary btn-lg">
+                            View on GitHub
+                        </a>
+                        <a href="/docs/installation" class="btn btn-secondary btn-lg">
+                            Self-Host Guide
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container">
+                <div class="footer-grid">
+                    <div class="footer-brand">
+                        <a href="/" class="logo">
+                            <div class="logo-icon">O</div>
+                            <span class="logo-text">OpenGlaze</span>
+                        </a>
+                        <p>Professional ceramic glaze management for studios and artists.</p>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Product</h4>
+                        <ul class="footer-links">
+                            <li><a href="#features">Features</a></li>
+                            <li><a href="#pricing">Pricing</a></li>
+                            <li><a href="#templates">Templates</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Resources</h4>
+                        <ul class="footer-links">
+                            <li><a href="/docs">Documentation</a></li>
+                            <li><a href="/api">API Reference</a></li>
+                            <li><a href="/blog">Blog</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Company</h4>
+                        <ul class="footer-links">
+                            <li><a href="/about">About</a></li>
+                            <li><a href="/contact">Contact</a></li>
+                            <li><a href="/privacy">Privacy</a></li>
+                            <li><a href="/terms">Terms</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p>&copy; 2024 OpenGlaze. MIT License.</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="/static/js/app.js"></script>
+</body>
+</html>

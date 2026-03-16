@@ -1,0 +1,128 @@
+version: v1.0.0
+
+dsn: postgres://openglaze:password@postgres:5432/openglaze
+
+serve:
+  public:
+    base_url: http://localhost:4433/
+    cors:
+      enabled: true
+      allowed_origins:
+        - http://localhost:8768
+        - http://127.0.0.1:8768
+      allowed_methods:
+        - POST
+        - GET
+        - PUT
+        - DELETE
+        - PATCH
+      allowed_headers:
+        - Authorization
+        - Cookie
+        - Content-Type
+  admin:
+    base_url: http://localhost:4434/
+
+selfservice:
+  default_browser_return_url: http://localhost:8768/dashboard
+  allowed_return_urls:
+    - http://localhost:8768
+    - http://127.0.0.1:8768
+
+  methods:
+    password:
+      enabled: true
+      config:
+        haveibeenpwned_enabled: true
+        min_password_length: 8
+        identifier_similarity_check_enabled: true
+    link:
+      enabled: true
+    oidc:
+      enabled: false
+      config:
+        providers: []
+
+  flows:
+    error:
+      enabled: true
+      ui_url: http://localhost:8768/error
+
+    settings:
+      enabled: true
+      ui_url: http://localhost:8768/settings
+      lifespan: 1h
+      privileged_session_max_age: 15m
+      after:
+        default_browser_return_url: http://localhost:8768/dashboard
+
+    recovery:
+      enabled: true
+      ui_url: http://localhost:8768/recovery
+      lifespan: 1h
+      after:
+        default_browser_return_url: http://localhost:8768/dashboard
+
+    verification:
+      enabled: true
+      ui_url: http://localhost:8768/verification
+      after:
+        default_browser_return_url: http://localhost:8768/dashboard
+
+    logout:
+      after:
+        default_browser_return_url: http://localhost:8768/
+
+    login:
+      lifespan: 10m
+      ui_url: http://localhost:8768/login
+      after:
+        default_browser_return_url: http://localhost:8768/dashboard
+        password:
+          default_browser_return_url: http://localhost:8768/dashboard
+
+    registration:
+      lifespan: 10m
+      ui_url: http://localhost:8768/register
+      after:
+        default_browser_return_url: http://localhost:8768/dashboard
+        password:
+          default_browser_return_url: http://localhost:8768/dashboard
+          hooks:
+            - hook: web_hook
+              config:
+                url: http://openglaze:8768/api/hooks/post-registration
+                method: POST
+                body: file:///etc/config/kratos/webhook_body.jsonnet
+                auth:
+                  type: api_key
+                  config:
+                    name: X-Kratos-Hook-Key
+                    value: ${KRATOS_HOOK_KEY}
+
+log:
+  level: info
+  format: text
+  leak_sensitive_values: false
+
+secrets:
+  cookie:
+    - PLEASE-CHANGE-ME-THIS-IS-NOT-SECURE
+
+ciphers:
+  algorithm: xchacha20-poly1305
+
+hashers:
+  algorithm: bcrypt
+  bcrypt:
+    cost: 12
+
+identity:
+  default_schema_id: default
+  schemas:
+    - id: default
+      url: file:///etc/config/kratos/identity.schema.json
+
+courier:
+  smtp:
+    connection_uri: smtps://test:test@mailhog:1025/?skip_ssl_verify=true

@@ -1,0 +1,30 @@
+# Glaze Lab Dependencies
+# Core framework
+Flask>=3.0.0
+flask-cors>=4.0.0
+Werkzeug>=3.0.0
+
+# Database
+psycopg2-binary>=2.9.9
+SQLAlchemy>=2.0.0
+
+# HTTP requests
+requests>=2.31.0
+
+# Payment providers
+stripe>=7.0.0
+paypalrestsdk>=1.13.0
+
+# Configuration
+python-dotenv>=1.0.0
+PyYAML>=6.0.0
+
+# Security
+cryptography>=41.0.0
+
+# Development
+watchfiles>=0.21.0
+debugpy>=1.8.0
+
+# Production
+gunicorn>=21.0.0

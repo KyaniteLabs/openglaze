@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="glaze" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#5a9078"/>
+      <stop offset="50%" style="stop-color:#7eb8a2"/>
+      <stop offset="100%" style="stop-color:#c17a4a"/>
+    </linearGradient>
+  </defs>
+  <circle cx="50" cy="50" r="45" fill="url(#glaze)"/>
+  <text x="50" y="65" font-family="Georgia, serif" font-size="40" font-weight="700" fill="white" text-anchor="middle">O</text>
+</svg>

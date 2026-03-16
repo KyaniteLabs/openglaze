@@ -1,0 +1,368 @@
+# Cone 6 Oxidation - Community Edition
+# A collection of reliable oxidation glazes for electric kilns
+#
+# License: CC-BY (Free to use, modify, and share with attribution)
+
+id: cone6-oxidation-community
+name: Cone 6 Oxidation (Community)
+version: 1.0.0
+author: Glaze Lab Community
+license: CC-BY-4.0
+premium: false
+
+description: |
+  A curated collection of 12 reliable cone 6 oxidation glazes.
+  Perfect for electric kilns firing to Orton cone 6 (~2232°F / 1222°C).
+
+tags:
+  - cone6
+  - oxidation
+  - mid-range
+  - electric-kiln
+
+glazes:
+  - name: Clear Base 6
+    cone: "6"
+    atmosphere: oxidation
+    base_type: transparent
+    surface: smooth
+    color: clear
+    transparency: transparent
+    notes: |
+      Reliable clear glaze for cone 6 oxidation.
+      Works over most commercial underglazes.
+    recipe:
+      - ingredient: Frit 3134
+        amount: 25
+        unit: "%"
+      - ingredient: Feldspar
+        amount: 35
+        unit: "%"
+      - ingredient: Silica
+        amount: 20
+        unit: "%"
+      - ingredient: Kaolin
+        amount: 15
+        unit: "%"
+      - ingredient: Whiting
+        amount: 5
+        unit: "%"
+
+  - name: Glossy White
+    cone: "6"
+    atmosphere: oxidation
+    base_type: glossy
+    surface: smooth
+    color: white
+    transparency: opaque
+    notes: Bright opaque white for cone 6.
+    recipe:
+      - ingredient: Feldspar
+        amount: 30
+        unit: "%"
+      - ingredient: Silica
+        amount: 20
+        unit: "%"
+      - ingredient: Kaolin
+        amount: 20
+        unit: "%"
+      - ingredient: Whiting
+        amount: 15
+        unit: "%"
+      - ingredient: Zinc Oxide
+        amount: 10
+        unit: "%"
+      - ingredient: Zircopax
+        amount: 5
+        unit: "%"
+
+  - name: Matte White
+    cone: "6"
+    atmosphere: oxidation
+    base_type: matte
+    surface: smooth
+    color: white
+    transparency: opaque
+    notes: Soft matte white finish.
+    recipe:
+      - ingredient: Feldspar
+        amount: 35
+        unit: "%"
+      - ingredient: Whiting
+        amount: 20
+        unit: "%"
+      - ingredient: Kaolin
+        amount: 25
+        unit: "%"
+      - ingredient: Silica
+        amount: 10
+        unit: "%"
+      - ingredient: Zinc Oxide
+        amount: 8
+        unit: "%"
+      - ingredient: Zircopax
+        amount: 2
+        unit: "%"
+
+  - name: Speckled Blue
+    cone: "6"
+    atmosphere: oxidation
+    base_type: glossy
+    surface: textured
+    color: blue
+    transparency: semi-opaque
+    notes: Blue with subtle speckling from rutile.
+    recipe:
+      - ingredient: Feldspar
+        amount: 40
+        unit: "%"
+      - ingredient: Silica
+        amount: 20
+        unit: "%"
+      - ingredient: Whiting
+        amount: 15
+        unit: "%"
+      - ingredient: Kaolin
+        amount: 15
+        unit: "%"
+      - ingredient: Cobalt Carbonate
+        amount: 1
+        unit: "%"
+      - ingredient: Rutile
+        amount: 4
+        unit: "%"
+      - ingredient: Tin Oxide
+        amount: 3
+        unit: "%"
+
+  - name: Turquoise
+    cone: "6"
+    atmosphere: oxidation
+    base_type: glossy
+    surface: smooth
+    color: turquoise
+    transparency: semi-opaque
+    notes: Bright turquoise with copper.
+    recipe:
+      - ingredient: Feldspar
+        amount: 38
+        unit: "%"
+      - ingredient: Silica
+        amount: 22
+        unit: "%"
+      - ingredient: Whiting
+        amount: 15
+        unit: "%"
+      - ingredient: Kaolin
+        amount: 15
+        unit: "%"
+      - ingredient: Copper Carbonate
+        amount: 3
+        unit: "%"
+      - ingredient: Tin Oxide
+        amount: 5
+        unit: "%"
+
+  - name: Honey Amber
+    cone: "6"
+    atmosphere: oxidation
+    base_type: glossy
+    surface: smooth
+    color: amber
+    transparency: transparent
+    notes: Warm amber color from iron.
+    recipe:
+      - ingredient: Feldspar
+        amount: 40
+        unit: "%"
+      - ingredient: Silica
+        amount: 25
+        unit: "%"
+      - ingredient: Whiting
+        amount: 15
+        unit: "%"
+      - ingredient: Kaolin
+        amount: 15
+        unit: "%"
+      - ingredient: Red Iron Oxide
+        amount: 4
+        unit: "%"
+      - ingredient: Rutile
+        amount: 1
+        unit: "%"
+
+  - name: Forest Green
+    cone: "6"
+    atmosphere: oxidation
+    base_type: glossy
+    surface: smooth
+    color: dark green
+    transparency: semi-opaque
+    notes: Deep forest green matte finish.
+    recipe:
+      - ingredient: Feldspar
+        amount: 35
+        unit: "%"
+      - ingredient: Whiting
+        amount: 20
+        unit: "%"
+      - ingredient: Kaolin
+        amount: 20
+        unit: "%"
+      - ingredient: Silica
+        amount: 15
+        unit: "%"
+      - ingredient: Copper Carbonate
+        amount: 4
+        unit: "%"
+      - ingredient: Red Iron Oxide
+        amount: 3
+        unit: "%"
+
+  - name: Butter Yellow
+    cone: "6"
+    atmosphere: oxidation
+    base_type: glossy
+    surface: smooth
+    color: yellow
+    transparency: semi-opaque
+    notes: Soft butter yellow.
+    recipe:
+      - ingredient: Feldspar
+        amount: 40
+        unit: "%"
+      - ingredient: Silica
+        amount: 20
+        unit: "%"
+      - ingredient: Whiting
+        amount: 15
+        unit: "%"
+      - ingredient: Kaolin
+        amount: 15
+        unit: "%"
+      - ingredient: Praseodymium Oxide
+        amount: 6
+        unit: "%"
+      - ingredient: Tin Oxide
+        amount: 3
+        unit: "%"
+
+  - name: Brick Red
+    cone: "6"
+    atmosphere: oxidation
+    base_type: matte
+    surface: smooth
+    color: red
+    transparency: opaque
+    notes: Earthy brick red matte.
+    recipe:
+      - ingredient: Feldspar
+        amount: 35
+        unit: "%"
+      - ingredient: Whiting
+        amount: 20
+        unit: "%"
+      - ingredient: Kaolin
+        amount: 20
+        unit: "%"
+      - ingredient: Silica
+        amount: 10
+        unit: "%"
+      - ingredient: Red Iron Oxide
+        amount: 10
+        unit: "%"
+      - ingredient: Bentonite
+        amount: 3
+        unit: "%"
+
+  - name: Tenmoku 6
+    cone: "6"
+    atmosphere: oxidation
+    base_type: glossy
+    surface: smooth
+    color: black-brown
+    transparency: semi-opaque
+    notes: Cone 6 version of traditional tenmoku.
+    recipe:
+      - ingredient: Feldspar
+        amount: 38
+        unit: "%"
+      - ingredient: Silica
+        amount: 22
+        unit: "%"
+      - ingredient: Whiting
+        amount: 12
+        unit: "%"
+      - ingredient: Kaolin
+        amount: 12
+        unit: "%"
+      - ingredient: Red Iron Oxide
+        amount: 10
+        unit: "%"
+      - ingredient: Bone Ash
+        amount: 4
+        unit: "%"
+
+  - name: Satin Black
+    cone: "6"
+    atmosphere: oxidation
+    base_type: matte
+    surface: smooth
+    color: black
+    transparency: opaque
+    notes: Satin black with subtle sheen.
+    recipe:
+      - ingredient: Feldspar
+        amount: 35
+        unit: "%"
+      - ingredient: Whiting
+        amount: 20
+        unit: "%"
+      - ingredient: Kaolin
+        amount: 20
+        unit: "%"
+      - ingredient: Silica
+        amount: 10
+        unit: "%"
+      - ingredient: Cobalt Carbonate
+        amount: 2
+        unit: "%"
+      - ingredient: Red Iron Oxide
+        amount: 6
+        unit: "%"
+      - ingredient: Manganese Dioxide
+        amount: 5
+        unit: "%"
+
+  - name: Crystal Blue
+    cone: "6"
+    atmosphere: oxidation
+    base_type: glossy
+    surface: crystalline
+    color: blue
+    transparency: semi-opaque
+    notes: |
+      Crystalline glaze with zinc crystals.
+      Requires slow cooling for crystal development.
+    recipe:
+      - ingredient: Feldspar
+        amount: 25
+        unit: "%"
+      - ingredient: Silica
+        amount: 25
+        unit: "%"
+      - ingredient: Zinc Oxide
+        amount: 25
+        unit: "%"
+      - ingredient: Whiting
+        amount: 10
+        unit: "%"
+      - ingredient: Kaolin
+        amount: 10
+        unit: "%"
+      - ingredient: Cobalt Carbonate
+        amount: 1.5
+        unit: "%"
+      - ingredient: Rutile
+        amount: 3
+        unit: "%"

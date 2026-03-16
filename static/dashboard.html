@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - OpenGlaze</title>
+    <meta name="description" content="Manage your ceramic glazes, firings, and recipes.">
+
+    <!-- Fonts: Fraunces (display) + DM Sans (body) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="icon" type="image/svg+xml" href="/static/favicon.svg">
+
+    <style>
+        /* Dashboard-specific styles */
+        .dashboard-layout {
+            display: flex;
+            min-height: calc(100vh - var(--header-height));
+        }
+
+        .sidebar {
+            width: var(--sidebar-width);
+            background: var(--color-surface);
+            border-right: 1px solid var(--color-border);
+            padding: var(--space-6);
+            position: sticky;
+            top: var(--header-height);
+            height: calc(100vh - var(--header-height));
+            overflow-y: auto;
+            flex-shrink: 0;
+        }
+
+        .sidebar-nav {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-2);
+        }
+
+        .sidebar-link {
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+            padding: var(--space-3) var(--space-4);
+            color: var(--color-text-muted);
+            font-weight: 500;
+            border-radius: var(--radius-lg);
+            transition: all var(--duration-fast) var(--ease-out);
+        }
+
+        .sidebar-link:hover {
+            background: var(--color-surface-hover);
+            color: var(--color-text);
+        }
+
+        .sidebar-link.active {
+            background: rgba(126, 184, 162, 0.15);
+            color: var(--color-primary);
+        }
+
+        .sidebar-link-icon {
+            font-size: var(--text-xl);
+        }
+
+        .main-content {
+            flex: 1;
+            padding: var(--space-8);
+            background: var(--color-bg);
+            min-width: 0;
+        }
+
+        .content-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: var(--space-8);
+            flex-wrap: wrap;
+            gap: var(--space-4);
+        }
+
+        .content-title {
+            font-size: var(--text-3xl);
+        }
+
+        .content-actions {
+            display: flex;
+            gap: var(--space-3);
+            align-items: center;
+        }
+
+        .search-input {
+            width: 300px;
+            max-width: 100%;
+        }
+
+        .filter-group {
+            display: flex;
+            gap: var(--space-2);
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: var(--space-2) var(--space-4);
+            font-size: var(--text-sm);
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-full);
+            color: var(--color-text-muted);
+            cursor: pointer;
+            transition: all var(--duration-fast) var(--ease-out);
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--color-primary);
+            border-color: var(--color-primary);
+            color: white;
+        }
+
+        /* Glaze Grid */
+        .glaze-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: var(--space-6);
+        }
+
+        .glaze-card {
+            position: relative;
+            padding: var(--space-6);
+            cursor: pointer;
+        }
+
+        .glaze-swatch {
+            width: 100%;
+            aspect-ratio: 4/3;
+            border-radius: var(--radius-xl);
+            margin-bottom: var(--space-4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glaze-swatch-color {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--swatch-color, var(--color-primary)) 0%, var(--swatch-color-dark, var(--color-primary-light)) 100%);
+        }
+
+        .glaze-swatch-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, transparent 50%, rgba(0,0,0,0.3) 100%);
+            opacity: 0;
+            transition: opacity var(--duration-fast) var(--ease-out);
+        }
+
+        .glaze-card:hover .glaze-swatch-overlay {
+            opacity: 1;
+        }
+
+        .glaze-actions {
+            position: absolute;
+            bottom: var(--space-3);
+            right: var(--space-3);
+            display: flex;
+            gap: var(--space-2);
+            opacity: 0;
+            transform: translateY(8px);
+            transition: all var(--duration-fast) var(--ease-out);
+        }
+
+        .glaze-card:hover .glaze-actions {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .glaze-action-btn {
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--glass-bg);
+            backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-md);
+            color: white;
+            cursor: pointer;
+            transition: all var(--duration-fast) var(--ease-out);
+        }
+
+        .glaze-action-btn:hover {
+            background: white;
+            color: var(--color-text);
+        }
+
+        .glaze-name {
+            font-family: var(--font-display);
+            font-size: var(--text-lg);
+            font-weight: 600;
+            margin-bottom: var(--space-2);
+        }
+
+        .glaze-meta {
+            display: flex;
+            gap: var(--space-2);
+            flex-wrap: wrap;
+        }
+
+        /* FAB Button */
+        .fab {
+            position: fixed;
+            bottom: var(--space-8);
+            right: var(--space-8);
+            width: 56px;
+            height: 56px;
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: var(--text-2xl);
+            box-shadow: var(--shadow-lg), 0 8px 30px rgba(90, 144, 120, 0.4);
+            z-index: var(--z-sticky);
+            transition: all var(--duration-normal) var(--ease-out);
+        }
+
+        .fab:hover {
+            transform: scale(1.1);
+            box-shadow: var(--shadow-xl), 0 12px 40px rgba(90, 144, 120, 0.5);
+        }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(31, 26, 21, 0.5);
+            backdrop-filter: blur(4px);
+            z-index: var(--z-modal);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: var(--space-4);
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal {
+            background: var(--color-surface);
+            border-radius: var(--radius-2xl);
+            width: 100%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: var(--shadow-xl);
+            animation: modalSlideIn var(--duration-normal) var(--ease-out);
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px) scale(0.98);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: var(--space-6);
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .modal-title {
+            font-size: var(--text-xl);
+        }
+
+        .modal-close {
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--color-surface-hover);
+            border: none;
+            border-radius: var(--radius-md);
+            color: var(--color-text-muted);
+            cursor: pointer;
+            transition: all var(--duration-fast) var(--ease-out);
+        }
+
+        .modal-close:hover {
+            background: var(--color-border);
+            color: var(--color-text);
+        }
+
+        .modal-body {
+            padding: var(--space-6);
+        }
+
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: var(--space-3);
+            padding: var(--space-6);
+            border-top: 1px solid var(--color-border);
+        }
+
+        /* Form styles */
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-4);
+            margin-bottom: var(--space-4);
+        }
+
+        .form-group {
+            margin-bottom: var(--space-4);
+        }
+
+        .ingredient-list {
+            background: var(--color-bg);
+            border-radius: var(--radius-lg);
+            padding: var(--space-4);
+        }
+
+        .ingredient-row {
+            display: grid;
+            grid-template-columns: 1fr 100px 40px;
+            gap: var(--space-3);
+            align-items: center;
+            margin-bottom: var(--space-3);
+        }
+
+        .ingredient-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .add-ingredient-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-2);
+            width: 100%;
+            padding: var(--space-3);
+            background: transparent;
+            border: 2px dashed var(--color-border);
+            border-radius: var(--radius-lg);
+            color: var(--color-text-muted);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all var(--duration-fast) var(--ease-out);
+        }
+
+        .add-ingredient-btn:hover {
+            border-color: var(--color-primary);
+            color: var(--color-primary);
+        }
+
+        /* Empty state */
+        .empty-state {
+            text-align: center;
+            padding: var(--space-16) var(--space-8);
+        }
+
+        .empty-state-icon {
+            font-size: 4rem;
+            margin-bottom: var(--space-6);
+            opacity: 0.5;
+        }
+
+        .empty-state-title {
+            font-size: var(--text-2xl);
+            margin-bottom: var(--space-3);
+        }
+
+        .empty-state-description {
+            color: var(--color-text-muted);
+            margin-bottom: var(--space-6);
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .sidebar {
+                position: fixed;
+                left: -100%;
+                z-index: var(--z-overlay);
+                transition: left var(--duration-normal) var(--ease-out);
+            }
+
+            .sidebar.open {
+                left: 0;
+            }
+
+            .main-content {
+                padding: var(--space-6);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .content-header {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .content-actions {
+                flex-direction: column;
+            }
+
+            .search-input {
+                width: 100%;
+            }
+
+            .glaze-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .fab {
+                bottom: var(--space-6);
+                right: var(--space-6);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <!-- Header -->
+        <header class="header">
+            <div class="container">
+                <div class="header-inner">
+                    <a href="/" class="logo">
+                        <div class="logo-icon">O</div>
+                        <span class="logo-text">OpenGlaze</span>
+                    </a>
+
+                    <div class="search-input">
+                        <input type="search" class="input" placeholder="Search glazes..." id="global-search">
+                    </div>
+
+                    <div class="flex items-center gap-4">
+                        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode"></button>
+                        <div class="nav-auth" id="nav-auth">
+                            <a href="/auth/login" class="btn btn-ghost">Log In</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Dashboard Layout -->
+        <div class="dashboard-layout">
+            <!-- Sidebar -->
+            <aside class="sidebar" id="sidebar">
+                <nav class="sidebar-nav">
+                    <a href="#glazes" class="sidebar-link active" data-view="glazes">
+                        <span class="sidebar-link-icon">🎨</span>
+                        <span>Glazes</span>
+                    </a>
+                    <a href="#firings" class="sidebar-link" data-view="firings">
+                        <span class="sidebar-link-icon">🔥</span>
+                        <span>Firings</span>
+                    </a>
+                    <a href="#import" class="sidebar-link" data-view="import">
+                        <span class="sidebar-link-icon">📥</span>
+                        <span>Import / Export</span>
+                    </a>
+                    <a href="#settings" class="sidebar-link" data-view="settings">
+                        <span class="sidebar-link-icon">⚙️</span>
+                        <span>Settings</span>
+                    </a>
+                </nav>
+            </aside>
+
+            <!-- Main Content -->
+            <main class="main-content" id="main-content">
+                <!-- Glazes View (default) -->
+                <div class="view" id="view-glazes">
+                    <div class="content-header">
+                        <div>
+                            <h1 class="content-title">My Glazes</h1>
+                            <p class="text-muted">Manage your ceramic glaze recipes</p>
+                        </div>
+                        <div class="content-actions">
+                            <input type="search" class="input search-input" placeholder="Search glazes..." id="glaze-search">
+                        </div>
+                    </div>
+
+                    <div class="filter-group" style="margin-bottom: var(--space-6);">
+                        <button class="filter-btn active" data-filter="all">All</button>
+                        <button class="filter-btn" data-filter="cone6">Cone 6</button>
+                        <button class="filter-btn" data-filter="cone10">Cone 10</button>
+                        <button class="filter-btn" data-filter="reduction">Reduction</button>
+                        <button class="filter-btn" data-filter="oxidation">Oxidation</button>
+                    </div>
+
+                    <div class="glaze-grid" id="glaze-grid">
+                        <!-- Glaze cards loaded via JavaScript -->
+                        <div class="empty-state" id="empty-state">
+                            <div class="empty-state-icon">🎨</div>
+                            <h3 class="empty-state-title">No glazes yet</h3>
+                            <p class="empty-state-description">Create your first glaze recipe to get started tracking your ceramic work.</p>
+                            <button class="btn btn-primary btn-lg" onclick="OpenGlaze.openGlazeModal()">
+                                Create Your First Glaze
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Firings View -->
+                <div class="view hidden" id="view-firings">
+                    <div class="content-header">
+                        <div>
+                            <h1 class="content-title">Firing Log</h1>
+                            <p class="text-muted">Track your kiln firings and results</p>
+                        </div>
+                    </div>
+                    <div class="empty-state">
+                        <div class="empty-state-icon">🔥</div>
+                        <h3 class="empty-state-title">No firings recorded</h3>
+                        <p class="empty-state-description">Start documenting your kiln firings to track temperature curves and glaze results.</p>
+                        <button class="btn btn-primary btn-lg">Log Your First Firing</button>
+                    </div>
+                </div>
+
+                <!-- Import/Export View -->
+                <div class="view hidden" id="view-import">
+                    <div class="content-header">
+                        <div>
+                            <h1 class="content-title">Import / Export</h1>
+                            <p class="text-muted">Transfer your glaze data</p>
+                        </div>
+                    </div>
+                    <div class="card" style="max-width: 600px;">
+                        <div class="card-body">
+                            <h3 style="margin-bottom: var(--space-4);">Export Glazes</h3>
+                            <p class="text-muted" style="margin-bottom: var(--space-4);">Download your glaze collection as JSON or CSV for backup or migration.</p>
+                            <div class="flex gap-3">
+                                <button class="btn btn-secondary" onclick="OpenGlaze.exportGlazes('json')">Export as JSON</button>
+                                <button class="btn btn-secondary" onclick="OpenGlaze.exportGlazes('csv')">Export as CSV</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card" style="max-width: 600px; margin-top: var(--space-6);">
+                        <div class="card-body">
+                            <h3 style="margin-bottom: var(--space-4);">Import Glazes</h3>
+                            <p class="text-muted" style="margin-bottom: var(--space-4);">Import glazes from a JSON file exported from OpenGlaze or compatible systems.</p>
+                            <label class="btn btn-secondary">
+                                Choose File
+                                <input type="file" accept=".json" style="display: none;" onchange="OpenGlaze.importGlazes(this)">
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Settings View -->
+                <div class="view hidden" id="view-settings">
+                    <div class="content-header">
+                        <div>
+                            <h1 class="content-title">Settings</h1>
+                            <p class="text-muted">Configure your OpenGlaze preferences</p>
+                        </div>
+                    </div>
+                    <div class="card" style="max-width: 600px;">
+                        <div class="card-body">
+                            <h3 style="margin-bottom: var(--space-4);">Studio Profile</h3>
+                            <div class="form-group">
+                                <label class="label">Studio Name</label>
+                                <input type="text" class="input" id="settings-studio-name" placeholder="Your Studio Name">
+                            </div>
+                            <div class="form-group">
+                                <label class="label">Email</label>
+                                <input type="email" class="input" id="settings-email" placeholder="your@email.com">
+                            </div>
+                            <button class="btn btn-primary" onclick="OpenGlaze.saveSettings()">Save Changes</button>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <!-- FAB Button -->
+        <button class="btn btn-primary fab" onclick="OpenGlaze.openGlazeModal()" aria-label="Add new glaze">
+            +
+        </button>
+
+        <!-- Glaze Modal -->
+        <div class="modal-overlay" id="glaze-modal">
+            <div class="modal">
+                <div class="modal-header">
+                    <h2 class="modal-title" id="modal-title">New Glaze</h2>
+                    <button class="modal-close" onclick="OpenGlaze.closeGlazeModal()">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <form id="glaze-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="label">Glaze Name</label>
+                                <input type="text" class="input" name="name" required placeholder="e.g., Celadon Green">
+                            </div>
+                            <div class="form-group">
+                                <label class="label">Cone</label>
+                                <select class="input select" name="cone">
+                                    <option value="06">Cone 06</option>
+                                    <option value="04">Cone 04</option>
+                                    <option value="6" selected>Cone 6</option>
+                                    <option value="8">Cone 8</option>
+                                    <option value="10">Cone 10</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="label">Atmosphere</label>
+                                <select class="input select" name="atmosphere">
+                                    <option value="oxidation">Oxidation</option>
+                                    <option value="reduction">Reduction</option>
+                                    <option value="neutral">Neutral</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="label">Base Type</label>
+                                <select class="input select" name="base_type">
+                                    <option value="clear">Clear Base</option>
+                                    <option value="white">White Base</option>
+                                    <option value="transparent">Transparent</option>
+                                    <option value="opaque">Opaque</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="label">Surface</label>
+                                <select class="input select" name="surface">
+                                    <option value="glossy">Glossy</option>
+                                    <option value="matte">Matte</option>
+                                    <option value="satin">Satin</option>
+                                    <option value="textured">Textured</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="label">Color</label>
+                                <input type="text" class="input" name="color" placeholder="e.g., Green, Blue, Brown">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="label">Transparency</label>
+                            <select class="input select" name="transparency">
+                                <option value="transparent">Transparent</option>
+                                <option value="semi-transparent">Semi-Transparent</option>
+                                <option value="opaque">Opaque</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="label">Ingredients</label>
+                            <div class="ingredient-list" id="ingredient-list">
+                                <div class="ingredient-row">
+                                    <input type="text" class="input" name="ingredient_name[]" placeholder="Material name">
+                                    <input type="number" class="input" name="ingredient_amount[]" placeholder="%" step="0.1">
+                                    <button type="button" class="btn btn-ghost btn-sm" onclick="this.parentElement.remove()">&times;</button>
+                                </div>
+                            </div>
+                            <button type="button" class="add-ingredient-btn" onclick="OpenGlaze.addIngredientRow()">
+                                + Add Ingredient
+                            </button>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="label">Notes</label>
+                            <textarea class="input textarea" name="notes" placeholder="Application notes, firing tips, etc."></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" onclick="OpenGlaze.closeGlazeModal()">Cancel</button>
+                    <button class="btn btn-primary" onclick="OpenGlaze.saveGlaze()">Save Glaze</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/js/app.js"></script>
+    <script>
+        // Dashboard initialization
+        document.addEventListener('DOMContentLoaded', () => {
+            OpenGlaze.initDashboard();
+        });
+    </script>
+</body>
+</html>
