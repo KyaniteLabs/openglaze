@@ -15,6 +15,7 @@ from .materials import (
 )
 from .parser import parse_recipe_string
 from .data_loader import load_surface_thresholds, load_umf_targets
+from .thermal_expansion import calculate_cte
 
 logger = logging.getLogger(__name__)
 
@@ -70,9 +71,11 @@ class UMFResult:
     raw_moles: Optional[Dict[str, float]] = None
     ratios: Dict[str, float] = field(default_factory=dict)
     surface_prediction: Optional[str] = None
+    thermal_expansion: Optional[float] = None
     limit_warnings: List[str] = field(default_factory=list)
     warnings: List[str] = field(default_factory=list)
     error: Optional[str] = None
+    missing_materials: List[str] = field(default_factory=list)
 
     def to_dict(self) -> dict:
         """Convert to JSON-serializable dict."""
@@ -82,15 +85,17 @@ class UMFResult:
             'umf_formula': self.umf_formula,
             'ratios': self.ratios,
             'surface_prediction': self.surface_prediction,
+            'thermal_expansion': self.thermal_expansion,
             'limit_warnings': self.limit_warnings,
             'warnings': self.warnings,
             'error': self.error,
+            'missing_materials': self.missing_materials,
         }
         return result
 
     def has_warnings(self) -> bool:
         """Check if there are any warnings."""
-        return bool(self.limit_warnings) or bool(self.warnings)
+        return bool(self.limit_warnings) or bool(self.warnings) or bool(self.missing_materials)
 
 
 class UMFAnalyzer:
@@ -103,7 +108,7 @@ class UMFAnalyzer:
             recipe_string: Recipe like "Custer Feldspar 45, Silica 25, Whiting 18, EPK 12"
 
         Returns:
-            UMFResult with formula, ratios, surface prediction, and limit warnings.
+            UMFResult with formula, ratios, surface prediction, CTE, and limit warnings.
         """
         # Step 1: Parse the recipe
         parse_result = parse_recipe_string(recipe_string)
@@ -116,6 +121,13 @@ class UMFAnalyzer:
                 warnings=parse_result.errors,
             )
 
+        # Track missing materials for user warning
+        missing_materials = []
+        for err in parse_result.errors:
+            if err.startswith('Unknown material:'):
+                mat_name = err.split('"')[1] if '"' in err else err
+                missing_materials.append(mat_name)
+
         # Step 2: Calculate oxide moles from materials
         try:
             moles = self._calculate_moles(parse_result.materials)
@@ -124,6 +136,7 @@ class UMFAnalyzer:
                 success=False,
                 recipe_parsed=True,
                 error=f'Mole calculation failed: {e}',
+                missing_materials=missing_materials,
             )
 
         if not moles:
@@ -131,6 +144,7 @@ class UMFAnalyzer:
                 success=False,
                 recipe_parsed=True,
                 error='No oxide moles could be calculated',
+                missing_materials=missing_materials,
             )
 
         # Step 3: Normalize to flux sum = 1.0
@@ -140,6 +154,7 @@ class UMFAnalyzer:
                 success=False,
                 recipe_parsed=True,
                 error='No flux oxides found — cannot normalize to UMF',
+                missing_materials=missing_materials,
             )
 
         # Step 4: Calculate useful ratios
@@ -148,12 +163,21 @@ class UMFAnalyzer:
         # Step 5: Predict surface character
         surface = self._predict_surface(ratios)
 
-        # Step 6: Check against limit formulas
+        # Step 6: Calculate thermal expansion coefficient (ALL oxides, mole fraction method)
+        cte = calculate_cte(umf)
+
+        # Step 7: Check against limit formulas
         warnings = self._check_limits(umf)
 
         extra_warnings = []
         if parse_result.normalized:
             extra_warnings.append('Recipe percentages were normalized to sum to 100')
+
+        if missing_materials:
+            extra_warnings.append(
+                f'Materials not found in database: {", ".join(missing_materials)} — '
+                f'UMF may be incomplete. Try alternative names.'
+            )
 
         return UMFResult(
             success=True,
@@ -162,8 +186,10 @@ class UMFAnalyzer:
             raw_moles=moles,
             ratios=ratios,
             surface_prediction=surface,
+            thermal_expansion=cte,
             limit_warnings=warnings,
             warnings=extra_warnings,
+            missing_materials=missing_materials,
         )
 
     def _calculate_moles(self, materials: Dict[str, float]) -> Dict[str, float]:

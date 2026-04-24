@@ -157,20 +157,52 @@ class RecipeParser:
         return False
 
     def _lookup_material(self, name: str):
-        """Look up a material by name in the database."""
-        return get_material(name)
+        """Look up a material by name in the database.
+
+        Tries the full name first, then progressively shorter prefixes
+        to handle inputs like 'EPK Kaolin' where 'EPK' is the known
+        material and 'Kaolin' is a descriptor.
+        """
+        # Try full name first
+        material = get_material(name)
+        if material is not None:
+            return material
+
+        # Try progressively shorter names (remove last word each time)
+        words = name.strip().split()
+        for i in range(len(words) - 1, 0, -1):
+            shorter = ' '.join(words[:i])
+            material = get_material(shorter)
+            if material is not None:
+                return material
+
+        return None
 
     def _canonical_name(self, name: str) -> str:
         """Get the canonical lowercase name for a material."""
+        from .materials import MATERIALS, _ALIAS_TO_CANONICAL
+
+        # Try full name first
         material = get_material(name)
         if material:
-            # Find the canonical key
-            from .materials import MATERIALS, _ALIAS_TO_CANONICAL
             normalized = name.strip().lower()
             if normalized in MATERIALS:
                 return normalized
             if normalized in _ALIAS_TO_CANONICAL:
                 return _ALIAS_TO_CANONICAL[normalized]
+
+        # Try progressively shorter names (same logic as _lookup_material)
+        words = name.strip().split()
+        for i in range(len(words) - 1, 0, -1):
+            shorter = ' '.join(words[:i])
+            material = get_material(shorter)
+            if material:
+                normalized = shorter.lower()
+                if normalized in MATERIALS:
+                    return normalized
+                if normalized in _ALIAS_TO_CANONICAL:
+                    return _ALIAS_TO_CANONICAL[normalized]
+
         return name.strip().lower()
 
 
