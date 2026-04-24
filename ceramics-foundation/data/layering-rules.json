@@ -1,0 +1,101 @@
+{
+  "version": "1.0",
+  "source": "OpenGlaze compatibility.py, Digitalfire, Ceramic Arts Network, studio testing",
+  "last_updated": "2026-03-17",
+  "caveats": [
+    "These rules are probabilistic, not guaranteed. Many glazes break these rules successfully.",
+    "Application thickness, firing schedule, and kiln position affect outcomes significantly.",
+    "Test small batches before committing to production layering combinations.",
+    "Some of the most beautiful glaze combinations come from 'breaking the rules.'"
+  ],
+  "shino_crawl_risk": {
+    "description": "Shino glazes have high crawl risk when layered over non-shino glazes due to different thermal expansion and high flux content",
+    "shino_names": ["shino", "luster shino", "malcom's shino", "malcoms shino", "carbon trap shino", "white shino"],
+    "conditions": "Applied as top layer over non-shino base",
+    "mitigation": "Apply very thin, reverse layer order (non-shino over shino), or use shino-to-shino layering",
+    "severity": "high"
+  },
+  "zinc_interactions": {
+    "description": "Zinc oxide disrupts several color development mechanisms",
+    "chrome_tin_pink": {
+      "problem": "Zinc destroys chrome-tin pink color development, turning pink to brown",
+      "threshold": "ZnO > 0.02 in UMF with SnO2 > 0.02 and Cr2O3 > 0.001",
+      "severity": "high"
+    },
+    "copper_shift": {
+      "problem": "Zinc can shift copper green toward blue or cause unpredictable color shifts",
+      "threshold": "ZnO > 0.05 with CuO present",
+      "severity": "medium"
+    }
+  },
+  "iron_copper_suppression": {
+    "description": "Iron in one layer suppresses copper color development in adjacent layer",
+    "base_iron_top_copper": {
+      "problem": "Iron in base layer suppresses copper red development in top layer",
+      "threshold": "Fe2O3 > 0.05 in base with CuO > 0.01 in top",
+      "severity": "high"
+    },
+    "top_iron_base_copper": {
+      "problem": "Iron in top layer may muddy copper colors in base layer",
+      "threshold": "Fe2O3 > 0.05 in top with CuO > 0.01 in base",
+      "severity": "medium"
+    },
+    "combined_iron": {
+      "problem": "Very high combined iron makes result too dark/black",
+      "warning_threshold": 0.15,
+      "critical_threshold": 0.4,
+      "severity": "high above critical"
+    }
+  },
+  "thermal_expansion_mismatch": {
+    "description": "Mismatch in thermal expansion between layers causes crazing or shivering",
+    "risk_levels": {
+      "low": {
+        "mismatch_range": "less than 0.20 (relative units)",
+        "likely_outcome": "Compatible — no visible issues expected"
+      },
+      "medium": {
+        "mismatch_range": "0.20 to 0.45 (relative units)",
+        "likely_outcome": "Possible fine crazing or slight shivering. May be acceptable for decorative ware."
+      },
+      "high": {
+        "mismatch_range": "greater than 0.45 (relative units)",
+        "likely_outcome": "Likely crazing, shivering, or flaking. Test before use."
+      }
+    },
+    "cone_notes": "Cone 10 reduction has wider thermal tolerance than oxidation firing. These thresholds assume cone 10 reduction."
+  },
+  "fluidity_mismatch": {
+    "description": "Large differences in glaze fluidity (SiO2:Al2O3 ratio) between layers cause crawling or running",
+    "rules": [
+      {
+        "condition": "Top much stiffer than base (ratio difference > 2)",
+        "risk": "Top glaze may crawl where applied thin",
+        "severity": "medium"
+      },
+      {
+        "condition": "Top much more fluid than base (ratio difference > 2)",
+        "risk": "Top glaze may run off edges",
+        "severity": "medium"
+      },
+      {
+        "condition": "Similar fluidity (ratio difference < 1)",
+        "risk": "Good interaction expected",
+        "severity": "low"
+      }
+    ]
+  },
+  "other_interactions": {
+    "cobalt_manganese": {
+      "description": "Cobalt + manganese produces purple/brown — unpredictable but often interesting",
+      "threshold": "CoO > 0.005 and MnO > 0.005",
+      "severity": "low"
+    },
+    "chrome_contamination": {
+      "description": "Chromium can migrate and discolor surrounding glazes in the kiln",
+      "threshold": "Cr2O3 > 0.001 in either layer",
+      "severity": "medium",
+      "note": "Affects nearby pieces, not just layered glazes"
+    }
+  }
+}

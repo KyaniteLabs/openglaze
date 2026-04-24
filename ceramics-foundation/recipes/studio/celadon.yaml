@@ -1,0 +1,107 @@
+name: Celadon (Standard)
+source: Traditional Chinese/Korean glaze
+cone: "10"
+atmosphere: reduction
+recipe:
+  - material: Custer Feldspar
+    amount: 27.70
+  - material: Whiting
+    amount: 19.80
+  - material: EPK Kaolin
+    amount: 19.80
+  - material: Silica
+    amount: 32.70
+additions:
+  - material: Iron Oxide
+    amount: 0.90
+    notes: 0.5-2% for color variation
+color: Pale green (celadon green)
+surface: Gloss, translucent
+notes: |
+  Traditional celadon glaze - iron oxide in reduction creates green color.
+  - Translucent quality shows clay body beneath
+  - Works best on dark clay bodies
+  - Reduction required for green development
+  - Named for French sinologist's green glaze
+  - One of oldest ceramic glaze types
+food_safe: true
+tested: false
+date_documented: "2026-03-15"
+references:
+  - https://ceramicartsnetwork.org/ceramic-recipes/recipe/Celadon-154307
+  - Glazy.org
+---
+# Pinnell Blue Celadon
+name: Pinnell Blue Celadon
+source: Pete Pinnell
+cone: "10"
+atmosphere: reduction
+recipe:
+  - material: Custer Feldspar
+    amount: 45.50
+  - material: Whiting
+    amount: 19.00
+  - material: EPK Kaolin
+    amount: 10.00
+  - material: Silica
+    amount: 25.50
+additions:
+  - material: Iron Oxide
+    amount: 1.50
+  - material: Rutile
+    amount: 2.00
+notes: |
+  Blue-shifted celadon variation.
+  - Rutile promotes blue tones
+  - Works well on porcelain
+---
+# Lung Chuan Celadon
+name: Lung Chuan Celadon
+source: Traditional Chinese type
+cone: "9-10"
+atmosphere: reduction
+notes: |
+  Named after Lung Chuan kilns in China.
+  - Classic jade-green celadon
+  - Slow cooling improves crystal development
+  - Reduction cooling recommended
+---
+# John Britt Celadon
+name: Sandy's Green (John Britt Celadon)
+source: John Britt
+cone: "10"
+atmosphere: reduction
+recipe:
+  - material: Custer Feldspar
+    amount: 25.00
+  - material: Silica
+    amount: 25.00
+  - material: Whiting
+    amount: 25.00
+  - material: Ball Clay
+    amount: 25.00
+additions:
+  - material: Red Iron Oxide
+    amount: 2.00
+notes: |
+  Simple 25/25/25/25 base with iron.
+  - Slightly speckled surface
+  - Can improve by ball milling
+---
+# Amber Celadon Variation
+name: Amber Celadon
+source: Studio variation
+cone: "10"
+atmosphere: reduction
+recipe:
+  - material: See Standard Celadon base
+    amount: 100
+additions:
+  - material: Yellow Iron Oxide
+    amount: 1.50
+  - material: Red Iron Oxide
+    amount: 0.50
+notes: |
+  Celadon with warm amber undertones.
+  - Yellow iron shifts color warmer
+  - Good for layering

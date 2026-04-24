@@ -1,0 +1,33 @@
+{
+  "version": "1.0",
+  "source": "Orton Cone Chart 2024",
+  "last_updated": "2026-03-17",
+  "cones": {
+    "06": { "slow_ramp_c": 995, "slow_ramp_f": 1823, "fast_ramp_c": 1011, "fast_ramp_f": 1852, "type": "low_fire", "typical_use": "earthenware, bisque" },
+    "05": { "slow_ramp_c": 1030, "slow_ramp_f": 1886, "fast_ramp_c": 1046, "fast_ramp_f": 1915, "type": "low_fire", "typical_use": "low-fire glaze" },
+    "04": { "slow_ramp_c": 1060, "slow_ramp_f": 1940, "fast_ramp_c": 1070, "fast_ramp_f": 1958, "type": "low_fire", "typical_use": "bisque, low-fire glaze" },
+    "03": { "slow_ramp_c": 1086, "slow_ramp_f": 1987, "fast_ramp_c": 1101, "fast_ramp_f": 2014, "type": "low_fire", "typical_use": null },
+    "02": { "slow_ramp_c": 1101, "slow_ramp_f": 2014, "fast_ramp_c": 1120, "fast_ramp_f": 2048, "type": "low_fire", "typical_use": null },
+    "01": { "slow_ramp_c": 1117, "slow_ramp_f": 2043, "fast_ramp_c": 1137, "fast_ramp_f": 2079, "type": "low_fire", "typical_use": null },
+    "1": { "slow_ramp_c": 1136, "slow_ramp_f": 2077, "fast_ramp_c": 1154, "fast_ramp_f": 2109, "type": "low_fire", "typical_use": null },
+    "2": { "slow_ramp_c": 1142, "slow_ramp_f": 2088, "fast_ramp_c": 1162, "fast_ramp_f": 2124, "type": "low_fire", "typical_use": null },
+    "3": { "slow_ramp_c": 1152, "slow_ramp_f": 2106, "fast_ramp_c": 1168, "fast_ramp_f": 2134, "type": "low_fire", "typical_use": null },
+    "4": { "slow_ramp_c": 1160, "slow_ramp_f": 2120, "fast_ramp_c": 1181, "fast_ramp_f": 2158, "type": "mid_range", "typical_use": null },
+    "5": { "slow_ramp_c": 1184, "slow_ramp_f": 2163, "fast_ramp_c": 1205, "fast_ramp_f": 2201, "type": "mid_range", "typical_use": "mid-range stoneware" },
+    "6": { "slow_ramp_c": 1220, "slow_ramp_f": 2228, "fast_ramp_c": 1241, "fast_ramp_f": 2266, "type": "mid_range", "typical_use": "most common electric" },
+    "7": { "slow_ramp_c": 1237, "slow_ramp_f": 2259, "fast_ramp_c": 1255, "fast_ramp_f": 2291, "type": "mid_range", "typical_use": null },
+    "8": { "slow_ramp_c": 1247, "slow_ramp_f": 2277, "fast_ramp_c": 1269, "fast_ramp_f": 2316, "type": "high_fire", "typical_use": null },
+    "9": { "slow_ramp_c": 1257, "slow_ramp_f": 2295, "fast_ramp_c": 1278, "fast_ramp_f": 2332, "type": "high_fire", "typical_use": null },
+    "10": { "slow_ramp_c": 1249, "slow_ramp_f": 2284, "fast_ramp_c": 1305, "fast_ramp_f": 2381, "type": "high_fire", "typical_use": "stoneware, porcelain" }
+  },
+  "atmosphere_effects": {
+    "oxidation": { "description": "Complete combustion, oxygen freely available", "iron_color": "amber/tan/rust", "copper_color": "green", "predictability": "high" },
+    "reduction": { "description": "Oxygen restricted, creating reducing atmosphere", "iron_color": "celadon/tenmoku/shino", "copper_color": "red/metallic/sang de boeuf", "predictability": "lower" }
+  },
+  "cooling_notes": {
+    "quartz_inversion": { "temperature_f": 1063, "temperature_c": 573, "risk": "dunting/cracking", "mitigation": "slow cool through 1000-1100F, hold 30-60 min" },
+    "copper_red_window": { "range_f": "1500-1800", "hold_minutes": "30-60", "note": "Critical for copper red development; skip = piece goes green" },
+    "crystal_growth": { "range_f": "1800-1400", "rate_f_per_hour": "100-200", "note": "Slower cooling = larger crystals" },
+    "cristobalite": { "temperature_f": 437, "temperature_c": 225, "risk": "delayed cracking", "mitigation": "slow cool through 400-500F" }
+  }
+}

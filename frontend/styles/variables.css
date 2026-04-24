@@ -1,0 +1,53 @@
+:root {
+    /* Base Colors - Warm Minimalism */
+    --cream: #FAF7F2;
+    --cream-dark: #F3EDE4;
+    --card: #FFFFFF;
+    --border: #E8E0D5;
+
+    /* Accent Colors */
+    --terracotta: #C65D5B;
+    --terracotta-light: #E8DDD4;
+    --celadon: #7EB09B;
+    --amber: #D4A574;
+    --coral: #E07A5F;
+
+    /* Text */
+    --text-primary: #2D2A26;
+    --text-secondary: #6B6B6B;
+    --text-tertiary: #9B9B9B;
+
+    /* Spacing (8px grid) */
+    --space-1: 0.25rem;
+    --space-2: 0.5rem;
+    --space-3: 0.75rem;
+    --space-4: 1rem;
+    --space-5: 1.25rem;
+    --space-6: 1.5rem;
+    --space-8: 2rem;
+    --space-12: 3rem;
+
+    /* Radius */
+    --radius-sm: 8px;
+    --radius: 12px;
+    --radius-lg: 16px;
+
+    /* Shadows */
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+    --shadow: 0 4px 12px rgba(0,0,0,0.1);
+    --shadow-lg: 0 8px 24px rgba(0,0,0,0.12);
+
+    /* Typography - Inter font */
+    --font-ui: 'Inter', -apple-system, BlinkMacSystem, sans-serif;
+    --text-xs: 0.75rem;
+    --text-sm: 0.875rem;
+    --text-base: 1rem;
+    --text-lg: 1.125rem;
+    --text-xl: 1.5rem;
+    --text-2xl: 2rem;
+
+    /* Responsive Breakpoints */
+    --bp-sm: 640px;
+    --bp-md: 768px;
+    --bp-lg: 1024px;
+}

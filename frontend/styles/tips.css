@@ -1,0 +1,255 @@
+/* ========================================
+   Glaze Tips / Quick Reference Page
+   ======================================== */
+
+.glaze-tips {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: var(--space-6) var(--space-4);
+}
+
+.tips-header {
+    margin-bottom: var(--space-6);
+}
+
+.tips-header h1 {
+    font-size: var(--text-2xl);
+    font-weight: 700;
+    margin: 0 0 var(--space-2);
+    color: var(--text-primary);
+}
+
+.tips-subtitle {
+    font-size: var(--text-sm);
+    color: var(--text-tertiary);
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* Tip Card */
+.tip-card {
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    margin-bottom: var(--space-4);
+    overflow: hidden;
+}
+
+.tip-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-3) var(--space-4);
+    cursor: pointer;
+    user-select: none;
+}
+
+.tip-card-header:hover {
+    background: var(--bg-secondary);
+}
+
+.tip-card-header h2 {
+    font-size: var(--text-sm);
+    font-weight: 600;
+    margin: 0;
+    color: var(--text-primary);
+}
+
+.tip-toggle {
+    background: none;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--text-secondary);
+    font-size: 14px;
+    line-height: 1;
+    flex-shrink: 0;
+}
+
+.tip-toggle:hover {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+}
+
+.tip-card-body {
+    padding: 0 var(--space-4) var(--space-4);
+}
+
+.tip-intro {
+    font-size: var(--text-sm);
+    line-height: 1.6;
+    color: var(--text-secondary);
+    margin: 0 0 var(--space-3);
+}
+
+/* Info Boxes */
+.tips-box {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: var(--space-3);
+    margin-bottom: var(--space-3);
+    font-size: var(--text-sm);
+    line-height: 1.6;
+    color: var(--text-secondary);
+}
+
+.tips-box ul {
+    margin: var(--space-2) 0 0;
+    padding-left: var(--space-4);
+}
+
+.tips-box li {
+    margin-bottom: var(--space-1);
+}
+
+.tips-box li:last-child {
+    margin-bottom: 0;
+}
+
+.tips-box-blue {
+    border-left: 3px solid #3b82f6;
+}
+
+.tips-box-green {
+    border-left: 3px solid #22c55e;
+}
+
+.tips-box-red {
+    border-left: 3px solid #ef4444;
+}
+
+/* Example Block */
+.tips-example {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: var(--space-3);
+    margin-bottom: var(--space-3);
+    font-size: var(--text-sm);
+    line-height: 1.7;
+    color: var(--text-secondary);
+}
+
+.tips-example code {
+    display: block;
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    font-size: var(--text-xs);
+    background: var(--bg-primary);
+    padding: 2px 6px;
+    border-radius: 3px;
+    color: var(--text-primary);
+    margin-top: var(--space-1);
+}
+
+/* Two-column layout */
+.tips-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-3);
+    margin-bottom: var(--space-3);
+}
+
+.tips-column {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: var(--space-3);
+    font-size: var(--text-sm);
+    line-height: 1.5;
+}
+
+.tips-column strong {
+    display: block;
+    margin-bottom: var(--space-2);
+    color: var(--text-primary);
+}
+
+.tips-column ul {
+    margin: 0;
+    padding-left: var(--space-4);
+}
+
+.tips-column li {
+    margin-bottom: var(--space-1);
+    color: var(--text-secondary);
+}
+
+/* Troubleshooting Table */
+.tips-table-wrap {
+    overflow-x: auto;
+    margin-bottom: var(--space-2);
+}
+
+.tips-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--text-sm);
+}
+
+.tips-table thead {
+    background: var(--bg-secondary);
+}
+
+.tips-table th {
+    text-align: left;
+    padding: var(--space-2) var(--space-3);
+    font-weight: 600;
+    font-size: var(--text-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--text-tertiary);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.tips-table td {
+    padding: var(--space-2) var(--space-3);
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    line-height: 1.4;
+}
+
+.tips-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.tips-table tbody tr:hover {
+    background: var(--bg-secondary);
+}
+
+/* Paragraphs in tip bodies */
+.tip-card-body p {
+    font-size: var(--text-sm);
+    line-height: 1.6;
+    color: var(--text-secondary);
+    margin: 0 0 var(--space-3);
+}
+
+.tip-card-body p:last-child {
+    margin-bottom: 0;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .glaze-tips {
+        padding: var(--space-4) var(--space-3);
+    }
+
+    .tips-columns {
+        grid-template-columns: 1fr;
+    }
+
+    .tips-table {
+        font-size: var(--text-xs);
+    }
+
+    .tips-table th,
+    .tips-table td {
+        padding: var(--space-1) var(--space-2);
+    }
+}

@@ -1,0 +1,636 @@
+# Default Studio - Class Cone 5 Oxidation Collection
+# Studio class glazes for Laguna B-Mix clay body
+# Likely products from Laguna Clay Company and Artvark
+#
+# License: CC-BY-SA-4.0 (Free to use with attribution)
+
+id: default-class-cone5-oxidation
+name: Default Studio - Class Cone 5 Oxidation Collection
+version: 1.0.0
+author: Default Studio
+license: CC-BY-SA-4.0
+premium: false
+
+description: |
+  14 cone 5 oxidation glazes typical of class studio offerings at Default Studio.
+  Likely Laguna Clay Company and Artvark dry powder glazes mixed in buckets.
+  Electric kiln fired to Orton cone 5 (~2205°F / 1207°C) in oxidation.
+  Designed for Laguna B-Mix 5 clay body.
+
+tags:
+  - cone5
+  - oxidation
+  - bmix
+  - electric-kiln
+  - class-studio
+  - long-beach
+  - bucket-mixed
+  - dry-powder
+
+glazes:
+  # ==========================================================================
+  # CLEAR / TRANSPARENT
+  # ==========================================================================
+  - name: Laguna Clear Gloss
+    cone: "5"
+    atmosphere: oxidation
+    base_type: transparent
+    surface: smooth
+    color: clear
+    transparency: transparent
+    notes: |
+      LIKELY: Laguna Clay Company Clear Gloss (A-Series or similar).
+      Standard studio clear for cone 5 oxidation. Reliable over underglazes.
+      Mix from dry powder, apply 2-3 medium coats.
+      Source: Laguna Clay Company A-Series clear (CONFIDENCE: HIGH)
+    recipe:
+      - ingredient: Frit 3134
+        amount: 30
+        unit: "%"
+      - ingredient: Nepheline Syenite
+        amount: 25
+        unit: "%"
+      - ingredient: Silica
+        amount: 20
+        unit: "%"
+      - ingredient: Kaolin (EPK)
+        amount: 15
+        unit: "%"
+      - ingredient: Whiting
+        amount: 5
+        unit: "%"
+      - ingredient: Bentonite
+        amount: 2
+        unit: "%"
+      - ingredient: Zinc Oxide
+        amount: 3
+        unit: "%"
+
+  - name: Laguna Satin Clear
+    cone: "5"
+    atmosphere: oxidation
+    base_type: transparent
+    surface: smooth
+    color: clear
+    transparency: transparent
+    notes: |
+      LIKELY: Laguna Clay Company Satin Clear.
+      Alternative to gloss clear with softer sheen. Popular for functional ware.
+      Mix from dry powder to typical dipping consistency.
+      Source: Laguna Clay Company satin glaze series (CONFIDENCE: MEDIUM)
+    recipe:
+      - ingredient: Frit 3124
+        amount: 30
+        unit: "%"
+      - ingredient: Nepheline Syenite
+        amount: 20
+        unit: "%"
+      - ingredient: Silica
+        amount: 18
+        unit: "%"
+      - ingredient: Kaolin (EPK)
+        amount: 15
+        unit: "%"
+      - ingredient: Dolomite
+        amount: 10
+        unit: "%"
+      - ingredient: Zinc Oxide
+        amount: 5
+        unit: "%"
+      - ingredient: Bentonite
+        amount: 2
+        unit: "%"
+
+  # ==========================================================================
+  # WHITE / CREAM
+  # ==========================================================================
+  - name: Laguna White Gloss
+    cone: "5"
+    atmosphere: oxidation
+    base_type: opaque
+    surface: smooth
+    color: white
+    transparency: opaque
+    notes: |
+      LIKELY: Laguna Clay Company White Gloss A-Series.
+      Standard studio white glaze. Good coverage, reliable results.
+      Mix from dry powder, apply 2 coats for full coverage.
+      Source: Laguna Clay Company A-Series white (CONFIDENCE: HIGH)
+    recipe:
+      - ingredient: Frit 3124
+        amount: 25
+        unit: "%"
+      - ingredient: Nepheline Syenite
+        amount: 20
+        unit: "%"
+      - ingredient: Silica
+        amount: 18
+        unit: "%"
+      - ingredient: Kaolin (EPK)
+        amount: 12
+        unit: "%"
+      - ingredient: Zircopax
+        amount: 15
+        unit: "%"
+      - ingredient: Whiting
+        amount: 5
+        unit: "%"
+      - ingredient: Bentonite
+        amount: 2
+        unit: "%"
+      - ingredient: Zinc Oxide
+        amount: 3
+        unit: "%"
+
+  # ==========================================================================
+  # BLUE
+  # ==========================================================================
+  - name: Laguna Blue
+    cone: "5"
+    atmosphere: oxidation
+    base_type: opaque
+    surface: smooth
+    color: blue
+    transparency: semi-opaque
+    notes: |
+      LIKELY: Laguna Clay Company Blue A-Series or Ocean Blue.
+      Popular cobalt-based blue studio glaze. Vibrant and reliable.
+      Mix from dry powder, apply 2-3 thin coats.
+      Source: Laguna Clay Company A-Series blue (CONFIDENCE: HIGH)
+    recipe:
+      - ingredient: Frit 3124
+        amount: 25
+        unit: "%"
+      - ingredient: Nepheline Syenite
+        amount: 20
+        unit: "%"
+      - ingredient: Silica
+        amount: 18
+        unit: "%"
+      - ingredient: Kaolin (EPK)
+        amount: 12
+        unit: "%"
+      - ingredient: Cobalt Carbonate
+        amount: 2
+        unit: "%"
+      - ingredient: Copper Carbonate
+        amount: 1
+        unit: "%"
+      - ingredient: Zinc Oxide
+        amount: 5
+        unit: "%"
+      - ingredient: Whiting
+        amount: 5
+        unit: "%"
+      - ingredient: Bentonite
+        amount: 2
+        unit: "%"
+      - ingredient: Zircopax
+        amount: 10
+        unit: "%"
+
+  - name: Laguna Turquoise
+    cone: "5"
+    atmosphere: oxidation
+    base_type: semi-opaque
+    surface: smooth
+    color: turquoise
+    transparency: semi-opaque
+    notes: |
+      LIKELY: Laguna Clay Company Turquoise or Artvark Turquoise.
+      Copper-based turquoise, very popular in class studios.
+      Electric kiln reliable. Mix from dry powder.
+      Source: Laguna or Artvark turquoise series (CONFIDENCE: MEDIUM)
+    recipe:
+      - ingredient: Frit 3124
+        amount: 25
+        unit: "%"
+      - ingredient: Nepheline Syenite
+        amount: 20
+        unit: "%"
+      - ingredient: Silica
+        amount: 18
+        unit: "%"
+      - ingredient: Kaolin (EPK)
+        amount: 12
+        unit: "%"
+      - ingredient: Copper Carbonate
+        amount: 4
+        unit: "%"
+      - ingredient: Zinc Oxide
+        amount: 5
+        unit: "%"
+      - ingredient: Whiting
+        amount: 8
+        unit: "%"
+      - ingredient: Bentonite
+        amount: 2
+        unit: "%"
+      - ingredient: Tin Oxide
+        amount: 2
+        unit: "%"
+      - ingredient: Rutile
+        amount: 4
+        unit: "%"
+
+  - name: Artvark Deep Blue
+    cone: "5"
+    atmosphere: oxidation
+    base_type: opaque
+    surface: smooth
+    color: dark blue
+    transparency: opaque
+    notes: |
+      POSSIBLE: Artvark Deep Blue or Navy Blue.
+      Rich cobalt blue glaze, darker than Laguna Blue.
+      Alternative blue option for students. Mix from dry powder.
+      Source: Artvark cone 5 blue glaze (CONFIDENCE: LOW-MEDIUM)
+    recipe:
+      - ingredient: Frit 3124
+        amount: 25
+        unit: "%"
+      - ingredient: Nepheline Syenite
+        amount: 20
+        unit: "%"
+      - ingredient: Silica
+        amount: 18
+        unit: "%"
+      - ingredient: Kaolin (EPK)
+        amount: 12
+        unit: "%"
+      - ingredient: Cobalt Carbonate
+        amount: 4
+        unit: "%"
+      - ingredient: Zinc Oxide
+        amount: 5
+        unit: "%"
+      - ingredient: Whiting
+        amount: 8
+        unit: "%"
+      - ingredient: Bentonite
+        amount: 2
+        unit: "%"
+      - ingredient: Zircopax
+        amount: 6
+        unit: "%"
+
+  # ==========================================================================
+  # GREEN
+  # ==========================================================================
+  - name: Artvark Green
+    cone: "5"
+    atmosphere: oxidation
+    base_type: semi-opaque
+    surface: smooth
+    color: green
+    transparency: semi-opaque
+    notes: |
+      POSSIBLE: Artvark Forest Green or Green.
+      Copper-based green glaze, typical class studio offering.
+      Reliable in electric kilns. Mix from dry powder.
+      Source: Artvark cone 5 green glaze (CONFIDENCE: LOW-MEDIUM)
+    recipe:
+      - ingredient: Frit 3124
+        amount: 25
+        unit: "%"
+      - ingredient: Nepheline Syenite
+        amount: 20
+        unit: "%"
+      - ingredient: Silica
+        amount: 18
+        unit: "%"
+      - ingredient: Kaolin (EPK)
+        amount: 12
+        unit: "%"
+      - ingredient: Copper Carbonate
+        amount: 5
+        unit: "%"
+      - ingredient: Zinc Oxide
+        amount: 5
+        unit: "%"
+      - ingredient: Whiting
+        amount: 8
+        unit: "%"
+      - ingredient: Bentonite
+        amount: 2
+        unit: "%"
+      - ingredient: Rutile
+        amount: 2
+        unit: "%"
+      - ingredient: Zircopax
+        amount: 3
+        unit: "%"
+
+  # ==========================================================================
+  # BROWN / EARTH TONES
+  # ==========================================================================
+  - name: Laguna Temmoku
+    cone: "5"
+    atmosphere: oxidation
+    base_type: opaque
+    surface: smooth
+    color: brown
+    transparency: semi-opaque
+    notes: |
+      LIKELY: Laguna Clay Company Temmoku or Brown.
+      Classic iron-based temmoku brown. Very popular studio glaze.
+      Beautiful amber breaks on edges. Mix from dry powder.
+      Source: Laguna cone 5 temmoku/brown (CONFIDENCE: HIGH)
+    recipe:
+      - ingredient: Frit 3134
+        amount: 25
+        unit: "%"
+      - ingredient: Nepheline Syenite
+        amount: 20
+        unit: "%"
+      - ingredient: Silica
+        amount: 18
+        unit: "%"
+      - ingredient: Kaolin (EPK)
+        amount: 12
+        unit: "%"
+      - ingredient: Iron Oxide
+        amount: 10
+        unit: "%"
+      - ingredient: Whiting
+        amount: 5
+        unit: "%"
+      - ingredient: Bentonite
+        amount: 2
+        unit: "%"
+      - ingredient: Zinc Oxide
+        amount: 5
+        unit: "%"
+      - ingredient: Dolomite
+        amount: 3
+        unit: "%"
+
+  # ==========================================================================
+  # RED / PINK
+  # ==========================================================================
+  - name: Artvark Pink
+    cone: "5"
+    atmosphere: oxidation
+    base_type: semi-opaque
+    surface: smooth
+    color: pink
+    transparency: semi-opaque
+    notes: |
+      POSSIBLE: Artvark Pink or Rose.
+      Tin and copper based pink, common class studio offering.
+      Soft pink color, popular for students. Mix from dry powder.
+      Source: Artvark cone 5 pink glaze (CONFIDENCE: LOW-MEDIUM)
+    recipe:
+      - ingredient: Frit 3124
+        amount: 25
+        unit: "%"
+      - ingredient: Nepheline Syenite
+        amount: 20
+        unit: "%"
+      - ingredient: Silica
+        amount: 18
+        unit: "%"
+      - ingredient: Kaolin (EPK)
+        amount: 12
+        unit: "%"
+      - ingredient: Copper Carbonate
+        amount: 1
+        unit: "%"
+      - ingredient: Tin Oxide
+        amount: 8
+        unit: "%"
+      - ingredient: Zinc Oxide
+        amount: 5
+        unit: "%"
+      - ingredient: Whiting
+        amount: 5
+        unit: "%"
+      - ingredient: Bentonite
+        amount: 2
+        unit: "%"
+      - ingredient: Zircopax
+        amount: 4
+        unit: "%"
+
+  # ==========================================================================
+  # BLACK
+  # ==========================================================================
+  - name: Laguna Black
+    cone: "5"
+    atmosphere: oxidation
+    base_type: opaque
+    surface: smooth
+    color: black
+    transparency: opaque
+    notes: |
+      LIKELY: Laguna Clay Company Black A-Series.
+      Standard studio black glaze. High colorant load for deep black.
+      Mix from dry powder, apply 2-3 coats. Very reliable.
+      Source: Laguna Clay Company A-Series black (CONFIDENCE: HIGH)
+    recipe:
+      - ingredient: Frit 3134
+        amount: 25
+        unit: "%"
+      - ingredient: Nepheline Syenite
+        amount: 18
+        unit: "%"
+      - ingredient: Silica
+        amount: 15
+        unit: "%"
+      - ingredient: Kaolin (EPK)
+        amount: 12
+        unit: "%"
+      - ingredient: Iron Oxide
+        amount: 10
+        unit: "%"
+      - ingredient: Cobalt Carbonate
+        amount: 3
+        unit: "%"
+      - ingredient: Manganese Dioxide
+        amount: 6
+        unit: "%"
+      - ingredient: Whiting
+        amount: 5
+        unit: "%"
+      - ingredient: Bentonite
+        amount: 2
+        unit: "%"
+      - ingredient: Zinc Oxide
+        amount: 4
+        unit: "%"
+
+  # ==========================================================================
+  # MATTE / SATIN
+  # ==========================================================================
+  - name: Laguna Matte White
+    cone: "5"
+    atmosphere: oxidation
+    base_type: opaque
+    surface: smooth
+    color: white
+    transparency: opaque
+    notes: |
+      POSSIBLE: Laguna Clay Company Matte White.
+      Alternative to glossy white with velvety matte surface.
+      Shows texture well. Mix from dry powder.
+      Source: Laguna matte white series (CONFIDENCE: MEDIUM)
+    recipe:
+      - ingredient: Frit 3124
+        amount: 20
+        unit: "%"
+      - ingredient: Nepheline Syenite
+        amount: 15
+        unit: "%"
+      - ingredient: Silica
+        amount: 15
+        unit: "%"
+      - ingredient: Kaolin (EPK)
+        amount: 20
+        unit: "%"
+      - ingredient: Zircopax
+        amount: 12
+        unit: "%"
+      - ingredient: Dolomite
+        amount: 10
+        unit: "%"
+      - ingredient: Bentonite
+        amount: 2
+        unit: "%"
+      - ingredient: Zinc Oxide
+        amount: 6
+        unit: "%"
+
+  # ==========================================================================
+  # YELLOW / ORANGE
+  # ==========================================================================
+  - name: Laguna Yellow
+    cone: "5"
+    atmosphere: oxidation
+    base_type: opaque
+    surface: smooth
+    color: yellow
+    transparency: opaque
+    notes: |
+      POSSIBLE: Laguna Clay Company Yellow or Butter Yellow.
+      Iron and rutile based yellow, typical class studio option.
+      Warm butter yellow. Mix from dry powder.
+      Source: Laguna cone 5 yellow glaze (CONFIDENCE: LOW-MEDIUM)
+    recipe:
+      - ingredient: Frit 3124
+        amount: 25
+        unit: "%"
+      - ingredient: Nepheline Syenite
+        amount: 20
+        unit: "%"
+      - ingredient: Silica
+        amount: 18
+        unit: "%"
+      - ingredient: Kaolin (EPK)
+        amount: 12
+        unit: "%"
+      - ingredient: Rutile
+        amount: 6
+        unit: "%"
+      - ingredient: Iron Oxide
+        amount: 2
+        unit: "%"
+      - ingredient: Zinc Oxide
+        amount: 5
+        unit: "%"
+      - ingredient: Whiting
+        amount: 8
+        unit: "%"
+      - ingredient: Bentonite
+        amount: 2
+        unit: "%"
+      - ingredient: Zircopax
+        amount: 2
+        unit: "%"
+
+  # ==========================================================================
+  # SPECIALTY / RUTILE
+  # ==========================================================================
+  - name: Artvark Rutile Blue
+    cone: "5"
+    atmosphere: oxidation
+    base_type: transparent
+    surface: smooth
+    color: blue
+    transparency: transparent
+    notes: |
+      POSSIBLE: Artvark or Laguna rutile-based blue.
+      Rutile-dependent blue, subtle and varies with thickness.
+      Popular with advanced students. Mix from dry powder.
+      Source: Artvark/Laguna rutile series (CONFIDENCE: LOW)
+    recipe:
+      - ingredient: Frit 3134
+        amount: 25
+        unit: "%"
+      - ingredient: Nepheline Syenite
+        amount: 22
+        unit: "%"
+      - ingredient: Silica
+        amount: 20
+        unit: "%"
+      - ingredient: Kaolin (EPK)
+        amount: 15
+        unit: "%"
+      - ingredient: Rutile
+        amount: 8
+        unit: "%"
+      - ingredient: Whiting
+        amount: 5
+        unit: "%"
+      - ingredient: Bentonite
+        amount: 2
+        unit: "%"
+      - ingredient: Zinc Oxide
+        amount: 3
+        unit: "%"
+
+  # ==========================================================================
+  # CREAM / TAN
+  # ==========================================================================
+  - name: Laguna Cream
+    cone: "5"
+    atmosphere: oxidation
+    base_type: opaque
+    surface: smooth
+    color: cream
+    transparency: opaque
+    notes: |
+      POSSIBLE: Laguna Clay Company Cream or Buff.
+      Warm cream color, alternative to white.
+      Subtle and elegant. Mix from dry powder.
+      Source: Laguna cone 5 cream glaze (CONFIDENCE: MEDIUM)
+    recipe:
+      - ingredient: Frit 3134
+        amount: 25
+        unit: "%"
+      - ingredient: Nepheline Syenite
+        amount: 20
+        unit: "%"
+      - ingredient: Silica
+        amount: 18
+        unit: "%"
+      - ingredient: Kaolin (EPK)
+        amount: 12
+        unit: "%"
+      - ingredient: Zircopax
+        amount: 10
+        unit: "%"
+      - ingredient: Titanium Dioxide
+        amount: 5
+        unit: "%"
+      - ingredient: Whiting
+        amount: 5
+        unit: "%"
+      - ingredient: Iron Oxide
+        amount: 1
+        unit: "%"
+      - ingredient: Bentonite
+        amount: 2
+        unit: "%"
+      - ingredient: Zinc Oxide
+        amount: 2
+        unit: "%"

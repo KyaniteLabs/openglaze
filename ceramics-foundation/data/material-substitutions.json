@@ -1,0 +1,116 @@
+{
+  "version": "1.0",
+  "source": "ceramics-foundation/chemistry/glaze-chemistry.md, Digitalfire, Ceramic Arts Network",
+  "last_updated": "2026-03-17",
+  "one_to_one": [
+    {
+      "from": "Cobalt Oxide",
+      "to": "Cobalt Carbonate",
+      "ratio": 1.48,
+      "notes": "Oxide is 93% CoO; carbonate is 63% CoO"
+    },
+    {
+      "from": "Cobalt Carbonate",
+      "to": "Cobalt Oxide",
+      "ratio": 0.68,
+      "notes": null
+    },
+    {
+      "from": "Copper Oxide",
+      "to": "Copper Carbonate",
+      "ratio": 1.55,
+      "notes": "Oxide is 100% CuO; carbonate is 64-65% CuO"
+    },
+    {
+      "from": "Copper Carbonate",
+      "to": "Copper Oxide",
+      "ratio": 0.64,
+      "notes": null
+    },
+    {
+      "from": "Manganese Dioxide",
+      "to": "Manganese Carbonate",
+      "ratio": 1.62,
+      "notes": "MnO2 is 100% MnO; carbonate is 61-62% MnO"
+    },
+    {
+      "from": "Manganese Carbonate",
+      "to": "Manganese Dioxide",
+      "ratio": 0.62,
+      "notes": null
+    },
+    {
+      "from": "Whiting",
+      "to": "Wollastonite",
+      "ratio": 1.16,
+      "notes": "Whiting is 56% CaO; Wollastonite is 48% CaO + 52% SiO2. Reduce silica by ~6% when substituting."
+    },
+    {
+      "from": "Wollastonite",
+      "to": "Whiting",
+      "ratio": 0.86,
+      "notes": "Add silica to compensate for lost SiO2 from wollastonite"
+    },
+    {
+      "from": "Barium Carbonate",
+      "to": "Strontium Carbonate",
+      "ratio": 0.75,
+      "notes": "BaCO3 is 77.5% BaO; SrCO3 is 70% SrO. Strontium is LESS toxic than barium."
+    },
+    {
+      "from": "Strontium Carbonate",
+      "to": "Barium Carbonate",
+      "ratio": 1.33,
+      "notes": "Barium is MORE toxic — consider keeping strontium"
+    },
+    {
+      "from": "Red Iron Oxide",
+      "to": "Yellow Iron Oxide",
+      "ratio": 1.08,
+      "notes": "Yellow is 88% Fe2O3; Red is 95% Fe2O3"
+    },
+    {
+      "from": "Yellow Iron Oxide",
+      "to": "Red Iron Oxide",
+      "ratio": 0.93,
+      "notes": null
+    }
+  ],
+  "complex": [
+    {
+      "from": "Dolomite",
+      "to": "Equal parts whiting + magnesium carbonate",
+      "ratio": "10% dolomite = 5% whiting + 5% magnesium carbonate",
+      "notes": "Close match but not exact due to trace elements"
+    },
+    {
+      "from": "Potash Feldspar (Custer)",
+      "to": "G-200 Feldspar",
+      "ratio": "approximately 1:1",
+      "notes": "Same feldspar group (potash). Minor chemistry differences. Test for fit.",
+      "alternatives": ["K200", "Primas P"]
+    },
+    {
+      "from": "Soda Feldspar (Kona F-4)",
+      "to": "Nepheline Syenite",
+      "ratio": "NOT a direct substitute",
+      "notes": "Nepheline has lower silica and higher alumina than soda feldspar. Will change glaze character significantly.",
+      "alternatives": ["Calspar", "NC-4"]
+    },
+    {
+      "from": "Gerstley Borate",
+      "to": "Colemanite",
+      "ratio": "approximately 1:1",
+      "notes": "Both calcium borate ores. Both are variable in composition.",
+      "alternatives": ["Boron frits (e.g., Ferro 3134)", "Calcined borax"]
+    },
+    {
+      "from": "Albany Slip",
+      "to": "Alberta Slip",
+      "ratio": "approximately 1:1",
+      "notes": "Albany Slip is no longer mined. Alberta Slip is the closest available substitute.",
+      "alternatives": ["Seattle Slip", "Sheffield Slip Clay Formula", "A.R.T. Albany Slip Synthetic"],
+      "caveat": "Matching depends on amount in recipe, temperature, and atmosphere"
+    }
+  ]
+}

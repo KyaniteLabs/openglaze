@@ -1,0 +1,36 @@
+name: Malcolm's Shino
+source: Malcolm Davis (famous shino specialist)
+cone: "10"
+atmosphere: reduction
+recipe:
+  - material: Nepheline Syenite
+    amount: 40.91
+  - material: Kona F-4 Feldspar
+    amount: 9.82
+  - material: EPK Kaolin
+    amount: 18.18
+  - material: Kentucky Ball Clay (OM 4)
+    amount: 13.64
+  - material: Soda Ash
+    amount: 17.27
+optional_additions:
+  - material: Red Art
+    amount: 6.00
+    notes: Optional - adds color variation
+color: Orange-tan to reddish-brown
+surface: Satin to semi-gloss, textured
+notes: |
+  Famous carbon trap shino developed by Malcolm Davis.
+  - Works well on B-Mix, Death Valley clay bodies
+  - Often shows crawling, crackle texture
+  - Carbon trapping creates dark speckles
+  - Can be layered with Luster Shino
+  - Apply at specific gravity 1.30 for best results
+  - Soda ash makes this glaze soluble - mix fresh or store properly
+food_safe: unknown
+tested: false
+date_documented: "2026-03-15"
+references:
+  - https://johnbrittpottery.com/recipes/
+  - https://ceramicartsnetwork.org/ceramic-recipes/recipe/malcolm-davis-shino
+  - Glazy.org

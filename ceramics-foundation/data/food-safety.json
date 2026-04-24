@@ -1,0 +1,108 @@
+{
+  "version": "1.0",
+  "source": "ceramics-foundation/chemistry/material-safety.md, FDA Compliance Policy Guides, OSHA, NIOSH",
+  "last_updated": "2026-03-17",
+  "toxic_materials": [
+    {
+      "material": "Lead",
+      "oxide": "PbO",
+      "risk_level": "critical",
+      "health_effects": "Cumulative poison affecting nervous system, especially children. Learning disabilities, developmental delays, neurological damage.",
+      "leaching_threshold": "FDA has specific extraction limits per category",
+      "food_safe": false,
+      "notes": "NEVER use in functional ware. No amount of washing or boiling removes lead from pottery."
+    },
+    {
+      "material": "Cadmium",
+      "oxide": "CdO",
+      "risk_level": "high",
+      "health_effects": "Known human carcinogen. Kidney damage, bone demineralization, respiratory irritation.",
+      "leaching_threshold": "FDA strict leaching limits for ceramicware",
+      "food_safe": false,
+      "notes": "Used in red/orange/yellow colorants. Can fume at firing temperatures."
+    },
+    {
+      "material": "Barium",
+      "oxide": "BaCO3/BaO",
+      "risk_level": "high",
+      "health_effects": "Poisonous if ingested. Violent diarrhea, convulsive tremors, muscular paralysis.",
+      "leaching_threshold": "EPA drinking water: 2.0 mg/L. Safe leach: 1 mg/L.",
+      "food_safe": "conditional",
+      "notes": "Low risk in properly fired ware (converts to insoluble barium sulfate). Avoid in food-contact surfaces."
+    },
+    {
+      "material": "Chromium VI",
+      "oxide": "CrO3/Cr2O7",
+      "risk_level": "high",
+      "health_effects": "Known human carcinogen. Lung cancer, skin ulcers, kidney/liver damage.",
+      "leaching_threshold": "N/A — avoid entirely",
+      "food_safe": false,
+      "notes": "Chromium III (Cr2O3) is relatively safe. Know your chromium form."
+    },
+    {
+      "material": "Nickel",
+      "oxide": "NiO",
+      "risk_level": "medium",
+      "health_effects": "Probable human carcinogen. Skin sensitization, respiratory irritation.",
+      "leaching_threshold": "Not well established",
+      "food_safe": "conditional",
+      "notes": "Avoid skin contact. Respirator for dry powders."
+    },
+    {
+      "material": "Lithium",
+      "oxide": "Li2O",
+      "risk_level": "medium",
+      "health_effects": "Toxic if ingested. Nausea, vomiting, neurological effects, thyroid effects.",
+      "leaching_threshold": "Not well established",
+      "food_safe": "conditional",
+      "notes": "Used as flux. Avoid ingestion of raw material."
+    },
+    {
+      "material": "Manganese",
+      "oxide": "MnO/MnO2",
+      "risk_level": "medium",
+      "health_effects": "Neurotoxin linked to Parkinson's-like symptoms (manganism).",
+      "leaching_threshold": "Specific OSHA PEL exists due to neurotoxicity",
+      "food_safe": "conditional",
+      "notes": "Can fume at firing temperatures — kiln ventilation mandatory."
+    }
+  ],
+  "safe_colorants": [
+    {"material": "Iron oxide", "notes": "Safe in all forms (red, yellow, black, brown)"},
+    {"material": "Cobalt", "notes": "Safe in fired ware. Toxic in raw form but used in low percentages."},
+    {"material": "Copper", "notes": "Generally safe in fired ware"},
+    {"material": "Rutile (TiO2)", "notes": "Safe"},
+    {"material": "Zirconium", "notes": "Safe encapsulating agent"},
+    {"material": "Tin oxide", "notes": "Safe opacifier"},
+    {"material": "Zinc oxide", "notes": "Safe in glazes"}
+  ],
+  "acid_test": {
+    "purpose": "Test if a glaze is food-safe by checking for leaching under acidic conditions",
+    "procedure": [
+      "Squeeze fresh lemon juice onto the glazed surface",
+      "Let sit for 24 hours in a warm location",
+      "Wipe clean and examine the glaze surface",
+      "Changes in color, gloss, or surface texture indicate leaching"
+    ],
+    "interpretation": {
+      "no_change": "Likely food-safe (not guaranteed — lab testing is definitive)",
+      "color_change": "Glaze is leaching — NOT food-safe",
+      "surface_change": "Glaze is being attacked — NOT food-safe"
+    },
+    "limitations": "Home acid test only detects gross leaching. Laboratory testing (ICP-MS) is required for definitive results."
+  },
+  "leaching_risk_factors": [
+    {"factor": "Underfired glaze", "description": "Glaze not fully matured — significantly higher leaching risk"},
+    {"factor": "Crazing", "description": "Cracks in glaze create pathways for acid attack and bacterial growth"},
+    {"factor": "High alkali flux", "description": "High Na2O/K2O glazes are more soluble"},
+    {"factor": "Low SiO2:Al2O3", "description": "Under-silicated glazes are less durable"},
+    {"factor": "Thick application", "description": "Thick glaze may not fully mature, especially at interior"},
+    {"factor": "Acidic food contact", "description": "Tomato, vinegar, citrus — higher leaching risk"}
+  ],
+  "ppe_requirements": {
+    "mixing_dry_materials": ["N95 minimum respirator (P100 recommended)", "Nitrile gloves", "Safety glasses"],
+    "handling_toxic_materials": ["P100 respirator", "Rubber gloves", "Safety glasses", "Glove liners for extended use"],
+    "sanding_grinding": ["P100 respirator", "Safety glasses", "Local exhaust ventilation"],
+    "kiln_unloading": ["Safety glasses for viewing above orange heat", "Heat-resistant gloves"]
+  }
+}

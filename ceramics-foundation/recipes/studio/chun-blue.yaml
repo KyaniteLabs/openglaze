@@ -1,0 +1,71 @@
+name: Chun Blue (Traditional)
+source: Traditional Chinese Jun ware type
+cone: "10"
+atmosphere: reduction
+recipe:
+  - material: G-200 Feldspar
+    amount: 41.30
+  - material: EPK Kaolin
+    amount: 1.80
+  - material: Silica (Flint)
+    amount: 27.20
+  - material: Whiting
+    amount: 9.00
+  - material: Gerstley Borate
+    amount: 8.80
+  - material: Dolomite
+    amount: 8.80
+  - material: Zinc Oxide
+    amount: 1.70
+  - material: Tin Oxide
+    amount: 2.60
+additions:
+  - material: Rutile
+    amount: 4.00
+  - material: Copper Carbonate
+    amount: 0.50
+color: Blue with purple/mauve flash
+surface: Gloss with opalescent quality
+notes: |
+  Traditional Chun (Jun) blue glaze.
+  - Blue color comes from light scattering, not just cobalt
+  - Copper in reduction can create purple flash
+  - Tin oxide helps opacify
+  - Named after Song dynasty Jun ware
+  - One of the most prized Chinese ceramic effects
+food_safe: true
+tested: false
+date_documented: "2026-03-15"
+references:
+  - https://cindywennin.com/blue-chun-glaze/
+  - Glazy.org
+---
+# Cobalt Chun Variation
+name: Cobalt Chun (Blue Consistent)
+source: Cindy Wennen variation
+cone: "9-10"
+atmosphere: reduction
+recipe:
+  - material: See Chun Blue Traditional base
+    amount: 100
+additions:
+  - material: Cobalt Carbonate
+    amount: 0.96
+  - material: Rutile
+    amount: 4.00
+notes: |
+  Substitutes cobalt for copper for consistent blue.
+  - Keep rutile for variegation
+  - More predictable than copper flash
+---
+# Aardvark CTG 12 Chun Base
+name: Aardvark CTG 12 Chun (Base)
+source: Aardvark Clay & Supply
+catalog_code: CTG 12
+cone: "10"
+atmosphere: reduction
+notes: |
+  Commercial Aardvark Chun base.
+  - Exact recipe not published
+  - Contact Aardvark for mixing instructions
+  - Works well over oxide decoration

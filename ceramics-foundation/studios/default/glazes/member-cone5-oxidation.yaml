@@ -1,0 +1,1284 @@
+# Default Studio - Cone 5 Oxidation Collection
+# Professional studio glazes for Laguna B-Mix clay body
+# Tested at Default Studio, Long Beach, CA
+#
+# License: CC-BY-SA-4.0 (Free to use with attribution)
+
+id: default-cone5-bmix
+name: Default Studio - Cone 5 B-Mix Collection
+version: 1.0.0
+author: Default Studio
+license: CC-BY-SA-4.0
+premium: false
+
+description: |
+  32 professional cone 5 oxidation glazes specifically tested for Laguna B-Mix clay body.
+  Used daily at Default Studio pottery studio in Long Beach, CA.
+  Electric kiln fired to Orton cone 5 (~2205°F / 1207°C).
+
+tags:
+  - cone5
+  - oxidation
+  - bmix
+  - electric-kiln
+  - studio-collection
+  - long-beach
+
+glazes:
+  # ==========================================================================
+  # CLEAR / TRANSPARENT
+  # ==========================================================================
+  - name: Clear Gloss
+    cone: "5"
+    atmosphere: oxidation
+    base_type: transparent
+    surface: smooth
+    color: clear
+    transparency: transparent
+    notes: |
+      Studio workhorse clear glaze. Reliable over underglazes and slips.
+      Best applied at medium thickness - too thick may cause running.
+    recipe:
+      - ingredient: Frit 3134
+        amount: 30
+        unit: "%"
+      - ingredient: Nepheline Syenite
+        amount: 25
+        unit: "%"
+      - ingredient: Silica
+        amount: 20
+        unit: "%"
+      - ingredient: Kaolin (EPK)
+        amount: 15
+        unit: "%"
+      - ingredient: Whiting
+        amount: 5
+        unit: "%"
+      - ingredient: Bentonite
+        amount: 2
+        unit: "%"
+      - ingredient: Zinc Oxide
+        amount: 3
+        unit: "%"
+
+  - name: Satin Clear
+    cone: "5"
+    atmosphere: oxidation
+    base_type: transparent
+    surface: smooth
+    color: clear
+    transparency: transparent
+    notes: |
+      Soft satin clear. Less shiny than Clear Gloss, great for functional ware.
+    recipe:
+      - ingredient: Frit 3124
+        amount: 30
+        unit: "%"
+      - ingredient: Nepheline Syenite
+        amount: 20
+        unit: "%"
+      - ingredient: Silica
+        amount: 18
+        unit: "%"
+      - ingredient: Kaolin (EPK)
+        amount: 15
+        unit: "%"
+      - ingredient: Dolomite
+        amount: 10
+        unit: "%"
+      - ingredient: Zinc Oxide
+        amount: 5
+        unit: "%"
+      - ingredient: Bentonite
+        amount: 2
+        unit: "%"
+
+  # ==========================================================================
+  # WHITE / CREAM
+  # ==========================================================================
+  - name: Glossy White
+    cone: "5"
+    atmosphere: oxidation
+    base_type: opaque
+    surface: smooth
+    color: white
+    transparency: opaque
+    notes: |
+      Clean white with good coverage. Two coats recommended.
+    recipe:
+      - ingredient: Frit 3124
+        amount: 25
+        unit: "%"
+      - ingredient: Nepheline Syenite
+        amount: 20
+        unit: "%"
+      - ingredient: Silica
+        amount: 18
+        unit: "%"
+      - ingredient: Kaolin (EPK)
+        amount: 12
+        unit: "%"
+      - ingredient: Zircopax
+        amount: 15
+        unit: "%"
+      - ingredient: Whiting
+        amount: 5
+        unit: "%"
+      - ingredient: Bentonite
+        amount: 2
+        unit: "%"
+      - ingredient: Zinc Oxide
+        amount: 3
+        unit: "%"
+
+  - name: Matte White
+    cone: "5"
+    atmosphere: oxidation
+    base_type: opaque
+    surface: smooth
+    color: white
+    transparency: opaque
+    notes: |
+      Velvety matte white. Shows texture well. Touch up bare spots carefully.
+    recipe:
+      - ingredient: Frit 3124
+        amount: 20
+        unit: "%"
+      - ingredient: Nepheline Syenite
+        amount: 15
+        unit: "%"
+      - ingredient: Silica
+        amount: 15
+        unit: "%"
+      - ingredient: Kaolin (EPK)
+        amount: 20
+        unit: "%"
+      - ingredient: Zircopax
+        amount: 12
+        unit: "%"
+      - ingredient: Dolomite
+        amount: 10
+        unit: "%"
+      - ingredient: Bentonite
+        amount: 2
+        unit: "%"
+      - ingredient: Zinc Oxide
+        amount: 6
+        unit: "%"
+
+  - name: Cream
+    cone: "5"
+    atmosphere: oxidation
+    base_type: opaque
+    surface: smooth
+    color: cream
+    transparency: opaque
+    notes: |
+      Warm cream color. Subtle and elegant for functional pieces.
+    recipe:
+      - ingredient: Frit 3134
+        amount: 25
+        unit: "%"
+      - ingredient: Nepheline Syenite
+        amount: 20
+        unit: "%"
+      - ingredient: Silica
+        amount: 18
+        unit: "%"
+      - ingredient: Kaolin (EPK)
+        amount: 12
+        unit: "%"
+      - ingredient: Zircopax
+        amount: 10
+        unit: "%"
+      - ingredient: Titanium Dioxide
+        amount: 5
+        unit: "%"
+      - ingredient: Whiting
+        amount: 5
+        unit: "%"
+      - ingredient: Iron Oxide
+        amount: 1
+        unit: "%"
+      - ingredient: Bentonite
+        amount: 2
+        unit: "%"
+      - ingredient: Zinc Oxide
+        amount: 2
+        unit: "%"
+
+  # ==========================================================================
+  # BLUE
+  # ==========================================================================
+  - name: Ocean Blue
+    cone: "5"
+    atmosphere: oxidation
+    base_type: opaque
+    surface: smooth
+    color: blue
+    transparency: semi-opaque
+    notes: |
+      Vibrant ocean blue. Popular studio favorite. Two thin coats recommended.
+    recipe:
+      - ingredient: Frit 3124
+        amount: 25
+        unit: "%"
+      - ingredient: Nepheline Syenite
+        amount: 20
+        unit: "%"
+      - ingredient: Silica
+        amount: 18
+        unit: "%"
+      - ingredient: Kaolin (EPK)
+        amount: 12
+        unit: "%"
+      - ingredient: Cobalt Carbonate
+        amount: 2
+        unit: "%"
+      - ingredient: Copper Carbonate
+        amount: 1
+        unit: "%"
+      - ingredient: Zinc Oxide
+        amount: 5
+        unit: "%"
+      - ingredient: Whiting
+        amount: 5
+        unit: "%"
+      - ingredient: Bentonite
+        amount: 2
+        unit: "%"
+      - ingredient: Zircopax
+        amount: 10
+        unit: "%"
+
+  - name: Turquoise
+    cone: "5"
+    atmosphere: oxidation
+    base_type: semi-opaque
+    surface: smooth
+    color: turquoise
+    transparency: semi-opaque
+    notes: |
+      Bright turquoise. Copper-based. Electric kiln reliable.
+    recipe:
+      - ingredient: Frit 3124
+        amount: 25
+        unit: "%"
+      - ingredient: Nepheline Syenite
+        amount: 20
+        unit: "%"
+      - ingredient: Silica
+        amount: 18
+        unit: "%"
+      - ingredient: Kaolin (EPK)
+        amount: 12
+        unit: "%"
+      - ingredient: Copper Carbonate
+        amount: 4
+        unit: "%"
+      - ingredient: Zinc Oxide
+        amount: 5
+        unit: "%"
+      - ingredient: Whiting
+        amount: 8
+        unit: "%"
+      - ingredient: Bentonite
+        amount: 2
+        unit: "%"
+      - ingredient: Tin Oxide
+        amount: 2
+        unit: "%"
+      - ingredient: Rutile
+        amount: 4
+        unit: "%"
+
+  - name: Deep Blue
+    cone: "5"
+    atmosphere: oxidation
+    base_type: opaque
+    surface: smooth
+    color: dark blue
+    transparency: opaque
+    notes: |
+      Rich deep blue. More cobalt = deeper color. Very popular.
+    recipe:
+      - ingredient: Frit 3124
+        amount: 25
+        unit: "%"
+      - ingredient: Nepheline Syenite
+        amount: 20
+        unit: "%"
+      - ingredient: Silica
+        amount: 18
+        unit: "%"
+      - ingredient: Kaolin (EPK)
+        amount: 12
+        unit: "%"
+      - ingredient: Cobalt Carbonate
+        amount: 4
+        unit: "%"
+      - ingredient: Zinc Oxide
+        amount: 5
+        unit: "%"
+      - ingredient: Whiting
+        amount: 8
+        unit: "%"
+      - ingredient: Bentonite
+        amount: 2
+        unit: "%"
+      - ingredient: Zircopax
+        amount: 6
+        unit: "%"
+
+  - name: Speckled Blue
+    cone: "5"
+    atmosphere: oxidation
+    base_type: opaque
+    surface: textured
+    color: blue
+    transparency: opaque
+    notes: |
+      Blue with dark speckles from iron in rutile. Fun and unpredictable.
+    recipe:
+      - ingredient: Frit 3124
+        amount: 25
+        unit: "%"
+      - ingredient: Nepheline Syenite
+        amount: 18
+        unit: "%"
+      - ingredient: Silica
+        amount: 18
+        unit: "%"
+      - ingredient: Kaolin (EPK)
+        amount: 12
+        unit: "%"
+      - ingredient: Cobalt Carbonate
+        amount: 2
+        unit: "%"
+      - ingredient: Rutile
+        amount: 8
+        unit: "%"
+      - ingredient: Zinc Oxide
+        amount: 5
+        unit: "%"
+      - ingredient: Whiting
+        amount: 5
+        unit: "%"
+      - ingredient: Bentonite
+        amount: 2
+        unit: "%"
+      - ingredient: Zircopax
+        amount: 5
+        unit: "%"
+
+  # ==========================================================================
+  # GREEN
+  # ==========================================================================
+  - name: Celadon
+    cone: "5"
+    atmosphere: oxidation
+    base_type: transparent
+    surface: smooth
+    color: green
+    transparency: transparent
+    notes: |
+      Pale jade celadon. Shows carved texture beautifully. Thin application best.
+    recipe:
+      - ingredient: Frit 3134
+        amount: 25
+        unit: "%"
+      - ingredient: Nepheline Syenite
+        amount: 20
+        unit: "%"
+      - ingredient: Silica
+        amount: 20
+        unit: "%"
+      - ingredient: Kaolin (EPK)
+        amount: 15
+        unit: "%"
+      - ingredient: Iron Oxide
+        amount: 2
+        unit: "%"
+      - ingredient: Whiting
+        amount: 8
+        unit: "%"
+      - ingredient: Dolomite
+        amount: 5
+        unit: "%"
+      - ingredient: Bentonite
+        amount: 2
+        unit: "%"
+      - ingredient: Zinc Oxide
+        amount: 3
+        unit: "%"
+
+  - name: Forest Green
+    cone: "5"
+    atmosphere: oxidation
+    base_type: opaque
+    surface: smooth
+    color: green
+    transparency: semi-opaque
+    notes: |
+      Deep forest green. Copper-based. Reliable in electric kilns.
+    recipe:
+      - ingredient: Frit 3124
+        amount: 25
+        unit: "%"
+      - ingredient: Nepheline Syenite
+        amount: 20
+        unit: "%"
+      - ingredient: Silica
+        amount: 18
+        unit: "%"
+      - ingredient: Kaolin (EPK)
+        amount: 12
+        unit: "%"
+      - ingredient: Copper Carbonate
+        amount: 5
+        unit: "%"
+      - ingredient: Zinc Oxide
+        amount: 5
+        unit: "%"
+      - ingredient: Whiting
+        amount: 8
+        unit: "%"
+      - ingredient: Bentonite
+        amount: 2
+        unit: "%"
+      - ingredient: Rutile
+        amount: 2
+        unit: "%"
+      - ingredient: Zircopax
+        amount: 3
+        unit: "%"
+
+  - name: Mint
+    cone: "5"
+    atmosphere: oxidation
+    base_type: semi-opaque
+    surface: smooth
+    color: mint
+    transparency: semi-opaque
+    notes: |
+      Soft mint green. Less copper than Forest Green for a lighter result.
+    recipe:
+      - ingredient: Frit 3124
+        amount: 25
+        unit: "%"
+      - ingredient: Nepheline Syenite
+        amount: 20
+        unit: "%"
+      - ingredient: Silica
+        amount: 18
+        unit: "%"
+      - ingredient: Kaolin (EPK)
+        amount: 12
+        unit: "%"
+      - ingredient: Copper Carbonate
+        amount: 2
+        unit: "%"
+      - ingredient: Zinc Oxide
+        amount: 5
+        unit: "%"
+      - ingredient: Whiting
+        amount: 8
+        unit: "%"
+      - ingredient: Bentonite
+        amount: 2
+        unit: "%"
+      - ingredient: Tin Oxide
+        amount: 3
+        unit: "%"
+      - ingredient: Rutile
+        amount: 2
+        unit: "%"
+      - ingredient: Zircopax
+        amount: 3
+        unit: "%"
+
+  # ==========================================================================
+  # BROWN / EARTH TONES
+  # ==========================================================================
+  - name: Temmoku
+    cone: "5"
+    atmosphere: oxidation
+    base_type: opaque
+    surface: smooth
+    color: brown
+    transparency: semi-opaque
+    notes: |
+      Classic temmoku brown. Iron-rich. Beautiful amber breaks on edges.
+    recipe:
+      - ingredient: Frit 3134
+        amount: 25
+        unit: "%"
+      - ingredient: Nepheline Syenite
+        amount: 20
+        unit: "%"
+      - ingredient: Silica
+        amount: 18
+        unit: "%"
+      - ingredient: Kaolin (EPK)
+        amount: 12
+        unit: "%"
+      - ingredient: Iron Oxide
+        amount: 10
+        unit: "%"
+      - ingredient: Whiting
+        amount: 5
+        unit: "%"
+      - ingredient: Bentonite
+        amount: 2
+        unit: "%"
+      - ingredient: Zinc Oxide
+        amount: 5
+        unit: "%"
+      - ingredient: Dolomite
+        amount: 3
+        unit: "%"
+
+  - name: Honey Amber
+    cone: "5"
+    atmosphere: oxidation
+    base_type: transparent
+    surface: smooth
+    color: amber
+    transparency: transparent
+    notes: |
+      Warm amber from iron. Reliable in oxidation. Great over texture.
+    recipe:
+      - ingredient: Frit 3134
+        amount: 25
+        unit: "%"
+      - ingredient: Nepheline Syenite
+        amount: 20
+        unit: "%"
+      - ingredient: Silica
+        amount: 20
+        unit: "%"
+      - ingredient: Kaolin (EPK)
+        amount: 15
+        unit: "%"
+      - ingredient: Iron Oxide
+        amount: 5
+        unit: "%"
+      - ingredient: Whiting
+        amount: 8
+        unit: "%"
+      - ingredient: Bentonite
+        amount: 2
+        unit: "%"
+      - ingredient: Rutile
+        amount: 3
+        unit: "%"
+      - ingredient: Zinc Oxide
+        amount: 2
+        unit: "%"
+
+  - name: Chocolate Brown
+    cone: "5"
+    atmosphere: oxidation
+    base_type: opaque
+    surface: smooth
+    color: brown
+    transparency: opaque
+    notes: |
+      Rich chocolate brown. Higher iron content than Temmoku.
+    recipe:
+      - ingredient: Frit 3124
+        amount: 25
+        unit: "%"
+      - ingredient: Nepheline Syenite
+        amount: 20
+        unit: "%"
+      - ingredient: Silica
+        amount: 15
+        unit: "%"
+      - ingredient: Kaolin (EPK)
+        amount: 12
+        unit: "%"
+      - ingredient: Iron Oxide
+        amount: 15
+        unit: "%"
+      - ingredient: Whiting
+        amount: 5
+        unit: "%"
+      - ingredient: Bentonite
+        amount: 2
+        unit: "%"
+      - ingredient: Zinc Oxide
+        amount: 3
+        unit: "%"
+      - ingredient: Zircopax
+        amount: 3
+        unit: "%"
+
+  - name: Iron Red
+    cone: "5"
+    atmosphere: oxidation
+    base_type: opaque
+    surface: smooth
+    color: red
+    transparency: semi-opaque
+    notes: |
+      Warm red-brown from iron. Color varies with thickness and firing speed.
+      Despite the traditional name, warm amber-to-brown in oxidation (true iron reds require reduction).
+    recipe:
+      - ingredient: Frit 3134
+        amount: 25
+        unit: "%"
+      - ingredient: Nepheline Syenite
+        amount: 20
+        unit: "%"
+      - ingredient: Silica
+        amount: 18
+        unit: "%"
+      - ingredient: Kaolin (EPK)
+        amount: 12
+        unit: "%"
+      - ingredient: Iron Oxide
+        amount: 8
+        unit: "%"
+      - ingredient: Rutile
+        amount: 4
+        unit: "%"
+      - ingredient: Whiting
+        amount: 5
+        unit: "%"
+      - ingredient: Bentonite
+        amount: 2
+        unit: "%"
+      - ingredient: Zinc Oxide
+        amount: 4
+        unit: "%"
+      - ingredient: Dolomite
+        amount: 2
+        unit: "%"
+
+  # ==========================================================================
+  # RED / PINK / PURPLE
+  # ==========================================================================
+  - name: Copper Red
+    cone: "5"
+    atmosphere: oxidation
+    base_type: semi-opaque
+    surface: smooth
+    color: red
+    transparency: semi-opaque
+    notes: |
+      Oxblood red in reduction, but in oxidation gives pink-to-red range.
+      Thin application for pink, thicker for deeper red.
+    recipe:
+      - ingredient: Frit 3134
+        amount: 25
+        unit: "%"
+      - ingredient: Nepheline Syenite
+        amount: 20
+        unit: "%"
+      - ingredient: Silica
+        amount: 18
+        unit: "%"
+      - ingredient: Kaolin (EPK)
+        amount: 12
+        unit: "%"
+      - ingredient: Copper Carbonate
+        amount: 3
+        unit: "%"
+      - ingredient: Tin Oxide
+        amount: 5
+        unit: "%"
+      - ingredient: Zinc Oxide
+        amount: 5
+        unit: "%"
+      - ingredient: Whiting
+        amount: 5
+        unit: "%"
+      - ingredient: Bentonite
+        amount: 2
+        unit: "%"
+      - ingredient: Dolomite
+        amount: 5
+        unit: "%"
+
+  - name: Pink
+    cone: "5"
+    atmosphere: oxidation
+    base_type: semi-opaque
+    surface: smooth
+    color: pink
+    transparency: semi-opaque
+    notes: |
+      Soft pink. Tin and copper combination. Delicate and feminine.
+    recipe:
+      - ingredient: Frit 3124
+        amount: 25
+        unit: "%"
+      - ingredient: Nepheline Syenite
+        amount: 20
+        unit: "%"
+      - ingredient: Silica
+        amount: 18
+        unit: "%"
+      - ingredient: Kaolin (EPK)
+        amount: 12
+        unit: "%"
+      - ingredient: Copper Carbonate
+        amount: 1
+        unit: "%"
+      - ingredient: Tin Oxide
+        amount: 8
+        unit: "%"
+      - ingredient: Zinc Oxide
+        amount: 5
+        unit: "%"
+      - ingredient: Whiting
+        amount: 5
+        unit: "%"
+      - ingredient: Bentonite
+        amount: 2
+        unit: "%"
+      - ingredient: Zircopax
+        amount: 4
+        unit: "%"
+
+  - name: Purple
+    cone: "5"
+    atmosphere: oxidation
+    base_type: opaque
+    surface: smooth
+    color: purple
+    transparency: semi-opaque
+    notes: |
+      Muted purple from cobalt and manganese. Can shift toward blue or gray.
+    recipe:
+      - ingredient: Frit 3124
+        amount: 25
+        unit: "%"
+      - ingredient: Nepheline Syenite
+        amount: 20
+        unit: "%"
+      - ingredient: Silica
+        amount: 18
+        unit: "%"
+      - ingredient: Kaolin (EPK)
+        amount: 12
+        unit: "%"
+      - ingredient: Cobalt Carbonate
+        amount: 1
+        unit: "%"
+      - ingredient: Manganese Dioxide
+        amount: 5
+        unit: "%"
+      - ingredient: Zinc Oxide
+        amount: 5
+        unit: "%"
+      - ingredient: Whiting
+        amount: 8
+        unit: "%"
+      - ingredient: Bentonite
+        amount: 2
+        unit: "%"
+      - ingredient: Zircopax
+        amount: 4
+        unit: "%"
+
+  # ==========================================================================
+  # YELLOW / ORANGE
+  # ==========================================================================
+  - name: Butter Yellow
+    cone: "5"
+    atmosphere: oxidation
+    base_type: opaque
+    surface: smooth
+    color: yellow
+    transparency: opaque
+    notes: |
+      Warm butter yellow. Iron and rutile combination.
+    recipe:
+      - ingredient: Frit 3124
+        amount: 25
+        unit: "%"
+      - ingredient: Nepheline Syenite
+        amount: 20
+        unit: "%"
+      - ingredient: Silica
+        amount: 18
+        unit: "%"
+      - ingredient: Kaolin (EPK)
+        amount: 12
+        unit: "%"
+      - ingredient: Rutile
+        amount: 6
+        unit: "%"
+      - ingredient: Iron Oxide
+        amount: 2
+        unit: "%"
+      - ingredient: Zinc Oxide
+        amount: 5
+        unit: "%"
+      - ingredient: Whiting
+        amount: 8
+        unit: "%"
+      - ingredient: Bentonite
+        amount: 2
+        unit: "%"
+      - ingredient: Zircopax
+        amount: 2
+        unit: "%"
+
+  - name: Orange
+    cone: "5"
+    atmosphere: oxidation
+    base_type: opaque
+    surface: smooth
+    color: orange
+    transparency: opaque
+    notes: |
+      Bright orange. Iron + rutile combination. Can vary with thickness.
+    recipe:
+      - ingredient: Frit 3134
+        amount: 25
+        unit: "%"
+      - ingredient: Nepheline Syenite
+        amount: 20
+        unit: "%"
+      - ingredient: Silica
+        amount: 15
+        unit: "%"
+      - ingredient: Kaolin (EPK)
+        amount: 12
+        unit: "%"
+      - ingredient: Rutile
+        amount: 8
+        unit: "%"
+      - ingredient: Iron Oxide
+        amount: 4
+        unit: "%"
+      - ingredient: Zinc Oxide
+        amount: 3
+        unit: "%"
+      - ingredient: Whiting
+        amount: 5
+        unit: "%"
+      - ingredient: Bentonite
+        amount: 2
+        unit: "%"
+      - ingredient: Zircopax
+        amount: 6
+        unit: "%"
+
+  # ==========================================================================
+  # BLACK / GRAY
+  # ==========================================================================
+  - name: Satin Black
+    cone: "5"
+    atmosphere: oxidation
+    base_type: opaque
+    surface: smooth
+    color: black
+    transparency: opaque
+    notes: |
+      Satin black with subtle sheen. Great for contrast and accents.
+    recipe:
+      - ingredient: Frit 3124
+        amount: 25
+        unit: "%"
+      - ingredient: Nepheline Syenite
+        amount: 20
+        unit: "%"
+      - ingredient: Silica
+        amount: 15
+        unit: "%"
+      - ingredient: Kaolin (EPK)
+        amount: 12
+        unit: "%"
+      - ingredient: Iron Oxide
+        amount: 8
+        unit: "%"
+      - ingredient: Cobalt Carbonate
+        amount: 2
+        unit: "%"
+      - ingredient: Manganese Dioxide
+        amount: 5
+        unit: "%"
+      - ingredient: Zinc Oxide
+        amount: 5
+        unit: "%"
+      - ingredient: Whiting
+        amount: 5
+        unit: "%"
+      - ingredient: Bentonite
+        amount: 2
+        unit: "%"
+      - ingredient: Zircopax
+        amount: 1
+        unit: "%"
+
+  - name: Glossy Black
+    cone: "5"
+    atmosphere: oxidation
+    base_type: opaque
+    surface: smooth
+    color: black
+    transparency: opaque
+    notes: |
+      Deep glossy black. High colorant load. Very reliable.
+    recipe:
+      - ingredient: Frit 3134
+        amount: 25
+        unit: "%"
+      - ingredient: Nepheline Syenite
+        amount: 18
+        unit: "%"
+      - ingredient: Silica
+        amount: 15
+        unit: "%"
+      - ingredient: Kaolin (EPK)
+        amount: 12
+        unit: "%"
+      - ingredient: Iron Oxide
+        amount: 10
+        unit: "%"
+      - ingredient: Cobalt Carbonate
+        amount: 3
+        unit: "%"
+      - ingredient: Manganese Dioxide
+        amount: 6
+        unit: "%"
+      - ingredient: Whiting
+        amount: 5
+        unit: "%"
+      - ingredient: Bentonite
+        amount: 2
+        unit: "%"
+      - ingredient: Zinc Oxide
+        amount: 4
+        unit: "%"
+
+  # ==========================================================================
+  - name: Gray
+    cone: "5"
+    atmosphere: oxidation
+    base_type: opaque
+    surface: smooth
+    color: gray
+    transparency: opaque
+    notes: |
+      Neutral gray. Iron + manganese + zircopax combination.
+    recipe:
+      - ingredient: Frit 3124
+        amount: 25
+        unit: "%"
+      - ingredient: Nepheline Syenite
+        amount: 20
+        unit: "%"
+      - ingredient: Silica
+        amount: 18
+        unit: "%"
+      - ingredient: Kaolin (EPK)
+        amount: 12
+        unit: "%"
+      - ingredient: Iron Oxide
+        amount: 3
+        unit: "%"
+      - ingredient: Manganese Dioxide
+        amount: 3
+        unit: "%"
+      - ingredient: Zircopax
+        amount: 10
+        unit: "%"
+      - ingredient: Zinc Oxide
+        amount: 5
+        unit: "%"
+      - ingredient: Whiting
+        amount: 2
+        unit: "%"
+      - ingredient: Bentonite
+        amount: 2
+        unit: "%"
+
+  # ==========================================================================
+  # RUTILE / SPECIALTY
+  # ==========================================================================
+  - name: Rutile Blue
+    cone: "5"
+    atmosphere: oxidation
+    base_type: transparent
+    surface: smooth
+    color: blue
+    transparency: transparent
+    notes: |
+      Rutile-dependent blue. Subtle and varies with thickness. Unpredictable beauty.
+    recipe:
+      - ingredient: Frit 3134
+        amount: 25
+        unit: "%"
+      - ingredient: Nepheline Syenite
+        amount: 22
+        unit: "%"
+      - ingredient: Silica
+        amount: 20
+        unit: "%"
+      - ingredient: Kaolin (EPK)
+        amount: 15
+        unit: "%"
+      - ingredient: Rutile
+        amount: 8
+        unit: "%"
+      - ingredient: Whiting
+        amount: 5
+        unit: "%"
+      - ingredient: Bentonite
+        amount: 2
+        unit: "%"
+      - ingredient: Zinc Oxide
+        amount: 3
+        unit: "%"
+
+  - name: Shino
+    cone: "5"
+    atmosphere: oxidation
+    base_type: opaque
+    surface: textured
+    color: white
+    transparency: semi-opaque
+    notes: |
+      Oxidation shino. Orange-pink flashes possible. Textured surface.
+      Can crawl over other glazes - apply thinly.
+    recipe:
+      - ingredient: Nepheline Syenite
+        amount: 35
+        unit: "%"
+      - ingredient: Silica
+        amount: 20
+        unit: "%"
+      - ingredient: Kaolin (EPK)
+        amount: 15
+        unit: "%"
+      - ingredient: Iron Oxide
+        amount: 3
+        unit: "%"
+      - ingredient: Whiting
+        amount: 10
+        unit: "%"
+      - ingredient: Frit 3134
+        amount: 10
+        unit: "%"
+      - ingredient: Bentonite
+        amount: 2
+        unit: "%"
+      - ingredient: Zinc Oxide
+        amount: 5
+        unit: "%"
+
+  - name: Chun Blue
+    cone: "5"
+    atmosphere: oxidation
+    base_type: transparent
+    surface: smooth
+    color: blue
+    transparency: transparent
+    notes: |
+      Pale opalescent blue. Cobalt at very low percentage.
+    recipe:
+      - ingredient: Frit 3134
+        amount: 25
+        unit: "%"
+      - ingredient: Nepheline Syenite
+        amount: 22
+        unit: "%"
+      - ingredient: Silica
+        amount: 20
+        unit: "%"
+      - ingredient: Kaolin (EPK)
+        amount: 15
+        unit: "%"
+      - ingredient: Cobalt Carbonate
+        amount: 0.5
+        unit: "%"
+      - ingredient: Whiting
+        amount: 10
+        unit: "%"
+      - ingredient: Bentonite
+        amount: 2
+        unit: "%"
+      - ingredient: Zinc Oxide
+        amount: 3
+        unit: "%"
+      - ingredient: Dolomite
+        amount: 2.5
+        unit: "%"
+
+  # ==========================================================================
+  # MATTE / SATIN
+  # ==========================================================================
+  - name: Sage Green Matte
+    cone: "5"
+    atmosphere: oxidation
+    base_type: opaque
+    surface: smooth
+    color: green
+    transparency: opaque
+    notes: |
+      Muted sage green with matte surface. Velvety feel.
+    recipe:
+      - ingredient: Frit 3124
+        amount: 20
+        unit: "%"
+      - ingredient: Nepheline Syenite
+        amount: 18
+        unit: "%"
+      - ingredient: Silica
+        amount: 15
+        unit: "%"
+      - ingredient: Kaolin (EPK)
+        amount: 18
+        unit: "%"
+      - ingredient: Copper Carbonate
+        amount: 2
+        unit: "%"
+      - ingredient: Dolomite
+        amount: 15
+        unit: "%"
+      - ingredient: Zinc Oxide
+        amount: 5
+        unit: "%"
+      - ingredient: Bentonite
+        amount: 2
+        unit: "%"
+      - ingredient: Rutile
+        amount: 3
+        unit: "%"
+      - ingredient: Zircopax
+        amount: 2
+        unit: "%"
+
+  - name: Lavender Matte
+    cone: "5"
+    atmosphere: oxidation
+    base_type: opaque
+    surface: smooth
+    color: purple
+    transparency: opaque
+    notes: |
+      Soft lavender in matte finish. Cobalt + manganese at low percentages.
+    recipe:
+      - ingredient: Frit 3124
+        amount: 20
+        unit: "%"
+      - ingredient: Nepheline Syenite
+        amount: 18
+        unit: "%"
+      - ingredient: Silica
+        amount: 15
+        unit: "%"
+      - ingredient: Kaolin (EPK)
+        amount: 18
+        unit: "%"
+      - ingredient: Cobalt Carbonate
+        amount: 0.5
+        unit: "%"
+      - ingredient: Manganese Dioxide
+        amount: 3
+        unit: "%"
+      - ingredient: Dolomite
+        amount: 15
+        unit: "%"
+      - ingredient: Zinc Oxide
+        amount: 5
+        unit: "%"
+      - ingredient: Bentonite
+        amount: 2
+        unit: "%"
+      - ingredient: Zircopax
+        amount: 3.5
+        unit: "%"
+
+  # ==========================================================================
+  # CRYSTALLINE / SPECIAL EFFECT
+  # ==========================================================================
+  - name: Crystal Glaze
+    cone: "5"
+    atmosphere: oxidation
+    base_type: transparent
+    surface: crystalline
+    color: blue
+    transparency: semi-opaque
+    notes: |
+      Zinc-silicate crystal glaze. Requires slow cooling for crystal growth.
+      Experimental - results vary significantly with firing schedule.
+      Requires controlled cooling with a hold at ~1900-1950°F (1040-1065°C) for crystal nucleation, then slow cool through 1600°F.
+    recipe:
+      - ingredient: Frit 3134
+        amount: 20
+        unit: "%"
+      - ingredient: Nepheline Syenite
+        amount: 15
+        unit: "%"
+      - ingredient: Silica
+        amount: 25
+        unit: "%"
+      - ingredient: Kaolin (EPK)
+        amount: 10
+        unit: "%"
+      - ingredient: Zinc Oxide
+        amount: 15
+        unit: "%"
+      - ingredient: Whiting
+        amount: 8
+        unit: "%"
+      - ingredient: Cobalt Carbonate
+        amount: 1
+        unit: "%"
+      - ingredient: Bentonite
+        amount: 2
+        unit: "%"
+      - ingredient: Rutile
+        amount: 4
+        unit: "%"
+
+  - name: Penny Vein
+    cone: "5"
+    atmosphere: oxidation
+    base_type: transparent
+    surface: textured
+    color: brown
+    transparency: semi-opaque
+    notes: |
+      Copper mesh pattern effect. Iron + copper creates vein-like surface.
+      Unpredictable and beautiful. Experimental glaze.
+    recipe:
+      - ingredient: Frit 3134
+        amount: 22
+        unit: "%"
+      - ingredient: Nepheline Syenite
+        amount: 20
+        unit: "%"
+      - ingredient: Silica
+        amount: 18
+        unit: "%"
+      - ingredient: Kaolin (EPK)
+        amount: 12
+        unit: "%"
+      - ingredient: Copper Carbonate
+        amount: 3
+        unit: "%"
+      - ingredient: Iron Oxide
+        amount: 5
+        unit: "%"
+      - ingredient: Rutile
+        amount: 5
+        unit: "%"
+      - ingredient: Whiting
+        amount: 5
+        unit: "%"
+      - ingredient: Bentonite
+        amount: 2
+        unit: "%"
+      - ingredient: Zinc Oxide
+        amount: 5
+        unit: "%"
+      - ingredient: Dolomite
+        amount: 3
+        unit: "%"

@@ -1,0 +1,66 @@
+{
+  "version": "1.0",
+  "source": "Stull 1912 (via Glazy.org), Digitalfire, Ceramic Arts Network (Dick White, Feb 2025)",
+  "last_updated": "2026-03-17",
+  "caveats": [
+    "Original Stull chart context: cone 11 with 0.3 R2O : 0.7 RO (calcium)",
+    "Cone 6 ranges are narrower at the low end (Dick White, Ceramic Arts Daily)",
+    "Many excellent glazes fall outside these ranges — they are guidance, not rules",
+    "High B2O3 glazes may have lower SiO2/Al2O3 and still be stable",
+    "These are TARGET ranges for formulation guidance, not absolute limits"
+  ],
+  "ranges": {
+    "cone_6": {
+      "Al2O3": {"min": 0.25, "max": 0.5},
+      "SiO2": {"min": 2.5, "max": 5.0},
+      "K2O": {"min": 0.0, "max": 0.5},
+      "Na2O": {"min": 0.0, "max": 0.5},
+      "KNaO": {"min": 0.1, "max": 0.5},
+      "CaO": {"min": 0.2, "max": 0.8},
+      "MgO": {"min": 0.0, "max": 0.4},
+      "BaO": {"min": 0.0, "max": 0.3},
+      "ZnO": {"min": 0.0, "max": 0.3},
+      "B2O3": {"min": 0.0, "max": 0.4},
+      "notes": "Higher B2O3 common at cone 6 than cone 10"
+    },
+    "cone_8": {
+      "Al2O3": {"min": 0.25, "max": 0.55},
+      "SiO2": {"min": 2.5, "max": 5.5},
+      "K2O": {"min": 0.0, "max": 0.5},
+      "Na2O": {"min": 0.0, "max": 0.5},
+      "KNaO": {"min": 0.1, "max": 0.5},
+      "CaO": {"min": 0.2, "max": 0.8},
+      "MgO": {"min": 0.0, "max": 0.4},
+      "BaO": {"min": 0.0, "max": 0.3},
+      "ZnO": {"min": 0.0, "max": 0.3},
+      "B2O3": {"min": 0.0, "max": 0.3},
+      "notes": "Transition between mid-range and high-fire behavior"
+    },
+    "cone_10": {
+      "Al2O3": {"min": 0.2, "max": 0.6},
+      "SiO2": {"min": 2.5, "max": 6.0},
+      "K2O": {"min": 0.0, "max": 0.5},
+      "Na2O": {"min": 0.0, "max": 0.5},
+      "KNaO": {"min": 0.1, "max": 0.5},
+      "CaO": {"min": 0.2, "max": 0.8},
+      "MgO": {"min": 0.0, "max": 0.4},
+      "BaO": {"min": 0.0, "max": 0.3},
+      "ZnO": {"min": 0.0, "max": 0.3},
+      "B2O3": {"min": 0.0, "max": 0.3},
+      "notes": "Original Stull chart context. Wider SiO2 range at high fire."
+    },
+    "cone_11": {
+      "Al2O3": {"min": 0.2, "max": 0.6},
+      "SiO2": {"min": 2.5, "max": 6.0},
+      "K2O": {"min": 0.0, "max": 0.5},
+      "Na2O": {"min": 0.0, "max": 0.5},
+      "KNaO": {"min": 0.1, "max": 0.5},
+      "CaO": {"min": 0.2, "max": 0.8},
+      "MgO": {"min": 0.0, "max": 0.4},
+      "BaO": {"min": 0.0, "max": 0.3},
+      "ZnO": {"min": 0.0, "max": 0.3},
+      "B2O3": {"min": 0.0, "max": 0.3},
+      "notes": "Stull's original chart cone. 0.3 R2O : 0.7 RO flux ratio."
+    }
+  }
+}

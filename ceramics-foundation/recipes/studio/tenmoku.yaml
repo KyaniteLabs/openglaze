@@ -1,0 +1,83 @@
+name: Tenmoku (Standard)
+source: Traditional glaze type - Cone 10 Reduction
+cone: "10"
+atmosphere: reduction
+recipe:
+  - material: Potash Feldspar (Custer)
+    amount: 46.32
+  - material: Kaolin (EPK or OM4)
+    amount: 13.68
+  - material: Silica
+    amount: 26.32
+  - material: Whiting
+    amount: 13.68
+additions:
+  - material: Red Iron Oxide
+    amount: 8.42
+    notes: Range 8-12% for darker results
+color: Dark brown to black
+surface: Gloss
+notes: |
+  Classic high-iron reduction glaze.
+  - Dark base with amber/rust runs at edges (breaking)
+  - High iron content (8-10%) creates characteristic color
+  - Oil spot effects possible with oxidation firing
+  - Named after Japanese temples (Tenmoku = Tianmu mountains)
+  - Works well over slips or on textured surfaces
+food_safe: true
+tested: false
+date_documented: "2026-03-15"
+references:
+  - https://ceramicartsnetwork.org/ceramic-recipes/recipe/Temmoku-Glaze-143148
+  - https://digitalfire.com/glossary/tenmoku
+  - Glazy.org
+---
+# Variation with Wollastonite
+name: Tenmoku (Wollastonite Base)
+source: Digitalfire G2576B variation
+cone: "10"
+atmosphere: reduction
+recipe:
+  - material: Custer Feldspar
+    amount: 27.00
+  - material: EPK Kaolin
+    amount: 20.50
+  - material: Flint (Silica)
+    amount: 26.50
+  - material: Wollastonite
+    amount: 23.50
+  - material: Zinc Oxide
+    amount: 2.50
+additions:
+  - material: Iron Oxide Red
+    amount: 11.00
+notes: |
+  Modern tenmoku using wollastonite instead of whiting.
+  - More reliable melt
+  - Less crawling issues
+  - Zinc oxide improves gloss
+---
+# Variation with Wood Ash
+name: Tenmoku (Wood Ash)
+source: Traditional variation
+cone: "10"
+atmosphere: reduction
+recipe:
+  - material: Custer Spar
+    amount: 44.00
+  - material: Whiting
+    amount: 16.00
+  - material: OM-4 Ball Clay
+    amount: 10.00
+  - material: Silica
+    amount: 22.00
+  - material: Wood Ash (unwashed)
+    amount: 7.00
+additions:
+  - material: Red Iron Oxide
+    amount: 9.00
+notes: |
+  Traditional tenmoku with wood ash.
+  - More variegated surface
+  - Ash creates additional texture
+  - Totals 99% (original recipe)

@@ -1,0 +1,49 @@
+{
+  "version": "1.0",
+  "source": "Appen (1950), John Sankey (web.ncf.ca/bf250/glazeexpansion.html)",
+  "last_updated": "2026-03-17",
+  "description": "Molar thermal expansion coefficients (x10^-6/K) for ceramic glaze oxides. Used to calculate approximate glaze thermal expansion for compatibility with clay bodies.",
+  "caveats": [
+    "These are molar coefficients — multiply by oxide mole fraction in UMF to get glaze CTE",
+    "Al2O3 is debated: Appen says -3, Sankey recommends +4.2 based on more recent research. We use Sankey's value.",
+    "B2O3 ranges from -5 to 0 depending on glass structure (3-coordinated vs 4-coordinated boron)",
+    "TiO2 is highly variable depending on crystallization",
+    "ZrO2 can be -6 in some glass systems",
+    "Real-world CTE depends on many factors beyond simple oxide addition",
+    "Values are approximate — use for relative comparison between glazes, not absolute prediction"
+  ],
+  "coefficients": {
+    "Na2O": {"value": 39.5, "source": "Appen", "notes": "Highest expansion flux"},
+    "K2O": {"value": 46.5, "source": "Appen", "notes": "Even higher than Na2O per mole"},
+    "CaO": {"value": 13.0, "source": "Appen", "notes": "Moderate expansion"},
+    "MgO": {"value": 3.4, "source": "Sankey revision", "notes": "Appen original: 6.0. Sankey revised down. Very low expansion."},
+    "BaO": {"value": 20.0, "source": "Appen", "notes": "Moderate-high expansion"},
+    "ZnO": {"value": 5.0, "source": "Appen", "notes": "Low expansion flux"},
+    "Li2O": {"value": 27.0, "source": "Appen", "notes": "Moderate-high expansion"},
+    "SrO": {"value": 16.0, "source": "Appen", "notes": "Moderate expansion"},
+    "FeO": {"value": 5.5, "source": "Appen", "notes": "Low expansion"},
+    "Fe2O3": {"value": 11.0, "source": "Appen", "notes": "Moderate"},
+    "Al2O3": {"value": 4.2, "source": "Sankey revision", "appen_value": -3.0, "notes": "DEBATED. Appen says -3, Sankey recommends +4.2 based on more recent research. We use Sankey's value."},
+    "SiO2": {"value": 3.8, "source": "Appen", "notes": "Positive in both Appen and Sankey. Primary glass former."},
+    "B2O3": {"value": -2.0, "source": "Sankey midpoint", "notes": "Ranges -5 to 0 depending on glass structure. Midpoint used."},
+    "TiO2": {"value": -1.0, "source": "Sankey", "notes": "Highly variable. Depends on crystallization."},
+    "ZrO2": {"value": -6.0, "source": "Appen", "notes": "Negative expansion — used to lower glaze CTE"},
+    "Cr2O3": {"value": 5.0, "source": "Sankey estimate", "notes": "Low, approximate"},
+    "MnO": {"value": 5.5, "source": "Sankey estimate", "notes": "Approximate"},
+    "P2O5": {"value": 5.0, "source": "Sankey estimate", "notes": "Approximate"}
+  },
+  "debated_values": {
+    "Al2O3": {
+      "appen": -3.0,
+      "sankey": 4.2,
+      "recommendation": "Use Sankey's +4.2 for most stoneware glazes. Appen's -3 may apply in highly siliceous glasses.",
+      "impact": "Affects whether alumina increases or decreases glaze CTE. Sankey's value means alumina slightly raises CTE, which matches practical observation that high-alumina glazes can craze less."
+    },
+    "MgO": {
+      "appen": 6.0,
+      "sankey": 3.4,
+      "recommendation": "Use Sankey's 3.4. MgO's low expansion is well-established in practice.",
+      "impact": "MgO is known to reduce glaze CTE in practice. Sankey's lower value matches this."
+    }
+  }
+}

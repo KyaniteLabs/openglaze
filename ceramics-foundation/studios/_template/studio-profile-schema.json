@@ -1,0 +1,54 @@
+# Studio Profile Template
+
+This directory contains the schema for creating studio profiles.
+
+## Required Files
+
+Each studio should have:
+- `profile.json` — Studio metadata (name, location, type, zones)
+- `clays.json` — Clay bodies used at the studio
+- `glazes/` — Glaze collections (YAML files per collection)
+
+## profile.json Schema
+
+```json
+{
+  "name": "Studio Name",
+  "location": "Address",
+  "type": "membership_studio | community_studio | school | production",
+  "instagram": "@handle",
+  "website": "url",
+  "zones": {
+    "zone_name": {
+      "cone": "5",
+      "atmosphere": "oxidation | reduction",
+      "clay": "Clay Body Name",
+      "kiln_type": "electric | gas | wood"
+    }
+  }
+}
+```
+
+## clays.json Schema
+
+```json
+{
+  "version": "1.0",
+  "studio": "Studio Name",
+  "last_updated": "YYYY-MM-DD",
+  "clays": [
+    {
+      "name": "Clay Name",
+      "cone": "5",
+      "type": "stoneware | earthenware | porcelain",
+      "firing": "oxidation | reduction",
+      "use": "zone_name",
+      "notes": "Optional notes"
+    }
+  ]
+}
+```
+
+## Glaze Collection YAML Schema
+
+Follow the same format as `default/glazes/member-cone5-oxidation.yaml`.

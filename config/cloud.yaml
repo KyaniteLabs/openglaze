@@ -1,0 +1,113 @@
+# OpenGlaze Cloud Mode Configuration
+# Multi-tenant, PostgreSQL, auth via Ory Kratos
+# Last updated: March 2026
+
+mode: cloud
+
+features:
+  glaze_crud: true
+  combinations: true
+  experiments: true
+  kama_ai: true
+  templates: true
+  multi_user: true
+  analytics: true
+  api_access: true
+  billing: true
+
+database:
+  type: postgresql
+  # All database credentials MUST be provided via environment variables
+  # No defaults for security - application will fail to start if not configured
+  host: ${POSTGRES_HOST}
+  port: ${POSTGRES_PORT:5432}
+  name: ${POSTGRES_DB:openglaze}
+  user: ${POSTGRES_USER:openglaze}
+  password: ${POSTGRES_PASSWORD}  # REQUIRED - no default for security
+  pool_size: ${DB_POOL_SIZE:10}
+  max_overflow: ${DB_MAX_OVERFLOW:20}
+  pool_timeout: ${DB_POOL_TIMEOUT:30}
+
+auth:
+  enabled: true
+  provider: ory_kratos
+  endpoint: ${ORY_KRATOS_ENDPOINT}
+  admin_endpoint: ${ORY_KRATOS_ADMIN_ENDPOINT}
+  # JWT validation settings
+  jwt_algorithm: RS256
+  jwt_issuer: ${JWT_ISSUER:openglaze}
+  jwt_audience: ${JWT_AUDIENCE:openglaze-api}
+
+billing:
+  enabled: true
+  provider: stripe
+  api_key: ${STRIPE_API_KEY}  # REQUIRED - no default
+  webhook_secret: ${STRIPE_WEBHOOK_SECRET}  # REQUIRED - no default
+  tiers:
+    free:
+      price: 0
+      max_users: 1
+      features:
+        - glaze_crud
+        - combinations
+        - experiments
+        - kama_ai
+        - templates
+    pro:
+      price_id: ${STRIPE_PRO_PRICE_ID}
+      max_users: 2
+      features:
+        - analytics
+        - api_access
+    studio:
+      price_id: ${STRIPE_STUDIO_PRICE_ID}
+      max_users: 10
+      features:
+        - analytics
+        - api_access
+        - priority_support
+
+security:
+  rate_limiting:
+    enabled: true
+    requests_per_minute: ${RATELIMIT_PER_MINUTE:60}
+    storage_url: ${RATELIMIT_STORAGE_URL:redis://localhost:6379}
+  cors:
+    origins: ${CORS_ORIGINS}
+    methods:
+      - GET
+      - POST
+      - PUT
+      - DELETE
+    allow_headers:
+      - Content-Type
+      - Authorization
+    credentials: true
+  session:
+    cookie_secure: ${SESSION_COOKIE_SECURE:true}
+    cookie_httponly: ${SESSION_COOKIE_HTTPONLY:true}
+    cookie_samesite: ${SESSION_COOKIE_SAMESITE:Lax}
+  https:
+    enforce: ${HTTPS_ENFORCE:true}
+    hsts_max_age: ${HSTS_MAX_AGE:31536000}
+
+theme:
+  default: light
+
+ai:
+  provider: anthropic
+  model: ${ANTHROPIC_MODEL:claude-sonnet-4-6}
+  api_key: ${ANTHROPIC_API_KEY}  # REQUIRED - no default
+  max_tokens: ${AI_MAX_TOKENS:4096}
+  temperature: ${AI_TEMPERATURE:0.7}
+
+server:
+  host: ${FLASK_HOST:0.0.0.0}
+  port: ${FLASK_PORT:8080}
+  debug: false  # NEVER enable debug in production
+  workers: ${GUNICORN_WORKERS:4}
+
+logging:
+  level: ${LOG_LEVEL:INFO}
+  format: ${LOG_FORMAT:json}
+  sentry_dsn: ${SENTRY_DSN}  # Optional - for error tracking

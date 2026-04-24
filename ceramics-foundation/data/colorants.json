@@ -1,0 +1,130 @@
+{
+  "version": "1.0",
+  "source": "Digitalfire, Glazy, studio testing",
+  "last_updated": "2026-03-17",
+  "colorants": {
+    "iron_oxide": {
+      "name": "Iron Oxide (Red/Black)",
+      "forms": ["Red Iron Oxide (Fe2O3)", "Black Iron Oxide (Fe3O4)", "Yellow Iron Oxide (FeOOH)"],
+      "percentage_ranges": {
+        "celadon": {"min": 0.5, "max": 2.0, "atmosphere": "reduction", "color": "pale to deep celadon green"},
+        "amber_tan": {"min": 2.0, "max": 4.0, "atmosphere": "oxidation", "color": "amber, tan, honey"},
+        "tenmoku": {"min": 5.0, "max": 8.0, "atmosphere": "reduction", "color": "dark brown to black"},
+        "iron_spot": {"min": 8.0, "max": 12.0, "atmosphere": "reduction", "color": "iron spots, oil spot effects"},
+        "iron_red_oxidation": {"min": 6.0, "max": 10.0, "atmosphere": "oxidation", "color": "warm red (requires slow cooling 1800-1600F, fluid base with high B2O3/Li2O/ZnO, cone 5-6)"},
+        "iron_red_reduction": {"min": 8.0, "max": 12.0, "atmosphere": "reduction", "color": "red to maroon (heavy iron saturation, beyond tenmoku, cone 10)"}
+      },
+      "base_chemistry_modifiers": {
+        "calcium_heavy": "Pushes iron toward celadon/yellow-green. Calcium promotes celadon color in reduction.",
+        "potassium_heavy": "Allows deeper greens in reduction, warmer reds in oxidation.",
+        "high_boron": "Can wash out celadon color, shift toward brown tones.",
+        "low_alumina": "Iron acts more as a flux, glaze runs more, color may be more intense.",
+        "high_alumina": "Iron color may be muted, more stable surface."
+      },
+      "flux_effect": "Iron acts as a secondary flux. Above ~5%, it significantly lowers melting temperature and increases running risk.",
+      "safety": "inert"
+    },
+    "copper_oxide": {
+      "name": "Copper Oxide / Carbonate",
+      "forms": ["Copper Oxide Black (CuO)", "Copper Carbonate (CuCO3)"],
+      "percentage_ranges": {
+        "pale_blush": {"min": 0.25, "max": 0.5, "atmosphere": "reduction", "color": "pale blush pink"},
+        "copper_red": {"min": 0.5, "max": 2.0, "atmosphere": "heavy_reduction", "color": "copper red to oxblood (difficult, ~50-60% failure rate)"},
+        "green": {"min": 1.0, "max": 2.0, "atmosphere": "oxidation", "color": "green, turquoise"},
+        "deep_green": {"min": 2.0, "max": 5.0, "atmosphere": "oxidation", "color": "deep green to dark green"},
+        "metallic_luster": {"min": 1.0, "max": 3.0, "atmosphere": "heavy_reduction", "color": "metallic luster, sometimes purple"}
+      },
+      "base_chemistry_modifiers": {
+        "calcium_heavy": "Produces turquoise-greens in oxidation.",
+        "sodium_heavy": "Shifts toward blue-green.",
+        "low_alumina_high_silica": "Required for copper red development.",
+        "tin_present": "With copper, can produce pink-red in oxidation.",
+        "zinc_present": "Can shift copper color development unpredictably."
+      },
+      "flux_effect": "Copper acts as a flux. High amounts make glaze runnier.",
+      "copper_red_requirements": "Heavy reduction timing (not too early), slow controlled cooling through 1500-1800°F, thick application, low-alumina high-silica base.",
+      "safety": "low_risk — can leach under acidic conditions in functional ware"
+    },
+    "cobalt_oxide": {
+      "name": "Cobalt Oxide / Carbonate",
+      "forms": ["Cobalt Oxide (CoO)", "Cobalt Carbonate (CoCO3)"],
+      "percentage_ranges": {
+        "pale_blue": {"min": 0.25, "max": 0.5, "atmosphere": "any", "color": "pale sky blue"},
+        "medium_blue": {"min": 0.5, "max": 1.0, "atmosphere": "any", "color": "medium blue"},
+        "deep_blue": {"min": 1.0, "max": 2.0, "atmosphere": "any", "color": "deep cobalt blue"},
+        "near_black": {"min": 2.0, "max": 4.0, "atmosphere": "any", "color": "very dark blue approaching black"}
+      },
+      "base_chemistry_modifiers": {
+        "magnesium_present": "Shifts toward lavender/violet.",
+        "iron_present": "Produces blue-green (teal) combinations.",
+        "manganese_present": "Produces purple to gray-purple.",
+        "high_zinc": "Can brighten blue or shift toward blue-green."
+      },
+      "flux_effect": "Minimal flux effect. Cobalt is primarily a colorant.",
+      "safety": "inert at ceramic percentages"
+    },
+    "manganese_dioxide": {
+      "name": "Manganese Dioxide",
+      "forms": ["Manganese Dioxide (MnO2)", "Manganese Carbonate (MnCO3)"],
+      "percentage_ranges": {
+        "purple": {"min": 2.0, "max": 4.0, "atmosphere": "oxidation", "color": "purple, lavender"},
+        "warm_brown": {"min": 4.0, "max": 8.0, "atmosphere": "oxidation", "color": "warm brown"},
+        "metallic_black": {"min": 3.0, "max": 8.0, "atmosphere": "reduction", "color": "metallic brown to black"}
+      },
+      "base_chemistry_modifiers": {
+        "cobalt_present": "Produces purple-blue combinations.",
+        "iron_present": "Produces brown to black combinations.",
+        "high_flux": "Increases volatility risk at cone 6+."
+      },
+      "safety_warning": "Manganese becomes volatile above ~1900°F (1040°C). Toxic fumes. Always use kiln ventilation. Some studios avoid manganese entirely.",
+      "safety": "fume_hazard"
+    },
+    "chromium_oxide": {
+      "name": "Chromium Oxide",
+      "forms": ["Chromium Oxide (Cr2O3)"],
+      "percentage_ranges": {
+        "green": {"min": 0.5, "max": 2.0, "atmosphere": "any", "color": "strong green"},
+        "chrome_tin_pink": {"min": 0.5, "max": 1.5, "atmosphere": "oxidation", "color": "pink to mauve (requires tin oxide)"},
+        "chrome_green_to_black": {"min": 2.0, "max": 4.0, "atmosphere": "any", "color": "very dark green to black"}
+      },
+      "base_chemistry_modifiers": {
+        "tin_present": "Produces chrome-tin pink (oxidation best).",
+        "zinc_present": "TURNS PINK BROWN — avoid zinc in chrome-tin pink bases.",
+        "reduction": "Chrome may reduce to darker compounds, muting the pink."
+      },
+      "safety": "low_risk — Cr(III) is relatively safe in glazes"
+    },
+    "rutile": {
+      "name": "Rutile (Titanium Dioxide + Iron)",
+      "forms": ["Rutile (TiO2 ~85% + Fe2O3 ~10%)", "Titanium Dioxide pure (TiO2)"],
+      "percentage_ranges": {
+        "subtle_blue": {"min": 4.0, "max": 8.0, "atmosphere": "any", "color": "subtle blue, tan variegation"},
+        "rutile_blue": {"min": 8.0, "max": 12.0, "atmosphere": "any", "color": "blue with iron speckles"},
+        "opacifier": {"min": 2.0, "max": 6.0, "atmosphere": "any", "color": "semi-opaque, mottled texture"}
+      },
+      "base_chemistry_modifiers": {
+        "calcium_present": "Enhances blue tones in rutile.",
+        "low_iron": "More predictable blue effects.",
+        "high_iron": "More brown/tan variegation, speckled effects."
+      },
+      "notes": "Rutile is impure titanium dioxide. Results are inherently unpredictable and position-dependent in the kiln. This unpredictability is part of its appeal.",
+      "safety": "inert"
+    },
+    "tin_oxide": {
+      "name": "Tin Oxide",
+      "forms": ["Tin Oxide (SnO2)"],
+      "percentage_ranges": {
+        "opacifier": {"min": 5.0, "max": 15.0, "atmosphere": "any", "color": "white opaque"},
+        "chrome_tin_pink": {"min": 4.0, "max": 10.0, "atmosphere": "oxidation", "color": "pink (with chromium oxide)"},
+        "copper_pink": {"min": 5.0, "max": 10.0, "atmosphere": "oxidation", "color": "pink (with copper carbonate)"}
+      },
+      "base_chemistry_modifiers": {
+        "chromium_present": "Produces pink (oxidation). Too much chrome = green.",
+        "copper_present": "Can produce pink-red in oxidation.",
+        "zinc_present": "May reduce opacification effectiveness."
+      },
+      "notes": "Expensive but effective opacifier. Produces cleaner white than zirconium. Low toxicity.",
+      "safety": "inert"
+    }
+  }
+}

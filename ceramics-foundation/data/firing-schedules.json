@@ -1,0 +1,56 @@
+{
+  "version": "1.0",
+  "source": "Orton Cone Chart, SDS Industries (KilnControl), Glazy, Digitalfire",
+  "last_updated": "2026-03-17",
+  "bisque_cone_06": {
+    "purpose": "Create porous yet sturdy form for glazing, burn out organic materials",
+    "target_cone": "06",
+    "estimated_time": "12-14 hours for tightly packed kiln",
+    "schedule": [
+      {"step": 1, "rate_f_per_hr": 80, "rate_c_per_hr": 44, "target_f": 250, "target_c": 121, "hold_minutes": 0, "purpose": "Gentle initial heating to remove residual moisture"},
+      {"step": 2, "rate_f_per_hr": 200, "rate_c_per_hr": 111, "target_f": 1000, "target_c": 538, "hold_minutes": 0, "purpose": "Ramp through water smoking and early decomposition"},
+      {"step": 3, "rate_f_per_hr": 100, "rate_c_per_hr": 56, "target_f": 1100, "target_c": 593, "hold_minutes": 0, "purpose": "Slow through quartz inversion (1060F / 573C)"},
+      {"step": 4, "rate_f_per_hr": 180, "rate_c_per_hr": 100, "target_f": 1695, "target_c": 924, "hold_minutes": 0, "purpose": "Continue to approach bisque temperature"},
+      {"step": 5, "rate_f_per_hr": 80, "rate_c_per_hr": 44, "target_f": 1832, "target_c": 1000, "hold_minutes": 0, "purpose": "Final approach to cone 06"}
+    ],
+    "critical_temperatures": [
+      {"name": "boiling_point", "celsius": 100, "fahrenheit": 212, "description": "Water must evaporate slowly to prevent explosions"},
+      {"name": "quartz_inversion", "celsius": 573, "fahrenheit": 1063, "description": "Structural change in silica — causes stress, risk of cracking"},
+      {"name": "carbon_burnout_start", "celsius": 400, "fahrenheit": 752, "description": "Organic materials begin burning out"},
+      {"name": "carbon_burnout_end", "celsius": 700, "fahrenheit": 1292, "description": "Organic materials fully burned out"}
+    ]
+  },
+  "glaze_cone_10_reduction": {
+    "purpose": "Mature high-fire glazes in reduction atmosphere",
+    "target_cone": "10",
+    "estimated_time": "12-16 hours depending on kiln size and loading",
+    "atmosphere_schedule": [
+      {"phase": "initial_oxidation", "range": "Room temp to Cone 010 (~898C / 1648F)", "purpose": "Prepare work, complete early oxidation", "characteristics": "Blue flame, clear atmosphere"},
+      {"phase": "reduction", "range": "Cone 010 to Cone 9 (~898C to 1257C / 1648F to 2295F)", "purpose": "Create reduction effects in clay body and glazes", "characteristics": "Orange/yellow flames, murky atmosphere"},
+      {"phase": "final_oxidation", "range": "Cone 9 to Cone 10 (final 20 minutes)", "purpose": "Smoother, brighter glaze surfaces", "characteristics": "Return to oxidizing atmosphere", "optional": true}
+    ],
+    "temperature_schedule": [
+      {"step": 1, "rate_f_per_hr": 150, "rate_c_per_hr": 83, "target_f": 250, "target_c": 121, "hold_minutes": 0, "purpose": "Gentle heating, prevent thermal shock"},
+      {"step": 2, "rate_f_per_hr": 350, "rate_c_per_hr": 194, "target_f": 2050, "target_c": 1121, "hold_minutes": 0, "purpose": "Ramp through quartz inversion and early stages"},
+      {"step": 3, "rate_f_per_hr": 120, "rate_c_per_hr": 66, "target_f": 2250, "target_c": 1232, "hold_minutes": 0, "purpose": "Slower approach to peak temperature"},
+      {"step": 4, "rate_f_per_hr": 60, "rate_c_per_hr": 33, "target_f": 2290, "target_c": 1254, "hold_minutes": 0, "purpose": "Very slow approach to final temperature"},
+      {"step": 5, "rate_f_per_hr": 40, "rate_c_per_hr": 22, "target_f": 2315, "target_c": 1268, "hold_minutes": 15, "purpose": "Peak temperature hold for glaze maturity"}
+    ],
+    "controlled_cooling": [
+      {"step": 1, "rate_f_per_hr": 400, "rate_c_per_hr": 222, "target_f": 1700, "target_c": 926, "hold_minutes": 90, "purpose": "Crystal development and stress relief"}
+    ],
+    "cooling_hazards": [
+      {"name": "quartz_inversion", "celsius": 573, "fahrenheit": 1063, "description": "Avoid rapid cooling — structural change causes cracking"},
+      {"name": "cristobalite_conversion", "celsius": 225, "fahrenheit": 437, "description": "Avoid rapid cooling — cristobalite inversion causes dunting"}
+    ]
+  },
+  "cone_temperatures": {
+    "06": {"slow_c": 995, "fast_c": 1011, "use": "Standard bisque firing"},
+    "04": {"slow_c": 1060, "fast_c": 1070, "use": "Low-fire glaze temperature"},
+    "5": {"slow_c": 1184, "fast_c": 1205, "use": "Mid-range stoneware"},
+    "6": {"slow_c": 1220, "fast_c": 1241, "use": "Mid-range glaze temperature"},
+    "8": {"slow_c": 1247, "fast_c": 1269, "use": "High-fire stoneware"},
+    "10": {"slow_c": 1249, "fast_c": 1305, "use": "High-fire reduction, porcelain range"},
+    "notes": "Temperatures vary by heating rate — slower ramps require lower temperatures due to heatwork (time + temperature)"
+  }
+}

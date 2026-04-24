@@ -1,0 +1,157 @@
+{
+  "version": "1.0",
+  "source": "OpenGlaze chemistry rules with ceramic science caveats",
+  "last_updated": "2026-03-17",
+  "rules": [
+    {
+      "category": "color_prediction",
+      "subcategory": "oxide_atmosphere",
+      "name": "Iron 2% + oxidation = amber/tan",
+      "description": "Iron oxide at ~2% in an oxidation (oxygen-rich) atmosphere produces warm amber to tan colors.",
+      "conditions": "Iron oxide 2%, oxidation atmosphere",
+      "outcome": "Amber, tan, or light brown",
+      "caveat": "Color varies with base glaze chemistry and iron source (red iron oxide vs black iron oxide). Calcium-heavy bases shift toward yellow-tan; potassium-heavy bases allow warmer reds.",
+      "confidence": "high"
+    },
+    {
+      "category": "color_prediction",
+      "subcategory": "oxide_atmosphere",
+      "name": "Iron 2% + reduction = celadon green",
+      "description": "Iron oxide at ~2% in a reduction (oxygen-depleted) atmosphere produces the classic celadon green.",
+      "conditions": "Iron oxide 2%, reduction atmosphere",
+      "outcome": "Celadon green to blue-green",
+      "caveat": "Depth of green depends on reduction intensity. Light reduction = gray-green; heavy reduction = deeper green. Calcium promotes celadon color; high boron can wash it out.",
+      "confidence": "high"
+    },
+    {
+      "category": "color_prediction",
+      "subcategory": "oxide_atmosphere",
+      "name": "Copper 1% + oxidation = green",
+      "description": "Copper oxide at ~1% in oxidation produces reliable greens ranging from mint to forest green.",
+      "conditions": "Copper oxide 1%, oxidation atmosphere",
+      "outcome": "Green (mint to forest)",
+      "caveat": "Higher copper percentages deepen the green. Above ~3% may produce very dark green approaching black. Calcium fluxes produce turquoise-greens; sodium fluxes shift toward blue-green.",
+      "confidence": "high"
+    },
+    {
+      "category": "color_prediction",
+      "subcategory": "oxide_atmosphere",
+      "name": "Copper 1% + heavy reduction = copper red",
+      "description": "Copper oxide at ~1% in heavy reduction CAN produce copper red (sang de boeuf), but this is one of the most difficult and unpredictable effects in ceramics.",
+      "conditions": "Copper oxide 1%, heavy reduction atmosphere, controlled cooling, thick application",
+      "outcome": "Copper red to oxblood red — when it works",
+      "caveat": "~50-60% failure rate for beginners, improving to 20-40% with experience. Requires: precise reduction timing (not too early or copper re-oxidizes), slow controlled cooling through 1500°F-1800°F, thick application (thin coats go green), specific base chemistry (low alumina, adequate silica). Many potters fire dozens of pieces before achieving consistent results. Consider this advanced.",
+      "confidence": "medium"
+    },
+    {
+      "category": "color_prediction",
+      "subcategory": "oxide_stable",
+      "name": "Cobalt 0.5-2% = blue in any atmosphere",
+      "description": "Cobalt oxide is among the most reliable ceramic colorants. Small amounts produce strong blues in most atmospheres, though magnesium can shift toward lavender and iron toward blue-green.",
+      "conditions": "Cobalt oxide 0.5-2%, any atmosphere",
+      "outcome": "Blue — from pale sky blue (0.5%) to deep cobalt blue (2%)",
+      "caveat": "Cobalt is very strong. Above 2% it tends toward black. Combined with iron it produces blue-greens. With magnesium it can produce lavender.",
+      "confidence": "high"
+    },
+    {
+      "category": "color_prediction",
+      "subcategory": "oxide_atmosphere",
+      "name": "Manganese 2-8% + oxidation = purple/brown",
+      "description": "Manganese dioxide at 2-8% in oxidation produces purples and browns. Lower percentages give purple, higher give brown.",
+      "conditions": "Manganese dioxide 2-8%, oxidation atmosphere",
+      "outcome": "Purple (low %) to warm brown (high %)",
+      "caveat": "Manganese can become volatile at cone 6+ temperatures, potentially affecting nearby pieces. Use ventilation.",
+      "confidence": "high"
+    },
+    {
+      "category": "color_prediction",
+      "subcategory": "oxide_atmosphere",
+      "name": "Manganese + reduction = metallic brown/black",
+      "description": "Manganese in reduction produces metallic browns and blacks. The reduction atmosphere changes the color significantly compared to oxidation.",
+      "conditions": "Manganese dioxide, reduction atmosphere",
+      "outcome": "Metallic brown to black",
+      "caveat": "WARNING: Manganese fumes are toxic during firing. Always fire with adequate ventilation. Some studios avoid manganese entirely for health reasons.",
+      "confidence": "high"
+    },
+    {
+      "category": "color_prediction",
+      "subcategory": "oxide_interaction",
+      "name": "Chrome + tin = pink",
+      "description": "Chromium oxide combined with tin oxide produces pink. This is a classic ceramic color interaction.",
+      "conditions": "Chromium oxide + tin oxide in base glaze",
+      "outcome": "Pink to mauve",
+      "caveat": "Very sensitive to proportions. Too much chrome = green; too much tin = white. The sweet spot is narrow. Chrome can also cause glaze defects (crawling, pinholing) in some bases. CRITICAL: Zinc in the base glaze will turn chrome-tin pinks brown. Use zinc-free bases for reliable pinks. Best results in oxidation. In reduction, chrome may reduce to darker compounds, muting the pink.",
+      "confidence": "medium"
+    },
+    {
+      "category": "layering_principle",
+      "subcategory": "compatibility",
+      "name": "Similar chemistry = compatible",
+      "description": "Glazes with similar base chemistry (same flux family, similar thermal expansion) tend to be compatible when layered.",
+      "conditions": "Two glazes with similar silica/alumina/flux ratios",
+      "outcome": "Low risk of defects (crawling, crazing, shivering)",
+      "caveat": "Similar chemistry is a guideline, not a guarantee. Application thickness and drying time between layers also matter.",
+      "confidence": "high"
+    },
+    {
+      "category": "layering_principle",
+      "subcategory": "compatibility",
+      "name": "Shino over non-Shino = high risk crawling",
+      "description": "Shino glazes have high feldspar content and can crawl when applied over glazes with different chemistry. Risk level: MODERATE to HIGH depending on base glaze chemistry and application.",
+      "conditions": "Shino glaze over non-Shino base",
+      "outcome": "MODERATE to HIGH risk of crawling (glaze pulls away from surface in patches)",
+      "caveat": "Some combinations do work, especially if the base glaze is also high in feldspar. Some potters intentionally chase crawl textures for aesthetic effect. If you want to try it: apply Shino thin, apply over a similar high-feldspar base, and accept that results will vary. NOT guaranteed to crawl.",
+      "confidence": "high"
+    },
+    {
+      "category": "layering_principle",
+      "subcategory": "material_interaction",
+      "name": "Zinc affects multiple colorants",
+      "description": "Zinc oxide in a base glaze interacts with several colorants, sometimes in unwanted ways. Understanding zinc interactions is important when choosing glazes to layer.",
+      "conditions": "Zinc oxide present in base glaze",
+      "outcome": "Chrome-tin pinks turn brown; copper color development can shift; iron greens may become lighter or browner",
+      "caveat": "Always check base glaze for zinc before applying chrome-tin pink glazes. Some popular clear glazes contain zinc and will ruin pinks.",
+      "confidence": "high"
+    },
+    {
+      "category": "common_issue",
+      "subcategory": "defect",
+      "name": "Crawling",
+      "description": "Crawling occurs when glaze pulls away from the clay body during firing, leaving bare patches. It's caused by poor adhesion between glaze and body, or incompatibility between layered glazes.",
+      "conditions": "Dust on bisque, greasy surface, incompatible layered glazes, glaze applied too thick, Shino over non-Shino, high clay content (especially Shinos), poor bisque prep (dust/oil)",
+      "outcome": "Bare patches where glaze has receded, sometimes with sharp edges",
+      "caveat": "Light crawling can be intentional and beautiful. Prevent by: cleaning bisque with damp sponge, letting each layer dry fully before applying next, keeping first layer thin, wiping bisque with damp sponge, thinner coats on Shinos.",
+      "confidence": "high"
+    },
+    {
+      "category": "surface_prediction",
+      "subcategory": "ratio_rule",
+      "name": "SiO2:Al2O3 ratio predicts surface",
+      "description": "The SiO2:Al2O3 ratio is the single most useful predictor of glaze surface character. Higher ratios favor gloss, lower ratios favor matte.",
+      "conditions": "Any stoneware glaze, cone 6-10",
+      "outcome": "Above 10: high gloss; 7-10: glossy; 4-7: satin; 1.5-4: matte; below 1.5: dry/underfired",
+      "caveat": "High-flux glazes (CaO, B2O3) may be glossy at lower ratios. Underfired glazes may appear matte regardless of ratio. Cooling rate affects surface development.",
+      "confidence": "high"
+    },
+    {
+      "category": "application_effect",
+      "subcategory": "material_property",
+      "name": "Boron as a powerful flux",
+      "description": "Boron (from borax, gerstley borate, or frits) is a very powerful flux that lowers melting temperature significantly. It affects color development and can cause running at high temperatures.",
+      "conditions": "Boron-containing materials in glaze",
+      "outcome": "Lower melting temperature, potential color shifts, increased running risk",
+      "caveat": "Boron can turn some blue glazes green and affect chrome-based colors. High boron glazes may run more than expected. Common in many commercial low-fire and mid-range glazes.",
+      "confidence": "high"
+    },
+    {
+      "category": "food_safety",
+      "subcategory": "combinational",
+      "name": "Food safety is combinational",
+      "description": "Food safety requires all three: safe chemistry + intact surface + proper firing. One weak link breaks the chain.",
+      "conditions": "Any glazed vessel intended for food or beverage contact",
+      "outcome": "Safe glaze: fully mature, smooth surface, no toxic leaching, passes acid test",
+      "caveat": "Matte surfaces from underfiring are the primary leaching risk. True matte glazes (high alumina, fully fired) can be food safe. The acid test (lemon juice, 24h) is the simplest at-home screening.",
+      "confidence": "high"
+    }
+  ]
+}

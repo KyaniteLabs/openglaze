@@ -1,0 +1,22 @@
+{
+  "name": "Default Studio",
+  "location": "Your Studio Location",
+  "type": "membership_studio",
+  "instagram": "@yourstudio",
+  "website": "yourstudio.com",
+  "zones": {
+    "member_studio": {
+      "cone": "10",
+      "atmosphere": "reduction",
+      "clay": "Laguna B-Mix 10",
+      "kiln_type": "gas"
+    },
+    "class_studio": {
+      "cone": "5",
+      "atmosphere": "oxidation",
+      "clay": "Laguna B-Mix 5",
+      "kiln_type": "electric"
+    }
+  },
+  "notes": "Default studio profile. Copy this directory and customize for your own studio."
+}

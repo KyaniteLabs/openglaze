@@ -1,0 +1,48 @@
+name: Strontium Crystal Matte
+source: Pete Pinnell
+cone: "6"  # Note: Original is cone 6, studio may use cone 10 variation
+atmosphere: reduction
+recipe:
+  - material: Nepheline Syenite
+    amount: 60.00
+  - material: Strontium Carbonate
+    amount: 20.00
+  - material: Ball Clay
+    amount: 10.00
+  - material: Silica
+    amount: 9.00
+  - material: Lithium Carbonate
+    amount: 1.00
+additions:
+  - material: Titanium Dioxide
+    amount: 5.00
+    notes: Creates crystal formation
+  - material: Copper Carbonate
+    amount: 2.50
+    notes: For turquoise color
+color: Variable base with crystal formations
+surface: Matte with visible crystal structures
+notes: |
+  Pete Pinnell's famous strontium matte with crystal formation.
+  - Crystals form during slow cooling
+  - Base recipe can be modified with different colorants
+  - Titanium dioxide promotes crystal growth
+  - Works best with controlled cooling cycle
+  - Glazy #33211 'Strontium Crystal Magic'
+  - Also Glazy #504 'Pinnell Strontium Matte'
+food_safe: true
+tested: false
+date_documented: "2026-03-15"
+references:
+  - https://ceramicartsnetwork.org/ceramic-recipes/recipe/Pinnell-Strontium-Matt-Glaze-142991
+  - Glazy.org
+---
+# Cone 10 Variation
+name: Strontium Crystal (Cone 10)
+source: Pete Pinnell adaptation
+cone: "10"
+atmosphere: reduction
+notes: |
+  Cone 10 adaptation may require adjustments to flux ratio.
+  Strontium becomes more active at higher temperatures.
+  Test small batch before committing to large scale.

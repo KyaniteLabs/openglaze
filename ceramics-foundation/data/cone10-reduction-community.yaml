@@ -1,0 +1,523 @@
+# Cone 10 Reduction - Community Edition
+# A collection of classic reduction glazes for high-fire ceramics
+#
+# License: CC-BY (Free to use, modify, and share with attribution)
+
+id: cone10-reduction-community
+name: Cone 10 Reduction (Community)
+version: 1.0.0
+author: Glaze Lab Community
+license: CC-BY-4.0
+premium: false
+
+description: |
+  A curated collection of 15 reliable cone 10 reduction glazes.
+  Perfect for gas or wood kilns firing to Orton cone 10 (~2350°F / 1285°C).
+
+tags:
+  - cone10
+  - reduction
+  - high-fire
+  - gas-kiln
+  - wood-fire
+
+# Glaze collection
+glazes:
+  # ==========================================================================
+  # CLEAR/GLASS GLAZES
+  # ==========================================================================
+
+  - name: Clear Base
+    cone: "10"
+    atmosphere: reduction
+    base_type: transparent
+    surface: smooth
+    color: clear
+    transparency: transparent
+    notes: |
+      Reliable clear glaze base. Add colorants for custom colors.
+      Good over most slips and underglazes.
+    recipe:
+      - ingredient: Potash Feldspar
+        amount: 45
+        unit: "%"
+      - ingredient: Silica
+        amount: 25
+        unit: "%"
+      - ingredient: Whiting
+        amount: 15
+        unit: "%"
+      - ingredient: Kaolin
+        amount: 10
+        unit: "%"
+      - ingredient: Bentonite
+        amount: 2
+        unit: "%"
+
+  - name: Chun Blue
+    cone: "10"
+    atmosphere: reduction
+    base_type: transparent
+    surface: smooth
+    color: light blue
+    transparency: transparent
+    notes: |
+      Beautiful pale blue with subtle opalescent quality.
+      Works well over carved surfaces.
+    recipe:
+      - ingredient: Potash Feldspar
+        amount: 40
+        unit: "%"
+      - ingredient: Silica
+        amount: 30
+        unit: "%"
+      - ingredient: Whiting
+        amount: 15
+        unit: "%"
+      - ingredient: Kaolin
+        amount: 10
+        unit: "%"
+      - ingredient: Rutile
+        amount: 3
+        unit: "%"
+      - ingredient: Cobalt Carbonate
+        amount: 0.5
+        unit: "%"
+
+  # ==========================================================================
+  # TEMMOKU/GLASS BLACK
+  # ==========================================================================
+
+  - name: Temmoku
+    cone: "10"
+    atmosphere: reduction
+    base_type: glossy
+    surface: smooth
+    color: black/brown
+    transparency: semi-opaque
+    notes: |
+      Classic temmoku with rich brown-black color and amber breaks.
+      Thicker application for darker color, thinner for rust highlights.
+    recipe:
+      - ingredient: Potash Feldspar
+        amount: 42
+        unit: "%"
+      - ingredient: Silica
+        amount: 20
+        unit: "%"
+      - ingredient: Whiting
+        amount: 12
+        unit: "%"
+      - ingredient: Kaolin
+        amount: 10
+        unit: "%"
+      - ingredient: Red Iron Oxide
+        amount: 10
+        unit: "%"
+      - ingredient: Bone Ash
+        amount: 4
+        unit: "%"
+
+  - name: Oil Spot
+    cone: "10"
+    atmosphere: reduction
+    base_type: glossy
+    surface: textured
+    color: black with gold spots
+    transparency: semi-opaque
+    notes: |
+      Traditional oil spot temmoku. Apply thick for best spotting.
+      Requires controlled cooling for optimal spot formation.
+    recipe:
+      - ingredient: Custer Feldspar
+        amount: 45
+        unit: "%"
+      - ingredient: Silica
+        amount: 18
+        unit: "%"
+      - ingredient: Whiting
+        amount: 12
+        unit: "%"
+      - ingredient: Kaolin
+        amount: 8
+        unit: "%"
+      - ingredient: Red Iron Oxide
+        amount: 12
+        unit: "%"
+      - ingredient: Bentonite
+        amount: 3
+        unit: "%"
+
+  # ==========================================================================
+  # CELADON/GLASS GREEN
+  # ==========================================================================
+
+  - name: Celadon Green
+    cone: "10"
+    atmosphere: reduction
+    base_type: transparent
+    surface: smooth
+    color: green
+    transparency: transparent
+    notes: |
+      Traditional celadon with jade-like green color.
+      Best over carved or textured surfaces where pooling occurs.
+    recipe:
+      - ingredient: Potash Feldspar
+        amount: 38
+        unit: "%"
+      - ingredient: Silica
+        amount: 28
+        unit: "%"
+      - ingredient: Whiting
+        amount: 18
+        unit: "%"
+      - ingredient: Kaolin
+        amount: 10
+        unit: "%"
+      - ingredient: Talc
+        amount: 4
+        unit: "%"
+      - ingredient: Red Iron Oxide
+        amount: 2
+        unit: "%"
+
+  - name: Chun Celadon
+    cone: "10"
+    atmosphere: reduction
+    base_type: transparent
+    surface: smooth
+    color: blue-green
+    transparency: transparent
+    notes: |
+      Hybrid of chun and celadon with opalescent blue-green.
+      Requires moderate reduction for best color development.
+    recipe:
+      - ingredient: Potash Feldspar
+        amount: 40
+        unit: "%"
+      - ingredient: Silica
+        amount: 25
+        unit: "%"
+      - ingredient: Whiting
+        amount: 15
+        unit: "%"
+      - ingredient: Kaolin
+        amount: 10
+        unit: "%"
+      - ingredient: Dolomite
+        amount: 6
+        unit: "%"
+      - ingredient: Red Iron Oxide
+        amount: 1.5
+        unit: "%"
+      - ingredient: Rutile
+        amount: 2
+        unit: "%"
+
+  # ==========================================================================
+  # SHINO/GLAZE
+  # ==========================================================================
+
+  - name: Carbon Trap Shino
+    cone: "10"
+    atmosphere: reduction
+    base_type: matte
+    surface: textured
+    color: orange-white
+    transparency: semi-opaque
+    notes: |
+      Classic American shino with carbon trapping.
+      Apply thick for white, thin for orange-red.
+      Resist decoration works well.
+    recipe:
+      - ingredient: Nepheline Syenite
+        amount: 42
+        unit: "%"
+      - ingredient: Spodumene
+        amount: 20
+        unit: "%"
+      - ingredient: Soda Ash
+        amount: 10
+        unit: "%"
+      - ingredient: Kaolin
+        amount: 18
+        unit: "%"
+      - ingredient: Red Iron Oxide
+        amount: 1
+        unit: "%"
+
+  # ==========================================================================
+  # ASH GLAZES
+  # ==========================================================================
+
+  - name: Wood Ash
+    cone: "10"
+    atmosphere: reduction
+    base_type: glossy
+    surface: textured
+    color: green-brown
+    transparency: semi-opaque
+    notes: |
+      Simple wood ash glaze with natural variation.
+      Color varies based on wood species and ash preparation.
+      Wash wood ash before use to remove soluble salts.
+    recipe:
+      - ingredient: Wood Ash
+        amount: 40
+        unit: "%"
+      - ingredient: Feldspar
+        amount: 30
+        unit: "%"
+      - ingredient: Kaolin
+        amount: 20
+        unit: "%"
+      - ingredient: Silica
+        amount: 10
+        unit: "%"
+
+  # ==========================================================================
+  # MATT GLAZES
+  # ==========================================================================
+
+  - name: Black Matte
+    cone: "10"
+    atmosphere: reduction
+    base_type: matte
+    surface: smooth
+    color: black
+    transparency: opaque
+    notes: |
+      Satin black matte with subtle sheen.
+      Good for dramatic contrast with glossy glazes.
+    recipe:
+      - ingredient: Potash Feldspar
+        amount: 40
+        unit: "%"
+      - ingredient: Whiting
+        amount: 20
+        unit: "%"
+      - ingredient: Kaolin
+        amount: 15
+        unit: "%"
+      - ingredient: Talc
+        amount: 10
+        unit: "%"
+      - ingredient: Cobalt Carbonate
+        amount: 3
+        unit: "%"
+      - ingredient: Red Iron Oxide
+        amount: 8
+        unit: "%"
+      - ingredient: Manganese Dioxide
+        amount: 4
+        unit: "%"
+
+  - name: White Matte
+    cone: "10"
+    atmosphere: reduction
+    base_type: matte
+    surface: smooth
+    color: white
+    transparency: opaque
+    notes: |
+      Creamy white matte glaze.
+      Works well with colored slips and underglazes.
+    recipe:
+      - ingredient: Potash Feldspar
+        amount: 35
+        unit: "%"
+      - ingredient: Whiting
+        amount: 15
+        unit: "%"
+      - ingredient: Kaolin
+        amount: 25
+        unit: "%"
+      - ingredient: Silica
+        amount: 15
+        unit: "%"
+      - ingredient: Zinc Oxide
+        amount: 8
+        unit: "%"
+      - ingredient: Zircopax
+        amount: 8
+        unit: "%"
+
+  # ==========================================================================
+  # COPPER RED/GLAZES
+  # ==========================================================================
+
+  - name: Copper Red
+    cone: "10"
+    atmosphere: reduction
+    base_type: glossy
+    surface: smooth
+    color: red
+    transparency: semi-opaque
+    notes: |
+      Classic oxblood copper red.
+      Requires heavy reduction for red color development.
+      Thin areas may turn green or clear.
+    recipe:
+      - ingredient: Potash Feldspar
+        amount: 42
+        unit: "%"
+      - ingredient: Silica
+        amount: 22
+        unit: "%"
+      - ingredient: Whiting
+        amount: 16
+        unit: "%"
+      - ingredient: Kaolin
+        amount: 10
+        unit: "%"
+      - ingredient: Tin Oxide
+        amount: 3
+        unit: "%"
+      - ingredient: Copper Carbonate
+        amount: 2
+        unit: "%"
+      - ingredient: Bentonite
+        amount: 2
+        unit: "%"
+
+  - name: Flambé
+    cone: "10"
+    atmosphere: reduction
+    base_type: glossy
+    surface: runny
+    color: red-purple
+    transparency: semi-opaque
+    notes: |
+      Dramatic flambé with flowing reds and purples.
+      Apply thin to prevent excessive running.
+      Use catchers on vertical pieces.
+    recipe:
+      - ingredient: Potash Feldspar
+        amount: 38
+        unit: "%"
+      - ingredient: Silica
+        amount: 20
+        unit: "%"
+      - ingredient: Whiting
+        amount: 14
+        unit: "%"
+      - ingredient: Kaolin
+        amount: 8
+        unit: "%"
+      - ingredient: Bone Ash
+        amount: 4
+        unit: "%"
+      - ingredient: Copper Carbonate
+        amount: 3
+        unit: "%"
+      - ingredient: Tin Oxide
+        amount: 2
+        unit: "%"
+      - ingredient: Cobalt Carbonate
+        amount: 0.5
+        unit: "%"
+
+  # ==========================================================================
+  # OPAQUE/GLAZES
+  # ==========================================================================
+
+  - name: Opaque White
+    cone: "10"
+    atmosphere: reduction
+    base_type: glossy
+    surface: smooth
+    color: white
+    transparency: opaque
+    notes: |
+      Bright opaque white glaze.
+      Good base for majolica-style decoration.
+    recipe:
+      - ingredient: Potash Feldspar
+        amount: 38
+        unit: "%"
+      - ingredient: Silica
+        amount: 20
+        unit: "%"
+      - ingredient: Whiting
+        amount: 15
+        unit: "%"
+      - ingredient: Kaolin
+        amount: 12
+        unit: "%"
+      - ingredient: Zinc Oxide
+        amount: 8
+        unit: "%"
+      - ingredient: Tin Oxide
+        amount: 5
+        unit: "%"
+      - ingredient: Bentonite
+        amount: 2
+        unit: "%"
+
+  - name: Tangerine
+    cone: "10"
+    atmosphere: reduction
+    base_type: glossy
+    surface: smooth
+    color: orange
+    transparency: opaque
+    notes: |
+      Bright orange glaze using rutile.
+      Color varies with application thickness.
+    recipe:
+      - ingredient: Potash Feldspar
+        amount: 45
+        unit: "%"
+      - ingredient: Silica
+        amount: 18
+        unit: "%"
+      - ingredient: Whiting
+        amount: 15
+        unit: "%"
+      - ingredient: Kaolin
+        amount: 10
+        unit: "%"
+      - ingredient: Rutile
+        amount: 10
+        unit: "%"
+      - ingredient: Tin Oxide
+        amount: 2
+        unit: "%"
+
+  # ==========================================================================
+  # SPECIALTY/GLAZES
+  # ==========================================================================
+
+  - name: Kaki (Persimmon)
+    cone: "10"
+    atmosphere: reduction
+    base_type: glossy
+    surface: smooth
+    color: orange-red
+    transparency: semi-opaque
+    notes: |
+      Traditional Japanese persimmon glaze.
+      Beautiful over iron-bearing clays.
+    recipe:
+      - ingredient: Potash Feldspar
+        amount: 40
+        unit: "%"
+      - ingredient: Silica
+        amount: 22
+        unit: "%"
+      - ingredient: Whiting
+        amount: 12
+        unit: "%"
+      - ingredient: Kaolin
+        amount: 10
+        unit: "%"
+      - ingredient: Red Iron Oxide
+        amount: 8
+        unit: "%"
+      - ingredient: Bone Ash
+        amount: 6
+        unit: "%"
+      - ingredient: Bentonite
+        amount: 2
+        unit: "%"

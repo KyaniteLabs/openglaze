@@ -1,0 +1,18 @@
+{
+  "version": "1.0",
+  "source": "Stull chart, Digitalfire, Glazy",
+  "last_updated": "2026-03-17",
+  "sio2_al2o3_thresholds": {
+    "glossy": 5,
+    "satin": 4,
+    "matte": 0
+  },
+  "notes": "Based on Stull chart (1912) as implemented on Glazy.org. Matte: ratio < 4, Semi-matte (satin): ratio ~4-5, Glossy: ratio > 5. High-flux glazes (CaO, B2O3) may be glossy at lower ratios. These thresholds are for typical stoneware glazes. Low-fire glazes follow different rules. The SiO2:Al2O3 ratio is the single most useful predictor of surface character, but it's not the only factor — flux type, firing temperature, and cooling rate all matter.",
+  "caveats": [
+    "High CaO can promote gloss at lower SiO2:Al2O3 ratios",
+    "High MgO can promote matte at higher SiO2:Al2O3 ratios",
+    "B2O3 increases fluidity, potentially lowering effective matte threshold",
+    "Underfired glazes may appear matte regardless of ratio",
+    "Cooling rate affects crystal formation and surface development"
+  ]
+}

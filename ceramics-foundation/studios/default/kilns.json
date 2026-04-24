@@ -1,0 +1,23 @@
+{
+  "version": "1.0",
+  "studio": "default",
+  "last_updated": "2026-03-17",
+  "kilns": [
+    {
+      "zone": "class_studio",
+      "type": "electric",
+      "max_cone": "6",
+      "typical_cone": "5",
+      "atmosphere": "oxidation",
+      "notes": "Class kilns, community use"
+    },
+    {
+      "zone": "member_studio",
+      "type": "gas",
+      "max_cone": "10",
+      "typical_cone": "10",
+      "atmosphere": "reduction",
+      "notes": "Member kilns, reduction firing"
+    }
+  ]
+}

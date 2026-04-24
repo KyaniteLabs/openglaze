@@ -1,0 +1,96 @@
+{
+  "version": "1.0",
+  "source": "Laguna Clay Company, ceramics-instagram caption_generator.py, studio testing",
+  "last_updated": "2026-03-17",
+  "description": "General clay body database with properties, visual cues, and glaze pairing guidance. Studio-specific selections should reference this database.",
+  "clay_bodies": [
+    {
+      "name": "B-Mix",
+      "manufacturer": "Laguna",
+      "cone": "10",
+      "type": "porcelainous stoneware",
+      "properties": ["cream-white raw", "smooth porcelain", "fires gray/white", "true glaze color"],
+      "visual_cues": ["very smooth surface", "white/cream color", "clean lines", "no speckling"],
+      "best_glazes": ["celadon", "clear", "blue", "white"],
+      "avoid_glazes": ["shino"],
+      "avoid_notes": "Shinos give pink/tan on B-Mix due to low iron content"
+    },
+    {
+      "name": "Death Valley",
+      "manufacturer": "Laguna",
+      "cone": "10",
+      "type": "sculptural stoneware",
+      "properties": ["reddish raw", "dark brown fired", "iron speckling", "rustic"],
+      "visual_cues": ["iron speckles visible", "warm undertone", "rustic texture"],
+      "best_glazes": ["shino", "tenmoku", "iron_red"],
+      "avoid_glazes": [],
+      "avoid_notes": null
+    },
+    {
+      "name": "Dark Brown",
+      "manufacturer": "Laguna",
+      "cone": "10",
+      "type": "stoneware",
+      "properties": ["strong warm undertone", "dramatic with light glazes"],
+      "visual_cues": ["dark visible through glaze", "warm showing at edges"],
+      "best_glazes": ["celadon", "shino", "clear"],
+      "avoid_glazes": [],
+      "avoid_notes": null
+    },
+    {
+      "name": "Soldate 60",
+      "manufacturer": "Laguna",
+      "cone": "10",
+      "type": "sculptural stoneware",
+      "properties": ["60 mesh sand", "textured", "yellow/brown in reduction"],
+      "visual_cues": ["visible sand texture", "warm undertones"],
+      "best_glazes": ["tenmoku", "shino", "iron saturation"],
+      "avoid_glazes": ["delicate celadon"],
+      "avoid_notes": "Heavy texture can disrupt delicate glaze surfaces"
+    },
+    {
+      "name": "Long Beach",
+      "manufacturer": "Laguna",
+      "cone": "10",
+      "type": "stoneware",
+      "properties": ["brownish-pink raw", "light brown reduction", "warm fluid throwing"],
+      "visual_cues": ["warm pink undertone", "smooth throw"],
+      "best_glazes": ["celadon", "clear", "shino"],
+      "avoid_glazes": [],
+      "avoid_notes": null
+    },
+    {
+      "name": "Half and Half",
+      "manufacturer": "Laguna",
+      "cone": "10",
+      "type": "stoneware",
+      "properties": ["gray/white", "porcelain + stoneware mix", "versatile"],
+      "visual_cues": ["white to gray range", "smooth"],
+      "best_glazes": ["celadon", "tenmoku", "clear", "blue"],
+      "avoid_glazes": [],
+      "avoid_notes": null
+    },
+    {
+      "name": "Stoney White",
+      "manufacturer": "Laguna",
+      "cone": "10",
+      "type": "stoneware",
+      "properties": ["white stoneware", "mottled in reduction", "rustic"],
+      "visual_cues": ["white with variation", "rustic character"],
+      "best_glazes": ["shino", "tenmoku", "iron red"],
+      "avoid_glazes": [],
+      "avoid_notes": null
+    },
+    {
+      "name": "Recycled Clay",
+      "manufacturer": "various",
+      "cone": "10",
+      "type": "mixed",
+      "properties": ["variable", "unpredictable"],
+      "visual_cues": ["inconsistent color", "mixed textures"],
+      "best_glazes": ["tenmoku", "iron saturation"],
+      "avoid_glazes": ["chrome-tin pink"],
+      "avoid_notes": "Unpredictable chemistry — test first. Chrome-tin pink is sensitive to iron contamination."
+    }
+  ]
+}

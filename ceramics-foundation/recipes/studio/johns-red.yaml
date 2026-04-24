@@ -1,0 +1,63 @@
+name: John's Red
+source: John Britt - "The Complete Guide to High-Fire Glazes"
+cone: "10"
+atmosphere: reduction
+recipe:
+  - material: Custer Feldspar
+    amount: 48.18
+  - material: EPK Kaolin
+    amount: 6.45
+  - material: Silica
+    amount: 15.45
+  - material: Zinc Oxide
+    amount: 0.55
+  - material: Ferro Frit 3134
+    amount: 9.09
+  - material: Whiting
+    amount: 14.29
+  - material: Talc
+    amount: 3.64
+additions:
+  - material: Tin Oxide
+    amount: 1.20
+  - material: Copper Carbonate
+    amount: 0.80
+color: Deep red to blood red
+surface: Gloss to semi-gloss
+notes: |
+  Copper red glaze from John Britt's collection.
+  - Requires heavy reduction for red development
+  - Body reduction at cone 08-06 recommended
+  - Copper percentage affects intensity
+  - Tin oxide helps develop the red color
+  - Part of copper red (oxblood/sang de boeuf) family
+food_safe: true
+tested: false
+date_documented: "2026-03-15"
+references:
+  - Glazy Recipe #398657
+  - https://johnbrittpottery.com/
+  - https://ceramicartsnetwork.org/ceramic-recipes/recipe/Johns-Red-142670
+---
+# Alternative: Pete's Red (John Britt variation)
+name: Pete's Red
+source: John Britt variation
+cone: "10"
+atmosphere: reduction
+recipe:
+  - material: Custer Feldspar
+    amount: 73.8
+  - material: Whiting
+    amount: 11.1
+  - material: Silica
+    amount: 4.9
+  - material: Gerstley Borate
+    amount: 10.2
+additions:
+  - material: Tin Oxide
+    amount: 1.0
+  - material: Copper Carbonate
+    amount: 0.35
+  - material: Bentonite
+    amount: 2.0
+notes: Simpler copper red formulation

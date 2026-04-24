@@ -1,0 +1,225 @@
+/* Prediction Market */
+.prediction-market {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: var(--space-4);
+}
+
+.pred-header {
+    margin-bottom: var(--space-6);
+}
+
+.pred-title {
+    font-size: var(--text-lg);
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0 0 var(--space-1) 0;
+}
+
+.pred-subtitle {
+    color: var(--text-secondary);
+    font-size: var(--text-sm);
+    margin: 0;
+}
+
+.pred-form {
+    margin-bottom: var(--space-6);
+}
+
+.pred-select {
+    width: 100%;
+    padding: var(--space-3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-family: var(--font-ui);
+    font-size: var(--text-sm);
+    color: var(--text-primary);
+    background: var(--card);
+    appearance: auto;
+}
+
+.pred-select:focus {
+    outline: none;
+    border-color: var(--terracotta);
+    box-shadow: 0 0 0 3px rgba(198, 93, 91, 0.15);
+}
+
+/* Confidence slider */
+.pred-confidence-slider {
+    width: 100%;
+    height: 6px;
+    appearance: none;
+    background: var(--cream);
+    border-radius: 3px;
+    outline: none;
+    margin-top: var(--space-2);
+}
+
+.pred-confidence-slider::-webkit-slider-thumb {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--terracotta);
+    cursor: pointer;
+    border: 2px solid white;
+    box-shadow: var(--shadow-sm);
+}
+
+.pred-confidence-slider::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--terracotta);
+    cursor: pointer;
+    border: 2px solid white;
+    box-shadow: var(--shadow-sm);
+}
+
+.pred-submit {
+    width: 100%;
+    margin-top: var(--space-4);
+}
+
+.pred-submit:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Result messages */
+.pred-result {
+    margin-top: var(--space-4);
+    padding: var(--space-3);
+    border-radius: var(--radius-sm);
+    font-size: var(--text-sm);
+    text-align: center;
+}
+
+.pred-success {
+    background: rgba(126, 176, 155, 0.15);
+    color: #4a7a5f;
+    border: 1px solid rgba(126, 176, 155, 0.3);
+}
+
+.pred-error {
+    background: rgba(198, 93, 91, 0.1);
+    color: var(--terracotta);
+    border: 1px solid rgba(198, 93, 91, 0.2);
+}
+
+/* Leaderboard table */
+.pred-lb-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--text-sm);
+}
+
+.pred-lb-table th {
+    text-align: left;
+    padding: var(--space-2) var(--space-3);
+    color: var(--text-tertiary);
+    font-weight: 500;
+    font-size: var(--text-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-bottom: 1px solid var(--border);
+}
+
+.pred-lb-table td {
+    padding: var(--space-2) var(--space-3);
+    color: var(--text-primary);
+}
+
+.pred-lb-you {
+    background: rgba(198, 93, 91, 0.05);
+}
+
+.pred-lb-ai {
+    background: rgba(126, 176, 155, 0.05);
+}
+
+.pred-leaderboard-section {
+    border-top: 1px solid var(--border);
+    padding-top: var(--space-4);
+}
+
+/* Leaderboard Widget */
+.leaderboard-widget {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: var(--space-4);
+}
+
+.lb-header {
+    margin-bottom: var(--space-4);
+}
+
+.lb-title {
+    font-size: var(--text-lg);
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0 0 var(--space-1) 0;
+}
+
+.lb-subtitle {
+    color: var(--text-secondary);
+    font-size: var(--text-sm);
+    margin: 0;
+}
+
+.lb-bars {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    margin-bottom: var(--space-4);
+}
+
+.lb-bar-row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+}
+
+.lb-bar-label {
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--text-primary);
+    width: 40px;
+    flex-shrink: 0;
+}
+
+.lb-bar-track {
+    flex: 1;
+    height: 10px;
+    background: var(--cream);
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.lb-bar-fill {
+    height: 100%;
+    border-radius: 5px;
+    transition: width 0.6s ease;
+}
+
+.lb-bar-user {
+    background: linear-gradient(90deg, var(--terracotta), var(--coral));
+}
+
+.lb-bar-ai {
+    background: linear-gradient(90deg, var(--celadon), #5a9a80);
+}
+
+.lb-bar-value {
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--text-primary);
+    width: 40px;
+    text-align: right;
+}
+
+.lb-table {
+    margin-top: var(--space-2);
+}

@@ -1,0 +1,154 @@
+{
+  "version": "1.0",
+  "source": "IUPAC 2024, Digitalfire, Glazy",
+  "last_updated": "2026-03-17",
+  "oxides": {
+    "SiO2": {
+      "name": "Silica",
+      "mw": 60.084,
+      "role": "glassformer",
+      "safety": "inert",
+      "notes": "Primary glass former. High amounts increase melting temperature and thermal durability. Source: quartz, flint, silica."
+    },
+    "Al2O3": {
+      "name": "Alumina",
+      "mw": 101.961,
+      "role": "stabilizer",
+      "safety": "inert",
+      "notes": "Stabilizes the glass structure, prevents running. High Al2O3 promotes matte surfaces. Source: kaolin, ball clay, feldspar."
+    },
+    "K2O": {
+      "name": "Potassium Oxide",
+      "mw": 94.196,
+      "role": "flux",
+      "safety": "inert",
+      "notes": "High thermal expansion. Produces bright, glossy surfaces. Source: potash feldspar (Custer, G-200)."
+    },
+    "Na2O": {
+      "name": "Sodium Oxide",
+      "mw": 61.979,
+      "role": "flux",
+      "safety": "inert",
+      "notes": "Very high thermal expansion. Active flux at low temperatures. Source: soda feldspar, nepheline syenite, soda ash."
+    },
+    "CaO": {
+      "name": "Calcium Oxide",
+      "mw": 56.077,
+      "role": "flux",
+      "safety": "inert",
+      "notes": "Moderate thermal expansion. Promotes hard, durable glazes. Promotes celadon and turquoise colors. Source: whiting, wollastonite, dolomite."
+    },
+    "MgO": {
+      "name": "Magnesium Oxide",
+      "mw": 40.304,
+      "role": "flux",
+      "safety": "inert",
+      "notes": "Very low thermal expansion. Promotes matte surfaces. With cobalt, shifts toward lavender. Source: dolomite, talc, magnesium carbonate."
+    },
+    "Fe2O3": {
+      "name": "Iron(III) Oxide",
+      "mw": 159.688,
+      "role": "colorant",
+      "safety": "inert",
+      "notes": "Most versatile colorant. Oxidation: amber/tan. Reduction: celadon green, tenmoku black. Also a flux at high percentages."
+    },
+    "FeO": {
+      "name": "Iron(II) Oxide",
+      "mw": 71.844,
+      "role": "colorant",
+      "safety": "inert",
+      "notes": "Formed during reduction firing from Fe2O3. Contributes to darker, iron-rich reduction colors."
+    },
+    "CuO": {
+      "name": "Copper(II) Oxide",
+      "mw": 79.545,
+      "role": "colorant",
+      "safety": "low_risk",
+      "notes": "Oxidation: green/turquoise. Reduction: copper red, metallic. Ca-fluxed = turquoise; Na-fluxed = blue-green. Also a flux."
+    },
+    "CoO": {
+      "name": "Cobalt(II) Oxide",
+      "mw": 74.933,
+      "role": "colorant",
+      "safety": "low_risk",
+      "notes": "Most reliable colorant. Strong blue in any atmosphere. With Mg = lavender. With Fe = blue-green. Very strong; >2% tends black."
+    },
+    "MnO": {
+      "name": "Manganese(II) Oxide",
+      "mw": 70.937,
+      "role": "colorant",
+      "safety": "fume_hazard",
+      "notes": "Oxidation: purple (low %) to brown (high %). Reduction: metallic brown/black. VOLATILE above 1900F — toxic fumes. Always ventilate."
+    },
+    "TiO2": {
+      "name": "Titanium Dioxide",
+      "mw": 79.866,
+      "role": "opacifier",
+      "safety": "inert",
+      "notes": "Opacifier and crystal promoter. In rutile form, creates subtle blue/tan variegation. Can promote mottled effects."
+    },
+    "ZnO": {
+      "name": "Zinc Oxide",
+      "mw": 81.379,
+      "role": "flux",
+      "safety": "low_risk",
+      "notes": "Flux and opacifier. LOW thermal expansion. CRITICAL: turns chrome-tin pinks brown. Use zinc-free bases for pinks. Promotes crystal growth."
+    },
+    "BaO": {
+      "name": "Barium Oxide",
+      "mw": 153.326,
+      "role": "flux",
+      "safety": "toxic",
+      "notes": "Used in matte glazes. Soluble barium is toxic — avoid in functional ware. Barium carbonate is relatively insoluble but can leach under acidic conditions."
+    },
+    "SrO": {
+      "name": "Strontium Oxide",
+      "mw": 103.619,
+      "role": "flux",
+      "safety": "inert",
+      "notes": "Similar to CaO but slightly lower melting point. Sometimes used as a safer substitute for barium in matte glazes."
+    },
+    "Li2O": {
+      "name": "Lithium Oxide",
+      "mw": 29.881,
+      "role": "flux",
+      "safety": "low_risk",
+      "notes": "Most powerful flux. Very low thermal expansion. Used in small amounts to lower melting temperature. Source: lithium carbonate, spodumene."
+    },
+    "B2O3": {
+      "name": "Boron Oxide",
+      "mw": 69.620,
+      "role": "flux",
+      "safety": "inert",
+      "notes": "Very powerful flux from borax, gerstley borate, frits. Lowers melting temperature significantly. Can turn blue glazes green. Common in low-fire and mid-range glazes."
+    },
+    "SnO2": {
+      "name": "Tin Oxide",
+      "mw": 150.709,
+      "role": "opacifier",
+      "safety": "inert",
+      "notes": "Expensive but effective opacifier. With chrome = pink. With copper = pink-red. Low toxicity alternative to zirconium."
+    },
+    "ZrO2": {
+      "name": "Zirconium Oxide",
+      "mw": 123.218,
+      "role": "opacifier",
+      "safety": "inert",
+      "notes": "Primary opacifier in commercial glazes. Cheaper than tin oxide. Source: zircopax, zirconium silicate. Very stable and inert."
+    },
+    "Cr2O3": {
+      "name": "Chromium(III) Oxide",
+      "mw": 151.990,
+      "role": "colorant",
+      "safety": "low_risk",
+      "notes": "Strong green. With tin = pink. With zinc = brown (unwanted). Can cause crawling/pinholing in some bases. In reduction, may darken and mute."
+    },
+    "P2O5": {
+      "name": "Phosphorus Pentoxide",
+      "mw": 141.944,
+      "role": "opacifier",
+      "safety": "inert",
+      "notes": "Found in bone ash. Produces milky/opalescent effects. Can promote micro-crystal formation."
+    }
+  }
+}

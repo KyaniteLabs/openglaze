@@ -1,0 +1,52 @@
+# OpenGlaze Personal Mode Configuration
+# Single-user, local SQLite, no auth/billing
+# Last updated: March 2026
+
+mode: personal
+
+features:
+  glaze_crud: true
+  combinations: true
+  experiments: true
+  kama_ai: true
+  templates: true
+  multi_user: false
+  analytics: false
+  api_access: false
+  billing: false
+
+database:
+  type: sqlite
+  path: ${DATABASE_PATH:glaze.db}
+
+auth:
+  enabled: false
+
+security:
+  rate_limiting:
+    enabled: true
+    requests_per_minute: ${RATELIMIT_PER_MINUTE:60}
+  session:
+    cookie_secure: ${SESSION_COOKIE_SECURE:false}
+    cookie_httponly: true
+    cookie_samesite: Lax
+  https:
+    enforce: false
+
+theme:
+  default: dark
+
+ai:
+  provider: ollama
+  model: ${OLLAMA_MODEL:kimi-k2.5:cloud}
+  endpoint: ${OLLAMA_API:http://localhost:11434/api/chat}
+  timeout: ${AI_TIMEOUT:90}
+
+server:
+  host: ${FLASK_HOST:127.0.0.1}
+  port: ${FLASK_PORT:8767}
+  debug: ${FLASK_DEBUG:false}
+
+logging:
+  level: ${LOG_LEVEL:INFO}
+  format: ${LOG_FORMAT:text}
