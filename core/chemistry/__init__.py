@@ -10,6 +10,7 @@ from .umf import UMFResult, UMFAnalyzer, calculate_umf
 from .compatibility import CompatibilityResult, CompatibilityAnalyzer
 from .batch import BatchAnalyzer
 from .defects import DefectAnalysis, DefectPredictor, predict_defects
+from .substitutions import SubstitutionResult, SubstitutionEngine, suggest_substitutions
 
 __all__ = [
     'Material',
@@ -27,4 +28,7 @@ __all__ = [
     'DefectAnalysis',
     'DefectPredictor',
     'predict_defects',
+    'SubstitutionResult',
+    'SubstitutionEngine',
+    'suggest_substitutions',
 ]

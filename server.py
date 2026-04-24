@@ -563,6 +563,53 @@ def create_app(config: dict = None) -> Flask:
             logger.error(f"Recipe scaling error: {e}")
             return jsonify({"error": str(e)}), 500
 
+    @app.route('/api/chemistry/substitutions', methods=['POST'])
+    @rate_limit(requests_per_minute=60)
+    def get_substitutions():
+        """Get material substitution suggestions for a recipe.
+
+        Request body:
+            recipe: Recipe string or object
+            material: Specific material name to find substitutes for (optional)
+        """
+        data = request.json or {}
+        recipe = data.get('recipe', '')
+        material = data.get('material', '')
+
+        if not recipe and not material:
+            return jsonify({"error": "recipe or material is required"}), 400
+
+        try:
+            from core.chemistry import SubstitutionEngine
+            engine = SubstitutionEngine()
+
+            if material:
+                # Single material lookup
+                suggestions = engine.suggest(material)
+                return jsonify({
+                    "success": True,
+                    "material": material,
+                    "suggestions": [
+                        {
+                            "original": s.original,
+                            "substitute": s.substitute,
+                            "ratio": s.ratio,
+                            "confidence": s.confidence,
+                            "notes": s.notes,
+                            "chemistry_impact": s.chemistry_impact,
+                        }
+                        for s in suggestions
+                    ]
+                })
+            else:
+                # Full recipe analysis
+                from core.chemistry import suggest_substitutions
+                result = suggest_substitutions(recipe)
+                return jsonify(result.to_dict())
+        except Exception as e:
+            logger.error(f"Substitution error: {e}")
+            return jsonify({"error": str(e)}), 500
+
     @app.route('/api/chemistry/defects', methods=['POST'])
     @rate_limit(requests_per_minute=60)
     def predict_glaze_defects():
