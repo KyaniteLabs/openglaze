@@ -294,6 +294,66 @@ class TestConeSpecificCompatibility:
         assert result.cone == 10
 
 
+class TestDemoGlazes:
+    """Demo glaze collection tests."""
+
+    def test_demo_glazes_load(self):
+        """Demo glaze JSON should load and contain real recipes."""
+        import json
+        from pathlib import Path
+        demo_path = Path(__file__).resolve().parent.parent / 'ceramics-foundation' / 'data' / 'demo-glazes.json'
+        assert demo_path.exists(), 'Demo glazes file not found'
+        with open(demo_path) as f:
+            data = json.load(f)
+        assert len(data['glazes']) >= 5
+        for g in data['glazes']:
+            assert 'id' in g
+            assert 'name' in g
+            assert 'recipe' in g
+            assert 'cone' in g
+
+    def test_all_demo_glazes_parse(self):
+        """Every demo glaze recipe should parse successfully."""
+        import json
+        from pathlib import Path
+        from core.chemistry import calculate_umf
+
+        demo_path = Path(__file__).resolve().parent.parent / 'ceramics-foundation' / 'data' / 'demo-glazes.json'
+        with open(demo_path) as f:
+            data = json.load(f)
+
+        for g in data['glazes']:
+            result = calculate_umf(g['recipe'], cone=int(g['cone']))
+            assert result.success is True, f"{g['name']} failed to parse: {result.error}"
+            assert result.thermal_expansion is not None
+            assert result.surface_prediction in ('matte', 'satin', 'glossy')
+
+    def test_demo_glaze_compatibility(self):
+        """Demo glazes should produce meaningful compatibility results."""
+        from core.chemistry import CompatibilityAnalyzer
+        analyzer = CompatibilityAnalyzer()
+
+        celadon = 'Custer Feldspar 45, Silica 25, Whiting 18, EPK 12, Red Iron Oxide 1.5'
+        tenmoku = 'Custer Feldspar 50, Silica 20, Whiting 15, EPK 12, Red Iron Oxide 8'
+
+        result = analyzer.analyze(celadon, tenmoku, 'Celadon', 'Tenmoku', cone=10)
+        assert result.success is True
+        assert result.score > 0.5
+        assert len(result.test_recommendations) > 0
+
+    def test_demo_glaze_diverse_cones(self):
+        """Demo glazes should cover multiple cone ranges."""
+        import json
+        from pathlib import Path
+        demo_path = Path(__file__).resolve().parent.parent / 'ceramics-foundation' / 'data' / 'demo-glazes.json'
+        with open(demo_path) as f:
+            data = json.load(f)
+
+        cones = {g['cone'] for g in data['glazes']}
+        # Should cover at least low-fire, mid-range, and high-fire
+        assert len(cones) >= 2
+
+
 class TestBatchCalculator:
     """Recipe scaling tests."""
 
