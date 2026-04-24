@@ -1,13 +1,64 @@
 """Batch processing for UMF analysis across all glazes and combinations."""
 
 import logging
-from typing import Dict, Optional
+from typing import Dict, Optional, Union
 
 from .umf import UMFAnalyzer, calculate_umf
 from .compatibility import CompatibilityAnalyzer
 from .parser import parse_recipe_string
 
 logger = logging.getLogger(__name__)
+
+
+def calculate_batch(recipe: Union[Dict[str, float], str], batch_size_grams: float,
+                   unit: str = 'grams') -> Dict:
+    """Scale a glaze recipe to a target batch size.
+
+    Args:
+        recipe: Dict of {material: percentage} or a recipe string.
+        batch_size_grams: Target total batch weight in grams.
+        unit: 'grams' or 'pounds'. If pounds, converts to grams first.
+
+    Returns:
+        Dict with scaled amounts, total, and original percentages.
+    """
+    # Parse if string
+    if isinstance(recipe, str):
+        parse_result = parse_recipe_string(recipe)
+        if not parse_result.success:
+            return {
+                'success': False,
+                'error': f'Could not parse recipe: {"; ".join(parse_result.errors)}',
+            }
+        materials = parse_result.materials
+    else:
+        materials = dict(recipe)
+
+    if not materials:
+        return {'success': False, 'error': 'No materials in recipe'}
+
+    # Convert pounds to grams if needed
+    target_grams = batch_size_grams
+    if unit.lower() in ('lb', 'lbs', 'pound', 'pounds'):
+        target_grams = batch_size_grams * 453.592
+
+    # Normalize percentages to sum to 100
+    total_pct = sum(materials.values())
+    if total_pct == 0:
+        return {'success': False, 'error': 'Recipe percentages sum to zero'}
+
+    normalized = {name: (pct / total_pct) * 100 for name, pct in materials.items()}
+
+    # Scale to target batch size
+    scaled = {name: round((pct / 100.0) * target_grams, 2) for name, pct in normalized.items()}
+
+    return {
+        'success': True,
+        'batch': scaled,
+        'total_grams': round(target_grams, 2),
+        'unit': unit,
+        'original_percentages': {name: round(pct, 2) for name, pct in normalized.items()},
+    }
 
 
 class BatchAnalyzer:

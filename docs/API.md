@@ -96,6 +96,8 @@ Authorization: Bearer <token>
 
 ### Get Glaze by ID
 
+Glaze IDs are string slugs (e.g., `celadon`, `tenmoku`), not integers.
+
 ```http
 GET /api/glazes/<id>
 Authorization: Bearer <token>
@@ -154,7 +156,7 @@ Content-Type: application/json
 Authorization: Bearer <token>
 
 {
-  "base": "Tenmoko",
+  "base": "Tenmoku",
   "top": "Chun Blue",
   "type": "user-prediction",
   "source": "user",
@@ -271,15 +273,19 @@ Authorization: Bearer <token>
 }
 ```
 
-### Batch Calculator
+### Scale Recipe
 
 ```http
-POST /api/chemistry/batch
+POST /api/chemistry/scale
 Content-Type: application/json
-Authorization: Bearer <token>
 
 {
-  "glaze_id": 1,
+  "recipe": {
+    "Feldspar": 45,
+    "Silica": 30,
+    "Whiting": 15,
+    "Kaolin": 10
+  },
   "batch_size_grams": 5000,
   "unit": "grams"
 }
@@ -289,17 +295,47 @@ Authorization: Bearer <token>
 
 ```json
 {
+  "success": true,
   "batch": {
-    "Feldspar": 2250,
-    "Silica": 1500,
-    "Whiting": 750,
-    "Kaolin": 500
+    "Feldspar": 2250.00,
+    "Silica": 1500.00,
+    "Whiting": 750.00,
+    "Kaolin": 500.00
   },
-  "total_grams": 5000,
-  "cost_estimate": {
-    "currency": "USD",
-    "total": 12.50
+  "total_grams": 5000.00,
+  "unit": "grams",
+  "original_percentages": {
+    "Feldspar": 45.00,
+    "Silica": 30.00,
+    "Whiting": 15.00,
+    "Kaolin": 10.00
   }
+}
+```
+
+### Batch Analysis
+
+```http
+POST /api/chemistry/batch
+Content-Type: application/json
+
+{
+  "analyze_all": true
+}
+```
+
+**Response:**
+
+```json
+{
+  "summary": {
+    "glazes": {"total": 32, "parsed": 28, "failed": 4},
+    "combinations": {"total": 30, "compatible": 12, "incompatible": 15, "unknown": 3},
+    "surface_distribution": {"glossy": 20, "satin": 5, "matte": 7},
+    "average_compatibility_score": 0.45
+  },
+  "glazes": {...},
+  "combinations": {...}
 }
 ```
 
@@ -313,8 +349,8 @@ Content-Type: application/json
 Authorization: Bearer <token>
 
 {
-  "message": "What would happen if I add 2% rutile to this celadon?",
-  "glaze_context": [1, 2, 3],
+  "question": "What would happen if I add 2% rutile to this celadon?",
+  "glaze_context": ["celadon", "rutile-blue"],
   "stream": false
 }
 ```
@@ -337,7 +373,7 @@ Content-Type: application/json
 Authorization: Bearer <token>
 
 {
-  "message": "Explain UMF calculation",
+  "question": "Explain UMF calculation",
   "stream": true
 }
 ```

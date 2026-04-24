@@ -526,6 +526,26 @@ def create_app(config: dict = None) -> Flask:
             logger.error(f"Batch chemistry analysis error: {e}")
             return jsonify({"error": str(e)}), 500
 
+    @app.route('/api/chemistry/scale', methods=['POST'])
+    @rate_limit(requests_per_minute=60)
+    def scale_recipe():
+        """Scale a glaze recipe to a target batch size."""
+        data = request.json or {}
+        recipe = data.get('recipe')
+        batch_size = data.get('batch_size_grams')
+        unit = data.get('unit', 'grams')
+
+        if not recipe or not batch_size:
+            return jsonify({"error": "recipe and batch_size_grams are required"}), 400
+
+        try:
+            from core.chemistry.batch import calculate_batch
+            result = calculate_batch(recipe, float(batch_size), unit)
+            return jsonify(result)
+        except Exception as e:
+            logger.error(f"Recipe scaling error: {e}")
+            return jsonify({"error": str(e)}), 500
+
     # ==========================================
     # EXPERIMENT API ROUTES
     # ==========================================
@@ -1024,11 +1044,11 @@ def create_app(config: dict = None) -> Flask:
 
     @app.route('/api/demo/glazes')
     def get_demo_glazes():
-        """Get glazes for demo user."""
+        """Get demo glazes — returns first 5 glazes from the library."""
         try:
             conn = g.db_conn
             cursor = conn.cursor()
-            cursor.execute('SELECT * FROM glazes WHERE user_id = ?', ('demo-user-001',))
+            cursor.execute('SELECT * FROM glazes LIMIT 5')
             rows = cursor.fetchall()
             return jsonify([dict(row) for row in rows])
         except Exception as e:

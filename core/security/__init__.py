@@ -205,8 +205,16 @@ def rate_limit(
 
             from flask import Response as FlaskResponse
             response = f(*args, **kwargs)
-            if not isinstance(response, FlaskResponse):
-                response = jsonify(response) if not isinstance(response, FlaskResponse) else response
+            # Handle tuple returns like (response, status_code)
+            if isinstance(response, tuple):
+                resp_obj = response[0]
+                if not isinstance(resp_obj, FlaskResponse):
+                    resp_obj = jsonify(resp_obj)
+                if len(response) > 1 and hasattr(resp_obj, 'status_code'):
+                    resp_obj.status_code = response[1]
+                response = resp_obj
+            elif not isinstance(response, FlaskResponse):
+                response = jsonify(response)
             response.headers['X-RateLimit-Remaining'] = str(info['remaining'])
             response.headers['X-RateLimit-Reset'] = str(int(info['reset_at']))
             return response
