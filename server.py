@@ -444,7 +444,11 @@ def create_app(config: dict = None) -> Flask:
     @app.route('/api/glazes/<glaze_id>/umf')
     @rate_limit(requests_per_minute=60)
     def get_glaze_umf(glaze_id: str):
-        """Calculate UMF for a specific glaze by ID or name."""
+        """Calculate UMF for a specific glaze by ID or name.
+
+        Query params:
+            cone: Target firing cone (e.g., 6, 10). Defaults to 10.
+        """
         try:
             from core.chemistry import calculate_umf
         except ImportError:
@@ -464,7 +468,11 @@ def create_app(config: dict = None) -> Flask:
                 "glaze_name": glaze.name,
             })
 
-        result = calculate_umf(glaze.recipe)
+        # Parse optional cone parameter
+        cone_param = request.args.get('cone')
+        cone = int(cone_param) if cone_param and cone_param.isdigit() else None
+
+        result = calculate_umf(glaze.recipe, cone=cone)
         response = result.to_dict()
         response['glaze_id'] = glaze_id
         response['glaze_name'] = glaze.name
@@ -473,7 +481,11 @@ def create_app(config: dict = None) -> Flask:
     @app.route('/api/combinations/<int:combo_id>/compatibility')
     @rate_limit(requests_per_minute=60)
     def get_combo_compatibility(combo_id: int):
-        """Calculate compatibility for a specific combination."""
+        """Calculate compatibility for a specific combination.
+
+        Query params:
+            cone: Target firing cone (e.g., 6, 10). Defaults to 10.
+        """
         try:
             from core.chemistry import CompatibilityAnalyzer
         except ImportError:
@@ -497,12 +509,17 @@ def create_app(config: dict = None) -> Flask:
                 "top_recipe_available": bool(top_recipe),
             })
 
+        # Parse optional cone parameter
+        cone_param = request.args.get('cone')
+        cone = int(cone_param) if cone_param and cone_param.isdigit() else None
+
         analyzer = CompatibilityAnalyzer()
         result = analyzer.analyze(
             base_recipe=base_recipe,
             top_recipe=top_recipe,
             base_name=combo.base or '',
             top_name=combo.top or '',
+            cone=cone,
         )
         return jsonify(result.to_dict())
 

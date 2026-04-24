@@ -217,9 +217,15 @@ Authorization: Bearer <token>
 ### Calculate UMF
 
 ```http
-GET /api/glazes/<glaze_id>/umf
+GET /api/glazes/<glaze_id>/umf?cone=10
 Authorization: Bearer <token>
 ```
+
+**Query Parameters:**
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `cone` | integer | Target firing cone (e.g., 6, 10). Affects limit checks and surface prediction. Defaults to 10. |
 
 **Response:**
 
@@ -239,11 +245,21 @@ Authorization: Bearer <token>
     "flux_alumina": 1.22
   },
   "surface_prediction": "glossy",
+  "surface_confidence": "high",
   "thermal_expansion": 6.2,
   "limit_warnings": [],
   "warnings": [],
   "missing_materials": [],
   "error": null,
+  "cone": 10,
+  "confidence": {
+    "surface": "high",
+    "limits": "high",
+    "overall": "high"
+  },
+  "recommendations": [
+    "UMF looks reasonable for cone 10. Fire a test tile to confirm surface, color, and fit on your clay body."
+  ],
   "glaze_id": "celadon",
   "glaze_name": "Celadon"
 }
@@ -258,18 +274,28 @@ Authorization: Bearer <token>
 | `umf_formula` | object | Unity Molecular Formula (fluxes sum to 1.0) |
 | `ratios` | object | Key ratios: `silica_alumina`, `flux_alumina` |
 | `surface_prediction` | string | Predicted surface: `matte`, `satin`, `glossy` |
+| `surface_confidence` | string | `high`, `medium`, `low` — how close to a boundary |
 | `thermal_expansion` | float | CTE in ×10⁻⁶/°C (Appen molar method) |
-| `limit_warnings` | array | UMF values outside recommended ranges |
+| `limit_warnings` | array | UMF values outside cone-specific recommended ranges |
 | `warnings` | array | General warnings |
 | `missing_materials` | array | Materials that could not be resolved |
 | `error` | string | Error message if `success` is false |
+| `cone` | integer | Cone used for analysis |
+| `confidence` | object | Per-prediction confidence: `surface`, `limits`, `overall` |
+| `recommendations` | array | Actionable guidance for testing and reformulation |
 
 ### Check Compatibility
 
 ```http
-GET /api/combinations/<combo_id>/compatibility
+GET /api/combinations/<combo_id>/compatibility?cone=10
 Authorization: Bearer <token>
 ```
+
+**Query Parameters:**
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `cone` | integer | Target firing cone (e.g., 6, 10). Affects UMF analysis for both glazes. Defaults to 10. |
 
 **Response:**
 
@@ -288,7 +314,13 @@ Authorization: Bearer <token>
   "fluidity_interaction": "similar",
   "oxide_interactions": [],
   "base_umf": {...},
-  "top_umf": {...}
+  "top_umf": {...},
+  "cone": 10,
+  "test_recommendations": [
+    "High compatibility score (0.85). This combination looks promising. Fire a test tile at cone 10 to confirm color and surface.",
+    "Fire test tile to cone 10 with your standard schedule. Use witness cones to verify actual temperature."
+  ],
+  "risk_breakdown": []
 }
 ```
 
@@ -299,17 +331,20 @@ Authorization: Bearer <token>
 | `success` | boolean | Whether analysis succeeded |
 | `compatible` | boolean | Whether the combination is predicted compatible |
 | `score` | float | Compatibility score 0.0–1.0 (higher = better) |
-| `risk_factors` | array | Named risk factors (e.g., `thermal_expansion_mismatch`) |
+| `risk_factors` | array | Named risk factors |
 | `warnings` | array | Advisory warnings |
 | `recommended_order` | string | Suggested layering order |
 | `thermal_expansion_risk` | string | `low`, `medium`, `high`, or `unknown` |
 | `thermal_expansion_delta` | float | Absolute CTE difference in ×10⁻⁶/°C |
 | `cte_base` | float | Base glaze CTE in ×10⁻⁶/°C |
 | `cte_top` | float | Top glaze CTE in ×10⁻⁶/°C |
-| `fluidity_interaction` | string | `similar`, `different`, or `unknown` |
+| `fluidity_interaction` | string | Fluidity relationship description |
 | `oxide_interactions` | array | Specific oxide interaction warnings |
 | `base_umf` | object | Full UMF result for base glaze |
 | `top_umf` | object | Full UMF result for top glaze |
+| `cone` | integer | Cone used for analysis |
+| `test_recommendations` | array | Specific, actionable testing guidance |
+| `risk_breakdown` | array | Structured risks with severity and mitigation |
 
 ### Scale Recipe
 

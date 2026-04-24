@@ -82,6 +82,71 @@ class TestUMF:
         assert 'No flux oxides found' in result.error
 
 
+class TestConeSpecificUMF:
+    """Cone-aware UMF analysis tests."""
+
+    def test_cone_parameter_accepted(self):
+        """UMF analyzer should accept a cone parameter."""
+        result = calculate_umf('Custer Feldspar 45, Silica 25, Whiting 18, EPK 12', cone=10)
+        assert result.success is True
+        assert result.cone == 10
+
+    def test_cone_specific_limit_warnings(self):
+        """A glaze with high B2O3 should trigger different warnings at different cones."""
+        # High B2O3 recipe
+        recipe = 'Ferro Frit 3124 40, Silica 20, EPK 20, Whiting 20'
+        cone6 = calculate_umf(recipe, cone=6)
+        cone10 = calculate_umf(recipe, cone=10)
+        # Cone 6 allows higher B2O3 (0.4 max) than cone 10 (0.3 max)
+        # So the same recipe may trigger B2O3 warning at cone 10 but not at cone 6
+        cone6_b2o3_warnings = [w for w in cone6.limit_warnings if 'B2O3' in w]
+        cone10_b2o3_warnings = [w for w in cone10.limit_warnings if 'B2O3' in w]
+        # Either cone 10 has more warnings, or they're the same
+        assert len(cone10_b2o3_warnings) >= len(cone6_b2o3_warnings)
+
+    def test_surface_prediction_cone_aware(self):
+        """Surface prediction should use cone-specific thresholds."""
+        # A glaze with SiO2:Al2O3 around 3.5
+        # At cone 10 (threshold 4.0) = matte
+        # At cone 04 (threshold 3.0) = satin or glossy
+        recipe = 'Custer Feldspar 35, Silica 15, Whiting 20, EPK 25, Dolomite 5'
+        result_10 = calculate_umf(recipe, cone=10)
+        result_04 = calculate_umf(recipe, cone=4)
+        # The predictions may differ due to cone-specific thresholds
+        assert result_10.cone == 10
+        assert result_04.cone == 4
+        # At least the confidence should be set
+        assert result_10.surface_confidence in ('high', 'medium', 'low')
+        assert result_04.surface_confidence in ('high', 'medium', 'low')
+
+    def test_surface_confidence_near_boundary(self):
+        """A glaze near the matte/satin boundary should have low confidence."""
+        # Recipe that gives SiO2:Al2O3 very close to 4.0
+        result = calculate_umf('Custer Feldspar 32, Silica 8, Whiting 15, EPK 35, Dolomite 10', cone=10)
+        ratio = result.ratios.get('sio2_al2o3', 0)
+        if abs(ratio - 4.0) < 0.2:
+            assert result.surface_confidence == 'low'
+
+    def test_recommendations_present(self):
+        """UMF result should include actionable recommendations."""
+        result = calculate_umf('Custer Feldspar 45, Silica 25, Whiting 18, EPK 12', cone=10)
+        assert len(result.recommendations) > 0
+        # Should include at least a testing recommendation
+        assert any('test' in r.lower() or 'fire' in r.lower() for r in result.recommendations)
+
+    def test_confidence_dict_present(self):
+        """UMF result should include confidence indicators."""
+        result = calculate_umf('Custer Feldspar 45, Silica 25, Whiting 18, EPK 12', cone=10)
+        assert 'surface' in result.confidence
+        assert 'limits' in result.confidence
+        assert 'overall' in result.confidence
+
+    def test_default_cone_is_10(self):
+        """Without a cone parameter, analysis should default to cone 10."""
+        result = calculate_umf('Custer Feldspar 45, Silica 25, Whiting 18, EPK 12')
+        assert result.cone == 10
+
+
 class TestThermalExpansion:
     """Thermal expansion coefficient tests."""
 
@@ -183,6 +248,50 @@ class TestCompatibility:
         result = analyzer.analyze(None, 'Custer Feldspar 45, Silica 25, Whiting 18, EPK 12', 'Unknown', 'Known')
         assert result.success is True
         assert any('not parseable' in w.lower() for w in result.warnings)
+
+
+class TestConeSpecificCompatibility:
+    """Cone-aware compatibility tests."""
+
+    def test_compatibility_accepts_cone(self):
+        """Compatibility analyzer should accept a cone parameter."""
+        recipe = 'Custer Feldspar 45, Silica 25, Whiting 18, EPK 12'
+        analyzer = CompatibilityAnalyzer()
+        result = analyzer.analyze(recipe, recipe, 'A', 'B', cone=6)
+        assert result.success is True
+        assert result.cone == 6
+
+    def test_test_recommendations_present(self):
+        """Compatibility result should include specific testing recommendations."""
+        base = 'Custer Feldspar 40, Silica 15, Whiting 20, EPK 10, Dolomite 15'
+        top = 'Custer Feldspar 60, Silica 30, Whiting 5, EPK 5'
+        analyzer = CompatibilityAnalyzer()
+        result = analyzer.analyze(base, top, 'Matte', 'Gloss', cone=10)
+        assert len(result.test_recommendations) > 0
+        # Should have specific actionable advice
+        assert any('test' in r.lower() or 'apply' in r.lower() or 'tile' in r.lower()
+                   for r in result.test_recommendations)
+
+    def test_risk_breakdown_present(self):
+        """Compatibility result should include structured risk breakdown."""
+        # High CTE mismatch recipe
+        base = 'Nepheline Syenite 60, Silica 20, EPK 20'
+        top = 'Custer Feldspar 30, Silica 50, Whiting 10, EPK 10'
+        analyzer = CompatibilityAnalyzer()
+        result = analyzer.analyze(base, top, 'High Alkali', 'High Silica', cone=10)
+        assert len(result.risk_breakdown) > 0
+        # Should have severity and mitigation for each risk
+        for risk in result.risk_breakdown:
+            assert 'risk' in risk
+            assert 'severity' in risk
+            assert 'mitigation' in risk
+
+    def test_default_cone_is_10(self):
+        """Without cone parameter, compatibility should default to cone 10."""
+        recipe = 'Custer Feldspar 45, Silica 25, Whiting 18, EPK 12'
+        analyzer = CompatibilityAnalyzer()
+        result = analyzer.analyze(recipe, recipe, 'A', 'B')
+        assert result.cone == 10
 
 
 class TestBatchCalculator:

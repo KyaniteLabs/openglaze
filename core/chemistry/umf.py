@@ -6,7 +6,7 @@ normalized to flux total = 1.0. Provides surface prediction and limit checking.
 
 import logging
 from dataclasses import dataclass, field
-from typing import Dict, List, Optional
+from typing import Dict, List, Optional, Tuple
 
 from .materials import (
     get_material,
@@ -58,6 +58,43 @@ def get_limit_formulas(cone: int = 10) -> Dict[str, tuple]:
     return dict(_LIMIT_FORMULAS_DEFAULT)
 
 
+def _get_surface_thresholds(cone: Optional[int] = None) -> Tuple[float, float]:
+    """Get surface prediction thresholds for a given cone.
+
+    Low-fire glazes need more flux to mature, so they appear glossier
+    at lower SiO2:Al2O3 ratios than high-fire glazes.
+
+    Returns (t_glossy, t_satin) thresholds.
+    """
+    data = load_surface_thresholds()
+    if data and 'cone_thresholds' in data:
+        # Find the best matching cone range
+        cone_ranges = data['cone_thresholds']
+        if cone is not None:
+            # Map cone to range key
+            if cone <= 3:
+                key = 'low_fire'
+            elif cone <= 6:
+                key = 'mid_range'
+            elif cone <= 11:
+                key = 'high_fire'
+            else:
+                key = 'high_fire'
+            if key in cone_ranges:
+                return (
+                    cone_ranges[key].get('glossy', 5),
+                    cone_ranges[key].get('satin', 4),
+                )
+
+    # Fall back to legacy thresholds or Stull defaults
+    if data:
+        return (
+            data.get('sio2_al2o3_thresholds', {}).get('glossy', 5),
+            data.get('sio2_al2o3_thresholds', {}).get('satin', 4),
+        )
+    return 5, 4
+
+
 # Legacy name for backward compatibility
 LIMIT_FORMULAS = _LIMIT_FORMULAS_DEFAULT
 
@@ -71,11 +108,15 @@ class UMFResult:
     raw_moles: Optional[Dict[str, float]] = None
     ratios: Dict[str, float] = field(default_factory=dict)
     surface_prediction: Optional[str] = None
+    surface_confidence: str = 'unknown'
     thermal_expansion: Optional[float] = None
     limit_warnings: List[str] = field(default_factory=list)
     warnings: List[str] = field(default_factory=list)
     error: Optional[str] = None
     missing_materials: List[str] = field(default_factory=list)
+    cone: Optional[int] = None
+    confidence: Dict[str, str] = field(default_factory=dict)
+    recommendations: List[str] = field(default_factory=list)
 
     def to_dict(self) -> dict:
         """Convert to JSON-serializable dict."""
@@ -85,11 +126,15 @@ class UMFResult:
             'umf_formula': self.umf_formula,
             'ratios': self.ratios,
             'surface_prediction': self.surface_prediction,
+            'surface_confidence': self.surface_confidence,
             'thermal_expansion': self.thermal_expansion,
             'limit_warnings': self.limit_warnings,
             'warnings': self.warnings,
             'error': self.error,
             'missing_materials': self.missing_materials,
+            'cone': self.cone,
+            'confidence': self.confidence,
+            'recommendations': self.recommendations,
         }
         return result
 
@@ -101,15 +146,19 @@ class UMFResult:
 class UMFAnalyzer:
     """Calculate Unity Molecular Formula from glaze recipes."""
 
-    def calculate(self, recipe_string: str) -> UMFResult:
+    def calculate(self, recipe_string: str, cone: Optional[int] = None) -> UMFResult:
         """Calculate UMF from a recipe string.
 
         Args:
             recipe_string: Recipe like "Custer Feldspar 45, Silica 25, Whiting 18, EPK 12"
+            cone: Target firing cone (e.g., 6, 10). Affects limit checks and surface prediction.
 
         Returns:
-            UMFResult with formula, ratios, surface prediction, CTE, and limit warnings.
+            UMFResult with formula, ratios, surface prediction, CTE, limit warnings,
+            confidence indicators, and actionable recommendations.
         """
+        effective_cone = cone if cone is not None else 10
+
         # Step 1: Parse the recipe
         parse_result = parse_recipe_string(recipe_string)
 
@@ -160,14 +209,22 @@ class UMFAnalyzer:
         # Step 4: Calculate useful ratios
         ratios = self._calculate_ratios(umf)
 
-        # Step 5: Predict surface character
-        surface = self._predict_surface(ratios)
+        # Step 5: Predict surface character (cone-aware)
+        surface, surface_confidence = self._predict_surface(ratios, effective_cone)
 
         # Step 6: Calculate thermal expansion coefficient (ALL oxides, mole fraction method)
         cte = calculate_cte(umf)
 
-        # Step 7: Check against limit formulas
-        warnings = self._check_limits(umf)
+        # Step 7: Check against cone-specific limit formulas
+        limit_warnings = self._check_limits(umf, effective_cone)
+
+        # Step 8: Build confidence and recommendations
+        confidence = self._build_confidence(
+            umf, ratios, limit_warnings, surface_confidence, effective_cone
+        )
+        recommendations = self._build_recommendations(
+            umf, ratios, limit_warnings, surface, surface_confidence, cte, effective_cone
+        )
 
         extra_warnings = []
         if parse_result.normalized:
@@ -186,10 +243,14 @@ class UMFAnalyzer:
             raw_moles=moles,
             ratios=ratios,
             surface_prediction=surface,
+            surface_confidence=surface_confidence,
             thermal_expansion=cte,
-            limit_warnings=warnings,
+            limit_warnings=limit_warnings,
             warnings=extra_warnings,
             missing_materials=missing_materials,
+            cone=effective_cone,
+            confidence=confidence,
+            recommendations=recommendations,
         )
 
     def _calculate_moles(self, materials: Dict[str, float]) -> Dict[str, float]:
@@ -279,48 +340,63 @@ class UMFAnalyzer:
 
         return ratios
 
-    def _predict_surface(self, ratios: Dict[str, float]) -> str:
+    def _predict_surface(self, ratios: Dict[str, float], cone: int) -> Tuple[str, str]:
         """Predict surface character from UMF ratios.
 
-        Based on Stull chart (1912) as implemented on Glazy.org:
-        - Matte: SiO2:Al2O3 < 4
-        - Semi-matte (satin): SiO2:Al2O3 ~4-5
-        - Glossy: SiO2:Al2O3 > 5
-        - High CaO promotes glossy surfaces
-        - High MgO can promote matte surfaces
-        - High B2O3 promotes fluid, glossy surfaces
+        Uses cone-specific thresholds. Low-fire glazes mature with more flux,
+        so they tend to be glossier at lower SiO2:Al2O3 ratios.
 
-        Thresholds loaded from ceramics-foundation/data/surface-prediction.json if available.
+        Returns (surface, confidence) where confidence is 'high', 'medium', or 'low'
+        based on distance from the nearest threshold.
         """
         sio2_al2o3 = ratios.get('sio2_al2o3', 0)
 
-        # Load thresholds from external data, fall back to Stull defaults
-        thresholds = load_surface_thresholds()
-        if thresholds:
-            t_glossy = thresholds.get('glossy', 5)
-            t_satin = thresholds.get('satin', 4)
-        else:
-            t_glossy, t_satin = 5, 4
+        t_glossy, t_satin = _get_surface_thresholds(cone)
 
+        # Determine surface
         if sio2_al2o3 >= t_glossy:
-            return 'glossy'
+            surface = 'glossy'
+            boundary = t_glossy
         elif sio2_al2o3 >= t_satin:
-            return 'satin'
+            surface = 'satin'
+            lower_boundary = t_satin
+            upper_boundary = t_glossy
+            # Distance to nearest boundary
+            dist_to_lower = sio2_al2o3 - lower_boundary
+            dist_to_upper = upper_boundary - sio2_al2o3
+            boundary = lower_boundary if dist_to_lower < dist_to_upper else upper_boundary
         elif sio2_al2o3 > 0:
-            return 'matte'
+            surface = 'matte'
+            boundary = t_satin
         else:
-            return 'dry_underfired'
+            surface = 'dry_underfired'
+            boundary = t_satin
 
-    def _check_limits(self, umf: Dict[str, float]) -> List[str]:
-        """Check UMF values against target formula guidelines.
+        # Confidence based on distance from nearest boundary
+        if surface == 'dry_underfired':
+            confidence = 'low'
+        else:
+            distance = abs(sio2_al2o3 - boundary)
+            if distance >= 0.3:
+                confidence = 'high'
+            elif distance >= 0.1:
+                confidence = 'medium'
+            else:
+                confidence = 'low'
 
-        Note: these are guidelines based on common stoneware ranges, not absolute
-        limits. Many successful glazes fall outside these ranges.
+        return surface, confidence
+
+    def _check_limits(self, umf: Dict[str, float], cone: int) -> List[str]:
+        """Check UMF values against cone-specific target formula guidelines.
+
+        Note: these are guidelines based on common ranges for the target cone,
+        not absolute limits. Many successful glazes fall outside these ranges.
         """
         warnings = []
+        limit_formulas = get_limit_formulas(cone)
 
         # Check individual oxides
-        for oxide, (lo, hi) in LIMIT_FORMULAS.items():
+        for oxide, (lo, hi) in limit_formulas.items():
             if oxide == 'KNaO':
                 # Combined alkali check
                 value = umf.get('K2O', 0) + umf.get('Na2O', 0)
@@ -332,26 +408,176 @@ class UMFAnalyzer:
             elif value > hi:
                 warnings.append(f'{oxide} ({value:.2f}) exceeds typical range ({lo}-{hi}) — guideline only')
 
-        # Additional practical checks
+        # Additional practical checks (cone-aware)
         sio2 = umf.get('SiO2', 0)
-        if sio2 > 6.0:
-            warnings.append(f'Very high SiO2 ({sio2:.2f}) — glaze may be stiff or underfired at normal temperatures')
+        si_max = limit_formulas.get('SiO2', (0, 6.0))[1]
+        if sio2 > si_max:
+            warnings.append(f'Very high SiO2 ({sio2:.2f}) — glaze may be stiff or underfired at cone {cone}')
 
         al2o3 = umf.get('Al2O3', 0)
-        if al2o3 > 0.6:
-            warnings.append(f'High Al2O3 ({al2o3:.2f}) — glaze may be matte or underfired')
+        al_max = limit_formulas.get('Al2O3', (0, 0.6))[1]
+        if al2o3 > al_max:
+            warnings.append(f'High Al2O3 ({al2o3:.2f}) — glaze may be matte or underfired at cone {cone}')
 
         b2o3 = umf.get('B2O3', 0)
-        if b2o3 > 0.3:
-            warnings.append(f'High B2O3 ({b2o3:.2f}) — glaze may be very fluid at cone 10')
+        b_max = limit_formulas.get('B2O3', (0, 0.3))[1]
+        if b2o3 > b_max:
+            warnings.append(f'High B2O3 ({b2o3:.2f}) — glaze may be very fluid at cone {cone}')
 
         return warnings
+
+    def _build_confidence(
+        self,
+        umf: Dict[str, float],
+        ratios: Dict[str, float],
+        limit_warnings: List[str],
+        surface_confidence: str,
+        cone: int,
+    ) -> Dict[str, str]:
+        """Build confidence indicators for each prediction."""
+        confidence = {
+            'surface': surface_confidence,
+        }
+
+        # Limit confidence
+        if not limit_warnings:
+            confidence['limits'] = 'high'
+        else:
+            # Count how many are "near edge" vs "far outside"
+            near_edge = 0
+            far_outside = 0
+            for w in limit_warnings:
+                # Parse the warning to see how far outside
+                # Format: "OXIDE (X.XX) is below/above typical range (LO-HI)"
+                try:
+                    parts = w.split()
+                    value_str = parts[1].strip('()')
+                    value = float(value_str)
+                    range_str = parts[-2].strip('— guideline only').strip()
+                    lo, hi = map(float, range_str.split('-'))
+                    if value < lo:
+                        deviation = (lo - value) / lo if lo > 0 else 0
+                    else:
+                        deviation = (value - hi) / hi if hi > 0 else 0
+                    if deviation <= 0.2:
+                        near_edge += 1
+                    else:
+                        far_outside += 1
+                except (ValueError, IndexError):
+                    near_edge += 1
+
+            if far_outside > 0:
+                confidence['limits'] = 'low'
+            elif near_edge > 0:
+                confidence['limits'] = 'medium'
+            else:
+                confidence['limits'] = 'high'
+
+        # Overall confidence
+        levels = {'high': 3, 'medium': 2, 'low': 1, 'unknown': 0}
+        surface_lvl = levels.get(surface_confidence, 0)
+        limit_lvl = levels.get(confidence.get('limits', 'unknown'), 0)
+        overall = min(surface_lvl, limit_lvl)
+        confidence['overall'] = {3: 'high', 2: 'medium', 1: 'low', 0: 'unknown'}[overall]
+
+        return confidence
+
+    def _build_recommendations(
+        self,
+        umf: Dict[str, float],
+        ratios: Dict[str, float],
+        limit_warnings: List[str],
+        surface: str,
+        surface_confidence: str,
+        cte: Optional[float],
+        cone: int,
+    ) -> List[str]:
+        """Build actionable recommendations based on the analysis."""
+        recommendations = []
+        sio2_al2o3 = ratios.get('sio2_al2o3', 0)
+
+        # Surface confidence recommendation
+        if surface_confidence == 'low':
+            if surface == 'matte':
+                recommendations.append(
+                    f'This glaze is near the matte/satin boundary (SiO₂:Al₂O₃ = {sio2_al2o3:.2f}). '
+                    f'Fire a test tile at cone {cone} to confirm surface character.'
+                )
+            elif surface == 'satin':
+                recommendations.append(
+                    f'This glaze is near a surface boundary (SiO₂:Al₂O₃ = {sio2_al2o3:.2f}). '
+                    f'Small changes in application thickness or cooling rate may shift the result.'
+                )
+            elif surface == 'glossy':
+                recommendations.append(
+                    f'This glaze is near the satin/glossy boundary (SiO₂:Al₂O₃ = {sio2_al2o3:.2f}). '
+                    f'Slow cooling may increase gloss; fast cooling may produce satin.'
+                )
+
+        # Limit-based recommendations
+        for warning in limit_warnings:
+            if 'SiO2' in warning and 'below' in warning:
+                recommendations.append(
+                    f'SiO₂ is low for cone {cone} — glaze may be underfired or too fluid. '
+                    f'Consider adding 5-10% silica or reducing fluxes.'
+                )
+            elif 'SiO2' in warning and 'exceeds' in warning:
+                recommendations.append(
+                    f'High SiO₂ may make this glaze stiff at cone {cone}. '
+                    f'Consider adding a small amount of flux (whiting, feldspar) or test at a higher cone.'
+                )
+            elif 'Al2O3' in warning and 'below' in warning:
+                recommendations.append(
+                    f'Low Al₂O₃ may make this glaze runny. Consider adding 2-5% kaolin or clay.'
+                )
+            elif 'Al2O3' in warning and 'exceeds' in warning:
+                recommendations.append(
+                    f'High Al₂O₃ may make this glaze matte or underfired. '
+                    f'Consider adding 5-10% silica or a small amount of frit.'
+                )
+            elif 'B2O3' in warning and 'exceeds' in warning:
+                recommendations.append(
+                    f'High B₂O₃ increases fluidity and may cause running. '
+                    f'Apply thinly (2 coats) and use a catch plate for testing.'
+                )
+            elif 'KNaO' in warning and 'exceeds' in warning:
+                recommendations.append(
+                    f'High alkali content increases thermal expansion and may cause crazing. '
+                    f'Test on your clay body before using on functional ware.'
+                )
+
+        # CTE-based recommendations
+        if cte is not None:
+            if cte > 7.5:
+                recommendations.append(
+                    f'High thermal expansion (CTE = {cte:.1f}×10⁻⁶/°C) suggests crazing risk '
+                    f'on low-expansion bodies. Test on your clay body before committing.'
+                )
+            elif cte < 5.5:
+                recommendations.append(
+                    f'Low thermal expansion (CTE = {cte:.1f}×10⁻⁶/°C) suggests shivering risk '
+                    f'on high-expansion bodies. Test on your clay body before committing.'
+                )
+
+        # General testing recommendation
+        if not recommendations:
+            recommendations.append(
+                f'UMF looks reasonable for cone {cone}. Fire a test tile to confirm '
+                f'surface, color, and fit on your clay body.'
+            )
+
+        return recommendations
 
 
 # Module-level convenience function
 _analyzer = UMFAnalyzer()
 
 
-def calculate_umf(recipe: str) -> UMFResult:
-    """Calculate UMF from a recipe string using the default analyzer."""
-    return _analyzer.calculate(recipe)
+def calculate_umf(recipe: str, cone: Optional[int] = None) -> UMFResult:
+    """Calculate UMF from a recipe string using the default analyzer.
+
+    Args:
+        recipe: Recipe string like "Feldspar 45, Silica 30, Whiting 15, Kaolin 10"
+        cone: Target firing cone. Defaults to 10.
+    """
+    return _analyzer.calculate(recipe, cone=cone)

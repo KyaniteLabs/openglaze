@@ -1,15 +1,95 @@
 {
-  "version": "1.0",
-  "source": "Stull 1912 (via Glazy.org), Digitalfire, Ceramic Arts Network (Dick White, Feb 2025)",
-  "last_updated": "2026-03-17",
+  "version": "1.1",
+  "source": "Stull 1912 (via Glazy.org), Digitalfire, Ceramic Arts Network (Dick White, Feb 2025). Low-fire and interpolated ranges are estimates.",
+  "last_updated": "2026-04-24",
   "caveats": [
     "Original Stull chart context: cone 11 with 0.3 R2O : 0.7 RO (calcium)",
     "Cone 6 ranges are narrower at the low end (Dick White, Ceramic Arts Daily)",
     "Many excellent glazes fall outside these ranges — they are guidance, not rules",
     "High B2O3 glazes may have lower SiO2/Al2O3 and still be stable",
-    "These are TARGET ranges for formulation guidance, not absolute limits"
+    "These are TARGET ranges for formulation guidance, not absolute limits",
+    "Low-fire ranges (cone 04, 02, 1-5) and interpolated ranges (7, 9) are estimates based on ceramic chemistry principles: lower cones need more flux, wider B2O3 tolerance, and lower SiO2 minimums",
+    "Always test glazes fired outside their intended cone range"
   ],
   "ranges": {
+    "cone_04": {
+      "Al2O3": {"min": 0.15, "max": 0.4},
+      "SiO2": {"min": 2.0, "max": 4.0},
+      "K2O": {"min": 0.0, "max": 0.5},
+      "Na2O": {"min": 0.0, "max": 0.5},
+      "KNaO": {"min": 0.1, "max": 0.5},
+      "CaO": {"min": 0.2, "max": 0.8},
+      "MgO": {"min": 0.0, "max": 0.4},
+      "BaO": {"min": 0.0, "max": 0.3},
+      "ZnO": {"min": 0.0, "max": 0.3},
+      "B2O3": {"min": 0.0, "max": 0.5},
+      "notes": "Low-fire earthenware. Wide B2O3 range common. Lead and commercial frits typical. Estimated range."
+    },
+    "cone_02": {
+      "Al2O3": {"min": 0.18, "max": 0.45},
+      "SiO2": {"min": 2.0, "max": 4.5},
+      "K2O": {"min": 0.0, "max": 0.5},
+      "Na2O": {"min": 0.0, "max": 0.5},
+      "KNaO": {"min": 0.1, "max": 0.5},
+      "CaO": {"min": 0.2, "max": 0.8},
+      "MgO": {"min": 0.0, "max": 0.4},
+      "BaO": {"min": 0.0, "max": 0.3},
+      "ZnO": {"min": 0.0, "max": 0.3},
+      "B2O3": {"min": 0.0, "max": 0.45},
+      "notes": "Low-fire to mid-range boundary. Estimated range."
+    },
+    "cone_1": {
+      "Al2O3": {"min": 0.2, "max": 0.45},
+      "SiO2": {"min": 2.0, "max": 4.5},
+      "K2O": {"min": 0.0, "max": 0.5},
+      "Na2O": {"min": 0.0, "max": 0.5},
+      "KNaO": {"min": 0.1, "max": 0.5},
+      "CaO": {"min": 0.2, "max": 0.8},
+      "MgO": {"min": 0.0, "max": 0.4},
+      "BaO": {"min": 0.0, "max": 0.3},
+      "ZnO": {"min": 0.0, "max": 0.3},
+      "B2O3": {"min": 0.0, "max": 0.45},
+      "notes": "Interpolated between cone 02 and cone 6."
+    },
+    "cone_2": {
+      "Al2O3": {"min": 0.2, "max": 0.47},
+      "SiO2": {"min": 2.2, "max": 4.6},
+      "K2O": {"min": 0.0, "max": 0.5},
+      "Na2O": {"min": 0.0, "max": 0.5},
+      "KNaO": {"min": 0.1, "max": 0.5},
+      "CaO": {"min": 0.2, "max": 0.8},
+      "MgO": {"min": 0.0, "max": 0.4},
+      "BaO": {"min": 0.0, "max": 0.3},
+      "ZnO": {"min": 0.0, "max": 0.3},
+      "B2O3": {"min": 0.0, "max": 0.42},
+      "notes": "Interpolated between cone 02 and cone 6."
+    },
+    "cone_3": {
+      "Al2O3": {"min": 0.22, "max": 0.48},
+      "SiO2": {"min": 2.3, "max": 4.7},
+      "K2O": {"min": 0.0, "max": 0.5},
+      "Na2O": {"min": 0.0, "max": 0.5},
+      "KNaO": {"min": 0.1, "max": 0.5},
+      "CaO": {"min": 0.2, "max": 0.8},
+      "MgO": {"min": 0.0, "max": 0.4},
+      "BaO": {"min": 0.0, "max": 0.3},
+      "ZnO": {"min": 0.0, "max": 0.3},
+      "B2O3": {"min": 0.0, "max": 0.42},
+      "notes": "Interpolated between cone 02 and cone 6."
+    },
+    "cone_5": {
+      "Al2O3": {"min": 0.24, "max": 0.49},
+      "SiO2": {"min": 2.4, "max": 4.8},
+      "K2O": {"min": 0.0, "max": 0.5},
+      "Na2O": {"min": 0.0, "max": 0.5},
+      "KNaO": {"min": 0.1, "max": 0.5},
+      "CaO": {"min": 0.2, "max": 0.8},
+      "MgO": {"min": 0.0, "max": 0.4},
+      "BaO": {"min": 0.0, "max": 0.3},
+      "ZnO": {"min": 0.0, "max": 0.3},
+      "B2O3": {"min": 0.0, "max": 0.4},
+      "notes": "Interpolated between cone 02 and cone 6."
+    },
     "cone_6": {
       "Al2O3": {"min": 0.25, "max": 0.5},
       "SiO2": {"min": 2.5, "max": 5.0},
@@ -21,7 +101,20 @@
       "BaO": {"min": 0.0, "max": 0.3},
       "ZnO": {"min": 0.0, "max": 0.3},
       "B2O3": {"min": 0.0, "max": 0.4},
-      "notes": "Higher B2O3 common at cone 6 than cone 10"
+      "notes": "Higher B2O3 common at cone 6 than cone 10. Dick White / Ceramic Arts Daily."
+    },
+    "cone_7": {
+      "Al2O3": {"min": 0.25, "max": 0.52},
+      "SiO2": {"min": 2.5, "max": 5.2},
+      "K2O": {"min": 0.0, "max": 0.5},
+      "Na2O": {"min": 0.0, "max": 0.5},
+      "KNaO": {"min": 0.1, "max": 0.5},
+      "CaO": {"min": 0.2, "max": 0.8},
+      "MgO": {"min": 0.0, "max": 0.4},
+      "BaO": {"min": 0.0, "max": 0.3},
+      "ZnO": {"min": 0.0, "max": 0.3},
+      "B2O3": {"min": 0.0, "max": 0.35},
+      "notes": "Interpolated between cone 6 and cone 8."
     },
     "cone_8": {
       "Al2O3": {"min": 0.25, "max": 0.55},
@@ -34,7 +127,20 @@
       "BaO": {"min": 0.0, "max": 0.3},
       "ZnO": {"min": 0.0, "max": 0.3},
       "B2O3": {"min": 0.0, "max": 0.3},
-      "notes": "Transition between mid-range and high-fire behavior"
+      "notes": "Transition between mid-range and high-fire behavior."
+    },
+    "cone_9": {
+      "Al2O3": {"min": 0.22, "max": 0.57},
+      "SiO2": {"min": 2.5, "max": 5.7},
+      "K2O": {"min": 0.0, "max": 0.5},
+      "Na2O": {"min": 0.0, "max": 0.5},
+      "KNaO": {"min": 0.1, "max": 0.5},
+      "CaO": {"min": 0.2, "max": 0.8},
+      "MgO": {"min": 0.0, "max": 0.4},
+      "BaO": {"min": 0.0, "max": 0.3},
+      "ZnO": {"min": 0.0, "max": 0.3},
+      "B2O3": {"min": 0.0, "max": 0.3},
+      "notes": "Interpolated between cone 8 and cone 10."
     },
     "cone_10": {
       "Al2O3": {"min": 0.2, "max": 0.6},

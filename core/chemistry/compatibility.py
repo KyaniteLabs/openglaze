@@ -39,6 +39,9 @@ class CompatibilityResult:
     oxide_interactions: List[str] = field(default_factory=list)
     base_umf: Optional[UMFResult] = None
     top_umf: Optional[UMFResult] = None
+    cone: Optional[int] = None
+    test_recommendations: List[str] = field(default_factory=list)
+    risk_breakdown: List[Dict[str, str]] = field(default_factory=list)
 
     def to_dict(self) -> dict:
         """Convert to JSON-serializable dict."""
@@ -57,6 +60,9 @@ class CompatibilityResult:
             'oxide_interactions': self.oxide_interactions,
             'base_umf': self.base_umf.to_dict() if self.base_umf else None,
             'top_umf': self.top_umf.to_dict() if self.top_umf else None,
+            'cone': self.cone,
+            'test_recommendations': self.test_recommendations,
+            'risk_breakdown': self.risk_breakdown,
         }
 
 
@@ -81,7 +87,8 @@ class CompatibilityAnalyzer:
     WEIGHT_MATURING = 0.15
 
     def analyze(self, base_recipe: Optional[str], top_recipe: Optional[str],
-                base_name: str = '', top_name: str = '') -> CompatibilityResult:
+                base_name: str = '', top_name: str = '',
+                cone: Optional[int] = None) -> CompatibilityResult:
         """Analyze compatibility between base and top glaze recipes.
 
         Args:
@@ -89,12 +96,15 @@ class CompatibilityAnalyzer:
             top_recipe: Recipe string for the top glaze (applied last).
             base_name: Name of the base glaze.
             top_name: Name of the top glaze.
+            cone: Target firing cone for the combination.
 
         Returns:
-            CompatibilityResult with physically-based score and recommendations.
+            CompatibilityResult with physically-based score, recommendations,
+            and specific "what to test" guidance.
         """
         base_name_lower = base_name.lower().strip()
         top_name_lower = top_name.lower().strip()
+        effective_cone = cone if cone is not None else 10
 
         # Hard rules first — these override everything
         shino_result = self._shino_check(top_name_lower, base_name_lower)
@@ -109,11 +119,22 @@ class CompatibilityAnalyzer:
                 thermal_expansion_risk='high',
                 fluidity_interaction='crawl_likely',
                 oxide_interactions=[],
+                cone=effective_cone,
+                test_recommendations=[
+                    'Reverse the layer order: apply Shino as the base layer.',
+                    'If keeping this order, apply Shino VERY thinly (1 coat) over a fully-dry base.',
+                    'Fire a vertical test tile first — Shino over non-Shino often crawls.',
+                ],
+                risk_breakdown=[{
+                    'risk': 'shino_crawl',
+                    'severity': 'critical',
+                    'mitigation': 'Reverse layer order or apply Shino as a very thin single coat',
+                }],
             )
 
-        # Calculate UMF for both glazes
-        base_umf = calculate_umf(base_recipe) if base_recipe else None
-        top_umf = calculate_umf(top_recipe) if top_recipe else None
+        # Calculate UMF for both glazes (cone-aware)
+        base_umf = calculate_umf(base_recipe, cone=effective_cone) if base_recipe else None
+        top_umf = calculate_umf(top_recipe, cone=effective_cone) if top_recipe else None
 
         risk_factors = []
         warnings = []
@@ -129,6 +150,10 @@ class CompatibilityAnalyzer:
                     warnings=['Neither glaze has a parseable recipe — limited analysis'],
                     base_umf=base_umf,
                     top_umf=top_umf,
+                    cone=effective_cone,
+                    test_recommendations=[
+                        'Add recipe data for both glazes to get a full compatibility analysis.',
+                    ],
                 )
             warnings.append(f'Base glaze recipe not parseable — limited analysis')
 
@@ -175,6 +200,16 @@ class CompatibilityAnalyzer:
                 maturing_score * self.WEIGHT_MATURING
             )
 
+            # Build test recommendations and risk breakdown
+            test_recommendations = self._build_test_recommendations(
+                base_umf, top_umf, thermal_risk, thermal_mismatch,
+                fluidity, oxide_interactions, score, effective_cone
+            )
+            risk_breakdown = self._build_risk_breakdown(
+                cte_base, cte_top, thermal_risk, thermal_mismatch,
+                fluidity, oxide_interactions, effective_cone
+            )
+
             return CompatibilityResult(
                 success=True,
                 compatible=score >= 0.5,
@@ -190,6 +225,9 @@ class CompatibilityAnalyzer:
                 oxide_interactions=oxide_interactions,
                 base_umf=base_umf,
                 top_umf=top_umf,
+                cone=effective_cone,
+                test_recommendations=test_recommendations,
+                risk_breakdown=risk_breakdown,
             )
 
         # Partial analysis (one or both recipes missing)
@@ -202,7 +240,210 @@ class CompatibilityAnalyzer:
             warnings=warnings,
             base_umf=base_umf,
             top_umf=top_umf,
+            cone=effective_cone,
+            test_recommendations=[
+                'Add complete recipe data for both glazes to get full compatibility analysis.',
+            ],
         )
+
+    def _build_test_recommendations(
+        self,
+        base_umf: UMFResult,
+        top_umf: UMFResult,
+        thermal_risk: str,
+        thermal_mismatch: Optional[float],
+        fluidity: str,
+        oxide_interactions: List[str],
+        score: float,
+        cone: int,
+    ) -> List[str]:
+        """Build specific, actionable testing recommendations."""
+        recommendations = []
+        base_ratio = base_umf.ratios.get('sio2_al2o3', 3.0)
+        top_ratio = top_umf.ratios.get('sio2_al2o3', 3.0)
+
+        # Score-based overall recommendation
+        if score >= 0.8:
+            recommendations.append(
+                f'High compatibility score ({score:.2f}). This combination looks promising. '
+                f'Fire a test tile at cone {cone} to confirm color and surface.'
+            )
+        elif score >= 0.5:
+            recommendations.append(
+                f'Moderate compatibility ({score:.2f}). Test carefully before using on important work.'
+            )
+        else:
+            recommendations.append(
+                f'Low compatibility score ({score:.2f}). Expect problems. Consider reformulating or choosing a different combination.'
+            )
+
+        # Thermal recommendations
+        if thermal_risk == 'high' and thermal_mismatch is not None:
+            abs_mismatch = abs(thermal_mismatch)
+            if thermal_mismatch > 0:
+                # Top expands more
+                recommendations.append(
+                    f'Top glaze has higher CTE (expands more when heated). Crazing risk on cooling. '
+                    f'Test on your clay body. If crazing occurs: add 5-10% silica to the top glaze, '
+                    f'or replace some feldspar with clay.'
+                )
+            else:
+                # Base expands more
+                recommendations.append(
+                    f'Base glaze has higher CTE (expands more when heated). Shivering risk on cooling. '
+                    f'Test on your clay body. If shivering occurs: add 2-5% nepheline syenite to the base, '
+                    f'or reduce silica in the top glaze.'
+                )
+            recommendations.append(
+                f'CTE difference of {abs_mismatch:.1f}×10⁻⁶/°C is significant. '
+                f'Fire a test tile and examine for cracks after 24 hours (some crazing appears after cooling).'
+            )
+        elif thermal_risk == 'medium':
+            recommendations.append(
+                f'Moderate thermal mismatch. Fire a test tile and check for crazing/shivering '
+                f'after the piece has fully cooled (wait 24 hours).'
+            )
+
+        # Fluidity recommendations
+        if 'run' in fluidity.lower():
+            recommendations.append(
+                f'Top glaze is more fluid than base — running risk at edges and drips. '
+                f'Apply top glaze thinly (2 coats max). Test on a vertical tile first. '
+                f'Use a catch plate or kiln wash under test pieces.'
+            )
+        elif 'crawl' in fluidity.lower():
+            recommendations.append(
+                f'Top glaze is stiffer than base — crawling risk at thin spots. '
+                f'Apply base glaze thickly (3-4 coats), top glaze medium (2-3 coats). '
+                f'Ensure base is fully dry before applying top. Test on flat tile first.'
+            )
+        elif 'moderate' in fluidity.lower():
+            recommendations.append(
+                f'Moderate fluidity difference. Standard application (2-3 coats each) should work. '
+                f'Monitor edges on vertical test tile.'
+            )
+
+        # Oxide interaction recommendations
+        for interaction in oxide_interactions:
+            if 'suppresses copper red' in interaction.lower():
+                recommendations.append(
+                    f'Iron in one layer suppresses copper red in the other. '
+                    f'If you want red: use an iron-free base, or move copper to the base layer. '
+                    f'If you want a different effect: this may produce interesting browns/greens.'
+                )
+            elif 'zinc destroys pink' in interaction.lower():
+                recommendations.append(
+                    f'Zinc destroys chrome-tin pink. Remove zinc from one layer, '
+                    f'or accept that pink will not develop.'
+                )
+            elif 'very high combined iron' in interaction.lower():
+                recommendations.append(
+                    f'High combined iron may produce very dark/muddy results. '
+                    f'Consider reducing iron in one layer, or embrace the tenmoku-like darkness.'
+                )
+            elif 'chromium' in interaction.lower():
+                recommendations.append(
+                    f'Chromium can volatilize and discolor nearby pieces. '
+                    f'Place test tile away from other work in the kiln. Use ventilation.'
+                )
+
+        # Cone recommendation
+        recommendations.append(
+            f'Fire test tile to cone {cone} with your standard schedule. '
+            f'Use witness cones to verify actual temperature.'
+        )
+
+        return recommendations
+
+    def _build_risk_breakdown(
+        self,
+        cte_base: Optional[float],
+        cte_top: Optional[float],
+        thermal_risk: str,
+        thermal_mismatch: Optional[float],
+        fluidity: str,
+        oxide_interactions: List[str],
+        cone: int,
+    ) -> List[Dict[str, str]]:
+        """Build structured risk breakdown with severity and mitigation."""
+        breakdown = []
+
+        # Thermal risk
+        if thermal_risk != 'unknown' and thermal_mismatch is not None:
+            abs_mismatch = abs(thermal_mismatch)
+            if abs_mismatch < 0.5:
+                severity = 'low'
+            elif abs_mismatch < 1.5:
+                severity = 'medium'
+            else:
+                severity = 'high'
+
+            if thermal_mismatch > 0:
+                mitigation = (
+                    f'Add 5-10% silica to top glaze, or reduce alkali fluxes. '
+                    f'Test on your clay body at cone {cone}.'
+                )
+            else:
+                mitigation = (
+                    f'Add 2-5% nepheline syenite to base glaze, or reduce silica in top. '
+                    f'Test on your clay body at cone {cone}.'
+                )
+
+            breakdown.append({
+                'risk': 'thermal_expansion_mismatch',
+                'severity': severity,
+                'detail': f'CTE delta: {thermal_mismatch:+.2f}×10⁻⁶/°C (base: {cte_base}, top: {cte_top})',
+                'mitigation': mitigation,
+            })
+
+        # Fluidity risk
+        if 'run' in fluidity.lower():
+            breakdown.append({
+                'risk': 'running',
+                'severity': 'high' if 'severe' in fluidity.lower() else 'medium',
+                'detail': fluidity,
+                'mitigation': 'Apply top glaze thinly (2 coats). Test on vertical tile. Use catch plate.',
+            })
+        elif 'crawl' in fluidity.lower():
+            breakdown.append({
+                'risk': 'crawling',
+                'severity': 'high' if 'severe' in fluidity.lower() else 'medium',
+                'detail': fluidity,
+                'mitigation': 'Apply base thickly, ensure fully dry before top coat. Test on flat tile first.',
+            })
+
+        # Oxide risks
+        for interaction in oxide_interactions:
+            if 'suppresses copper red' in interaction.lower():
+                breakdown.append({
+                    'risk': 'color_suppression',
+                    'severity': 'high',
+                    'detail': interaction,
+                    'mitigation': 'Use iron-free base for copper red, or accept brown/green result.',
+                })
+            elif 'zinc destroys pink' in interaction.lower():
+                breakdown.append({
+                    'risk': 'color_suppression',
+                    'severity': 'critical',
+                    'detail': interaction,
+                    'mitigation': 'Remove zinc from one layer. Zinc and chrome-tin pink are incompatible.',
+                })
+            elif 'critical' in interaction.lower() and 'iron' in interaction.lower():
+                breakdown.append({
+                    'risk': 'muddy_result',
+                    'severity': 'medium',
+                    'detail': interaction,
+                    'mitigation': 'Reduce iron in one layer, or embrace the dark tenmoku-like result.',
+                })
+            elif 'chromium' in interaction.lower():
+                breakdown.append({
+                    'risk': 'kiln_contamination',
+                    'severity': 'medium',
+                    'detail': interaction,
+                    'mitigation': 'Isolate test piece from other work. Use ventilation.',
+                })
+
+        return breakdown
 
     def _is_shino(self, name: str) -> bool:
         """Check if a glaze name indicates a shino."""
