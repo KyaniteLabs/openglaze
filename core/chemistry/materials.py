@@ -97,7 +97,7 @@ MATERIALS: Dict[str, Material] = {}
 # --- Feldspars ---
 MATERIALS['custer feldspar'] = Material(
     name='Custer Feldspar',
-    aliases=['custer', 'k-spar', 'kspar', 'potassium feldspar'],
+    aliases=['custer', 'k-spar', 'kspar', 'potassium feldspar', 'potash feldspar', 'feldspar'],
     # Updated to current Pacer Minerals data (Digitalfire/Glazy 2024)
     oxides={'K2O': 10.0, 'Na2O': 3.8, 'Al2O3': 17.1, 'SiO2': 68.0, 'Fe2O3': 0.1, 'CaO': 0.3},
     loi=0.25,
@@ -122,7 +122,7 @@ MATERIALS['g-200 feldspar'] = Material(
 
 MATERIALS['f-4 feldspar'] = Material(
     name='F-4 Feldspar',
-    aliases=['f4', 'minnesota feldspar'],
+    aliases=['f4', 'minnesota feldspar', 'soda feldspar'],
     oxides={'K2O': 8.0, 'Na2O': 6.0, 'Al2O3': 17.5, 'SiO2': 68.0},
     loi=0.2,
     category='feldspar',
@@ -131,7 +131,7 @@ MATERIALS['f-4 feldspar'] = Material(
 # --- Silica ---
 MATERIALS['silica'] = Material(
     name='Silica',
-    aliases=['flint', 'quartz', 'sio2'],
+    aliases=['flint', 'quartz', 'sio2', 'silica sand'],
     oxides={'SiO2': 99.5},
     loi=0.1,
     category='silica',
@@ -140,7 +140,7 @@ MATERIALS['silica'] = Material(
 # --- Fluxes ---
 MATERIALS['whiting'] = Material(
     name='Whiting',
-    aliases=['calcium carbonate', 'caco3', 'chalk'],
+    aliases=['calcium carbonate', 'caco3', 'chalk', 'limestone'],
     oxides={'CaO': 56.0},
     loi=44.0,
     category='flux',
@@ -221,7 +221,7 @@ MATERIALS['bone ash'] = Material(
 # --- Clays ---
 MATERIALS['epk'] = Material(
     name='EPK',
-    aliases=['edgar plastic kaolin', 'kaolin', 'china clay'],
+    aliases=['edgar plastic kaolin', 'kaolin', 'china clay', 'generic kaolin'],
     oxides={'Al2O3': 37.0, 'SiO2': 46.5, 'K2O': 0.5, 'Fe2O3': 0.8},
     loi=13.5,
     category='clay',
@@ -262,7 +262,7 @@ MATERIALS['bentonite'] = Material(
 # --- Colorants ---
 MATERIALS['red iron oxide'] = Material(
     name='Red Iron Oxide',
-    aliases=['iron oxide', 'iron oxide red', 'fe2o3', 'red iron'],
+    aliases=['iron oxide', 'iron oxide red', 'fe2o3', 'red iron', 'iron'],
     oxides={'Fe2O3': 95.0},
     loi=0.0,
     category='colorant',
@@ -287,7 +287,7 @@ MATERIALS['cobalt carbonate'] = Material(
 
 MATERIALS['cobalt oxide'] = Material(
     name='Cobalt Oxide',
-    aliases=['cobalt'],
+    aliases=['cobalt', 'cobalt ox'],
     oxides={'CoO': 93.0},
     loi=0.0,
     category='colorant',
@@ -303,7 +303,7 @@ MATERIALS['copper carbonate'] = Material(
 
 MATERIALS['copper oxide'] = Material(
     name='Copper Oxide',
-    aliases=['copper oxide black', 'cuo'],
+    aliases=['copper oxide black', 'cuo', 'copper'],
     oxides={'CuO': 99.0},
     loi=0.0,
     category='colorant',

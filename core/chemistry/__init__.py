@@ -9,7 +9,7 @@ from .parser import RecipeParser, ParseResult, parse_recipe_string
 from .umf import UMFResult, UMFAnalyzer, calculate_umf
 from .compatibility import CompatibilityResult, CompatibilityAnalyzer
 from .batch import BatchAnalyzer
-from .defects import DefectAnalysis, DefectPredictor, predict_defects
+from .defects import DefectAnalysis, DefectRisk, DefectPredictor, assess_defect_risk, predict_defects
 from .substitutions import SubstitutionResult, SubstitutionEngine, suggest_substitutions
 from .compare import RecipeComparison, RecipeComparator, compare_recipes
 
@@ -27,7 +27,9 @@ __all__ = [
     'CompatibilityAnalyzer',
     'BatchAnalyzer',
     'DefectAnalysis',
+    'DefectRisk',
     'DefectPredictor',
+    'assess_defect_risk',
     'predict_defects',
     'SubstitutionResult',
     'SubstitutionEngine',

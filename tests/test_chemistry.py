@@ -66,9 +66,10 @@ class TestUMF:
 
     def test_umf_missing_materials_tracked(self):
         result = calculate_umf('Custer Feldspar 50, Unobtainium 25, Silica 25')
-        assert result.success is True
+        # Missing materials now cause hard failure
+        assert result.success is False
         assert 'unobtainium' in [m.lower() for m in result.missing_materials]
-        assert any('not found in database' in w.lower() for w in result.warnings)
+        assert any('incomplete' in r.lower() for r in result.recommendations)
 
     def test_umf_bad_recipe_fails(self):
         result = calculate_umf('not a real recipe')

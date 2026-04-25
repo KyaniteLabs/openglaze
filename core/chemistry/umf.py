@@ -231,9 +231,26 @@ class UMFAnalyzer:
             extra_warnings.append('Recipe percentages were normalized to sum to 100')
 
         if missing_materials:
-            extra_warnings.append(
-                f'Materials not found in database: {", ".join(missing_materials)} — '
-                f'UMF may be incomplete. Try alternative names.'
+            return UMFResult(
+                success=False,
+                recipe_parsed=True,
+                umf_formula=umf,
+                raw_moles=moles,
+                ratios=ratios,
+                surface_prediction=surface,
+                surface_confidence=surface_confidence,
+                thermal_expansion=cte,
+                limit_warnings=limit_warnings,
+                warnings=extra_warnings,
+                missing_materials=missing_materials,
+                cone=effective_cone,
+                confidence=confidence,
+                recommendations=[
+                    f'Materials not found in database: {", ".join(missing_materials)}.',
+                    'The UMF shown is INCOMPLETE — missing materials were excluded.',
+                    'Try these alternative names, or check the materials database.',
+                ],
+                error=f'Unknown materials: {", ".join(missing_materials)}',
             )
 
         return UMFResult(
@@ -403,25 +420,25 @@ class UMFAnalyzer:
                 value = umf.get(oxide, 0)
 
             if value > 0 and value < lo:
-                warnings.append(f'{oxide} ({value:.2f}) is below typical range ({lo}-{hi}) — guideline only')
+                warnings.append(f'{oxide} ({value:.2f}) is below the typical cone {cone} range ({lo}-{hi}). Many glazes work outside these guidelines — this is informational only.')
             elif value > hi:
-                warnings.append(f'{oxide} ({value:.2f}) exceeds typical range ({lo}-{hi}) — guideline only')
+                warnings.append(f'{oxide} ({value:.2f}) is above the typical cone {cone} range ({lo}-{hi}). Many classic glazes intentionally exceed these ranges — this is informational only.')
 
         # Additional practical checks (cone-aware)
         sio2 = umf.get('SiO2', 0)
         si_max = limit_formulas.get('SiO2', (0, 6.0))[1]
         if sio2 > si_max:
-            warnings.append(f'Very high SiO2 ({sio2:.2f}) — glaze may be stiff or underfired at cone {cone}')
+            warnings.append(f'SiO₂ ({sio2:.2f}) is above typical. High-silica glazes are common in ash glazes and some traditional formulations. Firing test required.')
 
         al2o3 = umf.get('Al2O3', 0)
         al_max = limit_formulas.get('Al2O3', (0, 0.6))[1]
         if al2o3 > al_max:
-            warnings.append(f'High Al2O3 ({al2o3:.2f}) — glaze may be matte or underfired at cone {cone}')
+            warnings.append(f'Al₂O₃ ({al2o3:.2f}) is above typical. High-alumina glazes like Shino intentionally use this range. Firing test required.')
 
         b2o3 = umf.get('B2O3', 0)
         b_max = limit_formulas.get('B2O3', (0, 0.3))[1]
         if b2o3 > b_max:
-            warnings.append(f'High B2O3 ({b2o3:.2f}) — glaze may be very fluid at cone {cone}')
+            warnings.append(f'B₂O₃ ({b2o3:.2f}) is above typical. High-boron glazes melt at lower temperatures but may be fluid. Firing test required.')
 
         return warnings
 
@@ -517,31 +534,32 @@ class UMFAnalyzer:
         for warning in limit_warnings:
             if 'SiO2' in warning and 'below' in warning:
                 recommendations.append(
-                    f'SiO₂ is low for cone {cone} — glaze may be underfired or too fluid. '
-                    f'Consider adding 5-10% silica or reducing fluxes.'
+                    f'SiO₂ is below typical for cone {cone}. If the glaze is too fluid, '
+                    f'try adding 5-10% silica. If it works as-is, the guideline does not apply to your formulation.'
                 )
-            elif 'SiO2' in warning and 'exceeds' in warning:
+            elif 'SiO2' in warning and 'above' in warning:
                 recommendations.append(
-                    f'High SiO₂ may make this glaze stiff at cone {cone}. '
-                    f'Consider adding a small amount of flux (whiting, feldspar) or test at a higher cone.'
+                    f'SiO₂ is above typical for cone {cone}. High-silica glazes can be excellent — '
+                    f'fire a test tile to check maturity.'
                 )
             elif 'Al2O3' in warning and 'below' in warning:
                 recommendations.append(
-                    'Low Al₂O₃ may make this glaze runny. Consider adding 2-5% kaolin or clay.'
+                    'Al₂O₃ is below typical. If the glaze runs, try adding 2-5% kaolin. '
+                    'Low-alumina glazes can produce interesting fluid effects.'
                 )
-            elif 'Al2O3' in warning and 'exceeds' in warning:
+            elif 'Al2O3' in warning and 'above' in warning:
                 recommendations.append(
-                    'High Al₂O₃ may make this glaze matte or underfired. '
-                    'Consider adding 5-10% silica or a small amount of frit.'
+                    'Al₂O₃ is above typical. This is characteristic of high-alumina glazes like Shino. '
+                    'Fire a test tile to confirm surface and maturity.'
                 )
-            elif 'B2O3' in warning and 'exceeds' in warning:
+            elif 'B2O3' in warning and 'above' in warning:
                 recommendations.append(
-                    'High B₂O₃ increases fluidity and may cause running. '
-                    'Apply thinly (2 coats) and use a catch plate for testing.'
+                    'B₂O₃ is above typical. Boron lowers melting point — this may be intentional for low-fire glazes. '
+                    'Apply thinly and use a catch plate for testing.'
                 )
-            elif 'KNaO' in warning and 'exceeds' in warning:
+            elif 'KNaO' in warning and 'above' in warning:
                 recommendations.append(
-                    'High alkali content increases thermal expansion and may cause crazing. '
+                    'Alkali content is above typical. High-alkali glazes can craze on some clay bodies. '
                     'Test on your clay body before using on functional ware.'
                 )
 
@@ -558,12 +576,17 @@ class UMFAnalyzer:
                     f'on high-expansion bodies. Test on your clay body before committing.'
                 )
 
-        # General testing recommendation
-        if not recommendations:
-            recommendations.append(
-                f'UMF looks reasonable for cone {cone}. Fire a test tile to confirm '
-                f'surface, color, and fit on your clay body.'
-            )
+        # Mandatory test-tile recommendation for ALL results
+        recommendations.append(
+            f'Fire a test tile at cone {cone} on your clay body to confirm surface, '
+            f'color, and fit. UMF analysis predicts chemistry but cannot replace firing tests.'
+        )
+
+        # Literature references
+        recommendations.append(
+            'References: Stull chart (Stull 1912) for SiO₂:Al₂O₃ surface prediction; '
+            'Appen molar coefficients for thermal expansion; Schermann limit formulas for UMF targets.'
+        )
 
         return recommendations
 
