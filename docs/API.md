@@ -562,41 +562,6 @@ Authorization: Bearer <token>
 
 **Roles:** `owner`, `admin`, `member`, `viewer`
 
-## Billing
-
-### Get Subscription
-
-```http
-GET /api/billing/subscription
-Authorization: Bearer <token>
-```
-
-### Create Checkout Session
-
-```http
-POST /api/billing/checkout
-Content-Type: application/json
-Authorization: Bearer <token>
-
-{
-  "tier": "pro",
-  "interval": "monthly",
-  "provider": "stripe"
-}
-```
-
-**Tiers:** `free`, `pro`, `studio`, `education`
-**Intervals:** `monthly`, `yearly`
-**Providers:** `stripe`, `paypal`, `btcpay`, `manual`
-
-### Webhooks
-
-Payment providers send webhook events to:
-
-- Stripe: `POST /api/billing/webhook/stripe`
-- PayPal: `POST /api/billing/webhook/paypal`
-- BTCPay: `POST /api/billing/webhook/btcpay`
-
 ## Uploads
 
 ### Upload Photo

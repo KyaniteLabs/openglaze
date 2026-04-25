@@ -17,7 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Studio collaboration with member management and lab assignments
 - Prediction market for human vs AI glaze outcome predictions
 - Simulation engine for glaze chemistry modeling
-- Flexible billing with Stripe, PayPal, BTCPay, and manual invoicing
+- Free and open source — MIT licensed, no paywalls
 - Generic studio profiles — replaceable templates for any ceramics studio
 - Community glaze templates (Cone 10 Reduction, Cone 6 Oxidation)
 - Ceramics Foundation data inlined (30+ materials, 19 oxides, firing schedules)
@@ -56,7 +56,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Photo documentation with gallery
 - Recipe calculator with batch sizing
 - Layering combination tracker
-- User management and subscriptions
+- User management and studio collaboration
 - MIT license
 
 [Unreleased]: https://github.com/Pastorsimon1798/openglaze/compare/v1.0.0...HEAD

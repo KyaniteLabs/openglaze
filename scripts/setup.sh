@@ -28,7 +28,6 @@ if [ ! -f .env ]; then
     cp .env.example .env
     echo ""
     echo "IMPORTANT: Edit .env with your configuration before continuing:"
-    echo "  - Set STRIPE_API_KEY and STRIPE_WEBHOOK_SECRET for payments"
     echo "  - Set KRATOS_HOOK_KEY to a secure random string"
     echo "  - Adjust BASE_URL for your domain"
     echo ""

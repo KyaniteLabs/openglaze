@@ -123,34 +123,6 @@ def require_auth(f):
     return decorated
 
 
-def require_tier(*allowed_tiers):
-    """Decorator to require specific tier access.
-
-    Args:
-        *allowed_tiers: List of allowed tier names
-
-    Usage:
-        @require_tier('pro', 'studio')
-        def some_route():
-            ...
-    """
-    def decorator(f):
-        @wraps(f)
-        @require_auth
-        def decorated(*args, **kwargs):
-            user_tier = request.user.get('traits', {}).get('tier', 'free')
-
-            if user_tier not in allowed_tiers:
-                return jsonify({
-                    "error": "Tier not allowed",
-                    "required": list(allowed_tiers),
-                    "current": user_tier,
-                    "upgrade_url": "/pricing"
-                }), 403
-
-            return f(*args, **kwargs)
-        return decorated
-    return decorator
 
 
 def create_identity(email, password=None, traits=None):

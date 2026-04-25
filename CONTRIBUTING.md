@@ -155,7 +155,7 @@ feat(chemistry): add thermal expansion coefficient calculation
 fix(ai): resolve Kama context injection for large glaze libraries
 
 docs(readme): update self-hosting instructions for Docker
-test(billing): add Stripe webhook validation tests
+test(auth): add Kratos session validation tests
 ```
 
 ## Documentation

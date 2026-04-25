@@ -703,45 +703,6 @@ async function applyTemplate(templateId) {
 }
 
 // =============================================================================
-// BILLING
-// =============================================================================
-
-async function initiateCheckout(tier, provider = 'stripe') {
-    if (!state.user) {
-        window.location.href = `/auth/register?tier=${tier}`;
-        return;
-    }
-
-    try {
-        state.loading = true;
-
-        const response = await fetch(`${API_BASE}/billing/checkout`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            credentials: 'include',
-            body: JSON.stringify({ tier, provider })
-        });
-
-        if (response.ok) {
-            const result = await response.json();
-            if (result.url) {
-                window.location.href = result.url;
-            }
-        } else {
-            const error = await response.json();
-            showNotification(error.error || 'Checkout failed', 'error');
-        }
-    } catch (error) {
-        console.error('Checkout error:', error);
-        showNotification('Checkout failed', 'error');
-    } finally {
-        state.loading = false;
-    }
-}
-
-// =============================================================================
 // UI HELPERS
 // =============================================================================
 
@@ -774,19 +735,9 @@ function showNotification(message, type = 'info') {
 }
 
 function setupEventListeners() {
-    // Handle pricing card buttons
-    document.querySelectorAll('[data-tier]').forEach(button => {
-        button.addEventListener('click', (e) => {
-            e.preventDefault();
-            const tier = button.dataset.tier;
-            initiateCheckout(tier);
-        });
-    });
-
     // Handle template selection from URL
     const urlParams = new URLSearchParams(window.location.search);
     const templateId = urlParams.get('template');
-    const tier = urlParams.get('tier');
 
     if (templateId && state.user) {
         applyTemplate(templateId);
@@ -857,7 +808,6 @@ document.head.appendChild(style);
 window.OpenGlaze = {
     checkAuth,
     applyTemplate,
-    initiateCheckout,
     loadGlazes,
     createGlaze: (data) => fetch(`${API_BASE}/glazes`, {
         method: 'POST',

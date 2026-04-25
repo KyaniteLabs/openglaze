@@ -252,23 +252,6 @@ CREATE TABLE IF NOT EXISTS predictions (
 );
 
 -- ==========================================================================
--- SUBSCRIPTIONS (billing)
--- ==========================================================================
-
-CREATE TABLE IF NOT EXISTS subscriptions (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    user_id TEXT NOT NULL,
-    provider TEXT NOT NULL,
-    provider_subscription_id TEXT,
-    tier TEXT NOT NULL,
-    status TEXT CHECK(status IN ('active', 'canceled', 'past_due', 'pending')),
-    current_period_start TIMESTAMP,
-    current_period_end TIMESTAMP,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
--- ==========================================================================
 -- FIRINGS (kiln logs)
 -- ==========================================================================
 
@@ -318,7 +301,6 @@ CREATE INDEX IF NOT EXISTS idx_predictions_resolved ON predictions(resolved);
 CREATE INDEX IF NOT EXISTS idx_badges_user_id ON badges(user_id);
 CREATE INDEX IF NOT EXISTS idx_activity_log_user_id ON activity_log(user_id);
 CREATE INDEX IF NOT EXISTS idx_activity_log_date ON activity_log(user_id, created_at);
-CREATE INDEX IF NOT EXISTS idx_subscriptions_user_id ON subscriptions(user_id);
 CREATE INDEX IF NOT EXISTS idx_firings_user_id ON firings(user_id);
 
 -- Insert initial progress record (for personal mode)

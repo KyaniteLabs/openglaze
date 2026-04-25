@@ -72,7 +72,7 @@ class AuthMiddleware:
                     g.current_user = {
                         'user_id': session.user_id,
                         'email': session.email,
-                        'tier': kratos.get_user_tier(session.user_id),
+                        'role': 'user',
                         'session_id': session.session_id
                     }
                     logger.debug(f"Authenticated user: {session.email}")
@@ -99,7 +99,7 @@ class AuthMiddleware:
                 g.current_user = {
                     'user_id': session.user_id,
                     'email': session.email,
-                    'tier': kratos.get_user_tier(session.user_id),
+                    'role': 'user',
                     'session_id': session.session_id
                 }
                 logger.debug(f"Authenticated user via cookie: {session.email}")
@@ -148,39 +148,6 @@ def require_auth(f: Callable) -> Callable:
     return decorated_function
 
 
-def require_tier(*required_tiers: str) -> Callable:
-    """
-    Decorator to require a specific subscription tier.
-
-    Usage:
-        @app.route('/api/analytics')
-        @require_auth
-        @require_tier('pro', 'studio')
-        def analytics():
-            return jsonify({"analytics": "data"})
-    """
-    def decorator(f: Callable) -> Callable:
-        @functools.wraps(f)
-        @require_auth
-        def decorated_function(*args, **kwargs):
-            user = g.current_user
-            user_tier = user.get('tier', 'free')
-
-            if user_tier not in required_tiers:
-                return jsonify({
-                    "error": "Subscription required",
-                    "message": f"This feature requires {' or '.join(required_tiers)} tier",
-                    "current_tier": user_tier,
-                    "required_tiers": list(required_tiers),
-                    "code": "TIER_REQUIRED"
-                }), 403
-
-            return f(*args, **kwargs)
-
-        return decorated_function
-
-    return decorator
-
 
 def get_current_user() -> Optional[dict]:
     """
@@ -197,12 +164,6 @@ def get_user_id() -> Optional[str]:
     """Get the current user's ID or None."""
     user = get_current_user()
     return user.get('user_id') if user else None
-
-
-def get_user_tier() -> str:
-    """Get the current user's tier, defaults to 'free'."""
-    user = get_current_user()
-    return user.get('tier', 'free') if user else 'free'
 
 
 def optional_auth(f: Callable) -> Callable:

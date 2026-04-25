@@ -162,21 +162,6 @@ class KratosClient:
             logger.error(f"Failed to get identity from Kratos: {e}")
             raise KratosError(f"Kratos connection error: {e}")
 
-    def get_user_tier(self, identity_id: str) -> str:
-        """
-        Get user's subscription tier from Kratos traits.
-
-        Args:
-            identity_id: The identity UUID
-
-        Returns:
-            Tier string (free, pro, studio)
-        """
-        try:
-            identity = self.get_identity(identity_id)
-            return identity.get('traits', {}).get('tier', 'free')
-        except KratosError:
-            return 'free'
 
     def revoke_session(self, session_token: str) -> bool:
         """

@@ -74,12 +74,6 @@ except ImportError:
     PREDICTIONS_AVAILABLE = False
 
 try:
-    from billing.router import get_provider, get_available_providers
-    BILLING_AVAILABLE = True
-except ImportError:
-    BILLING_AVAILABLE = False
-
-try:
     from core.templates import load_template, list_templates
     TEMPLATES_AVAILABLE = True
 except ImportError:
@@ -113,7 +107,6 @@ def create_app(config: dict = None) -> Flask:
     features = {
         'auth_enabled': getattr(mode, 'AUTH_ENABLED', False),
         'multi_tenant': getattr(mode, 'MULTI_TENANT', False),
-        'billing_enabled': getattr(mode, 'BILLING_ENABLED', False),
         'api_access': getattr(mode, 'API_ACCESS', False),
         'analytics': getattr(mode, 'ANALYTICS', False),
     }
@@ -1556,83 +1549,6 @@ def create_app(config: dict = None) -> Flask:
             return jsonify({"inserted": inserted, "total": len(template.get('glazes', []))})
         except Exception as e:
             logger.error(f"Apply template error: {e}")
-            resp = jsonify({"error": str(e)})
-            resp.status_code = 500
-            return resp
-
-    # ==========================================
-    # BILLING API ROUTES (mixed auth)
-    # ==========================================
-
-    @app.route('/api/billing/providers')
-    def get_billing_providers():
-        """List available billing providers."""
-        if not BILLING_AVAILABLE:
-            resp = jsonify({"error": "Billing not available"})
-            resp.status_code = 503
-            return resp
-        try:
-            providers = get_available_providers()
-            return jsonify(providers)
-        except Exception as e:
-            logger.error(f"Billing providers error: {e}")
-            resp = jsonify({"error": str(e)})
-            resp.status_code = 500
-            return resp
-
-    @app.route('/api/billing/checkout', methods=['POST'])
-    @rate_limit(requests_per_minute=10)
-    def create_checkout():
-        """Create a checkout session with a billing provider."""
-        if not BILLING_AVAILABLE:
-            resp = jsonify({"error": "Billing not available"})
-            resp.status_code = 503
-            return resp
-
-        user_id = get_current_user_id()
-        if not user_id:
-            resp = jsonify({"error": "Authentication required"})
-            resp.status_code = 401
-            return resp
-
-        data = request.json or {}
-        provider_name = data.get('provider', 'manual')
-        tier = data.get('tier', 'pro')
-
-        provider = get_provider(provider_name)
-        if not provider:
-            resp = jsonify({"error": f"Provider '{provider_name}' not available"})
-            resp.status_code = 400
-            return resp
-
-        try:
-            session = provider.create_checkout_session(user_id=user_id, tier=tier)
-            return jsonify(session)
-        except Exception as e:
-            logger.error(f"Checkout error: {e}")
-            resp = jsonify({"error": str(e)})
-            resp.status_code = 500
-            return resp
-
-    @app.route('/api/billing/webhook/<provider_name>', methods=['POST'])
-    def billing_webhook(provider_name):
-        """Handle webhook from a billing provider."""
-        if not BILLING_AVAILABLE:
-            resp = jsonify({"error": "Billing not available"})
-            resp.status_code = 503
-            return resp
-
-        provider = get_provider(provider_name)
-        if not provider:
-            resp = jsonify({"error": f"Provider '{provider_name}' not available"})
-            resp.status_code = 400
-            return resp
-
-        try:
-            result = provider.handle_webhook(request)
-            return jsonify(result)
-        except Exception as e:
-            logger.error(f"Webhook error for {provider_name}: {e}")
             resp = jsonify({"error": str(e)})
             resp.status_code = 500
             return resp

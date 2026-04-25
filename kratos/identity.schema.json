@@ -32,27 +32,10 @@
           "title": "Studio Name",
           "maxLength": 100
         },
-        "tier": {
-          "type": "string",
-          "title": "Subscription Tier",
-          "enum": ["free", "pro", "studio", "education"],
-          "default": "free"
-        },
         "template_id": {
           "type": "string",
           "title": "Starting Template",
           "description": "Which template they started with"
-        },
-        "subscription_id": {
-          "type": "string",
-          "title": "Subscription ID",
-          "description": "External subscription ID from payment provider"
-        },
-        "subscription_provider": {
-          "type": "string",
-          "title": "Subscription Provider",
-          "enum": ["stripe", "paypal", "btcpay", "manual", ""],
-          "default": ""
         }
       },
       "required": ["email"],

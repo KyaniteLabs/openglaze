@@ -49,7 +49,7 @@ OpenGlaze is a complete, open-source platform for ceramic artists and studios to
 - 🔓 **Truly open** — MIT licensed, no proprietary lock-in
 - 🧠 **AI-powered** — Kama assistant understands glaze chemistry
 - 🎨 **Studio-ready** — Multi-user collaboration out of the box
-- 💳 **Flexible billing** — Pay for hosting, or self-host for free
+- ☕ **Free forever** — No paywalls, no subscriptions, no feature gates
 
 ## Quick Start
 
@@ -162,7 +162,7 @@ Open http://localhost:8767 in your browser.
 - 📸 **Photo Documentation** — Gallery view across multiple firings
 - 🔥 **Firing Logs** — Atmosphere, cone, and schedule tracking
 - 🧮 **Layering Tracker** — Document and predict base/top combinations
-- 💳 **Flexible Billing** — Stripe, PayPal, BTCPay, or manual invoicing
+- 💾 **Import/Export** — Glazy CSV, Digitalfire INSIGHT, YAML
 - 📊 **Analytics** — Visualize glaze development over time
 - 📱 **PWA** — Install as an app on mobile/desktop
 - ⌨️ **Command Palette** — Quick navigation with ⌘K
@@ -177,7 +177,7 @@ Open http://localhost:8767 in your browser.
 | Database | SQLite / PostgreSQL | Public Domain / PostgreSQL |
 | Auth | Ory Kratos / JWT | Apache 2.0 |
 | AI | Ollama (local) / Anthropic Claude (cloud) | — |
-| Billing | Stripe, PayPal, BTCPay | MIT adapter |
+| Import/Export | Glazy, INSIGHT, YAML | MIT |
 | Chemistry | Custom UMF Engine | MIT |
 | Container | Docker + Compose | — |
 
@@ -194,7 +194,7 @@ Open http://localhost:8767 in your browser.
 ┌────────────────────▼────────────────────────────────────────┐
 │                     Flask Application                        │
 │  ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐       │
-│  │  Glazes  │ │Chemistry │ │    AI    │ │ Billing  │       │
+│  │  Glazes  │ │Chemistry │ │    AI    │ │ Templates│       │
 │  └──────────┘ └──────────┘ └──────────┘ └──────────┘       │
 │  ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐       │
 │  │ Studios  │ │   Auth   │ │Analytics │ │  Uploads │       │
@@ -216,13 +216,12 @@ Open http://localhost:8767 in your browser.
 |----------|-------------|
 | [Installation](docs/installation.md) | Docker and manual setup guides |
 | [Configuration](docs/configuration.md) | Environment variables and settings |
-| [Billing Setup](docs/billing.md) | Payment provider configuration |
 | [API Reference](docs/API.md) | REST API endpoints and examples |
 | [Architecture](docs/architecture.md) | System design and data flow |
 | [User Guide](docs/user-guide.md) | End-user feature walkthrough |
 | [Development](docs/development.md) | Contributing and local dev setup |
 | [Self-Hosting](docs/self-hosting.md) | Production deployment guide |
-| [Monetization](docs/monetization.md) | Revenue model and SaaS strategy |
+| [Support](docs/support.md) | Voluntary support for the project |
 | [Changelog](CHANGELOG.md) | Version history and release notes |
 
 ## Self-Hosting
@@ -246,16 +245,15 @@ OpenGlaze is designed for self-hosting. All components are open source.
 
 See [docs/self-hosting.md](docs/self-hosting.md) for detailed deployment instructions for each platform.
 
-## Pricing (Hosted)
+## Support the Project
 
-| Tier | Price | Features |
-|------|-------|----------|
-| **Free** | $0 | Unlimited glazes, 50 firings/mo, 1 studio |
-| **Pro** | $9/mo | Unlimited firings, analytics, 2 team members |
-| **Studio** | $29/mo | 5 team members, custom branding, API access |
-| **Education** | $199/yr | Unlimited users, LMS integration, curriculum |
+OpenGlaze is free and open source. If it saves you materials, time, or a failed kiln load, consider supporting ongoing development:
 
-**Self-host for free** — MIT license allows unlimited personal and commercial use.
+- **[Buy me a coffee](https://ko-fi.com/yourname)** *(update with your link)*
+- **[Patreon](https://patreon.com/yourname)** *(update with your link)*
+- **[GitHub Sponsors](https://github.com/sponsors/yourname)** *(update with your link)*
+
+No pressure — the tool is yours either way.
 
 ## Customizing Studio Profiles
 
@@ -301,9 +299,10 @@ pytest tests/ -v
 pytest tests/ --cov=. --cov-report=html
 ```
 
-38 tests covering:
+111 tests covering:
 - Kama AI context injection and streaming
 - Chemistry context retrieval and UMF calculation
+- Recipe optimizer (target CTE, surface, alkali, running risk)
 - Flask route imports and response formats
 - System prompt generation and database schema
 
@@ -333,11 +332,20 @@ See [SECURITY.md](SECURITY.md) for our security policy and vulnerability reporti
 
 ## Support
 
-| Tier | Support Channel |
-|------|----------------|
-| Free / Self-Hosted | [GitHub Discussions](https://github.com/Pastorsimon1798/openglaze/discussions) |
-| Pro / Studio | Priority email support |
-| Education | Dedicated support contact |
+Questions, bug reports, and feature requests:
+
+- [GitHub Discussions](https://github.com/Pastorsimon1798/openglaze/discussions) — Community help
+- [GitHub Issues](https://github.com/Pastorsimon1798/openglaze/issues) — Bug reports and feature requests
+
+### Support the Project
+
+OpenGlaze is free and open source under the MIT license. If this tool saved you materials, time, or a failed kiln load, consider supporting its continued development:
+
+- [☕ Buy me a coffee on Ko-fi](https://ko-fi.com/yourname)
+- [🎨 Support on Patreon](https://patreon.com/yourname)
+- [⭐ Sponsor on GitHub](https://github.com/sponsors/yourname)
+
+No pressure — the tool is yours either way.
 
 ## License
 

@@ -57,7 +57,6 @@ docker-compose up -d
 - [ ] Set `FLASK_ENV=production`
 - [ ] Configure proper email SMTP
 - [ ] Set up SSL/TLS (use nginx profile)
-- [ ] Configure payment providers
 - [ ] Set up backups
 
 ## Manual Installation
@@ -130,28 +129,6 @@ gunicorn -w 4 -b 0.0.0.0:8768 server:app
 | `KRATOS_PUBLIC_URL` | Yes | http://localhost:4433 | Kratos public API |
 | `KRATOS_ADMIN_URL` | Yes | http://localhost:4434 | Kratos admin API |
 | `KRATOS_HOOK_KEY` | Yes | - | Secret for Kratos webhooks |
-| `STRIPE_API_KEY` | No | - | Stripe API key |
-| `STRIPE_WEBHOOK_SECRET` | No | - | Stripe webhook secret |
-
-### Payment Provider Setup
-
-**Stripe:**
-1. Create account at stripe.com
-2. Get API keys from Dashboard > Developers > API keys
-3. Create products and prices
-4. Add price IDs to `.env`
-5. Set up webhook endpoint
-
-**PayPal:**
-1. Create developer account at developer.paypal.com
-2. Create REST API app
-3. Get Client ID and Secret
-4. Configure webhook
-
-**BTCPay Server:**
-1. Set up BTCPay Server instance
-2. Create store and API key
-3. Configure webhook
 
 ## Post-Installation
 
@@ -206,13 +183,6 @@ docker-compose exec kratos cat /etc/config/kratos/config.yml
 # Reset Kratos database (WARNING: deletes all users)
 docker-compose exec kratos kratos migrate -c /etc/config/kratos/config.yml sql -e --yes
 ```
-
-### Payment Webhooks Not Working
-
-1. Verify webhook URL is publicly accessible
-2. Check webhook secret in `.env`
-3. Verify Stripe/PayPal dashboard shows webhook deliveries
-4. Check application logs: `docker-compose logs openglaze`
 
 ### Email Not Sending
 

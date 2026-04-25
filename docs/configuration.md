@@ -12,10 +12,6 @@ Complete configuration reference for OpenGlaze.
 | `KRATOS_ADMIN_URL` | Yes | `http://kratos:4434` | Kratos admin API |
 | `KRATOS_HOOK_KEY` | Yes | - | Webhook secret |
 
-## Payment Provider Variables
-
-See `.env.example` for Stripe, PayPal, BTCPay, and Manual billing configuration.
-
 ## SSL/TLS Configuration
 
 ### Using nginx
@@ -52,5 +48,4 @@ curl http://localhost:4433/health/ready
 
 ## Next Steps
 
-- [Billing Setup](billing.md)
 - [Installation Guide](installation.md)

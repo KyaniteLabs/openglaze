@@ -68,10 +68,6 @@ POSTGRES_USER=openglaze
 POSTGRES_PASSWORD=secure_password
 POSTGRES_DB=openglaze
 
-# Stripe (optional, for billing)
-STRIPE_API_KEY=sk_live_xxxxx
-STRIPE_WEBHOOK_SECRET=whsec_xxxxx
-
 # Email (for auth notifications)
 SMTP_HOST=smtp.yourdomain.com
 SMTP_PORT=587

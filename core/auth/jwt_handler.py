@@ -101,7 +101,7 @@ class JWTHandler:
         Args:
             user_id: Unique user identifier
             email: User's email address
-            tier: Subscription tier
+            tier: User role (e.g. 'user', 'admin')
             additional_claims: Extra claims to include
 
         Returns:

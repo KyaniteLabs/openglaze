@@ -23,13 +23,13 @@ System design, data flow, and component interactions.
 ┌─────────────────────────────▼──────────────────────────────────────┐
 │                      Flask Application                              │
 │                                                                     │
-│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐  ┌───────────┐ │
-│  │   Routes    │  │   Auth      │  │   Billing   │  │   Upload  │ │
-│  │   (REST)    │  │  (JWT/      │  │  (Stripe/   │  │  (Local/  │ │
-│  │             │  │  Kratos)    │  │  PayPal)    │  │  S3)      │ │
-│  └──────┬──────┘  └──────┬──────┘  └──────┬──────┘  └─────┬─────┘ │
+│  ┌─────────────┐  ┌─────────────┐  ┌───────────┐  ┌───────────┐ │
+│  │   Routes    │  │   Auth      │  │   Upload  │  │   Studio  │ │
+│  │   (REST)    │  │  (JWT/      │  │  (Local/  │  │  Manager  │ │
+│  │             │  │  Kratos)    │  │  S3)      │  │           │ │
+│  └──────┬──────┘  └──────┬──────┘  └─────┬─────┘  └─────┬─────┘ │
 │         │                │                │               │       │
-│  ┌──────▼──────┐  ┌──────▼──────┐  ┌──────▼──────┐  ┌────▼────┐  │
+│  ┌──────▼──────┐  ┌──────▼──────┐  ┌──────▼──────┐  ┌─────────┐  │
 │  │   Glazes    │  │ Chemistry   │  │    AI       │  │  Studio │  │
 │  │   Engine    │  │   Engine    │  │  (Kama)     │  │ Manager │  │
 │  └──────┬──────┘  └──────┬──────┘  └──────┬──────┘  └────┬────┘  │
@@ -56,7 +56,7 @@ System design, data flow, and component interactions.
 │                   │ │               │ │ (JSON/YAML)     │
 │  - glazes         │ │  - users      │ │                 │
 │  - experiments    │ │  - sessions   │ │  - materials    │
-│  - subscriptions  │ │  - schemas    │ │  - recipes      │
+│  - firings        │ │  - schemas    │ │  - recipes      │
 │  - firings        │ │               │ │  - schedules    │
 └───────────────────┘ └───────────────┘ └─────────────────┘
 ```
@@ -89,7 +89,7 @@ System design, data flow, and component interactions.
 | `/api/chemistry` | Chemistry | UMF, compatibility, batch calc |
 | `/api/ask` | AI | Kama assistant endpoints |
 | `/api/studios` | Collaboration | Multi-user studio management |
-| `/api/billing` | Payments | Subscription and checkout |
+| `/api/uploads` | Media | Photo and file uploads |
 | `/api/uploads` | Media | Photo and file uploads |
 | `/api/gamification` | Engagement | Points, badges, leaderboards |
 | `/api/predictions` | Prediction | Human vs AI prediction market |
@@ -187,7 +187,6 @@ User → POST /api/ask
 ```sql
 -- Users and authentication
 users (id, email, name, created_at, studio_id)
-subscriptions (id, user_id, tier, status, provider, expires_at)
 
 -- Glaze data
 glazes (id, name, family, hex, chemistry, recipe, catalog_code,
@@ -245,13 +244,11 @@ MODES = {
     "cloud": {
         "database": "postgresql",
         "auth": "ory_kratos",
-        "billing": "stripe",
         "ai": "anthropic_claude",
     },
     "docker": {
         "database": "postgresql",
         "auth": "ory_kratos",
-        "billing": "stripe",
         "ai": "ollama_local",
     }
 }

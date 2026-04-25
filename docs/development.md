@@ -11,8 +11,7 @@ Guide for developers contributing to OpenGlaze.
 5. [Database Changes](#database-changes)
 6. [Frontend Development](#frontend-development)
 7. [AI Integration](#ai-integration)
-8. [Billing Integration](#billing-integration)
-9. [Release Process](#release-process)
+8. [Release Process](#release-process)
 
 ## Development Environment
 
@@ -100,11 +99,6 @@ openglaze/
 │   ├── recipes/           # YAML recipe collections
 │   ├── taxonomies/        # Classifications
 │   └── studios/           # Studio profile templates
-├── billing/               # Payment provider adapters
-│   ├── stripe.py
-│   ├── paypal.py
-│   ├── btcpay.py
-│   └── manual.py
 ├── tests/                 # Test suite
 │   ├── conftest.py        # Shared fixtures
 │   ├── test_chemistry.py
@@ -377,29 +371,6 @@ def build_context(glaze_ids: list[int] = None, query: str = "") -> str:
     
     return "\n\n".join(context_parts)
 ```
-
-## Billing Integration
-
-### Adding a Payment Provider
-
-1. Create adapter in `billing/<provider>.py`
-2. Implement interface:
-
-```python
-class BaseBillingProvider:
-    def create_checkout(self, tier: str, interval: str) -> dict:
-        raise NotImplementedError
-    
-    def verify_webhook(self, payload: bytes, signature: str) -> bool:
-        raise NotImplementedError
-    
-    def handle_webhook(self, event: dict) -> dict:
-        raise NotImplementedError
-```
-
-3. Register in `billing/router.py`
-4. Add webhook route in `server.py`
-5. Document in `docs/billing.md`
 
 ## Release Process
 

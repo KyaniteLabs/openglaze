@@ -13,7 +13,6 @@ features:
   multi_user: true
   analytics: true
   api_access: true
-  billing: true
 
 database:
   type: postgresql
@@ -37,35 +36,6 @@ auth:
   jwt_algorithm: RS256
   jwt_issuer: ${JWT_ISSUER:openglaze}
   jwt_audience: ${JWT_AUDIENCE:openglaze-api}
-
-billing:
-  enabled: true
-  provider: stripe
-  api_key: ${STRIPE_API_KEY}  # REQUIRED - no default
-  webhook_secret: ${STRIPE_WEBHOOK_SECRET}  # REQUIRED - no default
-  tiers:
-    free:
-      price: 0
-      max_users: 1
-      features:
-        - glaze_crud
-        - combinations
-        - experiments
-        - kama_ai
-        - templates
-    pro:
-      price_id: ${STRIPE_PRO_PRICE_ID}
-      max_users: 2
-      features:
-        - analytics
-        - api_access
-    studio:
-      price_id: ${STRIPE_STUDIO_PRICE_ID}
-      max_users: 10
-      features:
-        - analytics
-        - api_access
-        - priority_support
 
 security:
   rate_limiting:

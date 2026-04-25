@@ -15,8 +15,7 @@ OpenGlaze is a **100% open-source ceramic glaze management system** with a full 
 ### Backend (Production-Ready)
 - `server.py` - Flask REST API with all endpoints
 - `auth.py` - Ory Kratos authentication integration
-- `schema.sql` - PostgreSQL/SQLite schema with glazes, firings, subscriptions
-- `billing/` - 4 payment provider adapters (Stripe, PayPal, BTCPay, Manual)
+- `schema.sql` - PostgreSQL/SQLite schema with glazes, firings, materials
 
 ### Infrastructure
 - `docker-compose.yml` - Full stack: Flask, Postgres, Kratos, Mailhog
@@ -32,7 +31,6 @@ OpenGlaze is a **100% open-source ceramic glaze management system** with a full 
 - `README.md` - Project overview
 - `docs/installation.md` - Setup guide
 - `docs/configuration.md` - Environment variables
-- `docs/billing.md` - Payment provider setup
 
 ### Design System (NEW - Partially Complete)
 - `static/css/design-system.css` - **Complete** modern design system with:

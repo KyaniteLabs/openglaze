@@ -41,7 +41,6 @@ class SecurityConfig:
 class ModeConfig:
     """Base configuration for any mode."""
     AUTH_ENABLED: bool = False
-    BILLING_ENABLED: bool = False
     MULTI_TENANT: bool = False
     API_ACCESS: bool = False
     ANALYTICS: bool = False
@@ -64,7 +63,6 @@ class PersonalMode(ModeConfig):
     def __post_init__(self):
         self.name = 'personal'
         self.AUTH_ENABLED = False
-        self.BILLING_ENABLED = False
         self.MULTI_TENANT = False
         self.API_ACCESS = False
         self.ANALYTICS = False
@@ -106,7 +104,6 @@ class CloudMode(ModeConfig):
     def __post_init__(self):
         self.name = 'cloud'
         self.AUTH_ENABLED = True
-        self.BILLING_ENABLED = True
         self.MULTI_TENANT = True
         self.API_ACCESS = True
         self.ANALYTICS = True
@@ -173,21 +170,18 @@ class CloudMode(ModeConfig):
                 'multi_user': False,
                 'analytics': False,
                 'api_access': False,
-                'billing': False,
                 'max_users': 1,
             },
             self.TIER_PRO: {
                 'multi_user': True,
                 'analytics': True,
                 'api_access': True,
-                'billing': True,
                 'max_users': 2,
             },
             self.TIER_STUDIO: {
                 'multi_user': True,
                 'analytics': True,
                 'api_access': True,
-                'billing': True,
                 'max_users': 10,
             }
         }

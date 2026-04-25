@@ -346,7 +346,7 @@ Kama has access to:
 1. In Studio settings, click **Invite Member**
 2. Enter their email address
 3. Assign a role:
-   - **Owner** — Full control, billing access
+   - **Owner** — Full control, member management
    - **Admin** — Manage members, experiments, glazes
    - **Member** — Create and edit glazes and experiments
    - **Viewer** — Read-only access
