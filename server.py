@@ -641,12 +641,18 @@ def create_app(config: dict = None) -> Flask:
             return jsonify({"error": "target_value is required for target_cte"}), 400
 
         try:
+            tv = float(target_value) if target_value is not None else None
+            ms = int(max_suggestions)
+        except (ValueError, TypeError):
+            return jsonify({"error": "target_value and max_suggestions must be numeric"}), 400
+
+        try:
             from core.chemistry import optimize_recipe
             result = optimize_recipe(
                 recipe,
                 target,
-                target_value=float(target_value) if target_value is not None else None,
-                max_suggestions=int(max_suggestions),
+                target_value=tv,
+                max_suggestions=ms,
             )
             return jsonify(result.to_dict())
         except Exception as e:

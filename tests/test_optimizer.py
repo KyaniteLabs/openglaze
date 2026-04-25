@@ -149,3 +149,48 @@ class TestRecipeOptimizer:
         descriptions = [s.change_description for s in result.suggestions]
         # Should include the silica->epk substitution
         assert any("Replace silica with kaolin" in d for d in descriptions)
+
+    def test_max_suggestions_zero(self):
+        """max_suggestions=0 should return empty list."""
+        result = self.optimizer.optimize(
+            self.base_recipe, "reduce_cte", max_suggestions=0
+        )
+        assert result.success
+        assert len(result.suggestions) == 0
+
+    def test_no_alumina_surface_target(self):
+        """Surface targets on no-alumina recipes should return helpful error."""
+        no_alumina = "Silica 50, Whiting 50"
+        for target in ["more_matte", "more_glossy", "reduce_running"]:
+            result = self.optimizer.optimize(no_alumina, target)
+            assert result.success  # Not a failure, just no suggestions
+            assert len(result.suggestions) == 0
+            assert "no alumina" in result.error.lower()
+
+    def test_no_alumina_cte_target_still_works(self):
+        """CTE targets on no-alumina recipes should still work."""
+        no_alumina = "Silica 50, Whiting 50"
+        result = self.optimizer.optimize(no_alumina, "reduce_cte")
+        assert result.success
+        assert len(result.suggestions) > 0
+
+    def test_already_at_target_cte(self):
+        """Recipe already at target CTE should return informative message."""
+        result = self.optimizer.optimize(
+            self.base_recipe, "target_cte", target_value=6.92
+        )
+        assert result.success
+        assert len(result.suggestions) == 0
+        assert "already within 0.1" in result.error
+
+    def test_single_material_no_flux(self):
+        """Single material with no flux should fail gracefully."""
+        result = self.optimizer.optimize("Silica 100", "reduce_cte")
+        assert not result.success
+        assert result.error is not None
+
+    def test_unknown_material(self):
+        """Unknown material should fail gracefully."""
+        result = self.optimizer.optimize("Unicorn Dust 50, Silica 50", "reduce_cte")
+        assert not result.success
+        assert result.error is not None

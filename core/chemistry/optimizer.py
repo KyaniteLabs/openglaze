@@ -136,6 +136,32 @@ class RecipeOptimizer:
         original_cte = original_umf.thermal_expansion
         original_surface = original_umf.surface_prediction
 
+        # Guard: surface targets require Al2O3 in the recipe
+        sio2_al2o3 = original_umf.ratios.get('sio2_al2o3', 0.0)
+        if target in ('more_matte', 'more_glossy', 'reduce_running') and sio2_al2o3 == 0.0:
+            return OptimizationResult(
+                success=True,
+                original_recipe=recipe,
+                target=target,
+                original_cte=original_cte,
+                original_surface=original_surface,
+                suggestions=[],
+                error="Recipe contains no alumina (Al2O3) — surface and running-risk optimization requires a glaze with structural alumina. Add kaolin, feldspar, or ball clay.",
+            )
+
+        # Guard: already at target CTE
+        if target == 'target_cte' and target_value is not None and original_cte is not None:
+            if abs(original_cte - target_value) < 0.1:
+                return OptimizationResult(
+                    success=True,
+                    original_recipe=recipe,
+                    target=target,
+                    original_cte=original_cte,
+                    original_surface=original_surface,
+                    suggestions=[],
+                    error=f"Recipe CTE ({original_cte:.2f}) is already within 0.1 of target ({target_value:.2f}). No adjustment needed.",
+                )
+
         # Build target evaluator
         evaluator = self._build_evaluator(target, target_value, original_cte, original_surface, original_umf)
 
@@ -255,6 +281,9 @@ class RecipeOptimizer:
                 if abs(umf.thermal_expansion - original_cte) < 0.2:
                     continue
 
+            if len(suggestions) >= max_suggestions:
+                break
+
             suggestions.append(RecipeSuggestion(
                 recipe=rec,
                 change_description=desc,
@@ -264,9 +293,6 @@ class RecipeOptimizer:
                 score=round(score, 1),
                 distance_from_target=round(score, 3),  # reused field
             ))
-
-            if len(suggestions) >= max_suggestions:
-                break
 
         return OptimizationResult(
             success=True,

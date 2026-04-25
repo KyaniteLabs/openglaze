@@ -159,3 +159,56 @@ class TestOptimizeRoute:
         assert len(data['suggestions']) > 0
         surfaces = [s['predicted_surface'] for s in data['suggestions']]
         assert 'matte' in surfaces or 'satin' in surfaces
+
+    def test_optimize_non_numeric_target_value(self, app):
+        client = app.test_client()
+        resp = client.post('/api/chemistry/optimize',
+                           data=json.dumps({
+                               'recipe': 'Custer Feldspar 45, Silica 25, Whiting 18, EPK 12',
+                               'target': 'target_cte',
+                               'target_value': 'abc',
+                           }),
+                           content_type='application/json')
+        assert resp.status_code == 400
+        data = json.loads(resp.data)
+        assert 'numeric' in data['error']
+
+    def test_optimize_non_numeric_max_suggestions(self, app):
+        client = app.test_client()
+        resp = client.post('/api/chemistry/optimize',
+                           data=json.dumps({
+                               'recipe': 'Custer Feldspar 45, Silica 25, Whiting 18, EPK 12',
+                               'target': 'reduce_cte',
+                               'max_suggestions': 'abc',
+                           }),
+                           content_type='application/json')
+        assert resp.status_code == 400
+        data = json.loads(resp.data)
+        assert 'numeric' in data['error']
+
+    def test_optimize_no_alumina_surface_target(self, app):
+        client = app.test_client()
+        resp = client.post('/api/chemistry/optimize',
+                           data=json.dumps({
+                               'recipe': 'Silica 50, Whiting 50',
+                               'target': 'more_glossy',
+                           }),
+                           content_type='application/json')
+        assert resp.status_code == 200
+        data = json.loads(resp.data)
+        assert data['success'] is True
+        assert len(data['suggestions']) == 0
+        assert 'alumina' in data['error'].lower()
+
+    def test_optimize_max_suggestions_zero(self, app):
+        client = app.test_client()
+        resp = client.post('/api/chemistry/optimize',
+                           data=json.dumps({
+                               'recipe': 'Custer Feldspar 45, Silica 25, Whiting 18, EPK 12',
+                               'target': 'reduce_cte',
+                               'max_suggestions': 0,
+                           }),
+                           content_type='application/json')
+        assert resp.status_code == 200
+        data = json.loads(resp.data)
+        assert len(data['suggestions']) == 0
