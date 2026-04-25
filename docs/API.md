@@ -408,6 +408,77 @@ Content-Type: application/json
 }
 ```
 
+### Optimize Recipe
+
+Computationally suggest exact material adjustments to hit target glaze properties without physical test firings.
+
+```http
+POST /api/chemistry/optimize
+Content-Type: application/json
+```
+
+**Request:**
+
+```json
+{
+  "recipe": "Custer Feldspar 45, Silica 25, Whiting 18, EPK 12",
+  "target": "more_matte",
+  "max_suggestions": 5
+}
+```
+
+**Targets:**
+
+| Target | Description | `target_value` Required |
+|--------|-------------|------------------------|
+| `target_cte` | Match exact CTE (×10⁻⁶/°C) | Yes |
+| `reduce_cte` | Lower thermal expansion | No |
+| `increase_cte` | Raise thermal expansion | No |
+| `more_matte` | Increase matte character | No |
+| `more_glossy` | Increase gloss character | No |
+| `reduce_alkali` | Lower KNaO for durability | No |
+| `reduce_running` | Reduce fluidity risk | No |
+
+**Response:**
+
+```json
+{
+  "success": true,
+  "original_recipe": "Custer Feldspar 45, Silica 25, Whiting 18, EPK 12",
+  "target": "more_matte",
+  "original_cte": 6.92,
+  "original_surface": "glossy",
+  "suggestions": [
+    {
+      "recipe": "Custer Feldspar 45.00, Whiting 18.00, EPK 37.00",
+      "change_description": "Replace silica with kaolin (adds alumina, lowers CTE, more matte) (100% swap)",
+      "predicted_cte": 7.46,
+      "predicted_surface": "matte",
+      "score": 148.4,
+      "distance_from_target": 148.4
+    },
+    {
+      "recipe": "Custer Feldspar 45.00, Silica 6.25, Whiting 18.00, EPK 30.75",
+      "change_description": "Replace silica with kaolin (adds alumina, lowers CTE, more matte) (75% swap)",
+      "predicted_cte": 7.31,
+      "predicted_surface": "satin",
+      "score": 82.2,
+      "distance_from_target": 82.2
+    }
+  ],
+  "error": null
+}
+```
+
+**How it works:**
+
+The optimizer grid-searches the adjustment space using:
+- Single-material adjustments (±5/10/15/20/30%)
+- Material substitutions (e.g., silica ↔ kaolin, feldspar ↔ nepheline syenite, whiting ↔ wollastonite)
+- Common material additions
+
+Each candidate is scored by distance to the target, with threshold-crossing bonuses (e.g., +50 for moving from glossy → matte territory). Results are ranked by score and deduplicated.
+
 ## AI (Kama)
 
 ### Ask Kama

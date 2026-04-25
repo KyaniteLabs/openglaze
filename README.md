@@ -104,6 +104,7 @@ Open http://localhost:8767 in your browser.
 - UMF (Unity Molecular Formula) calculation
 - Glaze compatibility analysis
 - Thermal expansion coefficient matching
+- **Recipe optimizer** — suggests exact tweaks to hit target CTE, surface, or durability
 - Batch reporting with cost estimation
 - Oxide analysis and substitution suggestions
 
@@ -157,6 +158,7 @@ Open http://localhost:8767 in your browser.
 
 ### More Features
 
+- 🧮 **Recipe Optimizer** — Compute exact material adjustments to hit target properties without physical testing
 - 📸 **Photo Documentation** — Gallery view across multiple firings
 - 🔥 **Firing Logs** — Atmosphere, cone, and schedule tracking
 - 🧮 **Layering Tracker** — Document and predict base/top combinations

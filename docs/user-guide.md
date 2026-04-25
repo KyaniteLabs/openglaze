@@ -163,6 +163,42 @@ Scale recipes for any batch size:
 3. Enter desired batch size (grams or pounds)
 4. View scaled amounts and optional cost estimate
 
+### Recipe Optimizer
+
+The optimizer computationally suggests exact material adjustments to hit target glaze properties — reducing the number of physical test firings needed.
+
+**When to use it:**
+- Your glaze crazes and you need to lower CTE to match your clay body
+- You want to shift a glossy glaze toward satin or matte
+- You're worried about excessive running at your firing temperature
+- You need to reduce alkali content for better durability
+
+**How to use it:**
+1. Open a glaze detail view
+2. Click **Optimize Recipe**
+3. Select your target:
+   - **Target CTE** — Enter the exact CTE of your clay body (e.g., 6.5)
+   - **Reduce CTE** — Lower thermal expansion to reduce crazing risk
+   - **Increase CTE** — Raise thermal expansion to reduce shivering risk
+   - **More Matte** — Increase alumina relative to silica
+   - **More Glossy** — Increase silica relative to alumina
+   - **Reduce Alkali** — Lower KNaO for better durability
+   - **Reduce Running** — Reduce fluidity to prevent pooling
+4. Review ranked suggestions with predicted outcomes
+5. Choose a suggestion and fire a test tile to confirm
+
+**Understanding the results:**
+
+| Column | Meaning |
+|--------|---------|
+| Recipe | The reformulated recipe with adjusted percentages |
+| Change | What was modified (e.g., "Replace silica with kaolin (50% swap)") |
+| Predicted CTE | Thermal expansion of the reformulated glaze |
+| Predicted Surface | Expected surface finish (matte/satin/glossy) |
+| Score | Higher = closer to target (threshold-crossing bonuses applied) |
+
+**Important:** The optimizer predicts chemistry, not firing behavior. Always fire a test tile before committing to a reformulated recipe. Surface prediction depends on firing schedule, cooling rate, and application thickness.
+
 ## Layering and Combinations
 
 ### Documenting a Combination

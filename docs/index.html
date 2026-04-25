@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OpenGlaze — Open Source Glaze Management for Ceramic Artists</title>
-    <meta name="description" content="OpenGlaze is a 100% open-source platform for ceramic artists and studios to manage glaze recipes, track firings, and collaborate on glaze development.">
+    <meta name="description" content="OpenGlaze is a 100% open-source platform for ceramic artists and studios to manage glaze recipes, track firings, optimize recipes computationally, and collaborate on glaze development.">
     <meta name="keywords" content="ceramics, glaze, pottery, open source, glaze management, UMF, recipe calculator">
     
     <!-- Open Graph -->
     <meta property="og:title" content="OpenGlaze — Open Source Glaze Management">
-    <meta property="og:description" content="Professional ceramic glaze management. 100% open source. Own your data.">
+    <meta property="og:description" content="Professional ceramic glaze management with recipe optimization. 100% open source. Own your data.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://openglaze.com">
     <meta property="og:image" content="https://openglaze.com/og-image.png">
@@ -1022,6 +1022,11 @@
                 <p>Automatic UMF calculation, compatibility analysis, thermal expansion matching, and batch scaling.</p>
             </div>
             <div class="feature-card">
+                <div class="feature-icon" style="background: #e0e8f4;">🧮</div>
+                <h3>Recipe Optimizer</h3>
+                <p>Computes exact material adjustments to hit target CTE, surface, or durability — without firing test tiles.</p>
+            </div>
+            <div class="feature-card">
                 <div class="feature-icon" style="background: #e8e0f4;">🧠</div>
                 <h3>Kama AI Assistant</h3>
                 <p>Context-aware glaze consulting powered by local or cloud LLMs. Ask about recipes, predictions, and substitutions.</p>
@@ -1056,6 +1061,7 @@
                     <li>Thermal expansion coefficient estimation</li>
                     <li>Glaze compatibility risk assessment</li>
                     <li>Batch scaling with cost estimation</li>
+                    <li>Recipe optimizer — target CTE, surface, or durability computationally</li>
                 </ul>
                 <a href="https://github.com/Pastorsimon1798/openglaze/tree/master/docs/user-guide.md#the-chemistry-engine" class="btn btn-primary">Learn More</a>
             </div>
@@ -1081,6 +1087,43 @@
                         <span style="color: var(--celadon-700); font-size: 0.8rem;">💡 Predicted: High-gloss celadon with good durability. Compatible with cone 10 stoneware bodies.</span>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Optimizer Showcase -->
+    <section class="showcase">
+        <div class="showcase-inner">
+            <div class="showcase-visual">
+                <div class="umf-demo">
+                    <div><span class="umf-label">Original:</span> Cone 10 Celadon</div>
+                    <div style="margin: 12px 0; padding: 12px; background: var(--bg-primary); border-radius: var(--radius-sm);">
+                        <div class="umf-label">Feldspar ............ 45%</div>
+                        <div class="umf-label">Silica .............. 25%</div>
+                        <div class="umf-label">Whiting ............ 18%</div>
+                        <div class="umf-label">Kaolin ............. 12%</div>
+                    </div>
+                    <div style="margin-top: 12px; padding: 12px; background: var(--tenmoku-50); border-radius: var(--radius-sm); border-left: 3px solid var(--tenmoku-400);">
+                        <div style="font-size: 0.75rem; color: var(--tenmoku-700); margin-bottom: 4px;">🎯 Target: More matte</div>
+                        <div class="umf-label" style="font-size: 0.8rem;">SiO₂ / Al₂O₃ = 8.87 → <span style="color: var(--tenmoku-600); font-weight: 600;">3.95</span></div>
+                        <div class="umf-label" style="font-size: 0.8rem;">Surface = glossy → <span style="color: var(--tenmoku-600); font-weight: 600;">matte</span></div>
+                    </div>
+                    <div style="margin-top: 12px; padding: 12px; background: var(--celadon-50); border-radius: var(--radius-sm); border-left: 3px solid var(--celadon-400);">
+                        <span style="color: var(--celadon-700); font-size: 0.8rem;">💡 Suggested tweak: Replace all silica with kaolin. Fire a test tile to confirm.</span>
+                    </div>
+                </div>
+            </div>
+            <div class="showcase-content">
+                <h2>Save clay, materials, and kiln time</h2>
+                <p>The recipe optimizer computes exact material adjustments to hit your target properties — so you fire fewer test tiles and get results faster.</p>
+                <ul class="showcase-list">
+                    <li>Target exact CTE to match your clay body</li>
+                    <li>Shift surface from glossy to matte (or vice versa)</li>
+                    <li>Reduce alkali for better durability</li>
+                    <li>Lower running risk before it ruins a kiln shelf</li>
+                    <li>Ranked suggestions with predicted outcomes</li>
+                </ul>
+                <a href="https://github.com/Pastorsimon1798/openglaze/tree/master/docs/user-guide.md#recipe-optimizer" class="btn btn-primary">Learn More</a>
             </div>
         </div>
     </section>

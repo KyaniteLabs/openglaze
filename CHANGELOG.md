@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Unified GlazeLab + OpenGlaze codebase — merged R&D features into production infrastructure
 - Chemistry engine with UMF calculation, compatibility analysis, and thermal expansion
+- **Recipe Optimizer** — computationally suggests exact material adjustments to hit target glaze properties (CTE, surface character, alkali reduction, running risk) without physical test firings
 - Kama AI assistant with streaming responses and context-aware glaze consulting
 - 6-stage experiment pipeline (Ideation → Prediction → Application → Firing → Analysis → Documentation)
 - Gamification system with points, streaks, badges, and leaderboards
