@@ -24,7 +24,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Docker Compose stack with PostgreSQL, Kratos auth, and Mailhog
 - PWA support with service worker and manifest
 - Command palette (⌘K) for quick navigation
-- 38 test suite covering AI, chemistry, and Flask routes
+- 111 test suite covering AI, chemistry, optimizer, and Flask routes
 
 ### Changed
 - Merged from two separate repositories into unified codebase
