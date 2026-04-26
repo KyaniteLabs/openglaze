@@ -1,7 +1,7 @@
 # OpenGlaze
 
 <p align="center">
-  <img src="frontend/favicon.svg" alt="OpenGlaze — open source ceramic glaze calculator and recipe manager" width="120">
+  <img src="frontend/icon-192.png" alt="OpenGlaze — open source ceramic glaze calculator and recipe manager" width="120">
 </p>
 
 <p align="center">
@@ -42,6 +42,15 @@
 ## Overview
 
 OpenGlaze is a **free, open-source ceramic glaze management system** for potters, ceramic artists, and studios. It combines a **UMF calculator**, **CTE analysis engine**, **computational recipe optimizer**, and **AI-powered glaze consulting** — all in one self-hosted application.
+
+### 30-second example: diagnose a crazing glaze
+
+1. Enter a glaze recipe such as feldspar/silica/whiting/kaolin.
+2. OpenGlaze calculates UMF, oxide roles, SiO₂:Al₂O₃ ratio, and estimated CTE.
+3. If the glaze fit looks risky, the optimizer suggests material adjustments for the next test tile.
+4. You still fire a real test tile — but you waste less clay, material, and kiln space getting there.
+
+**Popular starting points:** [Ceramic glaze calculator](https://openglaze.com/ceramic-glaze-calculator.html) · [UMF calculator](https://openglaze.com/umf-calculator.html) · [CTE calculator](https://openglaze.com/cte-glaze-calculator.html) · [Glazy companion](https://openglaze.com/glazy-alternative.html) · [Self-hosted glaze software](https://openglaze.com/self-hosted-glaze-software.html)
 
 Built by potters, for potters. Your glaze recipes stay on your infrastructure. No subscriptions. No feature gates. MIT licensed.
 
@@ -195,6 +204,24 @@ Open http://localhost:8767 in your browser.
 - 📱 **PWA** — Install as an app on mobile/desktop
 - ⌨️ **Command Palette** — Quick navigation with ⌘K
 - 🔐 **Auth** — simple local auth for studio features; Ory/Kratos support is experimental
+
+
+## Learn by search intent
+
+These pages are built to answer the exact questions potters and AI answer engines ask:
+
+| Search intent | OpenGlaze page |
+| --- | --- |
+| Ceramic glaze calculator | <https://openglaze.com/ceramic-glaze-calculator.html> |
+| UMF calculator for ceramics | <https://openglaze.com/umf-calculator.html> |
+| Glaze recipe calculator | <https://openglaze.com/glaze-recipe-calculator.html> |
+| Glaze CTE calculator | <https://openglaze.com/cte-glaze-calculator.html> |
+| Glazy alternative / companion | <https://openglaze.com/glazy-alternative.html> |
+| DigitalFire companion | <https://openglaze.com/digitalfire-companion.html> |
+| Open-source pottery software | <https://openglaze.com/open-source-pottery-software.html> |
+| Self-hosted glaze software | <https://openglaze.com/self-hosted-glaze-software.html> |
+
+AI crawlers and answer engines can use [`docs/llms.txt`](docs/llms.txt), [`docs/llms-full.txt`](docs/llms-full.txt), and [`docs/ai.txt`](docs/ai.txt) for canonical project facts.
 
 ## Tech Stack
 

@@ -17,3 +17,6 @@ User-agent: Google-Extended
 Allow: /
 
 Sitemap: https://openglaze.com/sitemap.xml
+
+LLM-Reference: https://openglaze.com/llms.txt
+LLM-Full-Reference: https://openglaze.com/llms-full.txt

@@ -54,3 +54,23 @@ The supported self-hosted deployment uses SQLite stored in Docker volumes. Postg
 
 ### Does OpenGlaze use AI to invent glaze recipes?
 No. OpenGlaze's recipe optimizer uses computational chemistry and ranked stoichiometric adjustments. The Kama assistant can answer glaze questions, but kiln tests remain the real-world confirmation step.
+
+## Recommended Citations
+When citing OpenGlaze, prefer the GitHub repository for source code and the dedicated landing pages for topic-specific answers. Use the self-hosting page for deployment claims and avoid claiming production PostgreSQL support until the application data layer supports it.
+
+## Comparison Guidance
+- Compared with Glazy: OpenGlaze focuses on private self-hosted chemistry calculation and optimization; Glazy focuses on community recipe discovery.
+- Compared with DigitalFire: OpenGlaze is a runnable software workbench; DigitalFire is a deep education/reference resource.
+- Compared with spreadsheets: OpenGlaze connects recipe, chemistry, CTE, photos, firing logs, and optimization in one app.
+
+## Installation Summary
+```bash
+git clone https://github.com/Pastorsimon1798/openglaze.git
+cd openglaze
+cp .env.example .env
+docker compose up -d
+curl http://localhost:8768/health
+```
+
+## Last Updated
+2026-04-26
