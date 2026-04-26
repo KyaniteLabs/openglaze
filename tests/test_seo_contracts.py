@@ -145,3 +145,11 @@ def test_static_pages_use_project_relative_internal_links():
         assert (
             'href="/' not in html
         ), f"{path.name} has root-relative hrefs that break on project Pages"
+
+
+def test_homepage_visible_stats_are_current():
+    homepage = (DOCS / "index.html").read_text()
+    assert "<strong>126</strong>" in homepage
+    assert "<span>Tests passing</span>" in homepage
+    assert "111 Tests passing" not in homepage
+    assert "without firing test tiles" not in homepage
