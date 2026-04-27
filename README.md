@@ -308,9 +308,9 @@ All data is versioned, sourced, and cited. See [ceramics-foundation/](ceramics-f
 
 Pre-built glaze collections:
 
-- **Cone 10 Reduction (Community)** — 15 classic reduction glazes
+- **Cone 10 Reduction (Community)** — 28 traditional reduction glazes
 - **Cone 6 Oxidation (Community)** — 12 electric kiln glazes
-- **Default Studio** — Configurable template for any studio
+- **Cone 6 Reduction (Community)** — 4 gas kiln reduction glazes
 
 See [templates/](templates/) and [ceramics-foundation/recipes/](ceramics-foundation/recipes/).
 
