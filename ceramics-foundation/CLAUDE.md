@@ -67,7 +67,7 @@ ceramics-foundation/
 
 **Firing:** Cone 10 reduction (gas kiln)
 **Bisque:** Electric cone 06
-**Inventory:** 32 community glazes
+**Inventory:** 44 community glazes (28 cone 10, 16 cone 6)
 
 **Critical:** All color descriptions assume reduction atmosphere (muted vs bright oxidation).
 
