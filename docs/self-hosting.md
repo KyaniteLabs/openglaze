@@ -31,7 +31,7 @@ Use `.env.example` as the source of truth. Minimum public deployment settings:
 
 ```bash
 OPENGLAZE_MODE=personal
-BASE_URL=https://openglaze.yourdomain.com
+BASE_URL=https://openglaze.kyanitelabs.tech
 FLASK_HOST=0.0.0.0
 FLASK_PORT=8768
 DATABASE_PATH=/data/glaze.db
@@ -55,7 +55,7 @@ Bundled TLS nginx expects PEM files at `./certs/fullchain.pem` and `./certs/priv
 mkdir -p certs
 # Copy your CA-issued certificate/key into certs/, then:
 OPENGLAZE_HTTP_PORT=80 OPENGLAZE_HTTPS_PORT=443 docker compose --profile tls up -d
-curl https://openglaze.yourdomain.com/health
+curl https://openglaze.kyanitelabs.tech/health
 ```
 
 For local TLS smoke tests only, you can generate a temporary self-signed certificate:
@@ -73,7 +73,7 @@ curl -k https://localhost:18443/health
 For Caddy, a minimal external proxy is:
 
 ```caddyfile
-openglaze.yourdomain.com {
+openglaze.kyanitelabs.tech {
   reverse_proxy localhost:8768
 }
 ```

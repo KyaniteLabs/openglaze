@@ -8,7 +8,7 @@ import xml.etree.ElementTree as ET
 
 ROOT = Path(__file__).resolve().parents[1]
 DOCS = ROOT / "docs"
-CANONICAL = "https://pastorsimon1798.github.io/openglaze"
+CANONICAL = "https://openglaze.kyanitelabs.tech"
 SEO_PAGES = [
     "ceramic-glaze-calculator.html",
     "umf-calculator.html",

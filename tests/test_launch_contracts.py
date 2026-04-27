@@ -112,3 +112,39 @@ def test_codecov_action_uses_v6_input_name():
     assert "codecov/codecov-action@v6" in ci
     assert "files: ./coverage.xml" in ci
     assert "file: ./coverage.xml" not in ci
+
+
+def test_app_serves_docs_discovery_assets():
+    server = (ROOT / "server.py").read_text()
+    assert 'send_from_directory("docs"' in server
+    assert '"/llms.txt"' in server
+    assert '"/sitemap.xml"' in server
+    assert '"/social-preview.png"' in server
+
+
+def test_kyanite_domain_is_canonical_public_host():
+    canonical = "https://openglaze.kyanitelabs.tech"
+    checked = [
+        ROOT / "README.md",
+        ROOT / "docs/llms.txt",
+        ROOT / "docs/llms-full.txt",
+        ROOT / "docs/ai.txt",
+        ROOT / "docs/sitemap.xml",
+        ROOT / "tests/test_seo_contracts.py",
+    ]
+    for path in checked:
+        content = path.read_text()
+        assert canonical in content, f"{path} does not reference canonical host"
+        assert "pastorsimon1798.github.io/openglaze" not in content
+
+
+def test_app_serves_sitemap_markdown_html_aliases():
+    server = (ROOT / "server.py").read_text()
+    sitemap = (ROOT / "docs/sitemap.xml").read_text()
+
+    for page in ["user-guide", "API", "self-hosting"]:
+        assert f"/{page}.html" in sitemap
+        assert (ROOT / f"docs/{page}.md").exists()
+
+    assert "render_markdown_doc" in server
+    assert 'Path("docs") / f"{Path(path).stem}.md"' in server
