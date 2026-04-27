@@ -338,32 +338,13 @@ if __name__ == "__main__":
         except ImportError:
             pass
         if not template_path or not os.path.exists(template_path):
-            template_path = os.path.join("templates", "default-cone5-bmix.yaml")
+            template_path = os.path.join(
+                "core", "templates", "community-glazes.yaml"
+            )
         print(f"Loading glazes from: {template_path}")
         with open(template_path, "r") as f:
             glazes = yaml.safe_load(f).get("glazes", [])
 
-        # Also load community templates from ceramics-foundation/data/ if available
-        for community_file in [
-            "cone6-oxidation-community.yaml",
-            "cone10-reduction-community.yaml",
-        ]:
-            community_path = None
-            try:
-                from core.chemistry.data_loader import (
-                    get_community_template_path as _get_community,
-                )
-
-                community_path = _get_community(community_file)
-            except ImportError:
-                pass
-            if not community_path or not os.path.exists(community_path):
-                community_path = os.path.join("templates", community_file)
-            if os.path.exists(community_path):
-                print(f"Loading community template: {community_path}")
-                with open(community_path, "r") as f:
-                    community_glazes = yaml.safe_load(f).get("glazes", [])
-                glazes.extend(community_glazes)
         count = seed_glazes(conn, glazes)
         seed_demo_stats(conn)
         seed_badges(conn)
