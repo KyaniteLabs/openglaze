@@ -219,11 +219,24 @@ def create_app(config: dict = None) -> Flask:
     def index():
         return send_from_directory("frontend", "index.html")
 
+    @app.route("/llms.txt")
+    @app.route("/llms-full.txt")
+    @app.route("/ai.txt")
+    @app.route("/robots.txt")
+    @app.route("/sitemap.xml")
+    @app.route("/social-preview.png")
+    def docs_root_asset():
+        return send_from_directory("docs", request.path.lstrip("/"))
+
     @app.route("/<path:path>")
     def static_files(path):
-        # Don't serve hidden files or paths outside frontend
+        # Don't serve hidden files or paths outside public static/docs directories
         if path.startswith(".") or ".." in path:
             return jsonify({"error": "Not found"}), 404
+        if path.endswith((".html", ".txt", ".xml", ".png")):
+            docs_file = Path("docs") / path
+            if docs_file.is_file():
+                return send_from_directory("docs", path)
         return send_from_directory("frontend", path)
 
     # ==========================================
