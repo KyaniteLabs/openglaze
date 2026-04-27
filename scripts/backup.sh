@@ -58,16 +58,27 @@ fi
 # Create compressed archive
 echo ""
 echo "Creating backup archive..."
-tar -czf "$BACKUP_DIR/${BACKUP_NAME}.tar.gz" -C "$BACKUP_DIR" \
-    ${BACKUP_NAME}_database.sql 2>/dev/null || \
-    ${BACKUP_NAME}_database.db 2>/dev/null || true
 
-if [ -f "$BACKUP_DIR/${BACKUP_NAME}_uploads.tar.gz" ]; then
-    tar -rf "$BACKUP_DIR/${BACKUP_NAME}.tar" -C "$BACKUP_DIR" ${BACKUP_NAME}_uploads.tar.gz
+# Build a list of files to archive
+ARCHIVE_FILES=""
+if [ -f "$BACKUP_DIR/${BACKUP_NAME}_database.sql" ]; then
+    ARCHIVE_FILES="${BACKUP_NAME}_database.sql"
+elif [ -f "$BACKUP_DIR/${BACKUP_NAME}_database.db" ]; then
+    ARCHIVE_FILES="${BACKUP_NAME}_database.db"
 fi
 
-# Compress final archive
-gzip -f "$BACKUP_DIR/${BACKUP_NAME}.tar" 2>/dev/null || true
+if [ -f "$BACKUP_DIR/${BACKUP_NAME}_uploads.tar.gz" ]; then
+    ARCHIVE_FILES="$ARCHIVE_FILES ${BACKUP_NAME}_uploads.tar.gz"
+fi
+
+if [ -f "$BACKUP_DIR/${BACKUP_NAME}_config.env" ]; then
+    ARCHIVE_FILES="$ARCHIVE_FILES ${BACKUP_NAME}_config.env"
+fi
+
+if [ -n "$ARCHIVE_FILES" ]; then
+    tar -cf "$BACKUP_DIR/${BACKUP_NAME}.tar" -C "$BACKUP_DIR" $ARCHIVE_FILES
+    gzip -f "$BACKUP_DIR/${BACKUP_NAME}.tar"
+fi
 
 echo "  ✓ Full backup: ${BACKUP_NAME}.tar.gz"
 

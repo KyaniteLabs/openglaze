@@ -6,7 +6,7 @@ Complete configuration reference for OpenGlaze.
 
 | Variable | Required | Default | Description |
 |----------|----------|---------|-------------|
-| `BASE_URL` | Yes | `http://localhost:8768` | Public URL |
+| `BASE_URL` | Yes | `http://localhost:8768` | Public URL (Docker default: 8768, manual install default: 8767) |
 | `DATABASE_URL` | Yes | `sqlite:///openglaze.db` | Database connection |
 | `KRATOS_PUBLIC_URL` | Yes | `http://kratos:4433` | Kratos public API |
 | `KRATOS_ADMIN_URL` | Yes | `http://kratos:4434` | Kratos admin API |

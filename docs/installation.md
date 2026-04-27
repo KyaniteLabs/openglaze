@@ -22,7 +22,7 @@ Complete guide to setting up OpenGlaze.
 
 ### Manual Installation
 
-- Python 3.10+
+- Python 3.12+
 - PostgreSQL 14+ (or SQLite for development)
 
 ## Docker Installation
@@ -31,7 +31,7 @@ Complete guide to setting up OpenGlaze.
 
 ```bash
 # Clone repository
-git clone https://github.com/openglaze/openglaze.git
+git clone https://github.com/Pastorsimon1798/openglaze.git
 cd openglaze
 
 # Run setup script
@@ -194,4 +194,4 @@ docker-compose exec kratos kratos migrate -c /etc/config/kratos/config.yml sql -
 
 ---
 
-Need help? [Open an issue](https://github.com/openglaze/openglaze/issues) or join our [Discord](https://discord.gg/openglaze).
+Need help? [Open an issue](https://github.com/Pastorsimon1798/openglaze/issues) — community link coming soon.

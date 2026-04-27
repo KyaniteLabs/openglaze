@@ -1,7 +1,7 @@
 # OpenGlaze
 
 <p align="center">
-  <img src="frontend/favicon.svg" alt="OpenGlaze — open source ceramic glaze calculator and recipe manager" width="120">
+  <img src="static/favicon.svg" alt="OpenGlaze — open source ceramic glaze calculator and recipe manager" width="120">
 </p>
 
 <p align="center">
@@ -274,9 +274,9 @@ See [docs/self-hosting.md](docs/self-hosting.md) for detailed deployment instruc
 
 OpenGlaze is free and open source. If it saves you materials, time, or a failed kiln load, consider supporting ongoing development:
 
-- **[Buy me a coffee](https://ko-fi.com/yourname)** *(update with your link)*
-- **[Patreon](https://patreon.com/yourname)** *(update with your link)*
-- **[GitHub Sponsors](https://github.com/sponsors/yourname)** *(update with your link)*
+- **Ko-fi** — Coming soon
+- **Patreon** — Coming soon
+- **GitHub Sponsors** — Coming soon
 
 No pressure — the tool is yours either way.
 
@@ -324,7 +324,7 @@ pytest tests/ -v
 pytest tests/ --cov=. --cov-report=html
 ```
 
-111 tests covering:
+121 tests covering:
 - Kama AI context injection and streaming
 - Chemistry context retrieval and UMF calculation
 - Recipe optimizer (target CTE, surface, alkali, running risk)
@@ -361,16 +361,6 @@ Questions, bug reports, and feature requests:
 
 - [GitHub Discussions](https://github.com/Pastorsimon1798/openglaze/discussions) — Community help
 - [GitHub Issues](https://github.com/Pastorsimon1798/openglaze/issues) — Bug reports and feature requests
-
-### Support the Project
-
-OpenGlaze is free and open source under the MIT license. If this tool saved you materials, time, or a failed kiln load, consider supporting its continued development:
-
-- [☕ Buy me a coffee on Ko-fi](https://ko-fi.com/yourname)
-- [🎨 Support on Patreon](https://patreon.com/yourname)
-- [⭐ Sponsor on GitHub](https://github.com/sponsors/yourname)
-
-No pressure — the tool is yours either way.
 
 ## License
 

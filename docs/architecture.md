@@ -57,7 +57,7 @@ System design, data flow, and component interactions.
 │  - glazes         │ │  - users      │ │                 │
 │  - experiments    │ │  - sessions   │ │  - materials    │
 │  - firings        │ │  - schemas    │ │  - recipes      │
-│  - firings        │ │               │ │  - schedules    │
+│                   │ │               │ │  - schedules    │
 └───────────────────┘ └───────────────┘ └─────────────────┘
 ```
 
@@ -89,7 +89,6 @@ System design, data flow, and component interactions.
 | `/api/chemistry` | Chemistry | UMF, compatibility, batch calc |
 | `/api/ask` | AI | Kama assistant endpoints |
 | `/api/studios` | Collaboration | Multi-user studio management |
-| `/api/uploads` | Media | Photo and file uploads |
 | `/api/uploads` | Media | Photo and file uploads |
 | `/api/gamification` | Engagement | Points, badges, leaderboards |
 | `/api/predictions` | Prediction | Human vs AI prediction market |
