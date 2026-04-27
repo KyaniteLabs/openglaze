@@ -40,7 +40,7 @@ from core.security import init_security, rate_limit, get_rate_limiter
 
 # Import auth (cloud mode)
 try:
-    from core.auth import AuthMiddleware, get_current_user, get_user_id, require_auth
+    from core.auth import AuthMiddleware, get_current_user, get_user_id
 
     AUTH_AVAILABLE = True
 except ImportError:

@@ -1,12 +1,14 @@
 #!/usr/bin/env python3
 """Seed OpenGlaze demo database with community glazes and sample data."""
 
-from core.db import connect_db, json, os, sys, yaml
-from datetime import datetime, timedelta
+import json
+import os
+import sqlite3
+import sys
 
 import yaml
-
 from core.db import connect_db
+from datetime import datetime, timedelta
 
 DEMO_USER_ID = "demo-user-001"
 
@@ -326,7 +328,6 @@ if __name__ == "__main__":
     try:
         if "--reset" in sys.argv:
             reset_demo(conn)
-        import yaml
 
         # Try ceramics-foundation submodule path first, fall back to templates/
         template_path = None
