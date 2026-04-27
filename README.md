@@ -302,22 +302,17 @@ See [docs/self-hosting.md](docs/self-hosting.md) for detailed deployment instruc
 
 ## Support the Project
 
-OpenGlaze is free and open source. If it saves you materials, time, or a failed kiln load, consider supporting ongoing development:
-
-- **Ko-fi** — Coming soon
-- **Patreon** — Coming soon
-- **GitHub Sponsors** — Coming soon
+OpenGlaze is free and open source. If it saves you materials, time, or a failed kiln load, consider starring the repo or contributing a recipe.
 
 No pressure — the tool is yours either way.
 
-## Customizing Studio Profiles
+## Customizing Glaze Collections
 
-Studio profiles live in `ceramics-foundation/studios/`. To add your own:
+Glaze templates live in `core/templates/` and `templates/`. To add your own:
 
-1. Copy `studios/default/` → `studios/your-studio/`
-2. Edit `profile.json`, `clays.json`, `kilns.json`
-3. Add glaze collections to `glazes/*.yaml`
-4. Update `seed_data.py` or create your own seed script
+1. Create a YAML file following the `community-glazes.yaml` format
+2. Add glaze entries with `name`, `cone`, `atmosphere`, `base_type`, `recipe`, etc.
+3. Update `seed_data.py` to load your template, or import via the API
 
 No code changes required — everything is data-driven.
 
@@ -354,7 +349,7 @@ pytest tests/ -v
 pytest tests/ --cov=. --cov-report=html
 ```
 
-121 tests covering:
+139 tests covering:
 - Kama AI context injection and streaming
 - Chemistry context retrieval and UMF calculation
 - Recipe optimizer (target CTE, surface, alkali, running risk)

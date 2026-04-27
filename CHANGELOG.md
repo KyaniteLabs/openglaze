@@ -5,43 +5,51 @@ All notable changes to OpenGlaze will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [1.1.0] - 2026-04-27
 
 ### Added
-- Unified GlazeLab + OpenGlaze codebase — merged R&D features into production infrastructure
-- Chemistry engine with UMF calculation, compatibility analysis, and thermal expansion
-- **Recipe Optimizer** — computationally suggests exact material adjustments to hit target glaze properties (CTE, surface character, alkali reduction, running risk) without physical test firings
-- Kama AI assistant with streaming responses and context-aware glaze consulting
-- 6-stage experiment pipeline (Ideation → Prediction → Application → Firing → Analysis → Documentation)
-- Gamification system with points, streaks, badges, and leaderboards
-- Studio collaboration with member management and lab assignments
-- Prediction market for human vs AI glaze outcome predictions
-- Simulation engine for glaze chemistry modeling
-- Free and open source — MIT licensed, no paywalls
-- Generic studio profiles — replaceable templates for any ceramics studio
-- Community glaze templates (Cone 10 Reduction, Cone 6 Oxidation)
-- Ceramics Foundation data inlined (30+ materials, 19 oxides, firing schedules)
-- Docker Compose stack with PostgreSQL, Kratos auth, and Mailhog
-- PWA support with service worker and manifest
-- Command palette (⌘K) for quick navigation
-- 111 test suite covering AI, chemistry, optimizer, and Flask routes
+- 44 community glazes across cone 5, 6, and 10 (was 32 cone-10-only)
+- Cone 6 oxidation glazes for electric kiln users (12 glazes)
+- Cone 6 reduction glazes for gas kiln users (4 glazes)
+- `cone` and `atmosphere` fields on every glaze entry
+- Cone 5-6 layering combinations for the largest potter demographic
+- SEO landing pages for calculator, UMF, CTE, and comparison queries
+- AI discoverability files (llms.txt, llms-full.txt, ai.txt)
+- GitHub Dependabot for automated dependency updates
+- E2E smoke test scaffold with Playwright
+- Launch contract tests for Docker, CI, and docs consistency
+- SEO contract tests for sitemap, landing pages, and AI files
+- nginx and nginx-tls reverse proxy configs for self-hosting
+- requirements-dev.txt for development dependencies
+- CITATION.cff for academic citation support
+- ROADMAP.md for project direction visibility
 
 ### Changed
-- Merged from two separate repositories into unified codebase
-- Eliminated git submodules — all ceramic data now inlined
-- Renamed all "Clay on First" references to "Default Studio"
-- Updated schema to support combined GlazeLab + OpenGlaze features
-- Lazy app factory pattern to eliminate import-time side effects
+- Removed all studio-invented and commercial-product glazes to eliminate IP risk
+- Replaced with safe traditional/published/ancient glazes (Song Dynasty, John Britt, etc.)
+- Seed data and server templates updated from "studio" to "community" terminology
+- Docker Compose uses env var substitution for secrets (no hardcoded passwords)
+- CI upgraded: actions/checkout@v6, setup-python@v6, cache@v5, codecov@v6
+- Dependencies updated: Flask>=3.1.3, requests>=2.33.1, flask-cors>=6.0.2, gunicorn>=25.3.0
+- Test suite expanded from 111 to 139 tests
+- Live site served from openglaze.kyanitelabs.tech
+- `.env.example` cleaned up with proper sections and no default secrets
 
 ### Fixed
-- Schema drift in test suite resolved by dynamically loading canonical schema
-- Import-time side effects eliminated for testability
-- Docker networking updated for unified service names
+- Auth enforcement hardened with trusted proxy middleware
+- Black and Ruff formatting consistency across codebase
+- Duplicate and unused imports removed
+- CONTRIBUTING.md port number corrected (8767 → 8768)
+- Security headers (CSP, HSTS, X-Frame-Options) enforced
+- DOMPurify XSS sanitization on all user content rendering
+- SQLite WAL mode enabled for concurrent read/write safety
 
 ### Removed
-- GlazeLab repository (all data and features preserved in merge)
-- `_deprecated/human-door/` stale documentation
-- Empty folders and unused configuration files
+- 7 studio-invented glazes (Clay on First / Default Studio IP)
+- Studio-specific data (profile.json, clays.json, kilns.json) archived
+- GITHUB_GUARDIAN_AUDIT.md (false-positive noise)
+- HANDOFF.md (internal artifact, not user-facing)
+- Clay on First / Default Studio references across all docs and code
 
 ## [1.0.0] - 2026-04-24
 
@@ -59,5 +67,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - User management and studio collaboration
 - MIT license
 
-[Unreleased]: https://github.com/Pastorsimon1798/openglaze/compare/v1.0.0...HEAD
+[1.1.0]: https://github.com/Pastorsimon1798/openglaze/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/Pastorsimon1798/openglaze/releases/tag/v1.0.0

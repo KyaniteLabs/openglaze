@@ -58,7 +58,7 @@ pytest tests/
 python server.py
 ```
 
-Visit http://localhost:8767 to see the application.
+Visit http://localhost:8768 to see the application.
 
 ## Making Changes
 

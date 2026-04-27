@@ -5,9 +5,9 @@ type: software
 authors:
   - alias: Pastorsimon1798
 repository-code: https://github.com/Pastorsimon1798/openglaze
-url: https://openglaze.com
+url: https://openglaze.kyanitelabs.tech
 license: MIT
-version: 0.1.0
+version: 1.1.0
 abstract: Free open-source ceramic glaze calculator and self-hosted glaze management software with UMF calculation, CTE analysis, oxide analysis, and computational recipe optimization.
 keywords:
   - ceramic glaze calculator
