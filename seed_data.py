@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Seed OpenGlaze demo database with community glazes and sample data."""
+
 from core.db import connect_db, json, os, sys, yaml
 from datetime import datetime, timedelta
 

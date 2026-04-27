@@ -185,7 +185,7 @@ def create_app(config: dict = None) -> Flask:
         Returns an error response if auth is required but user is not
         authenticated, or None if the request may proceed.
         """
-        if not features['auth_enabled'] or not AUTH_AVAILABLE:
+        if not features["auth_enabled"] or not AUTH_AVAILABLE:
             return None
         try:
             user = get_current_user()
@@ -1007,7 +1007,7 @@ def create_app(config: dict = None) -> Flask:
         auth_err = require_auth_for_write()
         if auth_err:
             return auth_err
-        if 'photo' not in request.files:
+        if "photo" not in request.files:
             return jsonify({"error": "No photo field in upload"}), 400
 
         file = request.files["photo"]
@@ -1972,6 +1972,7 @@ def seed_database(conn):
 
     # Load YAML template
     from core.templates import get_community_glazes
+
     template = get_community_glazes()
     if not template:
         logger.warning("No template found — skipping seed")

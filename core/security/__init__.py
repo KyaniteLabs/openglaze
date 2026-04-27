@@ -149,18 +149,18 @@ def get_client_identifier() -> str:
     import os
     from flask import request
 
-    trusted_proxy = os.environ.get('TRUSTED_PROXY', '')
+    trusted_proxy = os.environ.get("TRUSTED_PROXY", "")
     if trusted_proxy and request.remote_addr == trusted_proxy:
         # Behind a known reverse proxy — trust the first value
-        forwarded = request.headers.get('X-Forwarded-For')
+        forwarded = request.headers.get("X-Forwarded-For")
         if forwarded:
-            return forwarded.split(',')[0].strip()
-        real_ip = request.headers.get('X-Real-IP')
+            return forwarded.split(",")[0].strip()
+        real_ip = request.headers.get("X-Real-IP")
         if real_ip:
             return real_ip
 
     # Direct connection or untrusted proxy
-    return request.remote_addr or 'unknown'
+    return request.remote_addr or "unknown"
 
 
 def rate_limit(requests_per_minute: int = None, key_func: callable = None):
@@ -258,7 +258,7 @@ class SecurityHeaders:
         # onclick handlers in index.html (sidebar, modal, family filters).
         # TODO: Migrate all inline handlers to addEventListener, then remove
         # 'unsafe-inline' and use nonce-based CSP instead.
-        csp_script_nonce = getattr(response, '_csp_script_nonce', '')
+        csp_script_nonce = getattr(response, "_csp_script_nonce", "")
         script_src = (
             f"'self' 'unsafe-inline' 'nonce-{csp_script_nonce}' https://cdn.jsdelivr.net"
             if csp_script_nonce

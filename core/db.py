@@ -22,8 +22,8 @@ def connect_db(db_path: str) -> sqlite3.Connection:
     to avoid immediate "database is locked" errors, and enforces foreign
     keys.  Handles :memory: databases via shared-cache URI for testing.
     """
-    if db_path == ':memory:':
-        conn = sqlite3.connect('file::memory:?cache=shared', uri=True)
+    if db_path == ":memory:":
+        conn = sqlite3.connect("file::memory:?cache=shared", uri=True)
     else:
         conn = sqlite3.connect(db_path)
     conn.row_factory = sqlite3.Row
