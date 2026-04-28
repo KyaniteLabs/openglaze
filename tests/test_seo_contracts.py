@@ -113,7 +113,7 @@ def test_ai_files_are_truthful_and_answer_engine_ready():
     llms_full = (DOCS / "llms-full.txt").read_text()
 
     for content in (ai, llms, llms_full):
-        assert "126 automated tests" in content
+        assert "139 automated tests" in content
         assert "PostgreSQL" not in content or "experimental" in content
         assert "SQLite or PostgreSQL" not in content
         assert "ceramic glaze calculator" in content.lower()
@@ -149,7 +149,7 @@ def test_static_pages_use_project_relative_internal_links():
 
 def test_homepage_visible_stats_are_current():
     homepage = (DOCS / "index.html").read_text()
-    assert "<strong>126</strong>" in homepage
+    assert "<strong>139</strong>" in homepage
     assert "<span>Tests passing</span>" in homepage
     assert "111 Tests passing" not in homepage
     assert "without firing test tiles" not in homepage

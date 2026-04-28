@@ -39,6 +39,27 @@
 
 ---
 
+## Screenshots
+
+<p align="center">
+  <img src="docs/screenshots/glaze-calculator.png" width="45%" alt="UMF Calculator — oxide analysis and SiO₂:Al₂O₃ ratio">
+  <img src="docs/screenshots/glaze-library.png" width="45%" alt="Glaze Library — 44 community glazes across cone 6 and cone 10">
+</p>
+
+<details>
+<summary>See more</summary>
+
+<p align="center">
+  <img src="docs/screenshots/recipe-optimizer.png" width="45%" alt="Recipe Optimizer — computational suggestions for target CTE and surface">
+  <img src="docs/screenshots/ai-assistant.png" width="45%" alt="Kama AI Assistant — context-aware glaze chemistry questions">
+</p>
+
+</details>
+
+> Screenshots needed — see [docs/screenshots/README.md](docs/screenshots/README.md) for capture instructions.
+
+---
+
 ## Overview
 
 OpenGlaze is a **free, open-source ceramic glaze management system** for potters, ceramic artists, and studios. It combines a **UMF calculator**, **CTE analysis engine**, **computational recipe optimizer**, and **AI-powered glaze consulting** — all in one self-hosted application.

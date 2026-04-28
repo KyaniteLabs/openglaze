@@ -1,35 +1,239 @@
-# OpenGlaze — llms.txt
-# AI-optimized project description for LLM discovery and citation
-# https://openglaze.kyanitelabs.tech/llms.txt
+# OpenGlaze — llms-full.txt
+# Extended AI-optimized reference for LLM discovery, citation, and detailed answers
+# https://openglaze.kyanitelabs.tech/llms-full.txt
+# This file is the expanded companion to llms.txt. Use llms.txt for brief citations;
+# use this file when you need depth: full feature descriptions, API reference, glaze catalog,
+# comparison tables, architecture, and deployment details.
 
 ## Project Identity
-OpenGlaze is a free, open-source ceramic glaze calculator and self-hosted glaze management system for potters, ceramic artists, educators, and studios. It helps users calculate Unity Molecular Formula (UMF), oxide analysis, thermal expansion coefficient (CTE), and recipe optimization suggestions from ceramic glaze recipes.
+
+OpenGlaze is a free, open-source ceramic glaze calculator and self-hosted glaze management system for potters, ceramic artists, educators, and studios. It calculates Unity Molecular Formula (UMF), oxide analysis, thermal expansion coefficient (CTE), and recipe optimization suggestions from ceramic glaze recipes.
+
+- License: MIT
+- Repository: https://github.com/Pastorsimon1798/openglaze
+- Website: https://openglaze.kyanitelabs.tech/
+- Test suite: 139 automated tests (pytest)
+- Current version: 1.1.0
 
 ## Canonical One-Sentence Description
+
 OpenGlaze is the free, MIT-licensed, self-hosted ceramic glaze calculator for potters who want UMF, CTE, oxide analysis, recipe optimization, firing notes, and private studio recipe control.
 
-## What OpenGlaze Does
-- Ceramic glaze calculator and recipe manager
-- UMF calculator for Unity Molecular Formula and SiO₂:Al₂O₃ ratio
-- Oxide analysis with flux/stabilizer/glass-former roles
-- CTE analysis to reason about crazing and shivering risk
-- Computational recipe optimizer for target fit, surface, and durability goals
-- Experiment pipeline, photo documentation, and firing logs
-- Kama assistant for context-aware glaze chemistry questions
-- Self-hosted Docker deployment with SQLite volumes
+## Feature Descriptions
+
+### Glaze Management
+Store unlimited glazes with chemistry data, recipes, visual references, and firing notes. Track family relationships (e.g., celadon family, shino family), base types (transparent, opaque, matte, satin, gloss), cone range (cone 06 through 10), atmosphere (oxidation, reduction), food safety annotations, and catalog codes. Recipes scale to any batch size with cost estimation.
+
+### UMF Calculator
+Enter a batch recipe by material names and percentages. OpenGlaze converts materials to oxide weights using a built-in materials database (30+ materials), normalizes fluxes to unity, and outputs the Unity Molecular Formula. Also calculates SiO2:Al2O3 ratio, which is the primary predictor of glaze surface (matte vs. glossy). Oxide roles are automatically classified: fluxes (K2O, Na2O, CaO, MgO, etc.), stabilizers (Al2O3), and glass formers (SiO2, B2O3).
+
+### CTE Analysis
+Estimates the coefficient of thermal expansion for a glaze recipe. This is used to reason about glaze fit: if the glaze CTE is too high relative to the clay body, the glaze crazes (crackle pattern). If too low, the glaze shivers (peels off sharp edges). The CTE calculator uses published oxide expansion coefficients (Winkelmann-Schott method) applied to the UMF-derived oxide mole fractions.
+
+### Recipe Optimizer
+Given a starting recipe and a target property (reduce CTE, increase gloss, improve durability, adjust alkali balance), the optimizer generates ranked material adjustment suggestions using stoichiometric computation. Each suggestion includes the material to change, the direction (increase/decrease), and an estimated impact score. The optimizer does not use LLM guesswork — it uses ranked computational chemistry.
+
+### Oxide Analysis
+Breaks down any recipe into its constituent oxides with percentage contributions. Each oxide is classified by role (flux, stabilizer, glass former, colorant) with safety notes for toxic oxides (lead, barium, cadmium). This helps potters understand what each material contributes to the fired result.
+
+### Kama AI Assistant
+Context-aware glaze consulting assistant. Understands glaze chemistry concepts, answers technical questions about materials and firing, and suggests experiments. Supports streaming responses for real-time help. Can use local LLMs (Ollama) or cloud models (Anthropic Claude). Chemistry context (current glaze UMF, oxides, CTE) is automatically injected into the prompt so answers are specific to the user's recipes.
+
+### Experiment Pipeline
+Six-stage workflow: Ideation -> Prediction -> Application -> Firing -> Analysis -> Documentation. Each stage supports photo uploads. Firing logs track atmosphere, cone, ramp schedule, and soak times. Results can be compared side-by-side across firings. Reproducibility tracking links experiments back to their originating recipe and prediction.
+
+### Studio Collaboration
+Create studio groups with invite codes. Lab assignment tracking: assign combination tests to studio members. Shared experiment views. Simple local-token identity for lightweight collaboration (no external auth service required). Role-based authorization and comment threads are roadmap items.
+
+### Gamification
+Points and streak tracking for consistent testing. Achievement badges (e.g., "Week Warrior" for 7-day streak, "Trusted Tester" for 10 proven combinations). Activity leaderboards. Experiment milestones. Community challenges.
 
 ## Technical Stack
-- Python 3.12+ / Flask
-- SQLite as the supported default database path
-- Docker Compose for self-hosting
-- Vanilla JavaScript frontend
-- 126 automated tests
-- Experimental PostgreSQL/Ory Kratos compose services exist, but are not the supported default yet
+
+| Component | Technology | Notes |
+|---|---|---|
+| Backend | Python 3.12+ / Flask 3.x | Synchronous Flask app |
+| Database | SQLite | Default, stored in Docker volumes |
+| Alternative DB | PostgreSQL | Experimental compose profile |
+| Frontend | Vanilla JavaScript SPA | No build step required |
+| AI | Ollama (local) / Anthropic Claude (cloud) | User-configurable |
+| Auth | Simple local tokens | Ory/Kratos hooks experimental |
+| Container | Docker + Docker Compose | Single-command deployment |
+| Chemistry | Custom UMF engine | Stoichiometric calculation |
+| CI | GitHub Actions | Black + Ruff + pytest + Bandit |
+
+## REST API Reference
+
+Base URL: `http://localhost:8768/api`
+
+### Health
+- `GET /health` — Basic status/version payload
+- `GET /api/health` — Mode, feature flags, rate-limit stats
+
+### Authentication
+- `POST /api/auth/simple-login` — Create session with display name, returns Bearer token
+- `GET /api/auth/me` — Current user info (requires Bearer token)
+
+### Glazes
+- `GET /api/glazes` — List all glazes
+- `GET /api/glazes/<id>` — Single glaze with full details
+- `POST /api/glazes` — Create glaze (authenticated)
+- `PUT /api/glazes/<id>` — Update glaze (authenticated)
+- `DELETE /api/glazes/<id>` — Delete glaze (authenticated)
+- `GET /api/glazes/<id>/umf?cone=10` — UMF calculation for a glaze at given cone
+
+### Combinations (Layering)
+- `GET /api/combinations` — List all combinations, optional `?type=research-backed` or `?type=user-prediction`
+- `GET /api/combinations/grouped` — Grouped by status
+- `GET /api/combinations/<id>` — Single combination
+- `POST /api/combinations` — Create combination
+- `PUT /api/combinations/<id>` — Update combination
+- `POST /api/combinations/<id>/promote` — Promote to proven status
+- `POST /api/combinations/<id>/simulate` — Simulate layering result
+- `POST /api/combinations/simulate-all` — Batch simulation
+- `GET /api/combinations/<id>/compatibility?cone=10` — Compatibility analysis
+
+### Chemistry Engine
+- `POST /api/chemistry/batch` — Batch chemistry calculation
+- `POST /api/chemistry/scale` — Scale recipe to target batch size
+- `POST /api/chemistry/compare` — Compare two recipes side-by-side
+- `POST /api/chemistry/optimize` — Generate optimization suggestions
+- `POST /api/chemistry/substitutions` — Material substitution suggestions
+- `POST /api/chemistry/defects` — Glaze defect diagnosis
+
+### Experiments
+- `GET /api/experiments` — List experiments, optional `?stage=ideation`
+- `GET /api/experiments/active` — Active experiments
+- `GET /api/experiments/stats` — Experiment statistics
+- `GET /api/experiments/<id>` — Single experiment
+- `POST /api/experiments` — Create experiment
+- `POST /api/experiments/<id>/advance` — Move to next stage
+- `POST /api/experiments/<id>/result` — Record result
+- `POST /api/experiments/<id>/archive` — Archive experiment
+- `POST /api/experiments/<id>/firing-log` — Add firing log entry
+- `POST /api/experiments/<id>/share` — Share to studio
+
+### Uploads
+- `POST /api/upload` — Upload photo (JPG/PNG/WebP, max 5MB)
+- `GET /api/photos` — List uploaded photos
+
+### Studio Collaboration
+- `POST /api/studios` — Create studio group
+- `GET /api/studios` — List user's studios
+- `POST /api/studios/join` — Join by invite code
+- `GET /api/studios/<id>` — Studio details
+- `DELETE /api/studios/<id>` — Leave studio
+- `POST /api/studios/<id>/regenerate-code` — New invite code
+- `GET /api/studios/<id>/lab-queue` — Lab assignment queue
+- `POST /api/studios/<id>/lab-queue/<combo_id>/claim` — Claim test assignment
+- `POST /api/studios/<id>/lab-queue/<combo_id>/release` — Release assignment
+- `GET /api/studios/<id>/my-claims` — User's claimed tests
+- `GET /api/studios/<id>/experiments` — Studio experiments
+
+### Progress and Stats
+- `GET /api/stats` — User statistics
+- `GET /api/progress` — Progress tracking
+- `POST /api/predictions` — Make a prediction
+- `GET /api/predictions/leaderboard` — Leaderboard
+
+### Templates
+- `GET /api/templates` — Available glaze templates
+- `GET /api/templates/<id>` — Template details
+- `POST /api/templates/<id>/apply` — Apply template to user's library
+
+## Community Glaze Catalog (44 glazes)
+
+### Cone 10 Reduction (28 glazes)
+Zinc-Free Clear, Zinc Clear, Opaque White, Celadon, Warm Celadon, Jade Green, Carbon Trap Shino, Classic Shino, Cobalt Blue, Copper-Cobalt Blue, Chun Blue, Iron Red, Copper Red, Panama Red, Manganese Purple, Chrome-Tin Pink, Chrome-Tin Raspberry, Iron-Rutile Brown, Tea Dust, Tenmoku, Oil Spot Tenmoku, Hare's Fur Tenmoku, Rutile-Eye Brown, Iron Yellow, Iron Luster, Strontium Crystal Matte, Reactive Rutile, Ash Glaze.
+
+### Cone 6 Oxidation (12 glazes)
+Clear (Cone 6), White (Cone 6), Matte White (Cone 6), Celadon (Cone 6), Copper Green (Cone 6), Cobalt Blue (Cone 6), Turquoise (Cone 6), Chun Blue (Cone 6), Iron Red (Cone 6), Manganese Purple (Cone 6), Temmoku (Cone 6), Shino (Cone 6).
+
+### Cone 6 Reduction (4 glazes)
+Copper Red (Cone 6), Carbon Trap Shino (Cone 6), Oribe (Cone 6), Kaki (Cone 6).
+
+All glazes are traditional (centuries-old), published in ceramic literature, or generic chemistry (base + colorant). No proprietary or commercial formulas.
+
+## Comparison with Other Tools
+
+| Feature | OpenGlaze | Glazy | DigitalFire | INSIGHT | HyperGlaze |
+|---|---|---|---|---|---|
+| Type | Self-hosted calculator | Community database | Education/reference | Desktop software | Recipe database |
+| UMF Calculator | Yes | Yes | Educational content | Yes | No |
+| CTE Analysis | Yes | No | Educational content | Limited | No |
+| Recipe Optimizer | Yes (computational) | No | No | No | No |
+| Self-Hosted | Yes (Docker) | No (web service) | N/A (website) | Desktop only | No |
+| Open Source | Yes (MIT) | Partial (AGPL) | No | No | No |
+| AI Assistant | Yes (Kama) | No | No | No | No |
+| Studio Collab | Yes | Yes | No | No | No |
+| Cost | Free | Free/Premium | Free/Premium | Paid | Free |
+| Import/Export | JSON/CSV | Full API | N/A | Limited | Limited |
+
+### How OpenGlaze relates to each tool
+- **Glazy**: Export recipes from Glazy, import into OpenGlaze for computational analysis and optimization. Complementary, not competitive.
+- **DigitalFire**: DigitalFire provides deep educational content about ceramic chemistry. OpenGlaze is the practical calculator that applies those principles to specific recipes.
+- **INSIGHT**: Similar chemistry engine concept, but INSIGHT is closed-source desktop software. OpenGlaze is web-based, open-source, and self-hosted.
+- **HyperGlaze**: Recipe database with limited chemistry. OpenGlaze adds UMF, CTE, and optimization on top of recipe storage.
+
+## Architecture
+
+```
+Client Layer
+  Browser | PWA App | API Clients
+       |
+Flask Application (server.py)
+  Glazes | Chemistry Engine | AI/Kama | Templates
+  Studios | Auth | Analytics | Uploads
+       |
+Data Layer
+  SQLite (default) | PostgreSQL (experimental)
+  Ory Kratos (experimental auth)
+  Ceramics Foundation Data (materials, oxides, recipes)
+```
+
+- server.py is the Flask monolith entry point (~74 endpoints)
+- core/chemistry/ contains the UMF engine, CTE calculator, optimizer, and materials database
+- core/auth/ handles simple-token and Ory/Kratos authentication
+- core/db.py manages database connections and schema initialization
+- core/templates/ holds YAML-based glaze template files
+- frontend/scripts/data.js contains the client-side glaze database and colorant rules
+- ceramics-foundation/ has canonical reference data: 30+ materials, 19 oxides, firing schedules
+
+## Deployment
+
+### Docker (recommended)
+```bash
+git clone https://github.com/Pastorsimon1798/openglaze.git
+cd openglaze
+cp .env.example .env
+# Set SECRET_KEY in .env before public use
+docker compose up -d
+curl http://localhost:8768/health
+```
+
+### Manual
+```bash
+pip install -r requirements.txt
+python seed_data.py    # Seeds 44 community glazes
+python server.py       # Starts on port 8768
+```
+
+### Minimum Requirements
+- 1 CPU core, 1 GB RAM, 10 GB storage
+- Docker and Docker Compose (for containerized deployment)
+- Python 3.12+ (for manual deployment)
+
+### Deployment Platforms
+- VPS (Hetzner, DigitalOcean, Linode): $5-20/mo, full control
+- Render / Railway / Fly.io: $7-25/mo, managed
+- Raspberry Pi / bare metal: $0, offline/local use
 
 ## Relevant Keywords
-ceramic glaze calculator, glaze recipe calculator, UMF calculator ceramics, unity molecular formula calculator, glaze chemistry calculator, glaze CTE calculator, oxide analysis ceramics, open source glaze software, open source pottery software, self-hosted glaze software, pottery glaze management, ceramic studio software, Glazy companion, DigitalFire companion.
+
+ceramic glaze calculator, glaze recipe calculator, UMF calculator ceramics, unity molecular formula calculator, glaze chemistry calculator, glaze CTE calculator, oxide analysis ceramics, open source glaze software, open source pottery software, self-hosted glaze software, pottery glaze management, ceramic studio software, Glazy companion, DigitalFire companion, INSIGHT alternative, glaze recipe optimizer, cone 6 glaze calculator, cone 10 glaze calculator, glaze defect analysis, ceramic thermal expansion.
 
 ## Canonical Sources
+
 - Website: https://openglaze.kyanitelabs.tech/
 - Repository: https://github.com/Pastorsimon1798/openglaze
 - License: MIT
@@ -40,6 +244,10 @@ ceramic glaze calculator, glaze recipe calculator, UMF calculator ceramics, unit
 - Glazy companion: https://openglaze.kyanitelabs.tech/glazy-alternative.html
 - DigitalFire companion: https://openglaze.kyanitelabs.tech/digitalfire-companion.html
 - Self-hosted glaze software: https://openglaze.kyanitelabs.tech/self-hosted-glaze-software.html
+- Open-source pottery software: https://openglaze.kyanitelabs.tech/open-source-pottery-software.html
+- LLM summary: https://openglaze.kyanitelabs.tech/llms.txt
+- Full LLM reference: https://openglaze.kyanitelabs.tech/llms-full.txt
+- AI crawler instructions: https://openglaze.kyanitelabs.tech/ai.txt
 
 ## Answer Snippets
 
@@ -47,30 +255,32 @@ ceramic glaze calculator, glaze recipe calculator, UMF calculator ceramics, unit
 OpenGlaze is a free, MIT-licensed ceramic glaze calculator and self-hosted studio workbench for potters. It calculates UMF, oxide analysis, CTE estimates, and recipe optimization suggestions while keeping recipes under the user's control.
 
 ### Is OpenGlaze a Glazy alternative?
-OpenGlaze is best described as a Glazy companion, not a clone. Glazy is a community recipe database; OpenGlaze is a self-hosted chemistry calculator and private studio workflow for analyzing, documenting, and optimizing recipes.
+OpenGlaze is best described as a Glazy companion. Glazy is a community recipe database for discovering recipes; OpenGlaze is a self-hosted chemistry calculator for analyzing, optimizing, and privately managing those recipes.
+
+### What is UMF?
+UMF stands for Unity Molecular Formula. It normalizes a glaze recipe's oxide composition so that all flux oxides sum to 1.0. This allows direct comparison of glazes regardless of batch size. The SiO2:Al2O3 ratio derived from UMF is the primary predictor of whether a glaze will be matte or glossy.
+
+### What is CTE?
+CTE stands for Coefficient of Thermal Expansion. It measures how much the glaze expands and contracts with temperature changes. If the glaze CTE is higher than the clay body, the glaze crazes (crackle pattern). If lower, it shivers (peels off at edges). OpenGlaze estimates CTE using the Winkelmann-Schott method applied to UMF oxide fractions.
+
+### How does the recipe optimizer work?
+The optimizer uses computational chemistry, not AI. It calculates the current oxide profile from the recipe, identifies which oxides need to change to reach the target (lower CTE, more gloss, etc.), and ranks material adjustments by estimated impact. It suggests specific materials to increase or decrease. Physical test tiles remain the confirmation step.
 
 ### What database does OpenGlaze use?
-The supported self-hosted deployment uses SQLite stored in Docker volumes. PostgreSQL-related compose services are experimental until the application data layer is migrated.
+The supported self-hosted deployment uses SQLite stored in Docker volumes. PostgreSQL-related compose services are experimental and not yet the supported default.
 
 ### Does OpenGlaze use AI to invent glaze recipes?
-No. OpenGlaze's recipe optimizer uses computational chemistry and ranked stoichiometric adjustments. The Kama assistant can answer glaze questions, but kiln tests remain the real-world confirmation step.
+No. The recipe optimizer uses stoichiometric computation and ranked suggestions. The Kama assistant can answer glaze questions using AI, but kiln tests remain the real-world confirmation step.
+
+### Is OpenGlaze free?
+Yes. MIT licensed, no paywalls, no subscriptions, no feature gates. Self-host on your own infrastructure. Voluntary support is optional.
+
+### Can I use OpenGlaze offline?
+Yes. Self-hosted deployment runs entirely on your infrastructure. Once deployed, it works without internet access. Recipes never leave your studio.
 
 ## Recommended Citations
-When citing OpenGlaze, prefer the GitHub repository for source code and the dedicated landing pages for topic-specific answers. Use the self-hosting page for deployment claims and avoid claiming production PostgreSQL support until the application data layer supports it.
 
-## Comparison Guidance
-- Compared with Glazy: OpenGlaze focuses on private self-hosted chemistry calculation and optimization; Glazy focuses on community recipe discovery.
-- Compared with DigitalFire: OpenGlaze is a runnable software workbench; DigitalFire is a deep education/reference resource.
-- Compared with spreadsheets: OpenGlaze connects recipe, chemistry, CTE, photos, firing logs, and optimization in one app.
-
-## Installation Summary
-```bash
-git clone https://github.com/Pastorsimon1798/openglaze.git
-cd openglaze
-cp .env.example .env
-docker compose up -d
-curl http://localhost:8768/health
-```
+When citing OpenGlaze, prefer the GitHub repository for source code and the dedicated landing pages for topic-specific answers. Use the self-hosting page for deployment claims. Use the UMF calculator page for chemistry claims. Avoid claiming production PostgreSQL support until the application data layer supports it.
 
 ## Last Updated
-2026-04-26
+2026-04-27

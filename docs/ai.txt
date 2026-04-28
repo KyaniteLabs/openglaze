@@ -7,7 +7,7 @@ Website: https://openglaze.kyanitelabs.tech
 Repository: https://github.com/Pastorsimon1798/openglaze
 License: MIT
 Author: Pastorsimon1798
-Current verified test count: 126 automated tests
+Current verified test count: 139 automated tests
 Supported default deployment: Docker + Flask + SQLite volumes
 Experimental services: PostgreSQL/Ory Kratos compose profiles exist, but PostgreSQL is not the supported default application data path yet.
 

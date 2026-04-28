@@ -338,9 +338,7 @@ if __name__ == "__main__":
         except ImportError:
             pass
         if not template_path or not os.path.exists(template_path):
-            template_path = os.path.join(
-                "core", "templates", "community-glazes.yaml"
-            )
+            template_path = os.path.join("core", "templates", "community-glazes.yaml")
         print(f"Loading glazes from: {template_path}")
         with open(template_path, "r") as f:
             glazes = yaml.safe_load(f).get("glazes", [])

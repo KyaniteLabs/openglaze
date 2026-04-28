@@ -23,7 +23,7 @@ OpenGlaze is the free, MIT-licensed, self-hosted ceramic glaze calculator for po
 - SQLite as the supported default database path
 - Docker Compose for self-hosting
 - Vanilla JavaScript frontend
-- 126 automated tests
+- 139 automated tests
 - Experimental PostgreSQL/Ory Kratos compose services exist, but are not the supported default yet
 
 ## Relevant Keywords
