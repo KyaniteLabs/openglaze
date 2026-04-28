@@ -4,17 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OpenGlaze — Free Ceramic Glaze Calculator & Recipe Manager (Open Source)</title>
-    <meta name="description" content="Free open-source ceramic glaze calculator with UMF analysis, CTE prediction, and recipe optimization. Self-hosted glaze management software for potters and studios. No paywalls.">
+    <meta name="description" content="Free, self-hosted ceramic glaze calculator with UMF analysis, CTE prediction, and recipe optimization. 44 community-tested cone 6 and cone 10 glazes. MIT licensed. No paywalls.">
     <meta name="keywords" content="ceramic glaze calculator, glaze recipe calculator, UMF calculator ceramics, glaze management software, open source glaze software, ceramic glaze database, glaze chemistry calculator, cone 10 glaze recipes, cone 6 glaze recipes, glaze recipe optimizer, pottery glaze management, self-hosted glaze software, ceramic studio software, unity molecular formula, glaze CTE calculator, oxide analysis ceramics">
+    <meta name="author" content="Pastorsimon1798">
     <link rel="canonical" href="https://openglaze.kyanitelabs.tech/">
 
     <!-- Open Graph -->
     <meta property="og:title" content="OpenGlaze — Free Ceramic Glaze Calculator & Recipe Manager">
-    <meta property="og:description" content="Free open-source ceramic glaze calculator with UMF analysis, CTE prediction, and recipe optimization. Self-hosted. No paywalls.">
+    <meta property="og:description" content="Free, self-hosted ceramic glaze calculator with UMF, CTE, and recipe optimization. 44 community glazes. MIT licensed.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://openglaze.kyanitelabs.tech">
     <meta property="og:image" content="https://openglaze.kyanitelabs.tech/social-preview.png">
+    <meta property="og:image:width" content="1280">
+    <meta property="og:image:height" content="640">
     <meta property="og:site_name" content="OpenGlaze">
+    <meta property="og:locale" content="en_US">
+    <meta property="article:published_time" content="2026-04-24T00:00:00+00:00">
+    <meta property="article:modified_time" content="2026-04-27T00:00:00+00:00">
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
@@ -30,6 +36,9 @@
       "name": "OpenGlaze",
       "applicationCategory": "DesignApplication",
       "operatingSystem": "Any",
+      "softwareVersion": "1.1.0",
+      "datePublished": "2026-04-24",
+      "dateModified": "2026-04-27",
       "offers": {
         "@type": "Offer",
         "price": "0",
@@ -57,6 +66,22 @@
         "@type": "Person",
         "name": "Pastorsimon1798"
       }
+    }
+    </script>
+
+    <!-- Schema Markup: BreadcrumbList -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "OpenGlaze",
+          "item": "https://openglaze.kyanitelabs.tech/"
+        }
+      ]
     }
     </script>
 
@@ -178,7 +203,41 @@
             --shadow-md: 0 4px 12px rgba(0,0,0,0.06);
             --shadow-lg: 0 12px 40px rgba(0,0,0,0.08);
         }
-        
+
+        .skip-link {
+            position: absolute;
+            top: -100px;
+            left: 16px;
+            padding: 8px 16px;
+            background: var(--celadon-600);
+            color: white;
+            border-radius: var(--radius-sm);
+            font-size: 0.9rem;
+            z-index: 200;
+            transition: top 0.2s;
+        }
+
+        .skip-link:focus {
+            top: 16px;
+            color: white;
+        }
+
+        *:focus-visible {
+            outline: 2px solid var(--celadon-500);
+            outline-offset: 2px;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+            html {
+                scroll-behavior: auto;
+            }
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -836,7 +895,7 @@
         }
         .faq h2 {
             text-align: center;
-            font-size: var(--text-3xl);
+            font-size: 2.5rem;
             margin-bottom: 48px;
             color: var(--text-primary);
         }
@@ -845,7 +904,7 @@
             padding: 24px 0;
         }
         .faq-item h3 {
-            font-size: var(--text-lg);
+            font-size: 1.125rem;
             font-weight: 600;
             color: var(--text-primary);
             margin-bottom: 12px;
@@ -861,11 +920,12 @@
     </style>
 </head>
 <body>
+    <a href="#main-content" class="skip-link">Skip to content</a>
     <!-- Navigation -->
-    <nav class="nav">
+    <nav class="nav" aria-label="Main navigation">
         <div class="nav-inner">
             <a href="#" class="logo">
-                <div class="logo-mark">◇</div>
+                <div class="logo-mark" role="presentation">◇</div>
                 OpenGlaze
             </a>
             <div class="nav-links">
@@ -880,14 +940,15 @@
     </nav>
 
     <!-- Hero -->
-    <section class="hero">
+    <main id="main-content">
+    <section class="hero" aria-label="Introduction">
         <div class="hero-content">
-            <div class="hero-badge"><span></span> 100% Open Source</div>
-            <h1>Glaze management, <em>reimagined</em>.</h1>
-            <p>OpenGlaze is the open-source platform ceramic artists and studios use to manage recipes, track firings, and collaborate on glaze development — without losing control of their data.</p>
+            <div class="hero-badge"><span></span> Free &amp; Open Source · MIT License</div>
+            <h1>The ceramic glaze calculator that runs on <em>your</em> kiln schedule.</h1>
+            <p>OpenGlaze is the self-hosted glaze calculator potters use to calculate UMF, predict CTE, optimize recipes, and track 44 community-tested cone 6 and cone 10 glazes — without sending recipes to the cloud.</p>
             <div class="hero-cta">
-                <a href="https://github.com/Pastorsimon1798/openglaze" class="btn btn-primary">Self-Host Now</a>
-                <a href="https://github.com/Pastorsimon1798/openglaze/tree/master/docs/self-hosting.md" class="btn btn-secondary">Self-Host</a>
+                <a href="https://github.com/Pastorsimon1798/openglaze" class="btn btn-primary">Self-Host with Docker</a>
+                <a href="https://github.com/Pastorsimon1798/openglaze#quick-start" class="btn btn-secondary">Quick Start</a>
             </div>
             <div class="hero-stats">
                 <div class="hero-stat">
@@ -899,8 +960,8 @@
                     <span>Open license</span>
                 </div>
                 <div class="hero-stat">
-                    <strong>6</strong>
-                    <span>Experiment stages</span>
+                    <strong>44</strong>
+                    <span>Community glazes</span>
                 </div>
             </div>
         </div>
@@ -945,7 +1006,15 @@
                 <div class="glaze-row">
                     <div class="glaze-swatch" style="background: linear-gradient(135deg, #E8DCC8, #D4C8B4);"></div>
                     <div class="glaze-info">
-                        <strong>White Satin</strong>
+                        <strong>Matte White</strong>
+                        <span>Cone 6 · Oxidation</span>
+                    </div>
+                    <span class="glaze-tag tag-oxidation">Oxidation</span>
+                </div>
+                <div class="glaze-row">
+                    <div class="glaze-swatch" style="background: linear-gradient(135deg, #4A90C8, #357AB8);"></div>
+                    <div class="glaze-info">
+                        <strong>Cobalt Blue</strong>
                         <span>Cone 6 · Oxidation</span>
                     </div>
                     <span class="glaze-tag tag-oxidation">Oxidation</span>
@@ -957,39 +1026,39 @@
     <!-- Features -->
     <section class="features" id="features">
         <div class="section-header">
-            <h2>Everything you need to master glazes</h2>
-            <p>From recipe management to AI-powered predictions, OpenGlaze gives you the tools to document, analyze, and share your glaze work.</p>
+            <h2>Ceramic glaze tools that respect your studio</h2>
+            <p>UMF calculation, CTE prediction, recipe optimization, and experiment tracking — all self-hosted, all free, all under your control.</p>
         </div>
         <div class="features-grid">
             <div class="feature-card">
                 <div class="feature-icon" style="background: var(--celadon-100);">🎨</div>
                 <h3>Recipe Management</h3>
-                <p>Store unlimited glazes with full chemistry, recipes, and visual references. Import from Glazy, Insight, or spreadsheets.</p>
+                <p>Store unlimited glazes with full chemistry, firing notes, and photos. Organize by cone range, atmosphere, and glaze family. 44 community-tested recipes included.</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon" style="background: var(--tenmoku-100);">🔬</div>
-                <h3>Chemistry Engine</h3>
-                <p>Automatic UMF calculation, compatibility analysis, thermal expansion matching, and batch scaling.</p>
+                <h3>UMF Chemistry Engine</h3>
+                <p>Automatic Unity Molecular Formula calculation, oxide role analysis, SiO₂:Al₂O₃ ratio, and batch scaling from any recipe.</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon" style="background: #e0e8f4;">🧮</div>
                 <h3>Recipe Optimizer</h3>
-                <p>Computes exact material adjustments to hit target CTE, surface, or durability — before firing test tiles.</p>
+                <p>Computational chemistry engine that suggests exact material adjustments to hit target CTE, surface, or durability — ranked by predicted outcome, before you fire test tiles.</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon" style="background: #e8e0f4;">🧠</div>
                 <h3>Kama AI Assistant</h3>
-                <p>Context-aware glaze consulting powered by local or cloud LLMs. Ask about recipes, predictions, and substitutions.</p>
+                <p>Context-aware glaze chemistry consulting powered by local (Ollama) or cloud LLMs. Ask about recipes, substitutions, and firing strategies.</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon" style="background: #f4e8e0;">🧪</div>
                 <h3>Experiment Pipeline</h3>
-                <p>6-stage workflow from ideation to documentation. Track every variable and build reproducible results.</p>
+                <p>Six-stage workflow from ideation to documentation: predict, apply, fire, analyze, and record. Track every variable for reproducible results.</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon" style="background: #e0f0e8;">👥</div>
                 <h3>Studio Collaboration</h3>
-                <p>Share glaze libraries with your team. Role-based access, lab assignments, and shared firing logs.</p>
+                <p>Share glaze libraries with your team. Invite codes, lab assignments, and shared firing logs for group studios.</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon" style="background: #f0e8e0;">📸</div>
@@ -1003,8 +1072,8 @@
     <section class="showcase">
         <div class="showcase-inner">
             <div class="showcase-content">
-                <h2>Understand your glazes at the molecular level</h2>
-                <p>The Unity Molecular Formula (UMF) engine analyzes your recipes and predicts surface qualities, helping you make informed adjustments before you fire.</p>
+                <h2>See what your glaze is made of — before you fire it</h2>
+                <p>The Unity Molecular Formula (UMF) engine converts batch recipes into oxide chemistry, revealing the SiO₂:Al₂O₃ ratio and predicted surface — so you adjust with intent, not guesswork.</p>
                 <ul class="showcase-list">
                     <li>Automatic oxide analysis from batch recipes</li>
                     <li>Silica-to-alumina ratio calculation</li>
@@ -1082,8 +1151,8 @@
     <!-- Discovery Guides -->
     <section class="features" id="guides">
         <div class="section-header">
-            <h2>Glaze chemistry guides built for search and humans</h2>
-            <p>Start with the exact problem you searched for: UMF, CTE, recipe scaling, Glazy workflows, DigitalFire learning, or self-hosting.</p>
+            <h2>Glaze chemistry guides for every workflow</h2>
+            <p>Jump straight to the problem you need solved: UMF calculation, CTE analysis, recipe scaling, Glazy integration, DigitalFire reference, or self-hosting setup.</p>
         </div>
         <div class="features-grid">
             <div class="feature-card"><h3><a href="ceramic-glaze-calculator.html">Ceramic Glaze Calculator</a></h3><p>Calculate glaze chemistry, understand recipe behavior, and plan the next test tile.</p></div>
@@ -1100,8 +1169,8 @@
     <!-- Open Source -->
     <section class="opensource">
         <div class="opensource-inner">
-            <h2>Built in the open</h2>
-            <p>OpenGlaze is 100% open source. Every line of code is available on GitHub. Fork it, modify it, run it yourself — no restrictions.</p>
+            <h2>Free, open-source, self-hosted</h2>
+            <p>OpenGlaze is MIT-licensed. Every line of code is on GitHub. Fork it, modify it, run it on your own server — no subscriptions, no tracking, no restrictions.</p>
             <div class="opensource-grid">
                 <div class="opensource-stat">
                     <strong>MIT</strong>
@@ -1116,8 +1185,8 @@
                     <span>Open Source</span>
                 </div>
                 <div class="opensource-stat">
-                    <strong>0</strong>
-                    <span>Proprietary deps</span>
+                    <strong>44</strong>
+                    <span>Community glazes</span>
                 </div>
             </div>
             <div class="opensource-cta">
@@ -1125,7 +1194,7 @@
                 <a href="https://github.com/Pastorsimon1798/openglaze/blob/master/CONTRIBUTING.md" class="btn btn-secondary">Contribute</a>
             </div>
             <p style="margin-top: 24px; font-size: 0.9rem; color: var(--clay-400);">
-                OpenGlaze is free and open source. If it saves you a test tile, consider supporting its development — Ko-fi, Patreon, and GitHub Sponsors links coming soon.
+                OpenGlaze is free and open source. If it saves you a test tile, consider <a href="https://github.com/Pastorsimon1798/openglaze" style="color: var(--celadon-400);">starring the repo on GitHub</a>.
             </p>
         </div>
     </section>
@@ -1137,7 +1206,7 @@
 
             <div class="faq-item">
                 <h3>What is OpenGlaze?</h3>
-                <p>OpenGlaze is a <strong>100% open-source ceramic glaze management system</strong> for potters and ceramic studios. It includes a <a href="#features">UMF calculator</a>, CTE analysis engine, <a href="https://github.com/Pastorsimon1798/openglaze/tree/master/docs/user-guide.md#recipe-optimizer">computational recipe optimizer</a>, and AI-powered glaze consulting — all self-hosted and free under the MIT license.</p>
+                <p>OpenGlaze is a <strong>free, open-source ceramic glaze calculator and studio workbench</strong> for potters and ceramic studios. It includes a <a href="#features">UMF calculator</a>, CTE analysis engine, <a href="https://github.com/Pastorsimon1798/openglaze/tree/master/docs/user-guide.md#recipe-optimizer">computational recipe optimizer</a>, 44 community-tested cone 6 and cone 10 glazes, and AI-powered glaze consulting — all self-hosted under the MIT license.</p>
             </div>
 
             <div class="faq-item">
@@ -1162,17 +1231,18 @@
 
             <div class="faq-item">
                 <h3>Can I self-host OpenGlaze?</h3>
-                <p>Absolutely. Self-hosting is the primary deployment model. Run it locally with SQLite for personal use, or deploy with <a href="https://github.com/Pastorsimon1798/openglaze/tree/master/docs/self-hosting.md">Docker and SQLite</a> for the supported self-hosted path. Your recipes never leave your infrastructure.</p>
+                <p>Absolutely. Self-hosting is the primary deployment model. Run it locally with SQLite, or deploy with <a href="https://github.com/Pastorsimon1798/openglaze/tree/master/docs/self-hosting.md">Docker and SQLite</a> for the supported self-hosted path. Works on a VPS, a Raspberry Pi, or any machine running Docker. Your recipes never leave your infrastructure.</p>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="footer">
+    </main>
+    <footer class="footer" role="contentinfo">
         <div class="footer-grid">
             <div class="footer-brand">
                 <a href="#" class="logo">
-                    <div class="logo-mark">◇</div>
+                    <div class="logo-mark" role="presentation">◇</div>
                     OpenGlaze
                 </a>
                 <p>Open-source glaze management for ceramic artists and studios. Own your data. Build better glazes.</p>
