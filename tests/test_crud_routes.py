@@ -74,7 +74,9 @@ class TestGlazeRoutes:
     def test_create_glaze(self, client):
         resp = client.post(
             "/api/glazes",
-            data=json.dumps({"name": "Test Glaze", "family": "Greens", "hex": "#00ff00"}),
+            data=json.dumps(
+                {"name": "Test Glaze", "family": "Greens", "hex": "#00ff00"}
+            ),
             content_type="application/json",
         )
         assert resp.status_code == 201
@@ -187,10 +189,12 @@ class TestChemistryRoutes:
     def test_scale_recipe(self, client):
         resp = client.post(
             "/api/chemistry/scale",
-            data=json.dumps({
-                "recipe": "Custer Feldspar 45, Silica 25, Whiting 18, EPK 12",
-                "batch_size_grams": 5000,
-            }),
+            data=json.dumps(
+                {
+                    "recipe": "Custer Feldspar 45, Silica 25, Whiting 18, EPK 12",
+                    "batch_size_grams": 5000,
+                }
+            ),
             content_type="application/json",
         )
         assert resp.status_code == 200
@@ -206,10 +210,12 @@ class TestChemistryRoutes:
     def test_compare_recipes(self, client):
         resp = client.post(
             "/api/chemistry/compare",
-            data=json.dumps({
-                "recipe_a": "Custer Feldspar 45, Silica 25, Whiting 18, EPK 12",
-                "recipe_b": "Custer Feldspar 40, Silica 30, Whiting 15, EPK 15",
-            }),
+            data=json.dumps(
+                {
+                    "recipe_a": "Custer Feldspar 45, Silica 25, Whiting 18, EPK 12",
+                    "recipe_b": "Custer Feldspar 40, Silica 30, Whiting 15, EPK 15",
+                }
+            ),
             content_type="application/json",
         )
         assert resp.status_code == 200
@@ -233,10 +239,12 @@ class TestChemistryRoutes:
     def test_defects_analysis(self, client):
         resp = client.post(
             "/api/chemistry/defects",
-            data=json.dumps({
-                "recipe": "Custer Feldspar 45, Silica 25, Whiting 18, EPK 12",
-                "defect": "crawling",
-            }),
+            data=json.dumps(
+                {
+                    "recipe": "Custer Feldspar 45, Silica 25, Whiting 18, EPK 12",
+                    "defect": "crawling",
+                }
+            ),
             content_type="application/json",
         )
         assert resp.status_code == 200

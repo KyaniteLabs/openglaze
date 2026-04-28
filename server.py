@@ -1577,7 +1577,10 @@ def create_app(config: dict = None) -> Flask:
         confidence = data.get("confidence", 50)
 
         if not combo_id or not predicted_outcome:
-            return jsonify({"error": "combo_id and predicted_outcome are required"}), 400
+            return (
+                jsonify({"error": "combo_id and predicted_outcome are required"}),
+                400,
+            )
 
         try:
             result = g.prediction_manager.create_prediction(
@@ -1914,7 +1917,12 @@ def _run_migrations(conn):
 
 def _load_seed_rules():
     """Load chemistry rules from ceramics-foundation/data/seed-chemistry-rules.json."""
-    seed_path = Path(__file__).parent / "ceramics-foundation" / "data" / "seed-chemistry-rules.json"
+    seed_path = (
+        Path(__file__).parent
+        / "ceramics-foundation"
+        / "data"
+        / "seed-chemistry-rules.json"
+    )
     if not seed_path.exists():
         logger.warning(f"Seed rules not found: {seed_path}")
         return []
