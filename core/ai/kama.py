@@ -804,11 +804,9 @@ class FallbackKamaAI:
     ) -> Generator[str, None, None]:
         """Stream with primary, fall back to local on failure."""
         try:
-            yielded = False
             for chunk in self.primary.ask_stream(
                 question, context, session_id, user_id, images
             ):
-                yielded = True
                 yield chunk
             logger.info("AI stream handled by primary provider")
         except Exception as e:
@@ -831,11 +829,9 @@ class FallbackKamaAI:
     ) -> Generator[Dict[str, Any], None, None]:
         """Stream with context using primary, fall back to local on failure."""
         try:
-            yielded = False
             for event in self.primary.ask_stream_with_context(
                 question, context_retriever, session_id, user_id, images
             ):
-                yielded = True
                 yield event
             logger.info("AI context stream handled by primary provider")
         except Exception as e:
