@@ -660,11 +660,34 @@ _default_kama: Optional[KamaAI] = None
 
 
 def get_kama() -> KamaAI:
-    """Get or create default Kama instance."""
+    """Get or create default Kama instance.
+
+    When OPENGLAZE_CLOUD_PROVIDER or OPENGLAZE_LOCAL_FALLBACK_BASE_URL is
+    set, the dual-provider fallback path is activated via llm_fallback.
+    Otherwise the original single-provider AI_PROVIDER logic is used.
+    """
     global _default_kama
     if _default_kama is None:
-        provider = os.environ.get("AI_PROVIDER", "lmstudio")
-        _default_kama = KamaAI(provider=provider)
+        # Dual-provider mode if cloud or fallback env vars are present
+        cloud_base = os.environ.get("OPENGLAZE_CLOUD_BASE_URL", "").strip()
+        cloud_key = os.environ.get("OPENGLAZE_CLOUD_API_KEY", "").strip()
+        local_fallback = os.environ.get("OPENGLAZE_LOCAL_FALLBACK_BASE_URL", "").strip()
+
+        if cloud_base or cloud_key or local_fallback:
+            # Use the local fallback as the primary endpoint for KamaAI,
+            # and the dual-provider layer handles cloud→local routing.
+            provider = os.environ.get("OPENGLAZE_CLOUD_PROVIDER", "anthropic").strip().lower()
+            if local_fallback:
+                _default_kama = KamaAI(
+                    endpoint=local_fallback,
+                    model=os.environ.get("OPENGLAZE_LOCAL_FALLBACK_MODEL", ""),
+                    provider="lmstudio",
+                )
+            else:
+                _default_kama = KamaAI(provider=provider)
+        else:
+            provider = os.environ.get("AI_PROVIDER", "lmstudio")
+            _default_kama = KamaAI(provider=provider)
     return _default_kama
 
 
@@ -678,6 +701,10 @@ def ask_kama(
 ) -> str:
     """
     Ask Kama a question (convenience function).
+
+    When dual-provider env vars are set (OPENGLAZE_CLOUD_* and/or
+    OPENGLAZE_LOCAL_FALLBACK_*), the request goes through the
+    cloud→local fallback path first.
 
     Args:
         question: The question to ask
@@ -693,6 +720,28 @@ def ask_kama(
     kama = get_kama()
     if clear:
         kama.clear_conversation(session_id, user_id)
+
+    # Check if dual-provider mode is active
+    from core.ai.llm_fallback import (
+        _cloud_config_from_env,
+        _local_config_from_env,
+        try_cloud_then_local,
+    )
+
+    cloud = _cloud_config_from_env()
+    local = _local_config_from_env()
+    cloud_configured = cloud.base_url or cloud.api_key
+    local_configured = local.base_url
+
+    if cloud_configured or local_configured:
+        conversation = kama._get_conversation(session_id, user_id)
+        messages = kama._build_messages(question, conversation, images=images)
+        response = try_cloud_then_local(messages)
+        response_text = response.get("message", {}).get("content", "No response")
+        conversation.add_turn("user", question)
+        conversation.add_turn("assistant", response_text)
+        return response_text
+
     return kama.ask(question, context, session_id, user_id, images=images)
 
 
