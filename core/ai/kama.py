@@ -238,6 +238,14 @@ ANALYZE and PREDICT — don't just approve or deny. Warn about risks with qualif
             self.api_key = os.environ.get("ANTHROPIC_API_KEY")
             if not self.api_key:
                 logger.warning("ANTHROPIC_API_KEY not set - cloud AI will not work")
+        elif provider == "openai":
+            self.endpoint = endpoint or os.environ.get(
+                "AI_PRIMARY_URL", "https://api.openai.com/v1/chat/completions"
+            )
+            self.model = model or os.environ.get("AI_PRIMARY_MODEL", "gpt-4")
+            self.api_key = os.environ.get("AI_PRIMARY_API_KEY", "")
+            if not self.api_key:
+                logger.warning("AI_PRIMARY_API_KEY not set - cloud AI will not work")
         else:
             raise ValueError(f"Unknown provider: {provider}")
 
@@ -411,8 +419,93 @@ ANALYZE and PREDICT — don't just approve or deny. Warn about risks with qualif
             return self._ollama_request(messages, stream)
         elif self.provider == "anthropic":
             return self._anthropic_request(messages, stream)
+        elif self.provider == "openai":
+            return self._openai_request(messages, stream)
         else:
             raise ValueError(f"Unknown provider: {self.provider}")
+
+    def _openai_request(self, messages: List[Dict], stream: bool) -> Dict:
+        """Make request to OpenAI-compatible endpoint."""
+        headers = {"Content-Type": "application/json"}
+        if self.api_key:
+            headers["Authorization"] = f"Bearer {self.api_key}"
+
+        payload = {
+            "model": self.model,
+            "messages": messages,
+            "stream": False,
+            "max_tokens": 4096,
+        }
+
+        for attempt in range(self.max_retries):
+            try:
+                response = requests.post(
+                    self.endpoint, json=payload, headers=headers, timeout=self.timeout
+                )
+                if response.status_code == 429:
+                    raise RateLimitError("Rate limited by provider")
+                if response.status_code >= 500:
+                    raise AIServiceError(
+                        f"Provider server error: {response.status_code}"
+                    )
+                if response.status_code != 200:
+                    raise AIServiceError(
+                        f"Provider error: {response.status_code} {response.text[:200]}"
+                    )
+                return response.json()
+            except (Timeout, ConnectionError):
+                if attempt < self.max_retries - 1:
+                    time.sleep(2**attempt)
+                    continue
+                raise
+
+    def _openai_stream(self, messages: List[Dict]) -> Generator[str, None, None]:
+        """Stream from OpenAI-compatible endpoint (SSE)."""
+        headers = {"Content-Type": "application/json"}
+        if self.api_key:
+            headers["Authorization"] = f"Bearer {self.api_key}"
+
+        payload = {
+            "model": self.model,
+            "messages": messages,
+            "stream": True,
+            "max_tokens": 4096,
+        }
+
+        try:
+            response = requests.post(
+                self.endpoint,
+                json=payload,
+                headers=headers,
+                stream=True,
+                timeout=self.timeout,
+            )
+            if response.status_code >= 500:
+                raise AIServiceError(f"Provider server error: {response.status_code}")
+            if response.status_code != 200:
+                raise AIServiceError(
+                    f"Provider stream error: {response.status_code} {response.text[:200]}"
+                )
+            for line in response.iter_lines():
+                if not line:
+                    continue
+                text = line.decode("utf-8", errors="replace")
+                if not text.startswith("data: "):
+                    continue
+                data = text[6:]
+                if data.strip() == "[DONE]":
+                    break
+                try:
+                    chunk = json.loads(data)
+                    delta = chunk.get("choices", [{}])[0].get("delta", {})
+                    content = delta.get("content", "")
+                    if content:
+                        yield content
+                except json.JSONDecodeError:
+                    pass
+        except (Timeout, ConnectionError) as e:
+            logger.error(f"OpenAI-compatible stream error: {e}")
+            raise AIServiceError(f"Provider stream error: {e}")
 
     def _lmstudio_request(self, messages: List[Dict], stream: bool) -> Dict:
         """Make request to LM Studio (OpenAI-compatible)."""
@@ -483,6 +576,8 @@ ANALYZE and PREDICT — don't just approve or deny. Warn about risks with qualif
             yield from self._ollama_stream(messages)
         elif self.provider == "anthropic":
             yield from self._anthropic_stream(messages)
+        elif self.provider == "openai":
+            yield from self._openai_stream(messages)
 
     def _lmstudio_stream(self, messages: List[Dict]) -> Generator[str, None, None]:
         """Stream from LM Studio (OpenAI-compatible SSE)."""
@@ -655,16 +750,147 @@ ANALYZE and PREDICT — don't just approve or deny. Warn about risks with qualif
         self.conversation_store.clear(session_id, user_id)
 
 
+class FallbackKamaAI:
+    """
+    Wrapper that tries a primary AI provider and falls back to a local
+    provider on failure. Fallback is opt-in via AI_ALLOW_LOCAL_FALLBACK=1.
+
+    Triggers fallback on: connection errors, timeouts, HTTP 5xx responses.
+    """
+
+    def __init__(self, primary: KamaAI, fallback: KamaAI):
+        self.primary = primary
+        self.fallback = fallback
+        self.conversation_store = primary.conversation_store
+
+    def _should_fallback(self, exc: Exception) -> bool:
+        """Determine if an exception warrants fallback."""
+        if isinstance(exc, (Timeout, ConnectionError)):
+            return True
+        if isinstance(exc, AIServiceError) and "server error" in str(exc).lower():
+            return True
+        if isinstance(exc, AIServiceError) and "timed out" in str(exc).lower():
+            return True
+        return False
+
+    def ask(
+        self,
+        question: str,
+        context: dict = None,
+        session_id: Optional[str] = None,
+        user_id: Optional[str] = None,
+        images: Optional[List[str]] = None,
+    ) -> str:
+        """Ask with primary, fall back to local on failure."""
+        try:
+            result = self.primary.ask(question, context, session_id, user_id, images)
+            logger.info("AI request handled by primary provider")
+            return result
+        except Exception as e:
+            if not self._should_fallback(e):
+                raise
+            logger.warning(
+                f"Primary provider failed ({e}), falling back to local: {self.fallback.provider}"
+            )
+            return self.fallback.ask(question, context, session_id, user_id, images)
+
+    def ask_stream(
+        self,
+        question: str,
+        context: dict = None,
+        session_id: Optional[str] = None,
+        user_id: Optional[str] = None,
+        images: Optional[List[str]] = None,
+    ) -> Generator[str, None, None]:
+        """Stream with primary, fall back to local on failure."""
+        try:
+            yielded = False
+            for chunk in self.primary.ask_stream(
+                question, context, session_id, user_id, images
+            ):
+                yielded = True
+                yield chunk
+            logger.info("AI stream handled by primary provider")
+        except Exception as e:
+            if not self._should_fallback(e):
+                raise
+            logger.warning(
+                f"Primary provider failed ({e}), falling back to local: {self.fallback.provider}"
+            )
+            yield from self.fallback.ask_stream(
+                question, context, session_id, user_id, images
+            )
+
+    def ask_stream_with_context(
+        self,
+        question: str,
+        context_retriever,
+        session_id: Optional[str] = None,
+        user_id: Optional[str] = None,
+        images: Optional[List[str]] = None,
+    ) -> Generator[Dict[str, Any], None, None]:
+        """Stream with context using primary, fall back to local on failure."""
+        try:
+            yielded = False
+            for event in self.primary.ask_stream_with_context(
+                question, context_retriever, session_id, user_id, images
+            ):
+                yielded = True
+                yield event
+            logger.info("AI context stream handled by primary provider")
+        except Exception as e:
+            if not self._should_fallback(e):
+                raise
+            logger.warning(
+                f"Primary provider failed ({e}), falling back to local: {self.fallback.provider}"
+            )
+            yield from self.fallback.ask_stream_with_context(
+                question, context_retriever, session_id, user_id, images
+            )
+
+    def clear_conversation(
+        self, session_id: Optional[str] = None, user_id: Optional[str] = None
+    ) -> None:
+        """Clear conversation on both providers."""
+        self.primary.clear_conversation(session_id, user_id)
+        self.fallback.clear_conversation(session_id, user_id)
+
+
 # Convenience functions
 _default_kama: Optional[KamaAI] = None
 
 
 def get_kama() -> KamaAI:
-    """Get or create default Kama instance."""
+    """Get or create default Kama instance.
+
+    Supports dual-provider mode: when AI_ALLOW_LOCAL_FALLBACK is set and
+    AI_FALLBACK_PROVIDER is configured, returns a FallbackKamaAI wrapper
+    that tries the primary provider first and falls back to local on failure.
+    """
     global _default_kama
     if _default_kama is None:
         provider = os.environ.get("AI_PROVIDER", "lmstudio")
-        _default_kama = KamaAI(provider=provider)
+
+        fallback_enabled = os.environ.get("AI_ALLOW_LOCAL_FALLBACK", "").strip() in (
+            "1",
+            "true",
+            "yes",
+        )
+        fallback_provider = os.environ.get("AI_FALLBACK_PROVIDER", "")
+
+        if fallback_enabled and fallback_provider:
+            primary = KamaAI(provider=provider)
+            fallback = KamaAI(
+                provider=fallback_provider,
+                endpoint=os.environ.get("AI_FALLBACK_URL"),
+                model=os.environ.get("AI_FALLBACK_MODEL"),
+            )
+            logger.info(
+                f"Dual-provider mode: primary={provider}, fallback={fallback_provider}"
+            )
+            _default_kama = FallbackKamaAI(primary=primary, fallback=fallback)
+        else:
+            _default_kama = KamaAI(provider=provider)
     return _default_kama
 
 
