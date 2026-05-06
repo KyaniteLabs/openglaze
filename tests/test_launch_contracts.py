@@ -122,10 +122,11 @@ def test_kyanite_domain_is_canonical_public_host():
         ROOT / "docs/sitemap.xml",
         ROOT / "tests/test_seo_contracts.py",
     ]
+    stale_personal_pages = "pastor" + "simon1798.github.io/openglaze"
     for path in checked:
         content = path.read_text()
         assert canonical in content, f"{path} does not reference canonical host"
-        assert "pastorsimon1798.github.io/openglaze" not in content
+        assert stale_personal_pages not in content
 
 
 def test_app_serves_sitemap_markdown_html_aliases():

@@ -6,7 +6,7 @@ Description: Free open-source ceramic glaze calculator and self-hosted glaze man
 Website: https://openglaze.kyanitelabs.tech
 Repository: https://github.com/KyaniteLabs/openglaze
 License: MIT
-Author: Pastorsimon1798
+Author: simongonzalezdc
 Current verified test count: 139 automated tests
 Supported default deployment: Docker + Flask + SQLite volumes
 Experimental services: PostgreSQL/Ory Kratos compose profiles exist, but PostgreSQL is not the supported default application data path yet.
