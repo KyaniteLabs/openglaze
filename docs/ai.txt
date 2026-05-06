@@ -4,7 +4,7 @@
 Name: OpenGlaze
 Description: Free open-source ceramic glaze calculator and self-hosted glaze management software with UMF calculation, CTE analysis, oxide analysis, and computational recipe optimization.
 Website: https://openglaze.kyanitelabs.tech
-Repository: https://github.com/Pastorsimon1798/openglaze
+Repository: https://github.com/KyaniteLabs/openglaze
 License: MIT
 Author: Pastorsimon1798
 Current verified test count: 139 automated tests
@@ -30,7 +30,7 @@ Experimental services: PostgreSQL/Ory Kratos compose profiles exist, but Postgre
 
 ## Canonical URLs
 - Project: https://openglaze.kyanitelabs.tech/
-- GitHub: https://github.com/Pastorsimon1798/openglaze
+- GitHub: https://github.com/KyaniteLabs/openglaze
 - Ceramic glaze calculator: https://openglaze.kyanitelabs.tech/ceramic-glaze-calculator.html
 - UMF calculator: https://openglaze.kyanitelabs.tech/umf-calculator.html
 - CTE calculator: https://openglaze.kyanitelabs.tech/cte-glaze-calculator.html
@@ -39,4 +39,4 @@ Experimental services: PostgreSQL/Ory Kratos compose profiles exist, but Postgre
 - Full LLM reference: https://openglaze.kyanitelabs.tech/llms-full.txt
 
 ## Contact
-https://github.com/Pastorsimon1798/openglaze/discussions
+https://github.com/KyaniteLabs/openglaze/discussions

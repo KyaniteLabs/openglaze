@@ -10,7 +10,7 @@
 OpenGlaze is a free, open-source ceramic glaze calculator and self-hosted glaze management system for potters, ceramic artists, educators, and studios. It calculates Unity Molecular Formula (UMF), oxide analysis, thermal expansion coefficient (CTE), and recipe optimization suggestions from ceramic glaze recipes.
 
 - License: MIT
-- Repository: https://github.com/Pastorsimon1798/openglaze
+- Repository: https://github.com/KyaniteLabs/openglaze
 - Website: https://openglaze.kyanitelabs.tech/
 - Test suite: 139 automated tests (pytest)
 - Current version: 1.1.0
@@ -203,7 +203,7 @@ Data Layer
 
 ### Docker (recommended)
 ```bash
-git clone https://github.com/Pastorsimon1798/openglaze.git
+git clone https://github.com/KyaniteLabs/openglaze.git
 cd openglaze
 cp .env.example .env
 # Set SECRET_KEY in .env before public use
@@ -235,7 +235,7 @@ ceramic glaze calculator, glaze recipe calculator, UMF calculator ceramics, unit
 ## Canonical Sources
 
 - Website: https://openglaze.kyanitelabs.tech/
-- Repository: https://github.com/Pastorsimon1798/openglaze
+- Repository: https://github.com/KyaniteLabs/openglaze
 - License: MIT
 - Ceramic glaze calculator: https://openglaze.kyanitelabs.tech/ceramic-glaze-calculator.html
 - UMF calculator: https://openglaze.kyanitelabs.tech/umf-calculator.html

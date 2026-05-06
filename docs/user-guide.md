@@ -504,4 +504,4 @@ Unlock badges for achievements:
 
 ---
 
-**Need more help?** Visit [GitHub Discussions](https://github.com/Pastorsimon1798/openglaze/discussions) or check the [API Reference](API.md) for developers.
+**Need more help?** Visit [GitHub Discussions](https://github.com/KyaniteLabs/openglaze/discussions) or check the [API Reference](API.md) for developers.

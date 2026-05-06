@@ -4,7 +4,7 @@ message: If OpenGlaze helps your ceramic research, teaching, or studio practice,
 type: software
 authors:
   - alias: Pastorsimon1798
-repository-code: https://github.com/Pastorsimon1798/openglaze
+repository-code: https://github.com/KyaniteLabs/openglaze
 url: https://openglaze.kyanitelabs.tech
 license: MIT
 version: 1.1.0

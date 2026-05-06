@@ -188,8 +188,8 @@ Frequently asked questions about the open-source ceramic glaze calculator.
 
 ## Q: How do I report a bug or request a feature?
 
-**A:** Open a GitHub Issue at `https://github.com/Pastorsimon1798/openglaze/issues` for bug reports or feature requests. For general questions and community discussion, use GitHub Discussions at `https://github.com/Pastorsimon1798/openglaze/discussions`. When reporting a bug, include your OpenGlaze version, browser, and steps to reproduce the issue.
+**A:** Open a GitHub Issue at `https://github.com/KyaniteLabs/openglaze/issues` for bug reports or feature requests. For general questions and community discussion, use GitHub Discussions at `https://github.com/KyaniteLabs/openglaze/discussions`. When reporting a bug, include your OpenGlaze version, browser, and steps to reproduce the issue.
 
 ---
 
-Have a question not answered here? Ask the community on [GitHub Discussions](https://github.com/Pastorsimon1798/openglaze/discussions).
+Have a question not answered here? Ask the community on [GitHub Discussions](https://github.com/KyaniteLabs/openglaze/discussions).

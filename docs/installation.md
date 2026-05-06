@@ -11,7 +11,7 @@ Requirements:
 - 10 GB disk
 
 ```bash
-git clone https://github.com/Pastorsimon1798/openglaze.git
+git clone https://github.com/KyaniteLabs/openglaze.git
 cd openglaze
 cp .env.example .env
 
@@ -46,7 +46,7 @@ Requirements:
 - Python 3.11+
 
 ```bash
-git clone https://github.com/Pastorsimon1798/openglaze.git
+git clone https://github.com/KyaniteLabs/openglaze.git
 cd openglaze
 python -m venv venv
 source venv/bin/activate

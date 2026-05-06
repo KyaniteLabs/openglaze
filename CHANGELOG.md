@@ -67,5 +67,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - User management and studio collaboration
 - MIT license
 
-[1.1.0]: https://github.com/Pastorsimon1798/openglaze/compare/v1.0.0...v1.1.0
-[1.0.0]: https://github.com/Pastorsimon1798/openglaze/releases/tag/v1.0.0
+[1.1.0]: https://github.com/KyaniteLabs/openglaze/compare/v1.0.0...v1.1.0
+[1.0.0]: https://github.com/KyaniteLabs/openglaze/releases/tag/v1.0.0

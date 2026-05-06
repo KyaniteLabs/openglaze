@@ -31,7 +31,7 @@ ceramic glaze calculator, glaze recipe calculator, UMF calculator ceramics, unit
 
 ## Canonical Sources
 - Website: https://openglaze.kyanitelabs.tech/
-- Repository: https://github.com/Pastorsimon1798/openglaze
+- Repository: https://github.com/KyaniteLabs/openglaze
 - License: MIT
 - Ceramic glaze calculator: https://openglaze.kyanitelabs.tech/ceramic-glaze-calculator.html
 - UMF calculator: https://openglaze.kyanitelabs.tech/umf-calculator.html
