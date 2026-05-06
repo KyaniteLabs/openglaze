@@ -37,7 +37,7 @@ External contributor opens issue
   → Auto-triage promotes to: agent-ready label
   → Pipeline picks up → creates fix PR
 
-Owner/member (Pastorsimon1798) opens issue
+Owner/member (simongonzalezdc) opens issue
   → Auto-triage detects member author
   → Promotes directly to agent-ready (skips triage)
   → Pipeline picks up → creates fix PR
@@ -279,7 +279,7 @@ When Kyan (operations agent) receives a project idea via Telegram:
 Determine project type and apply matching tech stack from the rules above.
 
 ### Phase 3: Scaffold
-Create a private repo in Pastorsimon1798's personal account with:
+Create a private repo in simongonzalezdc's personal account with:
 
 **Every project gets:**
 - `.gitignore`, `.editorconfig`, `LICENSE` (MIT)
