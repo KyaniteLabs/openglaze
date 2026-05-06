@@ -20,4 +20,4 @@
 - Advanced chemistry analysis tools (phase diagrams, eutectic prediction)
 - Plugin system for custom materials and calculations
 
-*This roadmap is a living document. Contributions and suggestions welcome via [GitHub Discussions](https://github.com/Pastorsimon1798/openglaze/discussions).*
+*This roadmap is a living document. Contributions and suggestions welcome via [GitHub Discussions](https://github.com/KyaniteLabs/openglaze/discussions).*

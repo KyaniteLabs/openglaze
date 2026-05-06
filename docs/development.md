@@ -25,7 +25,7 @@ Guide for developers contributing to OpenGlaze.
 
 ```bash
 # Clone repository
-git clone https://github.com/Pastorsimon1798/openglaze.git
+git clone https://github.com/KyaniteLabs/openglaze.git
 cd openglaze
 
 # Create virtual environment

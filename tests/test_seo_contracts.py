@@ -76,7 +76,7 @@ def test_seo_landing_pages_have_indexable_metadata_and_schema():
 
         assert "<h1" in html
         assert "OpenGlaze" in html
-        assert "github.com/Pastorsimon1798/openglaze" in html
+        assert "github.com/KyaniteLabs/openglaze" in html
         assert parsed.title and len(parsed.title) <= 70
         assert 120 <= len(parsed.meta.get("description", "")) <= 170
         assert parsed.links.get("canonical") == f"{CANONICAL}/{page}"
@@ -117,7 +117,7 @@ def test_ai_files_are_truthful_and_answer_engine_ready():
         assert "PostgreSQL" not in content or "experimental" in content
         assert "SQLite or PostgreSQL" not in content
         assert "ceramic glaze calculator" in content.lower()
-        assert "https://github.com/Pastorsimon1798/openglaze" in content
+        assert "https://github.com/KyaniteLabs/openglaze" in content
 
     assert "## Answer Snippets" in llms_full
     assert "What is OpenGlaze?" in llms_full

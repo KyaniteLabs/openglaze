@@ -5,7 +5,7 @@ OpenGlaze is currently optimized for a small-studio or personal self-hosted depl
 ## Quick start
 
 ```bash
-git clone https://github.com/Pastorsimon1798/openglaze.git
+git clone https://github.com/KyaniteLabs/openglaze.git
 cd openglaze
 cp .env.example .env
 # Edit SECRET_KEY before exposing the app publicly
