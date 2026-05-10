@@ -1,6 +1,6 @@
 cryptography>=48.0.0
 debugpy>=1.8.20
-flask-cors>=4.0.0
+flask-cors>=6.0.2
 Flask>=3.0.0
 gunicorn>=26.0.0
 pytest>=9.0.3
