@@ -109,4 +109,6 @@ jobs:
         run: bandit -r . -f json -o bandit-report.json --exclude ./venv || true
 
       - name: Check dependencies for known vulnerabilities
+        env:
+          SAFETY_API_KEY: ${{ secrets.SAFETY_API_KEY }}
         run: safety --disable-optional-telemetry check --policy-file .safety-policy.yml -r requirements-dev.txt
