@@ -1,0 +1,14 @@
+project:
+  id: ''
+organization:
+  id: ''
+  name: ''
+security:
+  ignore-unpinned-requirements: True
+  ignore-cvss-severity-below: 0
+  ignore-cvss-unknown-severity: False
+  ignore-vulnerabilities: {}
+  continue-on-vulnerability-error: False
+security-updates:
+  auto-security-updates-limit:
+    - patch
