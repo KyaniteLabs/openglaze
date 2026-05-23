@@ -61,7 +61,7 @@ CMD ["python", "server.py"]
 FROM production as development
 
 USER root
-RUN pip install --no-cache-dir watchfiles debugpy
+RUN pip install --no-cache-dir watchfiles==1.2.0 debugpy==1.8.20
 USER openglaze
 
 CMD ["watchfiles", "python server.py"]
