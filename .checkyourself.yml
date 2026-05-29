@@ -1,0 +1,12 @@
+version: 1
+suppress:
+  - id: Possible secret-like field without credential shape
+    reason: OpenGlaze intentionally names session/auth token variables in runtime cookie, localStorage, and token-generation paths; reviewed sites contain token handling code, not committed credential literals.
+    files:
+      - core/auth/middleware.py
+      - core/auth/simple_auth.py
+      - frontend/scripts/PhotoUploadForm.js
+      - frontend/scripts/api.js
+      - frontend/scripts/components/StudioPanel.js
+    reviewed_by: KyaniteLabs
+    reviewed_at: "2026-05-29"

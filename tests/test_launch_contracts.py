@@ -99,7 +99,7 @@ def test_experimental_cloud_env_names_postgres_host():
 
 def test_codecov_action_uses_v6_input_name():
     ci = (ROOT / ".github/workflows/ci.yml").read_text()
-    assert "codecov/codecov-action@v6" in ci
+    assert "codecov/codecov-action@e79a6962e0d4c0c17b229090214935d2e33f8354 # v6" in ci
     assert "files: ./coverage.xml" in ci
     assert "file: ./coverage.xml" not in ci
 
