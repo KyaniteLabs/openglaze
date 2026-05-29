@@ -379,7 +379,7 @@ pytest tests/ -v
 pytest tests/ --cov=. --cov-report=html
 ```
 
-139 tests covering:
+The test suite covers:
 - Kama AI context injection and streaming
 - Chemistry context retrieval and UMF calculation
 - Recipe optimizer (target CTE, surface, alkali, running risk)
