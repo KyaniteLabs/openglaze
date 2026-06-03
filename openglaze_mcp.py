@@ -10,7 +10,7 @@ from typing import Any
 from core.chemistry.batch import calculate_batch
 from core.chemistry.substitutions import suggest_substitutions
 from core.chemistry.umf import calculate_umf
-from openglaze_cli import _project_brief
+from openglaze_cli import _parse_cone, _project_brief
 
 PROTOCOL_VERSION = "2024-11-05"
 
@@ -19,7 +19,7 @@ def analyze_glaze_recipe(args: dict[str, Any]) -> dict[str, Any]:
     recipe = str(args.get("recipe") or "").strip()
     if not recipe:
         raise ValueError("Provide recipe.")
-    cone = int(args.get("cone") or 10)
+    cone = _parse_cone(args.get("cone") or 10)
     return calculate_umf(recipe, cone=cone).to_dict()
 
 
@@ -53,7 +53,11 @@ TOOLS = {
             "type": "object",
             "properties": {
                 "recipe": {"type": "string"},
-                "cone": {"type": "integer", "default": 10},
+                "cone": {
+                    "type": ["integer", "string"],
+                    "default": 10,
+                    "description": "Firing cone. Use strings like '04' to preserve low-fire cone identity.",
+                },
             },
             "required": ["recipe"],
         },

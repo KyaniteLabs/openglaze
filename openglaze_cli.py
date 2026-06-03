@@ -16,6 +16,13 @@ def _print_json(payload: dict[str, Any]) -> None:
     print(json.dumps(payload, indent=2, sort_keys=True))
 
 
+def _parse_cone(value: Any) -> int | str:
+    raw = str(value).strip()
+    if raw.startswith("0") and len(raw) > 1:
+        return raw
+    return int(raw)
+
+
 def _project_brief() -> dict[str, Any]:
     return {
         "name": "OpenGlaze",
@@ -51,7 +58,9 @@ def main() -> None:
         help="Recipe string, e.g. 'Custer Feldspar 45, Silica 25, Whiting 18, EPK 12'.",
     )
     umf.add_argument(
-        "--cone", type=int, default=10, help="Firing cone. Defaults to 10."
+        "--cone",
+        default="10",
+        help='Firing cone. Use leading zero for low-fire cones, e.g. "04". Defaults to 10.',
     )
 
     batch = subparsers.add_parser("batch", help="Scale a recipe to a test batch.")
@@ -73,7 +82,7 @@ def main() -> None:
     if args.command == "brief":
         _print_json(_project_brief())
     elif args.command == "umf":
-        _print_json(calculate_umf(args.recipe, cone=args.cone).to_dict())
+        _print_json(calculate_umf(args.recipe, cone=_parse_cone(args.cone)).to_dict())
     elif args.command == "batch":
         _print_json(calculate_batch(args.recipe, args.size, args.unit))
     elif args.command == "substitutions":

@@ -6,7 +6,7 @@ normalized to flux total = 1.0. Provides surface prediction and limit checking.
 
 import logging
 from dataclasses import dataclass, field
-from typing import Dict, List, Optional, Tuple
+from typing import Any, Dict, List, Optional, Tuple
 
 from .materials import (
     get_material,
@@ -38,7 +38,32 @@ _LIMIT_FORMULAS_DEFAULT: Dict[str, tuple] = {
 }
 
 
-def get_limit_formulas(cone: int = 10) -> Dict[str, tuple]:
+def _cone_key_candidates(cone: Any) -> list[str]:
+    raw = str(cone).strip().lower().removeprefix("cone").strip("_- ")
+    if not raw:
+        raw = "10"
+
+    candidates = [f"cone_{raw}"]
+    if raw.isdigit():
+        as_int = int(raw)
+        unpadded = f"cone_{as_int}"
+        for key in (unpadded,):
+            if key not in candidates:
+                candidates.append(key)
+    return candidates
+
+
+def _cone_threshold_number(cone: Any) -> int:
+    raw = str(cone).strip().lower().removeprefix("cone").strip("_- ")
+    if raw.startswith("0") and len(raw) > 1:
+        return 0
+    try:
+        return int(raw)
+    except ValueError:
+        return 10
+
+
+def get_limit_formulas(cone: int | str = 10) -> Dict[str, tuple]:
     """Get UMF limit formulas for a specific cone.
 
     Loads cone-specific ranges from ceramics-foundation if available,
@@ -46,8 +71,9 @@ def get_limit_formulas(cone: int = 10) -> Dict[str, tuple]:
     """
     umf_data = load_umf_targets()
     if umf_data and "ranges" in umf_data:
-        cone_key = f"cone_{cone}"
-        if cone_key in umf_data["ranges"]:
+        for cone_key in _cone_key_candidates(cone):
+            if cone_key not in umf_data["ranges"]:
+                continue
             cone_ranges = umf_data["ranges"][cone_key]
             formulas = {}
             for oxide, bounds in cone_ranges.items():
@@ -58,7 +84,7 @@ def get_limit_formulas(cone: int = 10) -> Dict[str, tuple]:
     return dict(_LIMIT_FORMULAS_DEFAULT)
 
 
-def _get_surface_thresholds(cone: Optional[int] = None) -> Tuple[float, float]:
+def _get_surface_thresholds(cone: Optional[int | str] = None) -> Tuple[float, float]:
     """Get surface prediction thresholds for a given cone.
 
     Low-fire glazes need more flux to mature, so they appear glossier
@@ -71,12 +97,13 @@ def _get_surface_thresholds(cone: Optional[int] = None) -> Tuple[float, float]:
         # Find the best matching cone range
         cone_ranges = data["cone_thresholds"]
         if cone is not None:
+            cone_number = _cone_threshold_number(cone)
             # Map cone to range key
-            if cone <= 3:
+            if cone_number <= 3:
                 key = "low_fire"
-            elif cone <= 6:
+            elif cone_number <= 6:
                 key = "mid_range"
-            elif cone <= 11:
+            elif cone_number <= 11:
                 key = "high_fire"
             else:
                 key = "high_fire"
@@ -115,7 +142,7 @@ class UMFResult:
     warnings: List[str] = field(default_factory=list)
     error: Optional[str] = None
     missing_materials: List[str] = field(default_factory=list)
-    cone: Optional[int] = None
+    cone: Optional[int | str] = None
     confidence: Dict[str, str] = field(default_factory=dict)
     recommendations: List[str] = field(default_factory=list)
 
@@ -151,7 +178,9 @@ class UMFResult:
 class UMFAnalyzer:
     """Calculate Unity Molecular Formula from glaze recipes."""
 
-    def calculate(self, recipe_string: str, cone: Optional[int] = None) -> UMFResult:
+    def calculate(
+        self, recipe_string: str, cone: Optional[int | str] = None
+    ) -> UMFResult:
         """Calculate UMF from a recipe string.
 
         Args:
@@ -417,7 +446,7 @@ class UMFAnalyzer:
 
         return surface, confidence
 
-    def _check_limits(self, umf: Dict[str, float], cone: int) -> List[str]:
+    def _check_limits(self, umf: Dict[str, float], cone: int | str) -> List[str]:
         """Check UMF values against cone-specific target formula guidelines.
 
         Note: these are guidelines based on common ranges for the target cone,
@@ -622,7 +651,7 @@ class UMFAnalyzer:
 _analyzer = UMFAnalyzer()
 
 
-def calculate_umf(recipe: str, cone: Optional[int] = None) -> UMFResult:
+def calculate_umf(recipe: str, cone: Optional[int | str] = None) -> UMFResult:
     """Calculate UMF from a recipe string using the default analyzer.
 
     Args:
