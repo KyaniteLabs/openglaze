@@ -441,3 +441,15 @@ Questions, bug reports, and feature requests:
   <a href="https://github.com/KyaniteLabs/openglaze/discussions">Discussions</a> •
   <a href="https://openglaze.kyanitelabs.tech">Website</a>
 </p>
+
+---
+
+## Part of KyaniteLabs
+
+More from [KyaniteLabs](https://kyanitelabs.tech). Related projects:
+
+- **[Innerscape](https://github.com/KyaniteLabs/Innerscape)** — personal-growth OS: journaling & reflection
+- **[Elixis](https://github.com/KyaniteLabs/Elixis)** — local-first AI pattern-synthesis engine for ideas
+- **[liminal](https://github.com/KyaniteLabs/liminal)** — AI creative-coding studio (p5.js, GLSL, Three.js)
+
+→ More at **[kyanitelabs.tech](https://kyanitelabs.tech)**
