@@ -1,0 +1,7 @@
+interface:
+  display_name: "OpenGlaze"
+  short_description: "Analyze ceramic glaze recipes and batches"
+  default_prompt: "Use $openglaze to calculate UMF, CTE, and batch guidance for this glaze recipe."
+
+policy:
+  allow_implicit_invocation: true

@@ -151,6 +151,34 @@ python server.py
 
 Open http://localhost:8768 in your browser. (Docker default; manual install defaults to 8767.)
 
+### CLI, MCP, and Agent Skill
+
+OpenGlaze also ships agent-friendly local surfaces:
+
+```bash
+python -m openglaze_cli brief
+python -m openglaze_cli umf --recipe "Custer Feldspar 45, Silica 25, Whiting 18, EPK 12" --cone 10
+python -m openglaze_cli batch --recipe "Custer Feldspar 45, Silica 25, Whiting 18, EPK 12" --size 500
+python -m openglaze_mcp
+```
+
+- CLI: `python -m openglaze_cli` exposes project brief, UMF, batch scaling, and substitutions.
+- MCP: `python -m openglaze_mcp` starts a stdio MCP server with glaze recipe tools for agent hosts.
+- Skill: [`skills/openglaze/SKILL.md`](skills/openglaze/SKILL.md) guides compatible agents on when to use the CLI or MCP server and how to keep glaze-safety claims bounded.
+
+Example MCP config:
+
+```json
+{
+  "mcpServers": {
+    "openglaze": {
+      "command": "python",
+      "args": ["-m", "openglaze_mcp"]
+    }
+  }
+}
+```
+
 ## Features
 
 <table>
