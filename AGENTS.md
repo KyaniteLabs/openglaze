@@ -12,6 +12,14 @@ See KyaniteLabs/.github for org-wide rules. Project-specific rules below:
 
 This is the **openglaze** repository. It is Free open-source ceramic glaze calculator, UMF analyzer, and recipe manager for potters and studios..
 
+## Agent Surfaces
+
+- CLI: `python -m openglaze_cli brief`, `python -m openglaze_cli umf --recipe "..."`
+- MCP: `python -m openglaze_mcp` starts the stdio MCP server.
+- Skill: `skills/openglaze/SKILL.md` is the public skill for glaze chemistry agent workflows.
+
+Keep CLI, MCP tools, README examples, and the public skill aligned when chemistry workflows change.
+
 # KyaniteLabs Engineering Rules
 
 This file provides operating instructions for all AI coding agents working in KyaniteLabs repositories. It is the AGENTS.md mirror of CLAUDE.md — both files contain identical rules.

@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "openglaze": {
+      "command": "python",
+      "args": ["-m", "openglaze_mcp"]
+    }
+  }
+}
