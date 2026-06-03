@@ -446,7 +446,7 @@ Questions, bug reports, and feature requests:
 
 ## Part of KyaniteLabs
 
-Open-source tools by [KyaniteLabs](https://kyanitelabs.tech). Related projects:
+More from [KyaniteLabs](https://kyanitelabs.tech). Related projects:
 
 - **[Innerscape](https://github.com/KyaniteLabs/Innerscape)** — personal-growth OS: journaling & reflection
 - **[Elixis](https://github.com/KyaniteLabs/Elixis)** — local-first AI pattern-synthesis engine for ideas
