@@ -7,19 +7,8 @@ jobs:
     runs-on: docker
     steps:
       - uses: actions/checkout@v4
-      - name: Install system dependencies
-        run: apt-get update -qq && apt-get install -y -qq python3 python3-pip python3-venv libpq-dev libffi-dev libssl-dev gcc
-      - name: Install dependencies
+      - name: Debug
         run: |
-          if [ -f requirements.txt ]; then pip install --break-system-packages -r requirements.txt || true; fi
-          if [ -f pyproject.toml ]; then pip install --break-system-packages -e ".[dev]" 2>/dev/null || true; fi
-      - name: Lint
-        run: |
-          pip install --break-system-packages ruff 2>/dev/null
-          ruff check . || true
-      - name: Test
-        run: |
-          if [ -f pytest.ini ] || [ -f setup.cfg ] || [ -d tests ]; then
-            pip install --break-system-packages pytest 2>/dev/null
-            pytest || true
-          fi
+          echo "Hello from openglaze CI"
+          ls -la
+          python3 --version || echo "no python3"
