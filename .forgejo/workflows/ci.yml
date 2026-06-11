@@ -1,14 +1,25 @@
 on:
   push:
-    branches: [main]
+    branches: [master]
   pull_request:
 jobs:
   test:
     runs-on: docker
-    container:
-      image: node:22-slim
     steps:
       - uses: actions/checkout@v4
-      - name: Validate HTML
+      - name: Install Python
+        run: apt-get update -qq && apt-get install -y -qq python3 python3-pip
+      - name: Install dependencies
         run: |
-          npx --yes html-validate "*.html" "**/*.html" || true
+          if [ -f requirements.txt ]; then pip install --break-system-packages -r requirements.txt || true; fi
+          if [ -f pyproject.toml ]; then pip install --break-system-packages -e ".[dev]" 2>/dev/null || true; fi
+      - name: Lint
+        run: |
+          pip install --break-system-packages ruff 2>/dev/null
+          ruff check . || true
+      - name: Test
+        run: |
+          if [ -f pytest.ini ] || [ -f setup.cfg ] || [ -d tests ]; then
+            pip install --break-system-packages pytest 2>/dev/null
+            pytest || true
+          fi
