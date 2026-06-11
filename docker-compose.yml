@@ -57,7 +57,7 @@ services:
   # =============================================================================
 
   kratos:
-    image: oryd/kratos:v1.0.0
+    image: oryd/kratos:v1.3.1
     container_name: openglaze-kratos
     ports:
       - "4433:4433"  # Public API
@@ -74,7 +74,7 @@ services:
     restart: unless-stopped
 
   kratos-migrate:
-    image: oryd/kratos:v1.0.0
+    image: oryd/kratos:v1.3.1
     container_name: openglaze-kratos-migrate
     environment:
       - DSN=postgres://openglaze:${POSTGRES_PASSWORD}@postgres:5432/openglaze
