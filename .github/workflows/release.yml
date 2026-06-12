@@ -9,6 +9,8 @@ permissions:
   contents: write
   packages: write
 
+timeout-minutes: 30
+
 jobs:
   release:
     runs-on: blacksmith-2vcpu-ubuntu-2404

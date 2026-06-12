@@ -105,3 +105,4 @@ temp/
 .omc/
 .omx/
 .worktrees/
+*.pyc
