@@ -1,4 +1,4 @@
-cryptography==48.0.1
+cryptography==49.0.0
 debugpy==1.8.21
 flask-cors==6.0.5
 Flask==3.1.3
