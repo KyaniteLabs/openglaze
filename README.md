@@ -1,38 +1,37 @@
 # OpenGlaze
 
-> Screenshots needed — see [docs/screenshots/README.md](docs/screenshots/README.md) for capture instructions.
+Free open-source ceramic glaze calculator, UMF analyzer, CTE estimator, recipe manager, and studio tool for potters and ceramic artists.
+
+**Who it is for:** potters and ceramic studios who want local control of glaze math — not a locked SaaS calculator.
+
+**What you get:** calculator + recipe manager you can run yourself (Docker or Python).
 
 ## Try it
 
 ```bash
-# Clone the repository
 git clone https://github.com/KyaniteLabs/openglaze.git
 cd openglaze
-# Copy environment file and set a real SECRET_KEY before public use
-cp .env.example .env
-# Start OpenGlaze
+cp .env.example .env   # set a real SECRET_KEY before any public exposure
 docker compose up -d
-# Access at http://localhost:8768
 curl http://localhost:8768/health
 ```
 
+Or without Docker:
+
 ```bash
-# Install dependencies
 pip install -r requirements.txt
-# Set up database and seed with community glazes
 python seed_data.py
-# Run
 python server.py
 ```
 
+Live tools: [openglaze.kyanitelabs.tech](https://openglaze.kyanitelabs.tech)
+
 ## Docs
 
-- [docs/screenshots/README.md](docs/screenshots/README.md)
 - [Ceramic glaze calculator](https://openglaze.kyanitelabs.tech/ceramic-glaze-calculator.html)
 - [UMF calculator](https://openglaze.kyanitelabs.tech/umf-calculator.html)
 - [CTE calculator](https://openglaze.kyanitelabs.tech/cte-glaze-calculator.html)
-- [Glazy companion](https://openglaze.kyanitelabs.tech/glazy-alternative.html)
 
 ## License
 
-See [LICENSE](LICENSE).
+MIT. See [LICENSE](LICENSE).
