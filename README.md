@@ -1,8 +1,8 @@
 # OpenGlaze
 
-> OpenGlaze is a open design-system and glaze/UI craft toolkit that helps designers and engineers building distinctive UI systems apply coherent glaze/design craft without generic AI slop defaults.
+> OpenGlaze is a free, open-source, self-hosted ceramic glaze calculator, recipe manager, and UMF analyzer for potters, ceramic artists, and studios.
 
-**TL;DR:** OpenGlaze — open design-system and glaze/UI craft toolkit. Best for designers and engineers building distinctive UI systems.
+**TL;DR:** OpenGlaze — open-source ceramic glaze calculator (UMF, CTE, recipe optimizer) you can self-host. Best for potters, ceramic artists, studios, and educators.
 
 <p align="center">
   <img src="static/favicon.svg" alt="OpenGlaze — open source ceramic glaze calculator and recipe manager" width="120">
@@ -23,7 +23,7 @@
     <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT">
   </a>
   <a href="https://www.python.org/">
-    <img src="https://img.shields.io/badge/Python-3.11+-blue.svg" alt="Python 3.11+">
+    <img src="https://img.shields.io/badge/Python-3.12+-blue.svg" alt="Python 3.12+">
   </a>
   <a href="https://www.docker.com/">
     <img src="https://img.shields.io/badge/Docker-Ready-blue" alt="Docker Ready">
@@ -45,22 +45,7 @@
 
 ## Screenshots
 
-<p align="center">
-  <img src="docs/screenshots/glaze-calculator.png" width="45%" alt="UMF Calculator — oxide analysis and SiO₂:Al₂O₃ ratio">
-  <img src="docs/screenshots/glaze-library.png" width="45%" alt="Glaze Library — 44 community glazes across cone 6 and cone 10">
-</p>
-
-<details>
-<summary>See more</summary>
-
-<p align="center">
-  <img src="docs/screenshots/recipe-optimizer.png" width="45%" alt="Recipe Optimizer — computational suggestions for target CTE and surface">
-  <img src="docs/screenshots/ai-assistant.png" width="45%" alt="Kama AI Assistant — context-aware glaze chemistry questions">
-</p>
-
-</details>
-
-> Screenshots needed — see [docs/screenshots/README.md](docs/screenshots/README.md) for capture instructions.
+Screenshots of the current app are pending — see [docs/screenshots/README.md](docs/screenshots/README.md) for the capture list and instructions.
 
 ---
 
@@ -146,10 +131,7 @@ curl http://localhost:8768/health
 # Install dependencies
 pip install -r requirements.txt
 
-# Set up database and seed with community glazes
-python seed_data.py
-
-# Run
+# Run (the SQLite database is created and seeded with the community glazes on first start)
 python server.py
 ```
 
@@ -374,9 +356,9 @@ Glaze templates live in `core/templates/` and `templates/`. To add your own:
 
 1. Create a YAML file following the `community-glazes.yaml` format
 2. Add glaze entries with `name`, `cone`, `atmosphere`, `base_type`, `recipe`, etc.
-3. Update `seed_data.py` to load your template, or import via the API
+3. Import it via the API, or add it to the first-start seeding logic in `server.py` (`seed_database`, which currently loads `core/templates/community-glazes.yaml`)
 
-No code changes required — everything is data-driven.
+Importing via the API needs no code changes.
 
 ## Data
 
@@ -482,7 +464,7 @@ More from [KyaniteLabs](https://kyanitelabs.tech). Related projects:
 
 - **[Innerscape](https://github.com/KyaniteLabs/Innerscape)** — personal-growth OS: journaling & reflection
 - **[Elixis](https://github.com/KyaniteLabs/Elixis)** — local-first AI pattern-synthesis engine for ideas
-- **[liminal](https://github.com/KyaniteLabs/liminal)** — AI creative-coding studio (p5.js, GLSL, Three.js)
+- **[kinocut](https://github.com/KyaniteLabs/kinocut)** — guardrailed video-editing MCP server for AI agents
 
 → More at **[kyanitelabs.tech](https://kyanitelabs.tech)**
 
@@ -490,36 +472,36 @@ More from [KyaniteLabs](https://kyanitelabs.tech). Related projects:
 
 ## What is OpenGlaze?
 
-**OpenGlaze** is a **open design-system and glaze/UI craft toolkit** that helps **designers and engineers building distinctive UI systems** **apply coherent glaze/design craft without generic AI slop defaults**.
+**OpenGlaze** is a free, open-source, self-hosted **ceramic glaze calculator and recipe manager**: UMF analysis, CTE estimation, a computational recipe optimizer, and an optional AI glaze assistant (Kama).
 
 | | |
 | --- | --- |
 | **Product** | OpenGlaze |
-| **Category** | open design-system and glaze/UI craft toolkit |
-| **Best for** | designers and engineers building distinctive UI systems |
-| **Not** | a full app framework |
-| **Source** | [GitHub](https://github.com/KyaniteLabs/openglaze) · [Forgejo](https://git.kyanitelabs.tech/KyaniteLabs/openglaze) |
-| **Keywords** | open design system, UI glaze, anti-generic frontend |
+| **Category** | open-source ceramic glaze calculator and recipe manager |
+| **Best for** | potters, ceramic artists, studios, and glaze-chemistry educators |
+| **Not** | a hosted recipe-sharing community or a replacement for real test tiles |
+| **Source** | [GitHub](https://github.com/KyaniteLabs/openglaze) · [Forgejo](https://git.kyanitelabs.tech/KyaniteLabs/openglaze) (private, maintainers only) |
+| **Keywords** | ceramic glaze calculator, UMF calculator, CTE glaze calculator, self-hosted glaze software, Glazy companion |
 
 ## Who it's for
 
-- Primary: designers and engineers building distinctive UI systems
-- Use when you need to apply coherent glaze/design craft without generic AI slop defaults
-- Skip if you need a full app framework
+- Primary: potters, ceramic artists, studios, and glaze-chemistry educators
+- Use when you need to calculate UMF and CTE, manage glaze recipes, and get computational recipe adjustments on your own infrastructure
+- Skip if you need a hosted recipe-sharing community or a replacement for real test tiles
 
 ## FAQ
 
 ### What is OpenGlaze?
 
-OpenGlaze is a open design-system and glaze/UI craft toolkit. It helps designers and engineers building distinctive UI systems apply coherent glaze/design craft without generic AI slop defaults.
+**OpenGlaze** is a free, open-source, self-hosted **ceramic glaze calculator and recipe manager**: UMF analysis, CTE estimation, a computational recipe optimizer, and an optional AI glaze assistant (Kama).
 
 ### Who should use OpenGlaze?
 
-designers and engineers building distinctive UI systems.
+Potters, ceramic artists, studios, and glaze-chemistry educators.
 
 ### How is OpenGlaze different?
 
-Unlike cookie-cutter component kits, OpenGlaze targets distinctive craft.
+Unlike recipe databases, OpenGlaze runs the glaze chemistry (UMF, CTE, optimizer) on your own server; it complements Glazy, DigitalFire, and INSIGHT rather than replacing them.
 
 ### Is OpenGlaze production software?
 
@@ -529,7 +511,7 @@ Treat the README status and release tags as source of truth for maturity. Valida
 
 - Maintained as of 2026 on the default branch
 - Prefer release tags when pinning dependencies
-- Report issues on the canonical remote listed above
+- Report issues on [GitHub](https://github.com/KyaniteLabs/openglaze/issues)
 
 ## Agent surface
 
@@ -539,7 +521,7 @@ Treat the README status and release tags as source of truth for maturity. Valida
 
 ## Contributing
 
-Issues and PRs welcome on the canonical remote. Keep public docs free of secrets and machine-local paths.
+Issues and PRs welcome on [GitHub](https://github.com/KyaniteLabs/openglaze). Keep public docs free of secrets and machine-local paths.
 
 ## License
 
