@@ -187,3 +187,13 @@ def test_homepage_metadata_uses_public_pages_url():
     assert parsed.links["canonical"] == f"{CANONICAL}/"
     assert parsed.meta["og:url"] == f"{CANONICAL}/"
     assert parsed.meta["og:image"] == f"{CANONICAL}/social-preview.png"
+
+
+def test_homepage_does_not_present_unverified_firing_outcomes_as_proof():
+    homepage = (DOCS / "index.html").read_text()
+    for claim in (
+        "Compatible with cone 10 stoneware bodies",
+        "Replace all silica with kaolin",
+        "so you fire fewer test tiles and get results faster",
+    ):
+        assert claim not in homepage

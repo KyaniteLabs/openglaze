@@ -432,18 +432,6 @@
             margin-bottom: 40px;
         }
         
-        .hero-visual {
-            position: relative;
-        }
-        
-        .hero-card {
-            background: var(--bg-secondary);
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-lg);
-            padding: 32px;
-            border: 1px solid var(--border);
-        }
-        
         .specimen { border-top: 3px solid var(--celadon-600); background: #f2ede6; padding: 28px; }
         .specimen-label { display: flex; justify-content: space-between; gap: 12px; font-size: 0.875rem; color: var(--text-secondary); }
         .specimen h2 { font-size: 1.75rem; margin: 16px 0 24px; }
@@ -509,17 +497,6 @@
             box-shadow: var(--shadow-lg);
         }
         
-        .feature-icon {
-            width: 48px;
-            height: 48px;
-            border-radius: var(--radius-md);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            margin-bottom: 20px;
-        }
-        
         .feature-card h3 {
             font-size: 1.1rem;
             margin-bottom: 8px;
@@ -531,82 +508,18 @@
             line-height: 1.6;
         }
         
-        /* Showcase */
-        .showcase {
-            padding: 80px 24px;
-            background: var(--bg-primary);
+        /* Ruled workflow entries */
+        .workflow { display: grid; grid-template-columns: 64px 1fr 1.25fr; gap: 32px; padding: 32px 0; border-top: 1px solid #7a6b55; }
+        .entry-number { color: #8b4513; font: 0.875rem ui-monospace, monospace; padding-top: 8px; }
+        .workflow h3 { font-size: 1.75rem; }
+        .workflow p { color: var(--text-secondary); margin-bottom: 12px; }
+        .workflow a, .workflow-note a { text-decoration: underline; text-underline-offset: 4px; }
+        .workflow-note { padding-top: 24px; border-top: 1px solid var(--border); color: var(--text-secondary); max-width: 72ch; }
+        @media (max-width: 640px) {
+            .workflow { grid-template-columns: 32px 1fr; gap: 12px; padding: 24px 0; }
+            .workflow h3 { font-size: 1.5rem; }
+            .workflow > div { grid-column: 2; }
         }
-        
-        .showcase-inner {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 64px;
-            align-items: center;
-        }
-        
-        .showcase-content h2 {
-            font-size: 2.25rem;
-            margin-bottom: 20px;
-        }
-        
-        .showcase-content p {
-            color: var(--text-secondary);
-            margin-bottom: 16px;
-        }
-        
-        .showcase-list {
-            list-style: none;
-            margin: 24px 0;
-        }
-        
-        .showcase-list li {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 8px 0;
-            font-size: 0.95rem;
-        }
-        
-        .showcase-list li::before {
-            content: "✓";
-            width: 24px;
-            height: 24px;
-            background: var(--celadon-100);
-            color: var(--celadon-600);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.75rem;
-            font-weight: 700;
-            flex-shrink: 0;
-        }
-        
-        .showcase-visual {
-            background: var(--bg-secondary);
-            border-radius: var(--radius-lg);
-            padding: 40px;
-            box-shadow: var(--shadow-lg);
-            border: 1px solid var(--border);
-        }
-        
-        .umf-demo {
-            font-family: 'Courier New', monospace;
-            font-size: 0.85rem;
-            line-height: 1.8;
-        }
-        
-        .umf-demo .umf-label {
-            color: var(--text-muted);
-        }
-        
-        .umf-demo .umf-value {
-            color: var(--celadon-600);
-            font-weight: 600;
-        }
-        
         /* Open Source */
         .opensource {
             padding: 80px 24px;
@@ -762,10 +675,6 @@
                 grid-template-columns: repeat(2, 1fr);
             }
             
-            .showcase-inner {
-                grid-template-columns: 1fr;
-            }
-            
             .opensource-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
@@ -917,132 +826,29 @@
         </figure>
     </section>
 
-    <!-- Features -->
-    <section class="features" id="features">
+    <section class="features" id="features" aria-labelledby="workflows-title">
         <div class="section-header">
-            <h2>Ceramic glaze tools that respect your studio</h2>
-            <p>UMF calculation, CTE prediction, recipe optimization, and experiment tracking — all self-hosted, all free, all under your control.</p>
+            <h2 id="workflows-title">A place for the chemistry.<br>And the observations.</h2>
+            <p>Keep the calculation and the firing record in the same workflow. Each new test is something you can return to.</p>
         </div>
-        <div class="features-grid">
-            <div class="feature-card">
-                <div class="feature-icon" style="background: var(--celadon-100);">🎨</div>
-                <h3>Recipe Management</h3>
-                <p>Store unlimited glazes with full chemistry, firing notes, and photos. Organize by cone range, atmosphere, and glaze family. 44 community-tested recipes included.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon" style="background: var(--tenmoku-100);">🔬</div>
-                <h3>UMF Chemistry Engine</h3>
-                <p>Automatic Unity Molecular Formula calculation, oxide role analysis, SiO₂:Al₂O₃ ratio, and batch scaling from any recipe.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon" style="background: #e0e8f4;">🧮</div>
-                <h3>Recipe Optimizer</h3>
-                <p>Computational chemistry engine that suggests exact material adjustments to hit target CTE, surface, or durability — ranked by predicted outcome, before you fire test tiles.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon" style="background: #e8e0f4;">🧠</div>
-                <h3>Kama AI Assistant</h3>
-                <p>Context-aware glaze chemistry consulting powered by local (Ollama) or cloud LLMs. Ask about recipes, substitutions, and firing strategies.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon" style="background: #f4e8e0;">🧪</div>
-                <h3>Experiment Pipeline</h3>
-                <p>Six-stage workflow from ideation to documentation: predict, apply, fire, analyze, and record. Track every variable for reproducible results.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon" style="background: #e0f0e8;">👥</div>
-                <h3>Studio Collaboration</h3>
-                <p>Share glaze libraries with your team. Invite codes, lab assignments, and shared firing logs for group studios.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon" style="background: #f0e8e0;">📸</div>
-                <h3>Photo Documentation</h3>
-                <p>Track results across firings with gallery views. Consistent documentation for reliable comparison.</p>
-            </div>
+        <div class="workflow">
+            <span class="entry-number" aria-hidden="true">01 /</span>
+            <h3>Read the recipe</h3>
+            <div><p>Convert a batch recipe to UMF. Examine oxide roles, silica-to-alumina ratio and estimated thermal expansion. Scale the batch when you're ready to mix.</p><a href="https://github.com/KyaniteLabs/openglaze/tree/master/docs/user-guide.md#the-chemistry-engine">Inside the chemistry engine <span aria-hidden="true">↗</span></a></div>
         </div>
+        <div class="workflow">
+            <span class="entry-number" aria-hidden="true">02 /</span>
+            <h3>Choose the next test</h3>
+            <div><p>Explore material adjustments with the recipe optimizer. Compare calculated changes, then test the candidate on your clay body and firing schedule.</p><a href="https://github.com/KyaniteLabs/openglaze/tree/master/docs/user-guide.md#recipe-optimizer">How optimization works <span aria-hidden="true">↗</span></a></div>
+        </div>
+        <div class="workflow">
+            <span class="entry-number" aria-hidden="true">03 /</span>
+            <h3>Keep the firing story</h3>
+            <div><p>Bring recipes, firing notes and photographs together. Document the experiment from first idea to fired result, and share glaze libraries with your studio.</p><a href="https://github.com/KyaniteLabs/openglaze/tree/master/docs/user-guide.md">Explore the studio tools <span aria-hidden="true">↗</span></a></div>
+        </div>
+        <p class="workflow-note">Also available: recipe organization, studio collaboration and the optional Kama assistant with local or cloud model support. <a href="https://github.com/KyaniteLabs/openglaze/tree/master/docs/configuration.md">Read the configuration guide.</a></p>
     </section>
 
-    <!-- Showcase -->
-    <section class="showcase">
-        <div class="showcase-inner">
-            <div class="showcase-content">
-                <h2>See what your glaze is made of — before you fire it</h2>
-                <p>The Unity Molecular Formula (UMF) engine converts batch recipes into oxide chemistry, revealing the SiO₂:Al₂O₃ ratio and predicted surface — so you adjust with intent, not guesswork.</p>
-                <ul class="showcase-list">
-                    <li>Automatic oxide analysis from batch recipes</li>
-                    <li>Silica-to-alumina ratio calculation</li>
-                    <li>Thermal expansion coefficient estimation</li>
-                    <li>Glaze compatibility risk assessment</li>
-                    <li>Batch scaling with cost estimation</li>
-                    <li>Recipe optimizer — target CTE, surface, or durability computationally</li>
-                </ul>
-                <a href="https://github.com/KyaniteLabs/openglaze/tree/master/docs/user-guide.md#the-chemistry-engine" class="btn btn-primary">Learn More</a>
-            </div>
-            <div class="showcase-visual">
-                <div class="umf-demo">
-                    <div><span class="umf-label">Recipe:</span> Celadon Base</div>
-                    <div style="margin: 12px 0; padding: 12px; background: var(--bg-primary); border-radius: var(--radius-sm);">
-                        <div class="umf-label">Feldspar ............ 45%</div>
-                        <div class="umf-label">Silica .............. 30%</div>
-                        <div class="umf-label">Whiting ............ 15%</div>
-                        <div class="umf-label">Kaolin ............. 10%</div>
-                    </div>
-                    <div style="margin-top: 16px;">
-                        <div><span class="umf-label">UMF Analysis:</span></div>
-                        <div style="margin-top: 8px; padding-left: 16px;">
-                            <div>SiO₂ / Al₂O₃ = <span class="umf-value">7.11</span></div>
-                            <div>CaO (flux) = <span class="umf-value">0.55</span></div>
-                            <div>Surface = <span class="umf-value">glossy</span></div>
-                            <div>CTE = <span class="umf-value">6.2 × 10⁻⁶/°C</span></div>
-                        </div>
-                    </div>
-                    <div style="margin-top: 16px; padding: 12px; background: var(--celadon-50); border-radius: var(--radius-sm); border-left: 3px solid var(--celadon-400);">
-                        <span style="color: var(--celadon-700); font-size: 0.8rem;">💡 Predicted: High-gloss celadon with good durability. Compatible with cone 10 stoneware bodies.</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Optimizer Showcase -->
-    <section class="showcase">
-        <div class="showcase-inner">
-            <div class="showcase-visual">
-                <div class="umf-demo">
-                    <div><span class="umf-label">Original:</span> Cone 10 Celadon</div>
-                    <div style="margin: 12px 0; padding: 12px; background: var(--bg-primary); border-radius: var(--radius-sm);">
-                        <div class="umf-label">Feldspar ............ 45%</div>
-                        <div class="umf-label">Silica .............. 25%</div>
-                        <div class="umf-label">Whiting ............ 18%</div>
-                        <div class="umf-label">Kaolin ............. 12%</div>
-                    </div>
-                    <div style="margin-top: 12px; padding: 12px; background: var(--tenmoku-50); border-radius: var(--radius-sm); border-left: 3px solid var(--tenmoku-400);">
-                        <div style="font-size: 0.75rem; color: var(--tenmoku-700); margin-bottom: 4px;">🎯 Target: More matte</div>
-                        <div class="umf-label" style="font-size: 0.8rem;">SiO₂ / Al₂O₃ = 8.87 → <span style="color: var(--tenmoku-800); font-weight: 600;">3.95</span></div>
-                        <div class="umf-label" style="font-size: 0.8rem;">Surface = glossy → <span style="color: var(--tenmoku-800); font-weight: 600;">matte</span></div>
-                    </div>
-                    <div style="margin-top: 12px; padding: 12px; background: var(--celadon-50); border-radius: var(--radius-sm); border-left: 3px solid var(--celadon-400);">
-                        <span style="color: var(--celadon-700); font-size: 0.8rem;">💡 Suggested tweak: Replace all silica with kaolin. Fire a test tile to confirm.</span>
-                    </div>
-                </div>
-            </div>
-            <div class="showcase-content">
-                <h2>Save clay, materials, and kiln time</h2>
-                <p>The recipe optimizer computes exact material adjustments to hit your target properties — so you fire fewer test tiles and get results faster.</p>
-                <ul class="showcase-list">
-                    <li>Target exact CTE to match your clay body</li>
-                    <li>Shift surface from glossy to matte (or vice versa)</li>
-                    <li>Reduce alkali for better durability</li>
-                    <li>Lower running risk before it ruins a kiln shelf</li>
-                    <li>Ranked suggestions with predicted outcomes</li>
-                </ul>
-                <a href="https://github.com/KyaniteLabs/openglaze/tree/master/docs/user-guide.md#recipe-optimizer" class="btn btn-primary">Learn More</a>
-            </div>
-        </div>
-    </section>
-
-
-    <!-- Discovery Guides -->
     <section class="features" id="guides">
         <div class="section-header">
             <h2>Glaze chemistry guides for every workflow</h2>
