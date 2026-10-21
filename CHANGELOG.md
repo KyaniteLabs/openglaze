@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+- Replace the public homepage swatch mockup and stale test count with a reproducible recipe/UMF study, firing caveats and a clear installation action.
+
 ### Fixed
 - Keep public-site navigation visible on mobile; improve text/action contrast, keyboard focus and reduced-motion behavior.
 - Point public website links and discovery metadata at the existing GitHub Pages site; the previously advertised custom domain does not resolve (#152, KLH-17).
