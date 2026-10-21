@@ -8,7 +8,7 @@ import xml.etree.ElementTree as ET
 
 ROOT = Path(__file__).resolve().parents[1]
 DOCS = ROOT / "docs"
-CANONICAL = "https://openglaze.kyanitelabs.tech"
+CANONICAL = "https://kyanitelabs.github.io/openglaze"
 SEO_PAGES = [
     "ceramic-glaze-calculator.html",
     "umf-calculator.html",
@@ -142,9 +142,9 @@ def test_repository_growth_metadata_exists():
 def test_static_pages_use_project_relative_internal_links():
     for path in DOCS.glob("*.html"):
         html = path.read_text()
-        assert (
-            'href="/' not in html
-        ), f"{path.name} has root-relative hrefs that break on project Pages"
+        assert 'href="/' not in html, (
+            f"{path.name} has root-relative hrefs that break on project Pages"
+        )
 
 
 def test_homepage_visible_stats_are_current():
@@ -153,3 +153,22 @@ def test_homepage_visible_stats_are_current():
     assert "<span>Tests passing</span>" in homepage
     assert "111 Tests passing" not in homepage
     assert "without firing test tiles" not in homepage
+
+
+def test_sitemap_targets_exist_in_pages_source():
+    xml = ET.parse(DOCS / "sitemap.xml")
+    ns = {"sm": "http://www.sitemaps.org/schemas/sitemap/0.9"}
+    for loc in xml.findall("sm:url/sm:loc", ns):
+        assert loc.text.startswith(f"{CANONICAL}/")
+        relative = loc.text.removeprefix(f"{CANONICAL}/") or "index.html"
+        target = DOCS / relative
+        assert target.is_file() or (
+            target.suffix == ".html" and target.with_suffix(".md").is_file()
+        ), f"sitemap target is not published by Pages: {loc.text}"
+
+
+def test_homepage_metadata_uses_public_pages_url():
+    parsed = parse_html(DOCS / "index.html")
+    assert parsed.links["canonical"] == f"{CANONICAL}/"
+    assert parsed.meta["og:url"] == f"{CANONICAL}/"
+    assert parsed.meta["og:image"] == f"{CANONICAL}/social-preview.png"

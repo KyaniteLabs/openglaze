@@ -5,6 +5,12 @@ All notable changes to OpenGlaze will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Fixed
+- Point public website links and discovery metadata at the existing GitHub Pages site; the previously advertised custom domain does not resolve (#152, KLH-17).
+- Remove the unpublished README URL from the public sitemap and distinguish self-hosted app examples from the public documentation site.
+
 ## [1.1.0] - 2026-04-27
 
 ### Added

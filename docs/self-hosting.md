@@ -27,11 +27,11 @@ This keeps setup simple and matches the current code. PostgreSQL and Ory Kratos 
 
 ## Environment
 
-Use `.env.example` as the source of truth. Minimum public deployment settings:
+Use `.env.example` as the source of truth. Minimum public deployment settings (replace `openglaze.example.com` with your own domain):
 
 ```bash
 OPENGLAZE_MODE=personal
-BASE_URL=https://openglaze.kyanitelabs.tech
+BASE_URL=https://openglaze.example.com
 FLASK_HOST=0.0.0.0
 FLASK_PORT=8768
 DATABASE_PATH=/data/glaze.db
@@ -55,7 +55,7 @@ Bundled TLS nginx expects PEM files at `./certs/fullchain.pem` and `./certs/priv
 mkdir -p certs
 # Copy your CA-issued certificate/key into certs/, then:
 OPENGLAZE_HTTP_PORT=80 OPENGLAZE_HTTPS_PORT=443 docker compose --profile tls up -d
-curl https://openglaze.kyanitelabs.tech/health
+curl https://openglaze.example.com/health
 ```
 
 For local TLS smoke tests only, you can generate a temporary self-signed certificate:
@@ -73,7 +73,7 @@ curl -k https://localhost:18443/health
 For Caddy, a minimal external proxy is:
 
 ```caddyfile
-openglaze.kyanitelabs.tech {
+openglaze.example.com {
   reverse_proxy localhost:8768
 }
 ```

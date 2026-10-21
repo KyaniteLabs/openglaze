@@ -1,6 +1,6 @@
 # Screenshots
 
-Real screenshots from the live app at https://openglaze.kyanitelabs.tech should be placed here.
+Real screenshots from your self-hosted app should be placed here.
 
 ## Required Screenshots
 
@@ -15,7 +15,7 @@ Real screenshots from the live app at https://openglaze.kyanitelabs.tech should 
 
 ## Capture Instructions
 
-1. Open https://openglaze.kyanitelabs.tech in Chrome
+1. Open your self-hosted OpenGlaze app (Docker default: http://localhost:8768) in Chrome
 2. Use DevTools device toolbar (Cmd+Shift+M) for mobile screenshots
 3. For GIF, use a screen recorder (Loom, Kap, or ffmpeg)
 4. Save as PNG (screenshots) or GIF (demo)
