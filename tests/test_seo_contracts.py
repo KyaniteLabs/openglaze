@@ -147,12 +147,27 @@ def test_static_pages_use_project_relative_internal_links():
         ), f"{path.name} has root-relative hrefs that break on project Pages"
 
 
-def test_homepage_visible_stats_are_current():
+def test_homepage_example_matches_the_actual_chemistry_engine():
+    from core.chemistry.umf import calculate_umf
+
     homepage = (DOCS / "index.html").read_text()
-    assert "<strong>139</strong>" in homepage
-    assert "<span>Tests passing</span>" in homepage
-    assert "111 Tests passing" not in homepage
-    assert "without firing test tiles" not in homepage
+    recipe_table = re.search(r'<table id="recipe".*?</table>', homepage, re.S)
+    assert recipe_table, "Show a real recipe rather than an invented swatch preview"
+    rows = re.findall(r'<th scope="row">(.*?)</th><td>([0-9.]+)</td>', recipe_table[0])
+    assert len(rows) == 4
+    assert sum(float(amount) for _, amount in rows) == 100
+    result = calculate_umf(
+        ", ".join(f"{name} {amount}" for name, amount in rows), cone=10
+    )
+    assert not result.missing_materials
+    shown_umf = dict(re.findall(r'data-oxide="(.*?)">([0-9.]+)</td>', homepage))
+    assert set(shown_umf) == set(result.umf_formula)
+    for oxide, value in result.umf_formula.items():
+        assert float(shown_umf[oxide]) == round(value, 4)
+    assert "No fired result is represented" in homepage
+    assert "above the typical cone 10 range" in homepage
+    assert "This is the project website" in homepage
+    assert "Tests passing" not in homepage
 
 
 def test_sitemap_targets_exist_in_pages_source():
