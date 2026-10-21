@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Fixed
+- Keep public-site navigation visible on mobile; improve text/action contrast, keyboard focus and reduced-motion behavior.
 - Point public website links and discovery metadata at the existing GitHub Pages site; the previously advertised custom domain does not resolve (#152, KLH-17).
 - Remove the unpublished README URL from the public sitemap and distinguish self-hosted app examples from the public documentation site.
 
