@@ -142,9 +142,8 @@ def test_repository_growth_metadata_exists():
 def test_static_pages_use_project_relative_internal_links():
     for path in DOCS.glob("*.html"):
         html = path.read_text()
-        assert (
-            'href="/' not in html
-        ), f"{path.name} has root-relative hrefs that break on project Pages"
+        message = f"{path.name} has root-relative hrefs that break on project Pages"
+        assert 'href="/' not in html, message
 
 
 def test_homepage_example_matches_the_actual_chemistry_engine():
