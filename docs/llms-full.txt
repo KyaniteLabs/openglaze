@@ -1,6 +1,6 @@
 # OpenGlaze — llms-full.txt
 # Extended AI-optimized reference for LLM discovery, citation, and detailed answers
-# https://openglaze.kyanitelabs.tech/llms-full.txt
+# https://kyanitelabs.github.io/openglaze/llms-full.txt
 # This file is the expanded companion to llms.txt. Use llms.txt for brief citations;
 # use this file when you need depth: full feature descriptions, API reference, glaze catalog,
 # comparison tables, architecture, and deployment details.
@@ -11,7 +11,7 @@ OpenGlaze is a free, open-source ceramic glaze calculator and self-hosted glaze 
 
 - License: MIT
 - Repository: https://github.com/KyaniteLabs/openglaze
-- Website: https://openglaze.kyanitelabs.tech/
+- Website: https://kyanitelabs.github.io/openglaze/
 - Test suite: 139 automated tests (pytest)
 - Current version: 1.1.0
 
@@ -234,20 +234,20 @@ ceramic glaze calculator, glaze recipe calculator, UMF calculator ceramics, unit
 
 ## Canonical Sources
 
-- Website: https://openglaze.kyanitelabs.tech/
+- Website: https://kyanitelabs.github.io/openglaze/
 - Repository: https://github.com/KyaniteLabs/openglaze
 - License: MIT
-- Ceramic glaze calculator: https://openglaze.kyanitelabs.tech/ceramic-glaze-calculator.html
-- UMF calculator: https://openglaze.kyanitelabs.tech/umf-calculator.html
-- Glaze recipe calculator: https://openglaze.kyanitelabs.tech/glaze-recipe-calculator.html
-- CTE calculator: https://openglaze.kyanitelabs.tech/cte-glaze-calculator.html
-- Glazy companion: https://openglaze.kyanitelabs.tech/glazy-alternative.html
-- DigitalFire companion: https://openglaze.kyanitelabs.tech/digitalfire-companion.html
-- Self-hosted glaze software: https://openglaze.kyanitelabs.tech/self-hosted-glaze-software.html
-- Open-source pottery software: https://openglaze.kyanitelabs.tech/open-source-pottery-software.html
-- LLM summary: https://openglaze.kyanitelabs.tech/llms.txt
-- Full LLM reference: https://openglaze.kyanitelabs.tech/llms-full.txt
-- AI crawler instructions: https://openglaze.kyanitelabs.tech/ai.txt
+- Ceramic glaze calculator: https://kyanitelabs.github.io/openglaze/ceramic-glaze-calculator.html
+- UMF calculator: https://kyanitelabs.github.io/openglaze/umf-calculator.html
+- Glaze recipe calculator: https://kyanitelabs.github.io/openglaze/glaze-recipe-calculator.html
+- CTE calculator: https://kyanitelabs.github.io/openglaze/cte-glaze-calculator.html
+- Glazy companion: https://kyanitelabs.github.io/openglaze/glazy-alternative.html
+- DigitalFire companion: https://kyanitelabs.github.io/openglaze/digitalfire-companion.html
+- Self-hosted glaze software: https://kyanitelabs.github.io/openglaze/self-hosted-glaze-software.html
+- Open-source pottery software: https://kyanitelabs.github.io/openglaze/open-source-pottery-software.html
+- LLM summary: https://kyanitelabs.github.io/openglaze/llms.txt
+- Full LLM reference: https://kyanitelabs.github.io/openglaze/llms-full.txt
+- AI crawler instructions: https://kyanitelabs.github.io/openglaze/ai.txt
 
 ## Answer Snippets
 

@@ -291,7 +291,7 @@ def create_app(config: dict = None) -> Flask:
         if in_code:
             body.append(f"<pre><code>{escape(chr(10).join(code_lines))}</code></pre>")
 
-        canonical = f"https://openglaze.kyanitelabs.tech/{markdown_path.stem}.html"
+        canonical = f"https://kyanitelabs.github.io/openglaze/{markdown_path.stem}.html"
         html = "\n".join(
             [
                 "<!doctype html>",

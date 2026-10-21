@@ -112,8 +112,8 @@ def test_app_serves_docs_discovery_assets():
     assert '"/social-preview.png"' in server
 
 
-def test_kyanite_domain_is_canonical_public_host():
-    canonical = "https://openglaze.kyanitelabs.tech"
+def test_github_pages_is_canonical_public_host():
+    canonical = "https://kyanitelabs.github.io/openglaze"
     checked = [
         ROOT / "README.md",
         ROOT / "docs/llms.txt",
@@ -127,6 +127,7 @@ def test_kyanite_domain_is_canonical_public_host():
         content = path.read_text()
         assert canonical in content, f"{path} does not reference canonical host"
         assert stale_personal_pages not in content
+        assert "openglaze.kyanitelabs.tech" not in content
 
 
 def test_app_serves_sitemap_markdown_html_aliases():

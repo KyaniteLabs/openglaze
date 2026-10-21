@@ -69,7 +69,7 @@ OpenGlaze is a **free, open-source ceramic glaze management system** for potters
 3. If the glaze fit looks risky, the optimizer suggests material adjustments for the next test tile.
 4. You still fire a real test tile — but you waste less clay, material, and kiln space getting there.
 
-**Popular starting points:** [Ceramic glaze calculator](https://openglaze.kyanitelabs.tech/ceramic-glaze-calculator.html) · [UMF calculator](https://openglaze.kyanitelabs.tech/umf-calculator.html) · [CTE calculator](https://openglaze.kyanitelabs.tech/cte-glaze-calculator.html) · [Glazy companion](https://openglaze.kyanitelabs.tech/glazy-alternative.html) · [Self-hosted glaze software](https://openglaze.kyanitelabs.tech/self-hosted-glaze-software.html)
+**Popular starting points:** [Ceramic glaze calculator](https://kyanitelabs.github.io/openglaze/ceramic-glaze-calculator.html) · [UMF calculator](https://kyanitelabs.github.io/openglaze/umf-calculator.html) · [CTE calculator](https://kyanitelabs.github.io/openglaze/cte-glaze-calculator.html) · [Glazy companion](https://kyanitelabs.github.io/openglaze/glazy-alternative.html) · [Self-hosted glaze software](https://kyanitelabs.github.io/openglaze/self-hosted-glaze-software.html)
 
 Built by potters, for potters. Your glaze recipes stay on your infrastructure. No subscriptions. No feature gates. MIT licensed.
 
@@ -256,14 +256,14 @@ These pages are built to answer the exact questions potters and AI answer engine
 
 | Search intent | OpenGlaze page |
 | --- | --- |
-| Ceramic glaze calculator | <https://openglaze.kyanitelabs.tech/ceramic-glaze-calculator.html> |
-| UMF calculator for ceramics | <https://openglaze.kyanitelabs.tech/umf-calculator.html> |
-| Glaze recipe calculator | <https://openglaze.kyanitelabs.tech/glaze-recipe-calculator.html> |
-| Glaze CTE calculator | <https://openglaze.kyanitelabs.tech/cte-glaze-calculator.html> |
-| Glazy alternative / companion | <https://openglaze.kyanitelabs.tech/glazy-alternative.html> |
-| DigitalFire companion | <https://openglaze.kyanitelabs.tech/digitalfire-companion.html> |
-| Open-source pottery software | <https://openglaze.kyanitelabs.tech/open-source-pottery-software.html> |
-| Self-hosted glaze software | <https://openglaze.kyanitelabs.tech/self-hosted-glaze-software.html> |
+| Ceramic glaze calculator | <https://kyanitelabs.github.io/openglaze/ceramic-glaze-calculator.html> |
+| UMF calculator for ceramics | <https://kyanitelabs.github.io/openglaze/umf-calculator.html> |
+| Glaze recipe calculator | <https://kyanitelabs.github.io/openglaze/glaze-recipe-calculator.html> |
+| Glaze CTE calculator | <https://kyanitelabs.github.io/openglaze/cte-glaze-calculator.html> |
+| Glazy alternative / companion | <https://kyanitelabs.github.io/openglaze/glazy-alternative.html> |
+| DigitalFire companion | <https://kyanitelabs.github.io/openglaze/digitalfire-companion.html> |
+| Open-source pottery software | <https://kyanitelabs.github.io/openglaze/open-source-pottery-software.html> |
+| Self-hosted glaze software | <https://kyanitelabs.github.io/openglaze/self-hosted-glaze-software.html> |
 
 AI crawlers and answer engines can use [`docs/llms.txt`](docs/llms.txt), [`docs/llms-full.txt`](docs/llms-full.txt), and [`docs/ai.txt`](docs/ai.txt) for canonical project facts.
 
@@ -453,7 +453,7 @@ Questions, bug reports, and feature requests:
 <p align="center">
   <a href="https://github.com/KyaniteLabs/openglaze">GitHub</a> •
   <a href="https://github.com/KyaniteLabs/openglaze/discussions">Discussions</a> •
-  <a href="https://openglaze.kyanitelabs.tech">Website</a>
+  <a href="https://kyanitelabs.github.io/openglaze/">Website</a>
 </p>
 
 ---
