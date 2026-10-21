@@ -150,13 +150,14 @@
     
     <style>
         :root {
+            color-scheme: light;
             --celadon-50: #f4f9f6;
             --celadon-100: #e3f0ea;
             --celadon-200: #c7e0d4;
             --celadon-300: #9cc9b4;
             --celadon-400: #6ead90;
-            --celadon-500: #5a9078;
-            --celadon-600: #467560;
+            --celadon-500: #315c4b;
+            --celadon-600: #315c4b;
             --celadon-700: #3a5e4e;
             --celadon-800: #314c40;
             --celadon-900: #2a3f36;
@@ -183,9 +184,9 @@
             --clay-800: #735a48;
             --clay-900: #5e4b3d;
             
-            --text-primary: #1a1a1a;
-            --text-secondary: #5a5a5a;
-            --text-muted: #8a8a8a;
+            --text-primary: #1f1a15;
+            --text-secondary: #5c4f40;
+            --text-muted: #5c4f40;
             --bg-primary: #faf8f5;
             --bg-secondary: #ffffff;
             --bg-tertiary: #f2ede6;
@@ -223,8 +224,9 @@
         }
 
         *:focus-visible {
-            outline: 2px solid var(--celadon-500);
-            outline-offset: 2px;
+            outline: 2px solid var(--text-primary);
+            outline-offset: 4px;
+            box-shadow: 0 0 0 4px white;
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -245,7 +247,7 @@
         }
         
         html {
-            scroll-behavior: smooth;
+            scroll-behavior: auto;
         }
         
         body {
@@ -274,13 +276,12 @@
         
         /* Navigation */
         .nav {
-            position: fixed;
+            position: static;
             top: 0;
             left: 0;
             right: 0;
             z-index: 100;
-            background: rgba(250, 248, 245, 0.85);
-            backdrop-filter: blur(20px);
+            background: var(--bg-primary);
             border-bottom: 1px solid var(--border);
         }
         
@@ -307,7 +308,7 @@
         .logo-mark {
             width: 32px;
             height: 32px;
-            background: linear-gradient(135deg, var(--celadon-400), var(--celadon-600));
+            background: var(--celadon-600);
             border-radius: 8px;
             display: flex;
             align-items: center;
@@ -322,13 +323,13 @@
             align-items: center;
         }
         
-        .nav-links a {
+        .nav-links a:not(.btn-primary) {
             color: var(--text-secondary);
             font-weight: 500;
             font-size: 0.9rem;
         }
         
-        .nav-links a:hover {
+        .nav-links a:not(.btn-primary):hover {
             color: var(--text-primary);
         }
         
@@ -347,7 +348,7 @@
         }
         
         .btn-primary {
-            background: linear-gradient(135deg, var(--celadon-500), var(--celadon-600));
+            background: var(--celadon-600);
             color: white;
             box-shadow: 0 2px 8px rgba(90, 144, 120, 0.3);
         }
@@ -385,7 +386,7 @@
         
         /* Hero */
         .hero {
-            padding: 140px 24px 80px;
+            padding: 64px 24px 80px;
             max-width: 1200px;
             margin: 0 auto;
             display: grid;
@@ -412,7 +413,7 @@
             height: 8px;
             background: var(--celadon-500);
             border-radius: 50%;
-            animation: pulse 2s infinite;
+            animation: none;
         }
         
         @keyframes pulse {
@@ -606,7 +607,7 @@
         /* Showcase */
         .showcase {
             padding: 80px 24px;
-            background: linear-gradient(180deg, var(--bg-primary) 0%, var(--clay-50) 100%);
+            background: var(--bg-primary);
         }
         
         .showcase-inner {
@@ -737,7 +738,7 @@
         }
         
         .opensource .btn-primary {
-            background: var(--celadon-500);
+            background: var(--celadon-600);
         }
         
         .opensource .btn-secondary {
@@ -853,11 +854,11 @@
         
         @media (max-width: 640px) {
             .nav-links {
-                display: none;
+                display: flex;
             }
             
             .hero {
-                padding-top: 100px;
+                padding-top: 40px;
             }
             
             .hero h1 {
@@ -917,6 +918,17 @@
             color: var(--celadon-600);
             text-decoration: underline;
         }
+        .nav a { min-height: 44px; display: inline-flex; align-items: center; }
+        a:active { text-decoration: underline; }
+        @media (max-width: 900px) {
+            .nav-inner { height: auto; padding: 12px 24px; flex-wrap: wrap; gap: 8px; }
+            .nav-links { width: 100%; gap: 0 20px; flex-wrap: wrap; }
+        }
+        @media (max-width: 400px) {
+            .nav-inner { padding: 8px 16px; }
+            .nav-links { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0 8px; }
+            .nav-links .btn { padding: 6px 8px; justify-content: center; }
+        }
     </style>
 </head>
 <body>
@@ -940,7 +952,7 @@
     </nav>
 
     <!-- Hero -->
-    <main id="main-content">
+    <main id="main-content" tabindex="-1">
     <section class="hero" aria-label="Introduction">
         <div class="hero-content">
             <div class="hero-badge"><span></span> Free &amp; Open Source · MIT License</div>
@@ -1124,8 +1136,8 @@
                     </div>
                     <div style="margin-top: 12px; padding: 12px; background: var(--tenmoku-50); border-radius: var(--radius-sm); border-left: 3px solid var(--tenmoku-400);">
                         <div style="font-size: 0.75rem; color: var(--tenmoku-700); margin-bottom: 4px;">🎯 Target: More matte</div>
-                        <div class="umf-label" style="font-size: 0.8rem;">SiO₂ / Al₂O₃ = 8.87 → <span style="color: var(--tenmoku-600); font-weight: 600;">3.95</span></div>
-                        <div class="umf-label" style="font-size: 0.8rem;">Surface = glossy → <span style="color: var(--tenmoku-600); font-weight: 600;">matte</span></div>
+                        <div class="umf-label" style="font-size: 0.8rem;">SiO₂ / Al₂O₃ = 8.87 → <span style="color: var(--tenmoku-800); font-weight: 600;">3.95</span></div>
+                        <div class="umf-label" style="font-size: 0.8rem;">Surface = glossy → <span style="color: var(--tenmoku-800); font-weight: 600;">matte</span></div>
                     </div>
                     <div style="margin-top: 12px; padding: 12px; background: var(--celadon-50); border-radius: var(--radius-sm); border-left: 3px solid var(--celadon-400);">
                         <span style="color: var(--celadon-700); font-size: 0.8rem;">💡 Suggested tweak: Replace all silica with kaolin. Fire a test tile to confirm.</span>
