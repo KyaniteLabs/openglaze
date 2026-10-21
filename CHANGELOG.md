@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Changed
+- Finish the public notebook layout with a compact guide index, installation steps, restrained controls and responsive editorial hierarchy.
 - Explain chemistry, test planning and firing records as three ruled workflows; remove unverified outcome mockups and repeated feature cards.
 - Replace the public homepage swatch mockup and stale test count with a reproducible recipe/UMF study, firing caveats and a clear installation action.
 

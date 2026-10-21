@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OpenGlaze — Free Ceramic Glaze Calculator & Recipe Manager (Open Source)</title>
-    <meta name="description" content="Free, self-hosted ceramic glaze calculator with UMF analysis, CTE prediction, and recipe optimization. 44 community-tested cone 6 and cone 10 glazes. MIT licensed. No paywalls.">
+    <meta name="description" content="Free, self-hosted ceramic glaze calculator with UMF analysis, CTE prediction, and recipe optimization. a library of cone 6 and cone 10 recipes. MIT licensed. No paywalls.">
     <meta name="keywords" content="ceramic glaze calculator, glaze recipe calculator, UMF calculator ceramics, glaze management software, open source glaze software, ceramic glaze database, glaze chemistry calculator, cone 10 glaze recipes, cone 6 glaze recipes, glaze recipe optimizer, pottery glaze management, self-hosted glaze software, ceramic studio software, unity molecular formula, glaze CTE calculator, oxide analysis ceramics">
     <meta name="author" content="simongonzalezdc">
     <link rel="canonical" href="https://kyanitelabs.github.io/openglaze/">
@@ -20,7 +20,7 @@
     <meta property="og:site_name" content="OpenGlaze">
     <meta property="og:locale" content="en_US">
     <meta property="article:published_time" content="2026-04-24T00:00:00+00:00">
-    <meta property="article:modified_time" content="2026-04-27T00:00:00+00:00">
+    <meta property="article:modified_time" content="2026-10-21T00:00:00+00:00">
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
@@ -38,7 +38,7 @@
       "operatingSystem": "Any",
       "softwareVersion": "1.1.0",
       "datePublished": "2026-04-24",
-      "dateModified": "2026-04-27",
+      "dateModified": "2026-10-21",
       "offers": {
         "@type": "Offer",
         "price": "0",
@@ -59,7 +59,7 @@
         "Studio collaboration tools",
         "Self-hosted deployment"
       ],
-      "softwareRequirements": "Python 3.11+, SQLite, Docker (optional)",
+      "softwareRequirements": "Python 3.12+, SQLite, Docker (optional)",
       "license": "https://github.com/KyaniteLabs/openglaze/blob/master/LICENSE",
       "programmingLanguage": "Python",
       "author": {
@@ -96,7 +96,7 @@
           "name": "What is OpenGlaze?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "OpenGlaze is a free, open-source ceramic glaze calculator and studio workbench for potters and ceramic studios. It includes a UMF calculator, CTE analysis engine, computational recipe optimizer, 44 community-tested cone 6 and cone 10 glazes, and AI-powered glaze consulting — all self-hosted under the MIT license."
+            "text": "OpenGlaze is a free, open-source ceramic glaze calculator and studio workbench for potters and ceramic studios. It includes a UMF calculator, CTE analysis engine, computational recipe optimizer, a library of cone 6 and cone 10 recipes, and AI-powered glaze consulting — all self-hosted under the MIT license."
           }
         },
         {
@@ -128,7 +128,7 @@
           "name": "Is OpenGlaze a replacement for Glazy or DigitalFire?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "No — OpenGlaze complements them. Glazy is a recipe database and community. DigitalFire provides deep ceramic chemistry education. OpenGlaze is a computational chemistry engine and glaze management tool. Many users export recipes from Glazy into OpenGlaze for UMF analysis and optimization."
+            "text": "No — OpenGlaze complements them. Glazy is a recipe database and community. DigitalFire provides deep ceramic chemistry education. OpenGlaze is a computational chemistry engine and glaze management tool. You can use community recipe references alongside OpenGlaze calculations."
           }
         },
         {
@@ -136,7 +136,7 @@
           "name": "Can I self-host OpenGlaze?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Absolutely. Self-hosting is the primary deployment model. Run it locally with SQLite, or deploy with Docker and SQLite volumes. Works on a VPS, a Raspberry Pi, or any machine running Docker. Your recipes never leave your infrastructure."
+            "text": "Absolutely. Self-hosting is the primary deployment model. Run it locally with SQLite, or deploy with Docker and SQLite volumes. Works on a VPS, a Raspberry Pi, or any machine running Docker. The default installation stores recipes in SQLite; optional cloud integrations have their own data flows."
           }
         }
       ]
@@ -195,8 +195,8 @@
             --font-display: 'Fraunces', Georgia, serif;
             --font-body: 'DM Sans', system-ui, sans-serif;
             
-            --radius-sm: 6px;
-            --radius-md: 12px;
+            --radius-sm: 2px;
+            --radius-md: 4px;
             --radius-lg: 20px;
             --radius-xl: 32px;
             
@@ -309,7 +309,7 @@
             width: 32px;
             height: 32px;
             background: var(--celadon-600);
-            border-radius: 8px;
+            border-radius: 2px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -344,25 +344,24 @@
             font-size: 0.9rem;
             cursor: pointer;
             border: none;
-            transition: all 0.2s;
+            transition: background-color 0.16s, color 0.16s;
         }
         
         .btn-primary {
             background: var(--celadon-600);
             color: white;
-            box-shadow: 0 2px 8px rgba(90, 144, 120, 0.3);
+            box-shadow: none;
         }
         
         .btn-primary:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 4px 16px rgba(90, 144, 120, 0.4);
+            background: #254638;
             color: white;
         }
         
         .btn-secondary {
             background: var(--bg-secondary);
             color: var(--text-primary);
-            border: 1px solid var(--border);
+            border: 1px solid #7a6b55;
         }
         
         .btn-secondary:hover {
@@ -409,7 +408,7 @@
         }
         
         .hero h1 {
-            font-size: 3.5rem;
+            font-size: 4.5rem;
             margin-bottom: 24px;
             letter-spacing: -0.02em;
         }
@@ -457,15 +456,17 @@
         }
         /* Features */
         .features {
-            padding: 80px 24px;
+            padding: 48px 24px 64px;
             max-width: 1200px;
             margin: 0 auto;
         }
         
         .section-header {
-            text-align: center;
-            max-width: 600px;
-            margin: 0 auto 64px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+            text-align: left;
+            margin: 0 0 40px;
         }
         
         .section-header h2 {
@@ -480,25 +481,14 @@
         
         .features-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0 48px;
         }
         
-        .feature-card {
-            background: var(--bg-secondary);
-            border-radius: var(--radius-lg);
-            padding: 32px;
-            border: 1px solid var(--border);
-            transition: all 0.3s;
-        }
-        
-        .feature-card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-lg);
-        }
-        
+        .feature-card { padding: 20px 0; border-top: 1px solid #7a6b55; }
+        .feature-card a { text-decoration: underline; text-underline-offset: 4px; }
         .feature-card h3 {
-            font-size: 1.1rem;
+            font-size: 1.25rem;
             margin-bottom: 8px;
         }
         
@@ -546,45 +536,27 @@
             font-size: 1.1rem;
         }
         
-        .opensource-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 24px;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        
-        .opensource-stat {
-            padding: 24px;
-        }
-        
-        .opensource-stat strong {
-            font-family: var(--font-display);
-            font-size: 2rem;
-            color: var(--celadon-400);
-            display: block;
-        }
-        
-        .opensource-stat span {
-            font-size: 0.85rem;
-            color: var(--clay-400);
-        }
-        
+        .installation-steps { list-style: none; counter-reset: install; }
+        .installation-steps li { counter-increment: install; padding: 20px 0; border-top: 1px solid #9cc9b4; }
+        .installation-steps li::before { content: "0" counter(install) " / "; font-family: ui-monospace, monospace; color: #c7e0d4; }
+        .installation-steps a { color: white; text-decoration: underline; text-underline-offset: 4px; }
+        .opensource-inner { display: grid; grid-template-columns: 1.2fr 1fr; gap: 64px; text-align: left; }
+        .opensource { background: #315c4b; }
+        .opensource p { color: #faf8f5; margin: 0 0 24px; }
+        .opensource .btn-primary { background: #faf8f5; color: #315c4b; }
+        .opensource .btn-primary:hover { background: #e3f0ea; }
         .opensource-cta {
             margin-top: 40px;
             display: flex;
             gap: 16px;
-            justify-content: center;
-        }
-        
-        .opensource .btn-primary {
-            background: var(--celadon-600);
+            justify-content: flex-start;
+            flex-wrap: wrap;
         }
         
         .opensource .btn-secondary {
             background: transparent;
             color: var(--clay-200);
-            border-color: var(--clay-700);
+            border-color: #c7e0d4;
         }
         
         .opensource .btn-secondary:hover {
@@ -675,9 +647,7 @@
                 grid-template-columns: repeat(2, 1fr);
             }
             
-            .opensource-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
+            .opensource-inner { grid-template-columns: 1fr; gap: 32px; }
             
             .footer-grid {
                 grid-template-columns: 1fr 1fr;
@@ -701,9 +671,11 @@
                 grid-template-columns: 1fr;
             }
             
-            .opensource-grid {
-                grid-template-columns: 1fr 1fr;
-            }
+            .section-header { grid-template-columns: 1fr; gap: 8px; margin-bottom: 24px; }
+            .features, .faq, .opensource { padding: 40px 16px; }
+            .section-header h2, .faq h2, .opensource h2 { font-size: 2rem; }
+            .section-header p { font-size: 1rem; }
+            .specimen h2 { font-size: 1.5rem; margin: 12px 0 16px; }
             
             .footer-grid {
                 grid-template-columns: 1fr;
@@ -727,9 +699,9 @@
             margin: 0 auto;
         }
         .faq h2 {
-            text-align: center;
+            text-align: left;
             font-size: 2.5rem;
-            margin-bottom: 48px;
+            margin-bottom: 24px;
             color: var(--text-primary);
         }
         .faq-item {
@@ -851,7 +823,7 @@
 
     <section class="features" id="guides">
         <div class="section-header">
-            <h2>Glaze chemistry guides for every workflow</h2>
+            <h2>The reference shelf</h2>
             <p>Jump straight to the problem you need solved: UMF calculation, CTE analysis, recipe scaling, Glazy integration, DigitalFire reference, or self-hosting setup.</p>
         </div>
         <div class="features-grid">
@@ -867,35 +839,21 @@
     </section>
 
     <!-- Open Source -->
-    <section class="opensource">
+    <section class="opensource" aria-labelledby="install-title">
         <div class="opensource-inner">
-            <h2>Free, open-source, self-hosted</h2>
-            <p>OpenGlaze is MIT-licensed. Every line of code is on GitHub. Fork it, modify it, run it on your own server — no subscriptions, no tracking, no restrictions.</p>
-            <div class="opensource-grid">
-                <div class="opensource-stat">
-                    <strong>MIT</strong>
-                    <span>License</span>
-                </div>
-                <div class="opensource-stat">
-                    <strong>139</strong>
-                    <span>Tests</span>
-                </div>
-                <div class="opensource-stat">
-                    <strong>100%</strong>
-                    <span>Open Source</span>
-                </div>
-                <div class="opensource-stat">
-                    <strong>44</strong>
-                    <span>Community glazes</span>
+            <div>
+                <h2 id="install-title">Make room for it<br>in your studio.</h2>
+                <p>Open-source software, on your own machine or server. Start with the documented Docker and SQLite setup.</p>
+                <div class="opensource-cta">
+                    <a href="https://github.com/KyaniteLabs/openglaze#quick-start" class="btn btn-primary">Installation guide <span aria-hidden="true">↗</span></a>
+                    <a href="https://github.com/KyaniteLabs/openglaze/blob/master/CONTRIBUTING.md" class="btn btn-secondary">Contribute</a>
                 </div>
             </div>
-            <div class="opensource-cta">
-                <a href="https://github.com/KyaniteLabs/openglaze" class="btn btn-primary">View on GitHub</a>
-                <a href="https://github.com/KyaniteLabs/openglaze/blob/master/CONTRIBUTING.md" class="btn btn-secondary">Contribute</a>
-            </div>
-            <p style="margin-top: 24px; font-size: 0.9rem; color: var(--clay-400);">
-                OpenGlaze is free and open source. If it saves you a test tile, consider <a href="https://github.com/KyaniteLabs/openglaze" style="color: var(--celadon-400);">starring the repo on GitHub</a>.
-            </p>
+            <ol class="installation-steps">
+                <li><a href="https://github.com/KyaniteLabs/openglaze">Explore the source</a><br>MIT licensed. Read it, adapt it, contribute.</li>
+                <li><a href="https://github.com/KyaniteLabs/openglaze/tree/master/docs/self-hosting.md">Set up your workspace</a><br>Follow the installation and configuration guide.</li>
+                <li><a href="https://github.com/KyaniteLabs/openglaze/tree/master/docs/user-guide.md">Bring a recipe</a><br>Calculate, record, and plan your next test.</li>
+            </ol>
         </div>
     </section>
 
@@ -906,7 +864,7 @@
 
             <div class="faq-item">
                 <h3>What is OpenGlaze?</h3>
-                <p>OpenGlaze is a <strong>free, open-source ceramic glaze calculator and studio workbench</strong> for potters and ceramic studios. It includes a <a href="#features">UMF calculator</a>, CTE analysis engine, <a href="https://github.com/KyaniteLabs/openglaze/tree/master/docs/user-guide.md#recipe-optimizer">computational recipe optimizer</a>, 44 community-tested cone 6 and cone 10 glazes, and AI-powered glaze consulting — all self-hosted under the MIT license.</p>
+                <p>OpenGlaze is a <strong>free, open-source ceramic glaze calculator and studio workbench</strong> for potters and ceramic studios. It includes a <a href="#features">UMF calculator</a>, CTE analysis engine, <a href="https://github.com/KyaniteLabs/openglaze/tree/master/docs/user-guide.md#recipe-optimizer">computational recipe optimizer</a>, a library of cone 6 and cone 10 recipes, and AI-powered glaze consulting — all self-hosted under the MIT license.</p>
             </div>
 
             <div class="faq-item">
@@ -926,12 +884,12 @@
 
             <div class="faq-item">
                 <h3>Is OpenGlaze a replacement for Glazy or DigitalFire?</h3>
-                <p>No — OpenGlaze <strong>complements</strong> them. <a href="https://glazy.org">Glazy</a> is a recipe database and community. <a href="https://digitalfire.com">DigitalFire</a> provides deep ceramic chemistry education. OpenGlaze is a computational chemistry engine and glaze management tool. Many users export recipes from Glazy into OpenGlaze for UMF analysis and optimization.</p>
+                <p>No — OpenGlaze <strong>complements</strong> them. <a href="https://glazy.org">Glazy</a> is a recipe database and community. <a href="https://digitalfire.com">DigitalFire</a> provides deep ceramic chemistry education. OpenGlaze is a computational chemistry engine and glaze management tool. You can use community recipe references alongside OpenGlaze calculations.</p>
             </div>
 
             <div class="faq-item">
                 <h3>Can I self-host OpenGlaze?</h3>
-                <p>Absolutely. Self-hosting is the primary deployment model. Run it locally with SQLite, or deploy with <a href="https://github.com/KyaniteLabs/openglaze/tree/master/docs/self-hosting.md">Docker and SQLite</a> for the supported self-hosted path. Works on a VPS, a Raspberry Pi, or any machine running Docker. Your recipes never leave your infrastructure.</p>
+                <p>Absolutely. Self-hosting is the primary deployment model. Run it locally with SQLite, or deploy with <a href="https://github.com/KyaniteLabs/openglaze/tree/master/docs/self-hosting.md">Docker and SQLite</a> for the supported self-hosted path. Works on a VPS, a Raspberry Pi, or any machine running Docker. The default installation stores recipes in SQLite; optional cloud integrations have their own data flows.</p>
             </div>
         </div>
     </section>
@@ -945,7 +903,7 @@
                     <div class="logo-mark" role="presentation">◇</div>
                     OpenGlaze
                 </a>
-                <p>Open-source glaze management for ceramic artists and studios. Own your data. Build better glazes.</p>
+                <p>Open-source glaze management for ceramic artists and studios. Recipes, chemistry and firing records, together.</p>
             </div>
             <div class="footer-col">
                 <h4>Product</h4>
