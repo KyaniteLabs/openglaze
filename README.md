@@ -1,5 +1,9 @@
 # OpenGlaze
 
+<p align="center">
+  <img src="branding/openglaze-512.png" alt="openglaze icon" width="128">
+</p>
+
 > OpenGlaze is a free, open-source, self-hosted ceramic glaze calculator, recipe manager, and UMF analyzer for potters, ceramic artists, and studios.
 
 **TL;DR:** OpenGlaze — open-source ceramic glaze calculator (UMF, CTE, recipe optimizer) you can self-host. Best for potters, ceramic artists, studios, and educators.
