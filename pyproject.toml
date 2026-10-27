@@ -1,0 +1,11 @@
+# Metadata declaration for tooling: project identity and the supported
+# Python floor. This is not a buildable package — runtime dependencies stay
+# pinned in requirements.txt / requirements-dev.txt and the app runs from
+# source (python server.py), so no build-system is declared here.
+[project]
+name = "openglaze"
+version = "1.1.0"
+description = "Free open-source ceramic glaze calculator, UMF analyzer, and recipe manager for potters and studios."
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.12"

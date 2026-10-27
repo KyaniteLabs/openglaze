@@ -17,7 +17,7 @@ Guide for developers contributing to OpenGlaze.
 
 ### Prerequisites
 
-- Python 3.11+
+- Python 3.12+
 - Docker & Docker Compose (for full stack testing)
 - Node.js 20+ (optional, for frontend linting)
 

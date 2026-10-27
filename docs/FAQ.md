@@ -112,15 +112,15 @@ Frequently asked questions about the open-source ceramic glaze calculator.
 
 ## Q: Can I self-host OpenGlaze?
 
-**A:** Yes. Self-hosting is the primary deployment model. Clone the repository, copy the environment file, and run `docker compose up -d` to have a working instance in about two minutes. The application runs a single Flask container with SQLite and local file uploads. You can also install it manually with Python 3.11+ and `pip install -r requirements.txt`.
+**A:** Yes. Self-hosting is the primary deployment model. Clone the repository, copy the environment file, and run `docker compose up -d` to have a working instance in about two minutes. The application runs a single Flask container with SQLite and local file uploads. You can also install it manually with Python 3.12+ and `pip install -r requirements.txt`.
 
 ## Q: What are the minimum requirements to self-host?
 
-**A:** The minimum requirements are 1 CPU core, 1 GB RAM, and 10 GB storage. You need either Docker with Docker Compose (recommended) or Python 3.11+ for a manual installation. The application runs on port 8768 inside Docker (8767 for manual installs) and works behind any reverse proxy such as nginx, Caddy, or Traefik.
+**A:** The minimum requirements are 1 CPU core, 1 GB RAM, and 10 GB storage. You need either Docker with Docker Compose (recommended) or Python 3.12+ for a manual installation. The application runs on port 8768 inside Docker (8767 for manual installs) and works behind any reverse proxy such as nginx, Caddy, or Traefik.
 
 ## Q: Does OpenGlaze work on Raspberry Pi?
 
-**A:** Yes. OpenGlaze runs on any platform that supports Python 3.11+ or Docker, including ARM-based devices like the Raspberry Pi. This makes it suitable for offline or local studio use where you run the application on a device connected to your studio network without internet access.
+**A:** Yes. OpenGlaze runs on any platform that supports Python 3.12+ or Docker, including ARM-based devices like the Raspberry Pi. This makes it suitable for offline or local studio use where you run the application on a device connected to your studio network without internet access.
 
 ## Q: Does OpenGlaze work offline?
 

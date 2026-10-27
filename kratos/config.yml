@@ -1,4 +1,4 @@
-version: v1.0.0
+version: v26.2.0
 
 dsn: postgres://openglaze:password@postgres:5432/openglaze
 
@@ -45,11 +45,9 @@ selfservice:
 
   flows:
     error:
-      enabled: true
       ui_url: http://localhost:8768/error
 
     settings:
-      enabled: true
       ui_url: http://localhost:8768/settings
       lifespan: 1h
       privileged_session_max_age: 15m
@@ -99,6 +97,7 @@ selfservice:
                   config:
                     name: X-Kratos-Hook-Key
                     value: ${KRATOS_HOOK_KEY}
+                    in: header
 
 log:
   level: info
@@ -108,6 +107,10 @@ log:
 secrets:
   cookie:
     - PLEASE-CHANGE-ME-THIS-IS-NOT-SECURE
+  # Required by kratos >= v26; must be a 32-byte key for xchacha20-poly1305.
+  # Dev placeholder — replace for anything exposed publicly.
+  cipher:
+    - change-me-cipher-dev-secret-32by
 
 ciphers:
   algorithm: xchacha20-poly1305

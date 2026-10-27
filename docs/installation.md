@@ -43,7 +43,7 @@ Or stop the stack and back up the named volumes with your normal Docker volume b
 
 Requirements:
 
-- Python 3.11+
+- Python 3.12+
 
 ```bash
 git clone https://github.com/KyaniteLabs/openglaze.git

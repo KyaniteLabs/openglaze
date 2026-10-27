@@ -7,12 +7,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- `pyproject.toml` declaring the supported Python floor (`>=3.12`), matching the
+  README badge, docs, the 3.12–3.14 CI matrix, and the 3.14 Dockerfile base.
+- Docs aligned on the same floor (CONTRIBUTING, FAQ, development, installation
+  previously said Python 3.11+).
+
 ### Changed
 - Finish the public notebook layout with a compact guide index, installation steps, restrained controls and responsive editorial hierarchy.
 - Explain chemistry, test planning and firing records as three ruled workflows; remove unverified outcome mockups and repeated feature cards.
 - Replace the public homepage swatch mockup and stale test count with a reproducible recipe/UMF study, firing caveats and a clear installation action.
 
 ### Fixed
+- Docker Compose boots first-try on a fresh clone: `POSTGRES_PASSWORD` ships
+  with a working dev default in `.env.example`, and the `postgres_data` volume
+  now mounts at `/var/lib/postgresql` (the postgres 18 image's own volume
+  path) — the old `/var/lib/postgresql/data` mount crashed the 18 entrypoint
+  (docker-library/postgres#37).
+- Ory Kratos actually runs under v26.2.0: `serve` used the nonexistent
+  `--watch-courier-templates` flag (now `--watch-courier`), `migrate sql` now
+  uses the explicit `up` subcommand, and kratos/config.yml gained the
+  v26-required `secrets.cipher` key and webhook auth `in: header` field while
+  dropping `enabled` keys the v26 schema rejects.
 - Keep public-site navigation visible on mobile; improve text/action contrast, keyboard focus and reduced-motion behavior.
 - Point public website links and discovery metadata at the existing GitHub Pages site; the previously advertised custom domain does not resolve (#152, KLH-17).
 - Remove the unpublished README URL from the public sitemap and distinguish self-hosted app examples from the public documentation site.
