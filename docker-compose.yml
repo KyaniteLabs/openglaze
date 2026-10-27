@@ -43,8 +43,11 @@ services:
       - POSTGRES_USER=openglaze
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - POSTGRES_DB=openglaze
+    # postgres 18+ keeps cluster data under /var/lib/postgresql/<major>/docker;
+    # mount the parent dir (the image's own VOLUME path) so the on-disk layout
+    # matches what the entrypoint expects — see docker-library/postgres#37.
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U openglaze"]
       interval: 10s
@@ -67,7 +70,7 @@ services:
       - LOG_LEVEL=info
     volumes:
       - ./kratos:/etc/config/kratos:ro
-    command: serve -c /etc/config/kratos/config.yml --dev --watch-courier-templates
+    command: serve -c /etc/config/kratos/config.yml --dev --watch-courier
     depends_on:
       postgres:
         condition: service_healthy
@@ -80,7 +83,7 @@ services:
       - DSN=postgres://openglaze:${POSTGRES_PASSWORD}@postgres:5432/openglaze
     volumes:
       - ./kratos:/etc/config/kratos:ro
-    command: migrate -c /etc/config/kratos/config.yml sql -e --yes
+    command: migrate -c /etc/config/kratos/config.yml sql up -e --yes
     depends_on:
       postgres:
         condition: service_healthy
