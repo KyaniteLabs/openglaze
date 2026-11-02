@@ -2,7 +2,6 @@
 
 import json
 import logging
-from pathlib import Path
 
 from flask import Blueprint, current_app, g, jsonify, request
 

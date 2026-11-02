@@ -13,7 +13,7 @@ from core.glazes import GlazeManager
 from core.combinations import CombinationManager
 from core.experiments import ExperimentManager
 from core.ai.context import ContextRetriever
-from core.security import init_security, get_rate_limiter
+from core.security import init_security
 from webapp.db import get_db_connection, init_db
 from webapp.helpers import AUTH_AVAILABLE, auth_enabled
 from webapp.routes import ALL_BLUEPRINTS
@@ -99,7 +99,21 @@ def create_app(config: dict = None) -> Flask:
     # Initialize database schema
     init_db(db_path)
 
-    @app.before_request
+    app.before_request(_make_request_setup(db_path))
+
+    _register_error_handlers(app)
+
+    # Register route blueprints; the static/docs blueprint owns a catch-all
+    # route and must be registered last.
+    for blueprint in ALL_BLUEPRINTS:
+        app.register_blueprint(blueprint)
+
+    return app
+
+
+def _make_request_setup(db_path: str):
+    """Build the per-request manager setup closure bound to a database path."""
+
     def setup_managers():
         """Set up managers for each request."""
         user_id = None
@@ -124,14 +138,7 @@ def create_app(config: dict = None) -> Flask:
             studio_user_id = get_user_id_or_simple()
             g.studio_manager = StudioManager(db_path, user_id=studio_user_id)
 
-    _register_error_handlers(app)
-
-    # Register route blueprints; the static/docs blueprint owns a catch-all
-    # route and must be registered last.
-    for blueprint in ALL_BLUEPRINTS:
-        app.register_blueprint(blueprint)
-
-    return app
+    return setup_managers
 
 
 def _configure_cors(app: Flask) -> None:

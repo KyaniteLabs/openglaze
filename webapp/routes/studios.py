@@ -5,7 +5,6 @@ import logging
 from flask import Blueprint, g, jsonify, request
 
 from core.security import rate_limit
-from webapp.helpers import require_auth_for_write
 
 logger = logging.getLogger(__name__)
 
@@ -155,9 +154,7 @@ def get_lab_queue(studio_id):
     return jsonify(queue)
 
 
-@bp.route(
-    "/api/studios/<studio_id>/lab-queue/<int:combo_id>/claim", methods=["POST"]
-)
+@bp.route("/api/studios/<studio_id>/lab-queue/<int:combo_id>/claim", methods=["POST"])
 def claim_combo(studio_id, combo_id):
     """Claim a combo for testing."""
     if not _studios_available():
@@ -176,9 +173,7 @@ def claim_combo(studio_id, combo_id):
     return jsonify(assignment.to_dict()), 201
 
 
-@bp.route(
-    "/api/studios/<studio_id>/lab-queue/<int:combo_id>/release", methods=["POST"]
-)
+@bp.route("/api/studios/<studio_id>/lab-queue/<int:combo_id>/release", methods=["POST"])
 def release_combo(studio_id, combo_id):
     """Release a claimed combo."""
     if not _studios_available():

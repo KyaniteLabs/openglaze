@@ -3,7 +3,6 @@
 import json
 import logging
 import sqlite3
-from pathlib import Path
 
 from webapp import REPO_ROOT
 

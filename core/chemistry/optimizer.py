@@ -166,6 +166,19 @@ class RecipeOptimizer:
             suggestions=suggestions,
         )
 
+    @staticmethod
+    def _failure(recipe: str, target: str, error: str) -> OptimizationResult:
+        """Build the early-exit result for a recipe that cannot be optimized."""
+        return OptimizationResult(
+            success=False,
+            original_recipe=recipe,
+            target=target,
+            original_cte=None,
+            original_surface=None,
+            suggestions=[],
+            error=error,
+        )
+
     def _check_original(
         self, recipe: str, target: str, target_value: Optional[float]
     ) -> Tuple[Optional[OptimizationResult], tuple]:
@@ -173,14 +186,8 @@ class RecipeOptimizer:
         parse_result = parse_recipe_string(recipe)
         if not parse_result.success:
             return (
-                OptimizationResult(
-                    success=False,
-                    original_recipe=recipe,
-                    target=target,
-                    original_cte=None,
-                    original_surface=None,
-                    suggestions=[],
-                    error=f"Could not parse recipe: {parse_result.errors}",
+                self._failure(
+                    recipe, target, f"Could not parse recipe: {parse_result.errors}"
                 ),
                 (None, None, None, None),
             )
@@ -188,14 +195,8 @@ class RecipeOptimizer:
         original_umf = calculate_umf(recipe)
         if not original_umf.success:
             return (
-                OptimizationResult(
-                    success=False,
-                    original_recipe=recipe,
-                    target=target,
-                    original_cte=None,
-                    original_surface=None,
-                    suggestions=[],
-                    error=f"UMF calculation failed: {original_umf.error}",
+                self._failure(
+                    recipe, target, f"UMF calculation failed: {original_umf.error}"
                 ),
                 (None, None, None, None),
             )
@@ -207,7 +208,10 @@ class RecipeOptimizer:
 
         # Guard: surface targets require Al2O3 in the recipe
         sio2_al2o3 = original_umf.ratios.get("sio2_al2o3", 0.0)
-        if target in ("more_matte", "more_glossy", "reduce_running") and sio2_al2o3 == 0.0:
+        if (
+            target in ("more_matte", "more_glossy", "reduce_running")
+            and sio2_al2o3 == 0.0
+        ):
             return (
                 OptimizationResult(
                     success=True,
@@ -216,7 +220,10 @@ class RecipeOptimizer:
                     original_cte=original_cte,
                     original_surface=original_surface,
                     suggestions=[],
-                    error="Recipe contains no alumina (Al2O3) — surface and running-risk optimization requires a glaze with structural alumina. Add kaolin, feldspar, or ball clay.",
+                    error=(
+                        "Recipe contains no alumina (Al2O3) — surface and running-risk optimization requires a "
+                        "glaze with structural alumina. Add kaolin, feldspar, or ball clay."
+                    ),
                 ),
                 context,
             )
@@ -236,7 +243,10 @@ class RecipeOptimizer:
                     original_cte=original_cte,
                     original_surface=original_surface,
                     suggestions=[],
-                    error=f"Recipe CTE ({original_cte:.2f}) is already within 0.1 of target ({target_value:.2f}). No adjustment needed.",
+                    error=(
+                        f"Recipe CTE ({original_cte:.2f}) is already within 0.1 of target ({target_value:.2f}). No "
+                        f"adjustment needed."
+                    ),
                 ),
                 context,
             )
@@ -505,9 +515,9 @@ class RecipeOptimizer:
     def _alkali_running_evaluator(target: str, original_umf: UMFResult):
         """Scoring for reduce_alkali and reduce_running targets."""
         original_ratio = original_umf.ratios.get("sio2_al2o3", 5.0)
-        original_knao = original_umf.umf_formula.get("K2O", 0) + original_umf.umf_formula.get(
-            "Na2O", 0
-        )
+        original_knao = original_umf.umf_formula.get(
+            "K2O", 0
+        ) + original_umf.umf_formula.get("Na2O", 0)
         original_b2o3 = original_umf.umf_formula.get("B2O3", 0)
 
         if target == "reduce_alkali":
