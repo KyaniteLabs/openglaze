@@ -465,11 +465,17 @@ class UMFAnalyzer:
 
             if value > 0 and value < lo:
                 warnings.append(
-                    f"{oxide} ({value:.2f}) is below the typical cone {cone} range ({lo}-{hi}). Many glazes work outside these guidelines — this is informational only."
+                    (
+                        f"{oxide} ({value:.2f}) is below the typical cone {cone} range ({lo}-{hi}). Many glazes "
+                        f"work outside these guidelines — this is informational only."
+                    )
                 )
             elif value > hi:
                 warnings.append(
-                    f"{oxide} ({value:.2f}) is above the typical cone {cone} range ({lo}-{hi}). Many classic glazes intentionally exceed these ranges — this is informational only."
+                    (
+                        f"{oxide} ({value:.2f}) is above the typical cone {cone} range ({lo}-{hi}). Many classic "
+                        f"glazes intentionally exceed these ranges — this is informational only."
+                    )
                 )
 
         # Additional practical checks (cone-aware)
@@ -477,21 +483,30 @@ class UMFAnalyzer:
         si_max = limit_formulas.get("SiO2", (0, 6.0))[1]
         if sio2 > si_max:
             warnings.append(
-                f"SiO₂ ({sio2:.2f}) is above typical. High-silica glazes are common in ash glazes and some traditional formulations. Firing test required."
+                (
+                    f"SiO₂ ({sio2:.2f}) is above typical. High-silica glazes are common in ash glazes and some "
+                    f"traditional formulations. Firing test required."
+                )
             )
 
         al2o3 = umf.get("Al2O3", 0)
         al_max = limit_formulas.get("Al2O3", (0, 0.6))[1]
         if al2o3 > al_max:
             warnings.append(
-                f"Al₂O₃ ({al2o3:.2f}) is above typical. High-alumina glazes like Shino intentionally use this range. Firing test required."
+                (
+                    f"Al₂O₃ ({al2o3:.2f}) is above typical. High-alumina glazes like Shino intentionally use this "
+                    f"range. Firing test required."
+                )
             )
 
         b2o3 = umf.get("B2O3", 0)
         b_max = limit_formulas.get("B2O3", (0, 0.3))[1]
         if b2o3 > b_max:
             warnings.append(
-                f"B₂O₃ ({b2o3:.2f}) is above typical. High-boron glazes melt at lower temperatures but may be fluid. Firing test required."
+                (
+                    f"B₂O₃ ({b2o3:.2f}) is above typical. High-boron glazes melt at lower temperatures but may be "
+                    f"fluid. Firing test required."
+                )
             )
 
         return warnings

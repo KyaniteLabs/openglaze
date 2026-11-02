@@ -48,14 +48,23 @@ else:
 
 _SEED_SQL = """
 INSERT INTO glazes (id, name, family, color, chemistry, behavior, warning) VALUES
-    ('glaze-1', 'Chun Blue', 'Celadon', 'blue-green', 'High silica, low iron, copper carbonate 0.5%', 'Reduction brings out blue-green', NULL),
-    ('glaze-2', 'Iron Red', 'Tenmoku', 'dark red-brown', 'High iron 8%, reduction fired', 'Heavy reduction deepens red', NULL),
-    ('glaze-3', 'Shino', 'Shino', 'white with pink-orange', 'High feldspar, low clay, no flux', 'Thick application crawls over non-Shino', 'Crawls over non-Shino glazes');
+    ('glaze-1', 'Chun Blue', 'Celadon', 'blue-green',
+     'High silica, low iron, copper carbonate 0.5%', 'Reduction brings out blue-green', NULL),
+    ('glaze-2', 'Iron Red', 'Tenmoku', 'dark red-brown',
+     'High iron 8%, reduction fired', 'Heavy reduction deepens red', NULL),
+    ('glaze-3', 'Shino', 'Shino', 'white with pink-orange',
+     'High feldspar, low clay, no flux', 'Thick application crawls over non-Shino',
+     'Crawls over non-Shino glazes');
 
 INSERT INTO chemistry_rules (category, rule_type, title, description, conditions, outcomes) VALUES
-    ('layering_principle', 'compatibility', 'Shino layering risk', 'Shino over non-Shino glazes often crawls due to different thermal expansion.', 'Shino applied over non-Shino base', 'Glaze pulls away from surface (crawling)'),
-    ('color_prediction', 'oxide_behavior', 'Iron oxide color prediction', 'Iron oxide produces different colors depending on atmosphere and concentration.', 'Iron 2% in oxidation', 'Amber/tan color. In reduction: celadon green.');
+    ('layering_principle', 'compatibility', 'Shino layering risk',
+     'Shino over non-Shino glazes often crawls due to different thermal expansion.',
+     'Shino applied over non-Shino base', 'Glaze pulls away from surface (crawling)'),
+    ('color_prediction', 'oxide_behavior', 'Iron oxide color prediction',
+     'Iron oxide produces different colors depending on atmosphere and concentration.',
+     'Iron 2% in oxidation', 'Amber/tan color. In reduction: celadon green.');
 
 INSERT INTO combinations (base, top, type, source, result, risk, effect) VALUES
-    ('Tenmoku', 'Chun Blue', 'research-backed', 'fired', 'Deep blue-green over iron-black, subtle halo effect', 'low', 'subtle');
+    ('Tenmoku', 'Chun Blue', 'research-backed', 'fired',
+     'Deep blue-green over iron-black, subtle halo effect', 'low', 'subtle');
 """

@@ -82,14 +82,14 @@ def test_api_docs_match_current_public_routes():
 
 
 def test_runtime_ports_and_cors_defaults_match_documented_docker_port():
-    server = (ROOT / "server.py").read_text()
+    app_factory = (ROOT / "webapp" / "app_factory.py").read_text()
     readme = (ROOT / "README.md").read_text()
 
     assert "http://localhost:8768" in readme
     assert "Open http://localhost:8768" in readme
-    assert "localhost:8767" not in server
-    assert "FLASK_PORT" in server
-    assert "configured_port" in server
+    assert "localhost:8767" not in app_factory
+    assert "FLASK_PORT" in app_factory
+    assert "configured_port" in app_factory
 
 
 def test_experimental_cloud_env_names_postgres_host():
@@ -105,11 +105,11 @@ def test_codecov_action_uses_v6_input_name():
 
 
 def test_app_serves_docs_discovery_assets():
-    server = (ROOT / "server.py").read_text()
-    assert 'send_from_directory("docs"' in server
-    assert '"/llms.txt"' in server
-    assert '"/sitemap.xml"' in server
-    assert '"/social-preview.png"' in server
+    static_docs = (ROOT / "webapp" / "routes" / "static_docs.py").read_text()
+    assert 'REPO_ROOT / "docs"' in static_docs
+    assert '"/llms.txt"' in static_docs
+    assert '"/sitemap.xml"' in static_docs
+    assert '"/social-preview.png"' in static_docs
 
 
 def test_github_pages_is_canonical_public_host():
@@ -131,12 +131,12 @@ def test_github_pages_is_canonical_public_host():
 
 
 def test_app_serves_sitemap_markdown_html_aliases():
-    server = (ROOT / "server.py").read_text()
+    static_docs = (ROOT / "webapp" / "routes" / "static_docs.py").read_text()
     sitemap = (ROOT / "docs/sitemap.xml").read_text()
 
     for page in ["user-guide", "API", "self-hosting"]:
         assert f"/{page}.html" in sitemap
         assert (ROOT / f"docs/{page}.md").exists()
 
-    assert "render_markdown_doc" in server
-    assert 'Path("docs") / f"{Path(path).stem}.md"' in server
+    assert "render_markdown_doc" in static_docs
+    assert 'REPO_ROOT / "docs" / f"{Path(path).stem}.md"' in static_docs

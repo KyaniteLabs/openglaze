@@ -59,6 +59,9 @@ def batch_simulate(db_path: str = "glaze.db", user_id: Optional[str] = None) -> 
             results["failed"] += 1
 
     logger.info(
-        f"Batch simulation complete: {results['simulated']} simulated, {results['updated']} updated, {results['failed']} failed"
+        (
+            f"Batch simulation complete: {results['simulated']} simulated, {results['updated']} updated, "
+            f"{results['failed']} failed"
+        )
     )
     return results
