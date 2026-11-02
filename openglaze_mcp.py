@@ -10,34 +10,57 @@ from typing import Any
 from core.chemistry.batch import calculate_batch
 from core.chemistry.substitutions import suggest_substitutions
 from core.chemistry.umf import calculate_umf
+from core.errors import retry_invocation, retry_message
 from openglaze_cli import _parse_cone, _project_brief
 
 PROTOCOL_VERSION = "2024-11-05"
 
 
+def _with_retry_hint(result: dict[str, Any]) -> dict[str, Any]:
+    """Attach a concrete retry invocation when the chemistry engine reports an error."""
+    if result.get("error"):
+        result["retry"] = retry_invocation("unparseable_recipe")
+    return result
+
+
 def analyze_glaze_recipe(args: dict[str, Any]) -> dict[str, Any]:
     recipe = str(args.get("recipe") or "").strip()
     if not recipe:
-        raise ValueError("Provide recipe.")
-    cone = _parse_cone(args.get("cone") or 10)
-    return calculate_umf(recipe, cone=cone).to_dict()
+        raise ValueError(retry_message("Provide recipe.", "missing_recipe"))
+    try:
+        cone = _parse_cone(args.get("cone") or 10)
+    except ValueError:
+        raise ValueError(
+            retry_message(
+                "Invalid cone. Use an integer or a zero-padded string like '04'.",
+                "invalid_cone",
+            )
+        )
+    return _with_retry_hint(calculate_umf(recipe, cone=cone).to_dict())
 
 
 def scale_glaze_batch(args: dict[str, Any]) -> dict[str, Any]:
     recipe = str(args.get("recipe") or "").strip()
     if not recipe:
-        raise ValueError("Provide recipe.")
-    size = float(args.get("size") or 0)
+        raise ValueError(retry_message("Provide recipe.", "missing_recipe"))
+    try:
+        size = float(args.get("size") or 0)
+    except (TypeError, ValueError):
+        raise ValueError(
+            retry_message("Provide size as a number, e.g. 300.", "invalid_size")
+        )
     if size <= 0:
-        raise ValueError("Provide a positive size.")
-    return calculate_batch(recipe, size, str(args.get("unit") or "grams"))
+        raise ValueError(retry_message("Provide a positive size.", "invalid_size"))
+    return _with_retry_hint(
+        calculate_batch(recipe, size, str(args.get("unit") or "grams"))
+    )
 
 
 def suggest_material_substitutions(args: dict[str, Any]) -> dict[str, Any]:
     recipe = str(args.get("recipe") or "").strip()
     if not recipe:
-        raise ValueError("Provide recipe.")
-    return suggest_substitutions(recipe).to_dict()
+        raise ValueError(retry_message("Provide recipe.", "missing_recipe"))
+    return _with_retry_hint(suggest_substitutions(recipe).to_dict())
 
 
 TOOLS = {

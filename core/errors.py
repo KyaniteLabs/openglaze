@@ -22,8 +22,17 @@ _RETRY_INVOCATIONS = {
     "invalid_size": (
         "scale_glaze_batch with a positive size, e.g. size=300 (MCP) / openglaze_cli batch --size 300 (CLI)"
     ),
+    "invalid_cone": (
+        "analyze_glaze_recipe with cone=10 or a zero-padded string like '04' (MCP) / "
+        "openglaze_cli umf --recipe '...' --cone 10 (CLI)"
+    ),
+    "unparseable_recipe": (
+        'analyze_glaze_recipe with "<material> <amount>" pairs, e.g. '
+        '"Custer Feldspar 45, Silica 25, Whiting 18, EPK 12" (MCP) / '
+        'openglaze_cli umf --recipe "Custer Feldspar 45, Silica 25" (CLI)'
+    ),
     "invalid_target": (
-        'POST /api/chemistry/optimize with target one of target_cte, reduce_cte, increase_cte, '
+        "POST /api/chemistry/optimize with target one of target_cte, reduce_cte, increase_cte, "
         "more_matte, more_glossy, reduce_alkali, reduce_running (HTTP)"
     ),
     "missing_target_value": (
@@ -42,9 +51,11 @@ _RETRY_INVOCATIONS = {
         "POST /api/auth/simple-login with display_name to get a token, then retry the write (HTTP)"
     ),
     "rate_limited": (
-        "the same request after waiting retry_after seconds (respect the Retry-After header)"
+        "the same request after waiting retry_after seconds, respecting the Retry-After header (HTTP)"
     ),
-    "not_found": ("GET /api/health to confirm the server, then GET /api/glazes for live routes (HTTP)"),
+    "not_found": (
+        "GET /api/health to confirm the server, then GET /api/glazes for live routes (HTTP)"
+    ),
     "chemistry_unavailable": (
         "analyze_glaze_recipe with the same recipe (MCP) / openglaze_cli umf --recipe '...' (CLI) — "
         "the offline chemistry engine is importable on every surface"
