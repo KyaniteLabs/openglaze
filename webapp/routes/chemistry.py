@@ -27,14 +27,21 @@ def batch_chemistry_analysis():
     try:
         from core.chemistry import BatchAnalyzer
     except ImportError:
-        return jsonify(error_payload("Chemistry engine not available", "chemistry_unavailable")), 500
+        return (
+            jsonify(
+                error_payload("Chemistry engine not available", "chemistry_unavailable")
+            ),
+            500,
+        )
 
     try:
         analyzer = BatchAnalyzer(
             db_path=current_app.config.get("DATABASE_PATH", "glaze.db"),
-            user_id=get_current_user_id()
-            if current_app.config.get("FEATURES", {}).get("auth_enabled")
-            else None,
+            user_id=(
+                get_current_user_id()
+                if current_app.config.get("FEATURES", {}).get("auth_enabled")
+                else None
+            ),
             cone=int(cone) if cone is not None else 10,
         )
         report = analyzer.generate_report()
@@ -54,7 +61,14 @@ def scale_recipe():
     unit = data.get("unit", "grams")
 
     if not recipe or not batch_size:
-        return jsonify(error_payload("recipe and batch_size_grams are required", "missing_batch_size")), 400
+        return (
+            jsonify(
+                error_payload(
+                    "recipe and batch_size_grams are required", "missing_batch_size"
+                )
+            ),
+            400,
+        )
 
     try:
         from core.chemistry.batch import calculate_batch
@@ -86,7 +100,12 @@ def compare_glaze_recipes():
     cone = data.get("cone", 10)
 
     if not recipe_a or not recipe_b:
-        return jsonify(error_payload("recipe_a and recipe_b are required", "missing_recipe")), 400
+        return (
+            jsonify(
+                error_payload("recipe_a and recipe_b are required", "missing_recipe")
+            ),
+            400,
+        )
 
     try:
         from core.chemistry import compare_recipes
@@ -148,14 +167,25 @@ def optimize_glaze_recipe():
         )
 
     if target == "target_cte" and target_value is None:
-        return jsonify(error_payload("target_value is required for target_cte", "missing_target_value")), 400
+        return (
+            jsonify(
+                error_payload(
+                    "target_value is required for target_cte", "missing_target_value"
+                )
+            ),
+            400,
+        )
 
     try:
         tv = float(target_value) if target_value is not None else None
         ms = int(max_suggestions)
     except (ValueError, TypeError):
         return (
-            jsonify(error_payload("target_value and max_suggestions must be numeric", "invalid_target")),
+            jsonify(
+                error_payload(
+                    "target_value and max_suggestions must be numeric", "invalid_target"
+                )
+            ),
             400,
         )
 
@@ -188,7 +218,10 @@ def get_substitutions():
     material = data.get("material", "")
 
     if not recipe and not material:
-        return jsonify(error_payload("recipe or material is required", "missing_recipe")), 400
+        return (
+            jsonify(error_payload("recipe or material is required", "missing_recipe")),
+            400,
+        )
 
     try:
         from core.chemistry import SubstitutionEngine
@@ -250,9 +283,7 @@ def predict_glaze_defects():
         result = predict_defects(
             recipe,
             cone=int(cone) if cone is not None else 10,
-            clay_body_cte=(
-                float(clay_body_cte) if clay_body_cte is not None else None
-            ),
+            clay_body_cte=(float(clay_body_cte) if clay_body_cte is not None else None),
         )
         return jsonify(result.to_dict())
     except Exception as e:

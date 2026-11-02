@@ -46,7 +46,15 @@ def ask_ai_stream():
                 yield f"data: {json.dumps(event)}\n\n"
         except (ConnectionError, TimeoutError) as e:
             logger.warning(f"AI stream backend unavailable: {e}")
-            yield f"data: {json.dumps({'type': 'error', 'ai_available': False, 'content': 'AI backend unavailable. Please ensure LM Studio is running or configure ANTHROPIC_API_KEY.'})}\n\n"
+            offline = {
+                "type": "error",
+                "ai_available": False,
+                "content": (
+                    "AI backend unavailable. Please ensure LM Studio is running "
+                    "or configure ANTHROPIC_API_KEY."
+                ),
+            }
+            yield f"data: {json.dumps(offline)}\n\n"
         except Exception as e:
             logger.error(f"AI stream error: {e}")
             yield f"data: {json.dumps({'type': 'error', 'content': str(e)})}\n\n"
@@ -93,8 +101,14 @@ def ask_ai():
                 {
                     "ai_available": False,
                     "error": "AI backend unavailable",
-                    "message": "The AI assistant is currently offline. Please ensure Ollama is running or configure a cloud AI provider (ANTHROPIC_API_KEY).",
-                    "help": "For LM Studio: open LM Studio and start a local server on port 1234. For Ollama: run 'ollama serve'. For cloud: set ANTHROPIC_API_KEY.",
+                    "message": (
+                        "The AI assistant is currently offline. Please ensure Ollama is running or configure a "
+                        "cloud AI provider (ANTHROPIC_API_KEY)."
+                    ),
+                    "help": (
+                        "For LM Studio: open LM Studio and start a local server on port 1234. For Ollama: run "
+                        "'ollama serve'. For cloud: set ANTHROPIC_API_KEY."
+                    ),
                 }
             ),
             503,

@@ -174,7 +174,8 @@ class CombinationManager:
 
         cursor.execute(
             """
-            INSERT INTO combinations (base, top, layers, type, source, result, chemistry, risk, effect, stage, prediction_grade, notes, user_id)
+            INSERT INTO combinations (base, top, layers, type, source, result, chemistry, risk, effect,
+            stage, prediction_grade, notes, user_id)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         """,
             (

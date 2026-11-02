@@ -38,7 +38,9 @@ def render_markdown_doc(markdown_path: Path):
         line = raw_line.rstrip()
         if line.startswith("```"):
             if in_code:
-                body.append(f"<pre><code>{escape(chr(10).join(code_lines))}</code></pre>")
+                body.append(
+                    f"<pre><code>{escape(chr(10).join(code_lines))}</code></pre>"
+                )
                 code_lines = []
                 in_code = False
             else:

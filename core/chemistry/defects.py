@@ -105,8 +105,14 @@ class DefectPredictor:
                     DefectRisk(
                         defect="crazing",
                         risk="high",
-                        cause=f"Glaze CTE ({cte}) much higher than clay body ({clay_body_cte}). Glaze shrinks less than body on cooling, putting glaze in tension.",
-                        mitigation="Reduce alkali fluxes (soda ash, nepheline syenite). Add 5-10% silica. Replace some feldspar with clay. Or switch to a higher-CTE clay body.",
+                        cause=(
+                            f"Glaze CTE ({cte}) much higher than clay body ({clay_body_cte}). Glaze shrinks less "
+                            f"than body on cooling, putting glaze in tension."
+                        ),
+                        mitigation=(
+                            "Reduce alkali fluxes (soda ash, nepheline syenite). Add 5-10% silica. Replace some "
+                            "feldspar with clay. Or switch to a higher-CTE clay body."
+                        ),
                     )
                 ]
             if delta > 0.5:
@@ -114,8 +120,14 @@ class DefectPredictor:
                     DefectRisk(
                         defect="crazing",
                         risk="medium",
-                        cause=f"Glaze CTE ({cte}) higher than clay body ({clay_body_cte}). Potential crazing on cooling.",
-                        mitigation="Test on your clay body. If crazing occurs, add 3-5% silica or reduce nepheline syenite by 5%.",
+                        cause=(
+                            f"Glaze CTE ({cte}) higher than clay body ({clay_body_cte}). Potential crazing on "
+                            f"cooling."
+                        ),
+                        mitigation=(
+                            "Test on your clay body. If crazing occurs, add 3-5% silica or reduce nepheline "
+                            "syenite by 5%."
+                        ),
                     )
                 ]
             return []
@@ -126,8 +138,13 @@ class DefectPredictor:
                 DefectRisk(
                     defect="crazing",
                     risk="high",
-                    cause=f"Very high CTE ({cte} ×10⁻⁶/°C). High alkali content makes glaze expand more than most clay bodies.",
-                    mitigation="Reduce alkali fluxes. Add 5-10% silica. Test on your specific clay body before production.",
+                    cause=(
+                        f"Very high CTE ({cte} ×10⁻⁶/°C). High alkali content makes glaze expand more than most "
+                        f"clay bodies."
+                    ),
+                    mitigation=(
+                        "Reduce alkali fluxes. Add 5-10% silica. Test on your specific clay body before production."
+                    ),
                 )
             ]
         if cte > 6.5:
@@ -135,7 +152,10 @@ class DefectPredictor:
                 DefectRisk(
                     defect="crazing",
                     risk="medium",
-                    cause=f"Above-average CTE ({cte} ×10⁻⁶/°C). May craze on low-expansion bodies like porcelain or some stonewares.",
+                    cause=(
+                        f"Above-average CTE ({cte} ×10⁻⁶/°C). May craze on low-expansion bodies like porcelain or "
+                        f"some stonewares."
+                    ),
                     mitigation="Test on your clay body. Consider adding 3-5% silica if crazing appears.",
                 )
             ]
@@ -152,8 +172,14 @@ class DefectPredictor:
                 DefectRisk(
                     defect="shivering",
                     risk="high",
-                    cause=f"Glaze CTE ({cte}) much lower than clay body ({clay_body_cte}). Glaze shrinks more than body, putting glaze in compression.",
-                    mitigation="Add 2-5% nepheline syenite or 1-2% soda ash to increase CTE. Reduce silica by 5%. Or switch to a lower-CTE clay body.",
+                    cause=(
+                        f"Glaze CTE ({cte}) much lower than clay body ({clay_body_cte}). Glaze shrinks more than "
+                        f"body, putting glaze in compression."
+                    ),
+                    mitigation=(
+                        "Add 2-5% nepheline syenite or 1-2% soda ash to increase CTE. Reduce silica by 5%. Or "
+                        "switch to a lower-CTE clay body."
+                    ),
                 )
             ]
         if delta > 0.5:
@@ -177,8 +203,14 @@ class DefectPredictor:
                 DefectRisk(
                     defect="running",
                     risk="high",
-                    cause=f"Very low SiO₂:Al₂O₃ ({sio2_al2o3:.2f}) combined with high B₂O₃ ({b2o3:.2f}). Glaze will be extremely fluid at cone {cone}.",
-                    mitigation="Add 10-15% silica or reduce boron source (frit, Gerstley borate). Apply very thinly. Use catch plates.",
+                    cause=(
+                        f"Very low SiO₂:Al₂O₃ ({sio2_al2o3:.2f}) combined with high B₂O₃ ({b2o3:.2f}). Glaze will "
+                        f"be extremely fluid at cone {cone}."
+                    ),
+                    mitigation=(
+                        "Add 10-15% silica or reduce boron source (frit, Gerstley borate). Apply very thinly. Use "
+                        "catch plates."
+                    ),
                 )
             ]
         if sio2_al2o3 < 3.5:
@@ -186,8 +218,14 @@ class DefectPredictor:
                 DefectRisk(
                     defect="running",
                     risk="medium",
-                    cause=f"Low SiO₂:Al₂O₃ ({sio2_al2o3:.2f}). Glaze may run at cone {cone}, especially on horizontal surfaces.",
-                    mitigation="Add 5-10% silica or reduce flux content. Test on a vertical tile. Apply thinly on flat surfaces.",
+                    cause=(
+                        f"Low SiO₂:Al₂O₃ ({sio2_al2o3:.2f}). Glaze may run at cone {cone}, especially on "
+                        f"horizontal surfaces."
+                    ),
+                    mitigation=(
+                        "Add 5-10% silica or reduce flux content. Test on a vertical tile. Apply thinly on flat "
+                        "surfaces."
+                    ),
                 )
             ]
         if b2o3 > 0.35:
@@ -196,7 +234,10 @@ class DefectPredictor:
                     defect="running",
                     risk="medium",
                     cause=f"High B₂O₃ ({b2o3:.2f}) makes glaze very fluid at cone {cone}.",
-                    mitigation="Reduce boron source by 5-10%. Apply thinly (2 coats max). Use kiln wash and catch plates for testing.",
+                    mitigation=(
+                        "Reduce boron source by 5-10%. Apply thinly (2 coats max). Use kiln wash and catch plates "
+                        "for testing."
+                    ),
                 )
             ]
         return []
@@ -211,8 +252,14 @@ class DefectPredictor:
                 DefectRisk(
                     defect="crawling",
                     risk="high",
-                    cause=f"High MgO ({mgo:.2f}) + ZnO ({zno:.2f}) creates very high surface tension. Glaze may pull away from edges and thin spots.",
-                    mitigation="Reduce dolomite or talc by 5%. Ensure bisque is clean (no dust/oils). Apply base glaze thickly (3-4 coats).",
+                    cause=(
+                        f"High MgO ({mgo:.2f}) + ZnO ({zno:.2f}) creates very high surface tension. Glaze may pull "
+                        f"away from edges and thin spots."
+                    ),
+                    mitigation=(
+                        "Reduce dolomite or talc by 5%. Ensure bisque is clean (no dust/oils). Apply base glaze "
+                        "thickly (3-4 coats)."
+                    ),
                 )
             ]
         if mgo > 0.4:
@@ -221,7 +268,10 @@ class DefectPredictor:
                     defect="crawling",
                     risk="medium",
                     cause=f"High MgO ({mgo:.2f}) increases surface tension, which can cause crawling at thin spots.",
-                    mitigation="Apply glaze thickly (3-4 coats). Ensure bisque is clean. Consider reducing dolomite by 3-5%.",
+                    mitigation=(
+                        "Apply glaze thickly (3-4 coats). Ensure bisque is clean. Consider reducing dolomite by "
+                        "3-5%."
+                    ),
                 )
             ]
         return []
@@ -248,8 +298,14 @@ class DefectPredictor:
                 DefectRisk(
                     defect="underfired_stiff",
                     risk="medium",
-                    cause=f"Very high SiO₂ ({sio2:.2f}) and Al₂O₃ ({al2o3:.2f}). Glaze may be stiff or underfired at cone {cone}.",
-                    mitigation="Add 3-5% flux (whiting, feldspar) or fire to a higher cone. If intentional for a stiff glaze, ensure long soak at peak.",
+                    cause=(
+                        f"Very high SiO₂ ({sio2:.2f}) and Al₂O₃ ({al2o3:.2f}). Glaze may be stiff or underfired at "
+                        f"cone {cone}."
+                    ),
+                    mitigation=(
+                        "Add 3-5% flux (whiting, feldspar) or fire to a higher cone. If intentional for a stiff "
+                        "glaze, ensure long soak at peak."
+                    ),
                 )
             )
         elif sio2 > 6.0:
@@ -258,7 +314,10 @@ class DefectPredictor:
                     defect="underfired_stiff",
                     risk="low",
                     cause=f"High SiO₂ ({sio2:.2f}) may make glaze stiff at cone {cone}.",
-                    mitigation="If glaze appears underfired: add 2-3% whiting or feldspar. Or extend soak time at peak temperature.",
+                    mitigation=(
+                        "If glaze appears underfired: add 2-3% whiting or feldspar. Or extend soak time at peak "
+                        "temperature."
+                    ),
                 )
             )
         return risks
@@ -273,8 +332,14 @@ class DefectPredictor:
                 DefectRisk(
                     defect="pinholing",
                     risk="medium",
-                    cause=f"High CaO ({cao:.2f}) suggests significant carbonate content (whiting, dolomite). CO₂ release at mid-range temperatures can cause pinholes.",
-                    mitigation="Fire bisque to cone 04 (not 06) to burn out more organics. Slow firing through 1000-1500°F. Add 15-30 min hold at peak. Ensure glaze is not too thin.",
+                    cause=(
+                        f"High CaO ({cao:.2f}) suggests significant carbonate content (whiting, dolomite). CO₂ "
+                        f"release at mid-range temperatures can cause pinholes."
+                    ),
+                    mitigation=(
+                        "Fire bisque to cone 04 (not 06) to burn out more organics. Slow firing through "
+                        "1000-1500°F. Add 15-30 min hold at peak. Ensure glaze is not too thin."
+                    ),
                 )
             )
 
@@ -285,8 +350,14 @@ class DefectPredictor:
                 DefectRisk(
                     defect="color_muddiness",
                     risk="medium",
-                    cause=f"Iron ({fe2o3:.3f}) and copper ({cuo:.3f}) together often produce brown/muddy colors instead of clean greens or reds.",
-                    mitigation="For clean copper green: keep iron below 1% in recipe. For copper red: ensure iron-free base and heavy reduction.",
+                    cause=(
+                        f"Iron ({fe2o3:.3f}) and copper ({cuo:.3f}) together often produce brown/muddy colors "
+                        f"instead of clean greens or reds."
+                    ),
+                    mitigation=(
+                        "For clean copper green: keep iron below 1% in recipe. For copper red: ensure iron-free "
+                        "base and heavy reduction."
+                    ),
                 )
             )
         return risks

@@ -97,7 +97,12 @@ def get_glaze_umf(glaze_id: str):
     try:
         from core.chemistry import calculate_umf
     except ImportError:
-        return jsonify(error_payload("Chemistry engine not available", "chemistry_unavailable")), 500
+        return (
+            jsonify(
+                error_payload("Chemistry engine not available", "chemistry_unavailable")
+            ),
+            500,
+        )
 
     glaze = g.glaze_manager.get_by_id(glaze_id)
     if not glaze:

@@ -76,9 +76,7 @@ def apply_template(template_id):
         inserted = _insert_template_glazes(cursor, template_id, template, user_id)
 
         conn.commit()
-        return jsonify(
-            {"inserted": inserted, "total": len(template.get("glazes", []))}
-        )
+        return jsonify({"inserted": inserted, "total": len(template.get("glazes", []))})
     except Exception as e:
         logger.error(f"Apply template error: {e}")
         return jsonify({"error": str(e)}), 500
@@ -91,7 +89,8 @@ def _insert_template_glazes(cursor, template_id: str, template: dict, user_id) -
         glaze_id = glaze.get("id", f"{template_id}-{inserted}")
         cursor.execute(
             """INSERT OR IGNORE INTO glazes
-            (id, name, family, hex, chemistry, behavior, layering, warning, recipe, catalog_code, food_safe, notes, user_id)
+            (id, name, family, hex, chemistry, behavior, layering, warning, recipe, catalog_code,
+            food_safe, notes, user_id)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
             (
                 glaze_id,

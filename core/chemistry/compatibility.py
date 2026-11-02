@@ -140,7 +140,12 @@ class CompatibilityAnalyzer:
 
         if base_ok and top_ok:
             return self._full_analysis(
-                base_umf, top_umf, base_name_lower, top_name_lower, effective_cone, warnings
+                base_umf,
+                top_umf,
+                base_name_lower,
+                top_name_lower,
+                effective_cone,
+                warnings,
             )
 
         # Partial analysis (one recipe missing): no chemistry signals available,
@@ -176,7 +181,12 @@ class CompatibilityAnalyzer:
         )
 
     def _shino_incompatible(
-        self, base_name: str, top_name: str, base_name_lower: str, cone: int, shino_result: str
+        self,
+        base_name: str,
+        top_name: str,
+        base_name_lower: str,
+        cone: int,
+        shino_result: str,
     ) -> CompatibilityResult:
         """Hard-rule result for Shino over non-Shino layering."""
         return CompatibilityResult(
@@ -188,7 +198,9 @@ class CompatibilityAnalyzer:
                 "High crawl risk — Shino over non-Shino frequently crawls due to different thermal expansion."
             ],
             recommended_order=(
-                f"{base_name} over {top_name}" if self._is_shino(base_name_lower) else None
+                f"{base_name} over {top_name}"
+                if self._is_shino(base_name_lower)
+                else None
             ),
             thermal_expansion_risk="high",
             fluidity_interaction="crawl_likely",
@@ -232,7 +244,9 @@ class CompatibilityAnalyzer:
             warnings.append(thermal_desc)
 
         # 2. Fluidity interaction check (25% weight)
-        fluidity_score, fluidity, fluidity_desc = self._score_fluidity(base_umf, top_umf)
+        fluidity_score, fluidity, fluidity_desc = self._score_fluidity(
+            base_umf, top_umf
+        )
         if "crawl" in fluidity.lower() or "run" in fluidity.lower():
             risk_factors.append(fluidity_desc)
         elif "moderate" in fluidity.lower():
@@ -370,7 +384,10 @@ class CompatibilityAnalyzer:
             )
         else:
             recommendations.append(
-                f"Low compatibility score ({score:.2f}). Expect problems. Consider reformulating or choosing a different combination."
+                (
+                    f"Low compatibility score ({score:.2f}). Expect problems. Consider reformulating or choosing a "
+                    f"different combination."
+                )
             )
 
         # Thermal recommendations
@@ -563,7 +580,10 @@ class CompatibilityAnalyzer:
     def _shino_check(self, top_name: str, base_name: str) -> Optional[str]:
         """Shino over non-shino has high crawl risk due to different thermal expansion."""
         if self._is_shino(top_name) and not self._is_shino(base_name):
-            return f"SHINO OVER NON-SHINO: {top_name} over {base_name} has high crawl risk. Consider reversing the layer order or applying very thin."
+            return (
+                f"SHINO OVER NON-SHINO: {top_name} over {base_name} has high crawl risk. Consider reversing the "
+                f"layer order or applying very thin."
+            )
         return None
 
     def _score_thermal(
@@ -744,7 +764,10 @@ class CompatibilityAnalyzer:
             )
         if combined_fe > 0.4:
             interactions.append(
-                f"CRITICAL: Combined iron ({combined_fe:.3f}) exceeds practical layering threshold — expect muddy/uninteresting result"
+                (
+                    f"CRITICAL: Combined iron ({combined_fe:.3f}) exceeds practical layering threshold — expect "
+                    f"muddy/uninteresting result"
+                )
             )
 
         # Cobalt + manganese interaction

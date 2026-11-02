@@ -143,7 +143,8 @@ class ExperimentManager:
 
         cursor.execute(
             """
-            INSERT INTO experiments (combination_id, base_glaze, top_glaze, stage, status, prediction, result, rating, notes, photo, user_id)
+            INSERT INTO experiments (combination_id, base_glaze, top_glaze, stage, status, prediction,
+            result, rating, notes, photo, user_id)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         """,
             (
@@ -312,12 +313,18 @@ class ExperimentManager:
         # From experiments table
         if self.user_id:
             cursor.execute(
-                'SELECT id, base_glaze, top_glaze, photo, rating, created_at FROM experiments WHERE photo IS NOT NULL AND photo != "" AND (user_id = ? OR user_id IS NULL) ORDER BY created_at DESC',
+                (
+                    "SELECT id, base_glaze, top_glaze, photo, rating, created_at FROM experiments WHERE photo IS "
+                    'NOT NULL AND photo != "" AND (user_id = ? OR user_id IS NULL) ORDER BY created_at DESC'
+                ),
                 (self.user_id,),
             )
         else:
             cursor.execute(
-                'SELECT id, base_glaze, top_glaze, photo, rating, created_at FROM experiments WHERE photo IS NOT NULL AND photo != "" AND user_id IS NULL ORDER BY created_at DESC'
+                (
+                    "SELECT id, base_glaze, top_glaze, photo, rating, created_at FROM experiments WHERE photo IS "
+                    'NOT NULL AND photo != "" AND user_id IS NULL ORDER BY created_at DESC'
+                )
             )
 
         for row in cursor.fetchall():
@@ -326,12 +333,18 @@ class ExperimentManager:
         # From archive table
         if self.user_id:
             cursor.execute(
-                'SELECT id, base_glaze, top_glaze, photo, rating, created_at FROM archive WHERE photo IS NOT NULL AND photo != "" AND (user_id = ? OR user_id IS NULL) ORDER BY created_at DESC',
+                (
+                    "SELECT id, base_glaze, top_glaze, photo, rating, created_at FROM archive WHERE photo IS NOT "
+                    'NULL AND photo != "" AND (user_id = ? OR user_id IS NULL) ORDER BY created_at DESC'
+                ),
                 (self.user_id,),
             )
         else:
             cursor.execute(
-                'SELECT id, base_glaze, top_glaze, photo, rating, created_at FROM archive WHERE photo IS NOT NULL AND photo != "" AND user_id IS NULL ORDER BY created_at DESC'
+                (
+                    "SELECT id, base_glaze, top_glaze, photo, rating, created_at FROM archive WHERE photo IS NOT "
+                    'NULL AND photo != "" AND user_id IS NULL ORDER BY created_at DESC'
+                )
             )
 
         for row in cursor.fetchall():

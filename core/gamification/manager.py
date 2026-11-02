@@ -65,7 +65,8 @@ class GamificationManager:
             """INSERT INTO user_stats (user_id) VALUES (?)
                ON CONFLICT(user_id) DO UPDATE SET
                combinations_tested = combinations_tested + 1,
-               combinations_proven = CASE WHEN ? IN ('proven', 'surprise') THEN combinations_proven + 1 ELSE combinations_proven END,
+               combinations_proven = CASE WHEN ? IN ('proven', 'surprise')
+                 THEN combinations_proven + 1 ELSE combinations_proven END,
                surprises_found = CASE WHEN ? = 1 THEN surprises_found + 1 ELSE surprises_found END,
                discoveries_count = discoveries_count + 1,
                updated_at = CURRENT_TIMESTAMP""",

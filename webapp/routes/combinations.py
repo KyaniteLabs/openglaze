@@ -127,7 +127,12 @@ def simulate_combination(combo_id: int):
 
         combo = g.combo_manager.get_by_id(combo_id)
         if not combo:
-            return jsonify(error_payload("Combination not found", "combination_not_found")), 404
+            return (
+                jsonify(
+                    error_payload("Combination not found", "combination_not_found")
+                ),
+                404,
+            )
 
         base_glaze = g.glaze_manager.get_by_name(combo.base)
         top_glaze = g.glaze_manager.get_by_name(combo.top)
@@ -182,11 +187,19 @@ def get_combo_compatibility(combo_id: int):
     try:
         from core.chemistry import CompatibilityAnalyzer
     except ImportError:
-        return jsonify(error_payload("Chemistry engine not available", "chemistry_unavailable")), 500
+        return (
+            jsonify(
+                error_payload("Chemistry engine not available", "chemistry_unavailable")
+            ),
+            500,
+        )
 
     combo = g.combo_manager.get_by_id(combo_id)
     if not combo:
-        return jsonify(error_payload("Combination not found", "combination_not_found")), 404
+        return (
+            jsonify(error_payload("Combination not found", "combination_not_found")),
+            404,
+        )
 
     base_glaze = g.glaze_manager.get_by_name(combo.base)
     top_glaze = g.glaze_manager.get_by_name(combo.top)

@@ -11,7 +11,9 @@ try:
     AUTH_AVAILABLE = True
 except ImportError:
     AUTH_AVAILABLE = False
-    logging.getLogger(__name__).warning("Auth module not available - cloud mode disabled")
+    logging.getLogger(__name__).warning(
+        "Auth module not available - cloud mode disabled"
+    )
 
 logger = logging.getLogger(__name__)
 

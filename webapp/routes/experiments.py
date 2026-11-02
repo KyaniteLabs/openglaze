@@ -123,7 +123,10 @@ def submit_firing_log(exp_id):
     try:
         success = g.exp_manager.log_firing_result(exp_id, data)
         if not success:
-            return jsonify(error_payload("Experiment not found", "experiment_not_found")), 404
+            return (
+                jsonify(error_payload("Experiment not found", "experiment_not_found")),
+                404,
+            )
     except ValueError as e:
         return jsonify({"error": str(e)}), 400
 
