@@ -12,11 +12,15 @@ OpenGlaze helps potters, ceramic artists, studios, and educators calculate glaze
 - Pottery studio material tracking
 - Glazy companion / alternative workflows
 
+## Runtime
+Python 3.12+ (`requires-python = ">=3.12"` in `pyproject.toml`). The Docker image uses `python:3.14-slim`.
+
 ## Key paths
 - `README.md`: public overview and quick start
 - `docs/`: documentation and screenshots
 - `templates/`: UI templates
 - `server.py`: local application entry point
+- `pyproject.toml`: project identity and Python 3.12+ floor
 
 ## Keywords
 ceramic glaze calculator, UMF calculator, glaze chemistry software, pottery recipe manager, CTE glaze calculator, self-hosted ceramics software, Glazy alternative, open-source pottery app.
