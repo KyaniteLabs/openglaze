@@ -5,6 +5,11 @@ All notable changes to OpenGlaze will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Fixed
+- Docker install on a fresh clone: `cp .env.example .env && docker compose up -d` now reaches a healthy app. Previously postgres exited on boot twice over — a blank `POSTGRES_PASSWORD` (shipped commented) and the Renovate bump to `postgres:18-alpine`, whose images reject the legacy `/var/lib/postgresql/data` mount. `.env.example` now ships a working `POSTGRES_PASSWORD` default, compose interpolations carry inline defaults, and postgres is pinned to `16-alpine` (re-pin together with the volume change). Kratos also crash-looped on v26: the removed `--watch-courier-templates` flag is dropped, and `kratos/config.yml` now validates against the v26 schema (`in: header` on the webhook api_key auth; no `enabled` key on the error flow). The manual SQLite path is unchanged.
+
 ## [1.1.0] - 2026-04-27
 
 ### Added
