@@ -5,11 +5,13 @@ from __future__ import annotations
 
 import argparse
 import json
-from typing import Any
+import sys
+from typing import Any, NoReturn
 
 from core.chemistry.batch import calculate_batch
 from core.chemistry.substitutions import suggest_substitutions
 from core.chemistry.umf import calculate_umf
+from core.errors import retry_message
 
 
 def _print_json(payload: dict[str, Any]) -> None:
@@ -26,7 +28,10 @@ def _parse_cone(value: Any) -> int | str:
 def _project_brief() -> dict[str, Any]:
     return {
         "name": "OpenGlaze",
-        "summary": "Open-source ceramic glaze calculator, UMF analyzer, CTE estimator, recipe manager, and self-hosted studio tool.",
+        "summary": (
+            "Open-source ceramic glaze calculator, UMF analyzer, CTE estimator, recipe manager, and self-hosted "
+            "studio tool."
+        ),
         "surfaces": {
             "web": "python server.py",
             "cli": "python -m openglaze_cli",
@@ -39,11 +44,36 @@ def _project_brief() -> dict[str, Any]:
             "scale recipes into practical test batches",
             "suggest substitutions for unavailable materials",
         ],
-        "guardrail": "Computational glaze analysis guides test tiles; it does not replace real firings or food-safety validation.",
+        "guardrail": (
+            "Computational glaze analysis guides test tiles; it does not replace real firings or food-safety "
+            "validation."
+        ),
     }
 
 
-def main() -> None:
+def _fail(message: str, code: str) -> NoReturn:
+    """Print an actionable error with a concrete retry invocation and exit."""
+    print(f"error: {retry_message(message, code)}", file=sys.stderr)
+    raise SystemExit(2)
+
+
+def _run(args: argparse.Namespace) -> dict[str, Any]:
+    """Execute a chemistry command; edges raise ValueError for bad input."""
+    if args.command == "umf":
+        try:
+            cone = _parse_cone(args.cone)
+        except ValueError:
+            _fail(
+                f"Invalid cone {args.cone!r}. Use an integer or a zero-padded string like '04'.",
+                "invalid_cone",
+            )
+        return calculate_umf(args.recipe, cone=cone).to_dict()
+    if args.command == "batch":
+        return calculate_batch(args.recipe, args.size, args.unit)
+    return suggest_substitutions(args.recipe).to_dict()
+
+
+def main(argv: list[str] | None = None) -> None:
     parser = argparse.ArgumentParser(
         description="OpenGlaze CLI for ceramic glaze analysis."
     )
@@ -77,16 +107,16 @@ def main() -> None:
         "--recipe", required=True, help="Recipe string to analyze."
     )
 
-    args = parser.parse_args()
+    args = parser.parse_args(argv)
 
     if args.command == "brief":
         _print_json(_project_brief())
-    elif args.command == "umf":
-        _print_json(calculate_umf(args.recipe, cone=_parse_cone(args.cone)).to_dict())
-    elif args.command == "batch":
-        _print_json(calculate_batch(args.recipe, args.size, args.unit))
-    elif args.command == "substitutions":
-        _print_json(suggest_substitutions(args.recipe).to_dict())
+        return
+
+    payload = _run(args)
+    _print_json(payload)
+    if payload.get("error"):
+        _fail(payload["error"], "unparseable_recipe")
 
 
 if __name__ == "__main__":

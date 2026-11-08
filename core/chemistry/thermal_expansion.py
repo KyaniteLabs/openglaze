@@ -74,9 +74,15 @@ def cte_compatibility(cte_a: float, cte_b: float) -> tuple:
     else:
         risk = "high"
         if mismatch > 0:
-            desc = f"High mismatch ({mismatch:+.2f} ×10⁻⁶/°C) — top glaze expands more than base. Crazing risk if base is stiffer."
+            desc = (
+                f"High mismatch ({mismatch:+.2f} ×10⁻⁶/°C) — top glaze expands more than base. Crazing risk if "
+                f"base is stiffer."
+            )
         else:
-            desc = f"High mismatch ({mismatch:+.2f} ×10⁻⁶/°C) — base glaze expands more than top. Shivering risk if top is stiffer."
+            desc = (
+                f"High mismatch ({mismatch:+.2f} ×10⁻⁶/°C) — base glaze expands more than top. Shivering risk if "
+                f"top is stiffer."
+            )
 
     return risk, mismatch, desc
 
@@ -97,7 +103,10 @@ def clay_body_compatibility(cte: float, clay_type: str = "stoneware") -> dict:
     if cte < range_low:
         delta = range_low - cte
         fit = "tight"
-        risk = f"Glaze CTE ({cte}) is lower than typical {clay_type} body ({range_low}-{range_high}). Shivering possible if glaze is under tension."
+        risk = (
+            f"Glaze CTE ({cte}) is lower than typical {clay_type} body ({range_low}-{range_high}). Shivering "
+            f"possible if glaze is under tension."
+        )
     elif cte > range_high:
         delta = cte - range_high
         fit = "loose"
@@ -105,7 +114,10 @@ def clay_body_compatibility(cte: float, clay_type: str = "stoneware") -> dict:
     else:
         delta = abs(cte - range_mid)
         fit = "good"
-        risk = f"Glaze CTE ({cte}) falls within typical {clay_type} body range ({range_low}-{range_high}). Good fit expected."
+        risk = (
+            f"Glaze CTE ({cte}) falls within typical {clay_type} body range ({range_low}-{range_high}). Good fit "
+            f"expected."
+        )
 
     return {
         "clay_type": clay_type,

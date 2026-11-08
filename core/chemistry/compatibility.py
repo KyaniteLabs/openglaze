@@ -115,35 +115,8 @@ class CompatibilityAnalyzer:
         # Hard rules first — these override everything
         shino_result = self._shino_check(top_name_lower, base_name_lower)
         if shino_result:
-            return CompatibilityResult(
-                success=True,
-                compatible=False,
-                score=0.0,
-                risk_factors=[shino_result],
-                warnings=[
-                    "High crawl risk — Shino over non-Shino frequently crawls due to different thermal expansion."
-                ],
-                recommended_order=(
-                    f"{base_name} over {top_name}"
-                    if self._is_shino(base_name_lower)
-                    else None
-                ),
-                thermal_expansion_risk="high",
-                fluidity_interaction="crawl_likely",
-                oxide_interactions=[],
-                cone=effective_cone,
-                test_recommendations=[
-                    "Reverse the layer order: apply Shino as the base layer.",
-                    "If keeping this order, apply Shino VERY thinly (1 coat) over a fully-dry base.",
-                    "Fire a vertical test tile first — Shino over non-Shino often crawls.",
-                ],
-                risk_breakdown=[
-                    {
-                        "risk": "shino_crawl",
-                        "severity": "critical",
-                        "mitigation": "Reverse layer order or apply Shino as a very thin single coat",
-                    }
-                ],
+            return self._shino_incompatible(
+                base_name, top_name, base_name_lower, effective_cone, shino_result
             )
 
         # Calculate UMF for both glazes (cone-aware)
@@ -152,130 +125,36 @@ class CompatibilityAnalyzer:
         )
         top_umf = calculate_umf(top_recipe, cone=effective_cone) if top_recipe else None
 
-        risk_factors = []
-        warnings = []
-        oxide_interactions = []
+        base_ok = base_umf is not None and base_umf.success
+        top_ok = top_umf is not None and top_umf.success
 
         # If either recipe can't be parsed, return limited result
-        if base_umf is None or not base_umf.success:
-            if top_umf is None or not top_umf.success:
-                return CompatibilityResult(
-                    success=False,
-                    compatible=None,
-                    score=0.5,
-                    warnings=[
-                        "Neither glaze has a parseable recipe — limited analysis"
-                    ],
-                    base_umf=base_umf,
-                    top_umf=top_umf,
-                    cone=effective_cone,
-                    test_recommendations=[
-                        "Add recipe data for both glazes to get a full compatibility analysis.",
-                    ],
-                )
-            warnings.append("Base glaze recipe not parseable — limited analysis")
+        if not base_ok and not top_ok:
+            return self._unparseable_result(base_umf, top_umf, effective_cone)
 
-        if top_umf is None or not top_umf.success:
+        warnings = []
+        if not base_ok:
+            warnings.append("Base glaze recipe not parseable — limited analysis")
+        if not top_ok:
             warnings.append("Top glaze recipe not parseable — limited analysis")
 
-        # Only do full analysis if both UMFs are available
-        if base_umf and base_umf.success and top_umf and top_umf.success:
-            # 1. Thermal expansion check (40% weight)
-            cte_base = calculate_cte(base_umf.umf_formula)
-            cte_top = calculate_cte(top_umf.umf_formula)
-            thermal_score, thermal_risk, thermal_mismatch, thermal_desc = (
-                self._score_thermal(cte_base, cte_top)
-            )
-            if thermal_risk == "high":
-                risk_factors.append(thermal_desc)
-            elif thermal_risk == "medium":
-                warnings.append(thermal_desc)
-
-            # 2. Fluidity interaction check (25% weight)
-            fluidity_score, fluidity, fluidity_desc = self._score_fluidity(
-                base_umf, top_umf
-            )
-            if "crawl" in fluidity.lower() or "run" in fluidity.lower():
-                risk_factors.append(fluidity_desc)
-            elif "moderate" in fluidity.lower():
-                warnings.append(fluidity_desc)
-
-            # 3. Oxide interaction check (20% weight)
-            oxide_interactions = self._oxide_interactions(
-                base_umf, top_umf, base_name_lower, top_name_lower
-            )
-            oxide_score = self._score_oxides(oxide_interactions)
-            for interaction in oxide_interactions:
-                if any(
-                    word in interaction.lower()
-                    for word in ["kill", "destroy", "critical", "suppress"]
-                ):
-                    risk_factors.append(interaction)
-                elif any(
-                    word in interaction.lower()
-                    for word in ["may", "could", "risk", "migrate"]
-                ):
-                    warnings.append(interaction)
-
-            # 4. Maturing similarity (15% weight)
-            maturing_score = self._score_maturing(base_umf, top_umf)
-
-            # Calculate overall weighted score
-            score = (
-                thermal_score * self.WEIGHT_THERMAL
-                + fluidity_score * self.WEIGHT_FLUIDITY
-                + oxide_score * self.WEIGHT_OXIDE
-                + maturing_score * self.WEIGHT_MATURING
-            )
-
-            # Build test recommendations and risk breakdown
-            test_recommendations = self._build_test_recommendations(
+        if base_ok and top_ok:
+            return self._full_analysis(
                 base_umf,
                 top_umf,
-                thermal_risk,
-                thermal_mismatch,
-                fluidity,
-                oxide_interactions,
-                score,
+                base_name_lower,
+                top_name_lower,
                 effective_cone,
-            )
-            risk_breakdown = self._build_risk_breakdown(
-                cte_base,
-                cte_top,
-                thermal_risk,
-                thermal_mismatch,
-                fluidity,
-                oxide_interactions,
-                effective_cone,
+                warnings,
             )
 
-            return CompatibilityResult(
-                success=True,
-                compatible=score >= 0.5,
-                score=round(score, 2),
-                risk_factors=risk_factors,
-                warnings=warnings,
-                recommended_order=None,
-                thermal_expansion_risk=thermal_risk,
-                thermal_expansion_delta=thermal_mismatch,
-                cte_base=cte_base,
-                cte_top=cte_top,
-                fluidity_interaction=fluidity,
-                oxide_interactions=oxide_interactions,
-                base_umf=base_umf,
-                top_umf=top_umf,
-                cone=effective_cone,
-                test_recommendations=test_recommendations,
-                risk_breakdown=risk_breakdown,
-            )
-
-        # Partial analysis (one or both recipes missing)
-        score = 0.5 if not risk_factors else max(0.0, 0.5 - len(risk_factors) * 0.2)
+        # Partial analysis (one recipe missing): no chemistry signals available,
+        # so the score stays neutral at 0.5.
         return CompatibilityResult(
             success=True,
-            compatible=score >= 0.5,
-            score=round(score, 2),
-            risk_factors=risk_factors,
+            compatible=True,
+            score=0.5,
+            risk_factors=[],
             warnings=warnings,
             base_umf=base_umf,
             top_umf=top_umf,
@@ -284,6 +163,200 @@ class CompatibilityAnalyzer:
                 "Add complete recipe data for both glazes to get full compatibility analysis.",
             ],
         )
+
+    @staticmethod
+    def _unparseable_result(base_umf, top_umf, cone: int) -> CompatibilityResult:
+        """Result when neither recipe yields a parseable UMF."""
+        return CompatibilityResult(
+            success=False,
+            compatible=None,
+            score=0.5,
+            warnings=["Neither glaze has a parseable recipe — limited analysis"],
+            base_umf=base_umf,
+            top_umf=top_umf,
+            cone=cone,
+            test_recommendations=[
+                "Add recipe data for both glazes to get a full compatibility analysis.",
+            ],
+        )
+
+    def _shino_incompatible(
+        self,
+        base_name: str,
+        top_name: str,
+        base_name_lower: str,
+        cone: int,
+        shino_result: str,
+    ) -> CompatibilityResult:
+        """Hard-rule result for Shino over non-Shino layering."""
+        return CompatibilityResult(
+            success=True,
+            compatible=False,
+            score=0.0,
+            risk_factors=[shino_result],
+            warnings=[
+                "High crawl risk — Shino over non-Shino frequently crawls due to different thermal expansion."
+            ],
+            recommended_order=(
+                f"{base_name} over {top_name}"
+                if self._is_shino(base_name_lower)
+                else None
+            ),
+            thermal_expansion_risk="high",
+            fluidity_interaction="crawl_likely",
+            oxide_interactions=[],
+            cone=cone,
+            test_recommendations=[
+                "Reverse the layer order: apply Shino as the base layer.",
+                "If keeping this order, apply Shino VERY thinly (1 coat) over a fully-dry base.",
+                "Fire a vertical test tile first — Shino over non-Shino often crawls.",
+            ],
+            risk_breakdown=[
+                {
+                    "risk": "shino_crawl",
+                    "severity": "critical",
+                    "mitigation": "Reverse layer order or apply Shino as a very thin single coat",
+                }
+            ],
+        )
+
+    def _full_analysis(
+        self,
+        base_umf: UMFResult,
+        top_umf: UMFResult,
+        base_name_lower: str,
+        top_name_lower: str,
+        effective_cone: int,
+        warnings: List[str],
+    ) -> CompatibilityResult:
+        """Weighted four-factor scoring when both recipes parse."""
+        risk_factors = []
+
+        # 1. Thermal expansion check (40% weight)
+        cte_base = calculate_cte(base_umf.umf_formula)
+        cte_top = calculate_cte(top_umf.umf_formula)
+        thermal_score, thermal_risk, thermal_mismatch, thermal_desc = (
+            self._score_thermal(cte_base, cte_top)
+        )
+        if thermal_risk == "high":
+            risk_factors.append(thermal_desc)
+        elif thermal_risk == "medium":
+            warnings.append(thermal_desc)
+
+        # 2. Fluidity interaction check (25% weight)
+        fluidity_score, fluidity, fluidity_desc = self._score_fluidity(
+            base_umf, top_umf
+        )
+        if "crawl" in fluidity.lower() or "run" in fluidity.lower():
+            risk_factors.append(fluidity_desc)
+        elif "moderate" in fluidity.lower():
+            warnings.append(fluidity_desc)
+
+        # 3. Oxide interaction check (20% weight)
+        oxide_interactions = self._oxide_interactions(
+            base_umf, top_umf, base_name_lower, top_name_lower
+        )
+        oxide_score = self._score_oxides(oxide_interactions)
+        self._classify_interactions(oxide_interactions, risk_factors, warnings)
+
+        # 4. Maturing similarity (15% weight)
+        maturing_score = self._score_maturing(base_umf, top_umf)
+
+        # Calculate overall weighted score
+        score = (
+            thermal_score * self.WEIGHT_THERMAL
+            + fluidity_score * self.WEIGHT_FLUIDITY
+            + oxide_score * self.WEIGHT_OXIDE
+            + maturing_score * self.WEIGHT_MATURING
+        )
+
+        return self._weighted_result(
+            base_umf=base_umf,
+            top_umf=top_umf,
+            effective_cone=effective_cone,
+            risk_factors=risk_factors,
+            warnings=warnings,
+            cte_base=cte_base,
+            cte_top=cte_top,
+            thermal_risk=thermal_risk,
+            thermal_mismatch=thermal_mismatch,
+            fluidity=fluidity,
+            oxide_interactions=oxide_interactions,
+            score=score,
+        )
+
+    def _weighted_result(
+        self,
+        base_umf: UMFResult,
+        top_umf: UMFResult,
+        effective_cone: int,
+        risk_factors: List[str],
+        warnings: List[str],
+        cte_base,
+        cte_top,
+        thermal_risk: str,
+        thermal_mismatch,
+        fluidity: str,
+        oxide_interactions: List[str],
+        score: float,
+    ) -> CompatibilityResult:
+        """Assemble the final CompatibilityResult from scored factors."""
+        test_recommendations = self._build_test_recommendations(
+            base_umf,
+            top_umf,
+            thermal_risk,
+            thermal_mismatch,
+            fluidity,
+            oxide_interactions,
+            score,
+            effective_cone,
+        )
+        risk_breakdown = self._build_risk_breakdown(
+            cte_base,
+            cte_top,
+            thermal_risk,
+            thermal_mismatch,
+            fluidity,
+            oxide_interactions,
+            effective_cone,
+        )
+
+        return CompatibilityResult(
+            success=True,
+            compatible=score >= 0.5,
+            score=round(score, 2),
+            risk_factors=risk_factors,
+            warnings=warnings,
+            recommended_order=None,
+            thermal_expansion_risk=thermal_risk,
+            thermal_expansion_delta=thermal_mismatch,
+            cte_base=cte_base,
+            cte_top=cte_top,
+            fluidity_interaction=fluidity,
+            oxide_interactions=oxide_interactions,
+            base_umf=base_umf,
+            top_umf=top_umf,
+            cone=effective_cone,
+            test_recommendations=test_recommendations,
+            risk_breakdown=risk_breakdown,
+        )
+
+    @staticmethod
+    def _classify_interactions(
+        oxide_interactions: List[str], risk_factors: List[str], warnings: List[str]
+    ) -> None:
+        """Sort oxide interaction strings into risk factors vs warnings."""
+        for interaction in oxide_interactions:
+            if any(
+                word in interaction.lower()
+                for word in ["kill", "destroy", "critical", "suppress"]
+            ):
+                risk_factors.append(interaction)
+            elif any(
+                word in interaction.lower()
+                for word in ["may", "could", "risk", "migrate"]
+            ):
+                warnings.append(interaction)
 
     def _build_test_recommendations(
         self,
@@ -311,7 +384,10 @@ class CompatibilityAnalyzer:
             )
         else:
             recommendations.append(
-                f"Low compatibility score ({score:.2f}). Expect problems. Consider reformulating or choosing a different combination."
+                (
+                    f"Low compatibility score ({score:.2f}). Expect problems. Consider reformulating or choosing a "
+                    f"different combination."
+                )
             )
 
         # Thermal recommendations
@@ -504,7 +580,10 @@ class CompatibilityAnalyzer:
     def _shino_check(self, top_name: str, base_name: str) -> Optional[str]:
         """Shino over non-shino has high crawl risk due to different thermal expansion."""
         if self._is_shino(top_name) and not self._is_shino(base_name):
-            return f"SHINO OVER NON-SHINO: {top_name} over {base_name} has high crawl risk. Consider reversing the layer order or applying very thin."
+            return (
+                f"SHINO OVER NON-SHINO: {top_name} over {base_name} has high crawl risk. Consider reversing the "
+                f"layer order or applying very thin."
+            )
         return None
 
     def _score_thermal(
@@ -685,7 +764,10 @@ class CompatibilityAnalyzer:
             )
         if combined_fe > 0.4:
             interactions.append(
-                f"CRITICAL: Combined iron ({combined_fe:.3f}) exceeds practical layering threshold — expect muddy/uninteresting result"
+                (
+                    f"CRITICAL: Combined iron ({combined_fe:.3f}) exceeds practical layering threshold — expect "
+                    f"muddy/uninteresting result"
+                )
             )
 
         # Cobalt + manganese interaction
