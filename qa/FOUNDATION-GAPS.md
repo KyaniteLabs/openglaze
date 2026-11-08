@@ -18,6 +18,11 @@ truthful text without weakening the chemistry/site contract test.
 
 ## Remediation in this change
 
+Security-requested follow-up: pin Werkzeug to 3.1.9 instead of 3.1.8 to
+remediate CVE-2026-102598 / SFTY-20261005-86121 (affected versions <3.1.9).
+No Safety ignore or waiver was added. Exact-head hosted security checks remain
+a required Security review/merge gate; this bump alone is not scan acceptance.
+
 Added root architecture/product/read-before-work documents and a source-matched
 owner inventory with regression checks. Forgejo workflow no longer masks pip,
 lint or pytest failures, installs the actual requirements-dev.txt instead of
