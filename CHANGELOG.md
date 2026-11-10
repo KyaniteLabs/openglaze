@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+- Releasing a studio lab claim now returns the combination to the lab queue
+  instead of hiding it.
+- Experiments move to `in_progress` when advanced, so `/api/experiments/active`
+  lists them; completed or failed experiments can no longer be advanced
+  (which flipped failed ones to completed and rewrote `completed_at`).
+- Confirming a combination through the firing log now marks it `documented`,
+  matching the promote route; `/api/progress` counts documented combinations
+  as tested.
+
+### Changed
+- Experiment, lab-claim and combination-stage lifecycles are named in one
+  module each (`core/experiments/lifecycle.py`, `core/studios/claims.py`,
+  `core/combinations/stages.py`); illegal values or moves return 400.
+
 ### Added
 - `pyproject.toml` declaring the supported Python floor (`>=3.12`), matching the
   README badge, docs, the 3.12–3.14 CI matrix, and the 3.14 Dockerfile base.

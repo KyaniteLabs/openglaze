@@ -5,6 +5,7 @@ from collections import defaultdict
 import sqlite3
 
 from core.db import connect_db
+from . import stages
 from .models import Combination
 
 
@@ -168,7 +169,12 @@ class CombinationManager:
         return Combination.from_dict(dict(row)) if row else None
 
     def create(self, combination: Combination) -> int:
-        """Create a new combination."""
+        """Create a new combination.
+
+        Raises ``stages.IllegalStageTransition`` (a ``ValueError``) for an
+        unknown stage value.
+        """
+        stage = stages.validate_stage(combination.stage or stages.INITIAL_STAGE)
         conn = self._get_connection()
         cursor = conn.cursor()
 
@@ -187,7 +193,7 @@ class CombinationManager:
                 combination.chemistry,
                 combination.risk,
                 combination.effect,
-                combination.stage,
+                stage,
                 combination.prediction_grade,
                 combination.notes,
                 self.user_id,
@@ -201,7 +207,12 @@ class CombinationManager:
         return last_id
 
     def update(self, combo_id: int, updates: dict) -> bool:
-        """Update a combination."""
+        """Update a combination.
+
+        A ``stage`` value must be one of ``stages.CombinationStage``.
+        """
+        if "stage" in updates:
+            updates = {**updates, "stage": stages.validate_stage(updates["stage"])}
         conn = self._get_connection()
         cursor = conn.cursor()
 
@@ -254,29 +265,19 @@ class CombinationManager:
 
         return affected > 0
 
+    def record_outcome(
+        self, combo_id: int, outcome: str, result: Optional[str] = None
+    ) -> bool:
+        """Close a combo's pipeline with a firing outcome (→ documented)."""
+        return self.update(combo_id, stages.outcome_updates(outcome, result))
+
     def promote_to_confirmed(self, combo_id: int, result: str) -> bool:
         """Promote a combo to confirmed after firing and result matched prediction."""
-        return self.update(
-            combo_id,
-            {
-                "type": "confirmed",
-                "prediction_grade": "confirmed",
-                "stage": "documented",
-                "result": result,
-            },
-        )
+        return self.record_outcome(combo_id, stages.FiringOutcome.CONFIRMED, result)
 
     def mark_as_surprise(self, combo_id: int, result: str) -> bool:
         """Mark a combo as surprise after firing and result differed from prediction."""
-        return self.update(
-            combo_id,
-            {
-                "type": "surprise",
-                "prediction_grade": "surprise",
-                "stage": "documented",
-                "result": result,
-            },
-        )
+        return self.record_outcome(combo_id, stages.FiringOutcome.SURPRISE, result)
 
     # Backward compatibility
     def promote_to_proven(self, combo_id: int, result: str) -> bool:
