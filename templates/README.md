@@ -9,8 +9,8 @@ id: unique-template-id
 name: Template Display Name
 version: 1.0.0
 author: Your Name
-license: CC-BY-4.0
-premium: false  # true for paid templates
+license: MIT
+premium: false  # reserved; this repository ships no premium templates
 
 description: |
   Template description goes here.
@@ -50,7 +50,7 @@ glazes:
 | `name` | string | Yes | Display name |
 | `version` | string | Yes | Semantic version |
 | `author` | string | Yes | Creator name |
-| `license` | string | Yes | License (CC-BY-4.0, MIT, etc.) |
+| `license` | string | Yes | SPDX identifier; templates here are MIT |
 | `premium` | boolean | No | Is this a paid template? |
 | `description` | string | Yes | Template description |
 | `tags` | list | No | Tags for search/filtering |
@@ -80,8 +80,13 @@ glazes:
 
 ## Licensing
 
-- **Free templates**: CC-BY-4.0 (free to use, modify, share with attribution)
-- **Premium templates**: CC-BY-NC-4.0 (non-commercial use, commercial license available)
+Every template in this repository is released under the [MIT License](../LICENSE),
+the same terms as the rest of OpenGlaze. Use `license: MIT` in the template
+metadata.
+
+Premium templates are not part of this open-source repository. If a premium
+collection is ever offered, it ships with its own terms and its own license
+text — nothing here grants or implies those terms today.
 
 ## Contributing
 
