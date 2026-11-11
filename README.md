@@ -437,9 +437,13 @@ Questions, bug reports, and feature requests:
 
 ## License
 
-- **Code**: [MIT License](LICENSE) — Free to use, modify, distribute
-- **Templates**: CC-BY-4.0 — Free with attribution
-- **Documentation**: CC-BY-4.0
+- **Code, documentation and templates**: [MIT License](LICENSE) — free to use,
+  modify and distribute, including commercially.
+- **Third-party components**: keep their own licenses; the components table
+  near the top of this file lists them.
+
+The glaze templates under `templates/` follow the same MIT terms as the rest of
+the repository — see [templates/README.md](templates/README.md#licensing).
 
 ## Acknowledgments
 
@@ -526,9 +530,5 @@ Treat the README status and release tags as source of truth for maturity. Valida
 ## Contributing
 
 Issues and PRs welcome on [GitHub](https://github.com/KyaniteLabs/openglaze). Keep public docs free of secrets and machine-local paths.
-
-## License
-
-See [LICENSE](LICENSE) in this repository (or package metadata if license is package-only).
 
 <!-- s-plus-geo:end -->

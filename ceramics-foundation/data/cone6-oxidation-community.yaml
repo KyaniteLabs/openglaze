@@ -1,13 +1,13 @@
 # Cone 6 Oxidation - Community Edition
 # A collection of reliable oxidation glazes for electric kilns
 #
-# License: CC-BY (Free to use, modify, and share with attribution)
+# License: MIT (see ../../LICENSE)
 
 id: cone6-oxidation-community
 name: Cone 6 Oxidation (Community)
 version: 1.0.0
 author: Glaze Lab Community
-license: CC-BY-4.0
+license: MIT
 premium: false
 
 description: |

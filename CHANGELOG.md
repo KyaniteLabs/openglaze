@@ -18,6 +18,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   as tested.
 
 ### Changed
+- License statements now agree with the license the repository ships: the README,
+  the templates guide, the FAQ and template metadata all say MIT, and the archived
+  Default Studio dataset ships its CC-BY-SA-4.0 text instead of a bare claim.
 - Experiment, lab-claim and combination-stage lifecycles are named in one
   module each (`core/experiments/lifecycle.py`, `core/studios/claims.py`,
   `core/combinations/stages.py`); illegal values or moves return 400.
