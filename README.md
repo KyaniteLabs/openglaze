@@ -5,7 +5,7 @@
 **TL;DR:** OpenGlaze — open design-system and glaze/UI craft toolkit. Best for designers and engineers building distinctive UI systems.
 
 <p align="center">
-  <img src="static/favicon.svg" alt="OpenGlaze — open source ceramic glaze calculator and recipe manager" width="120">
+  <img src="branding/openglaze-512.png" alt="OpenGlaze icon: a split-dipped shino and tenmoku test tile" width="160">
 </p>
 
 <p align="center">
