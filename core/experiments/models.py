@@ -153,12 +153,6 @@ class Experiment:
     @property
     def stage_order(self) -> int:
         """Get numeric order of current stage."""
-        stages = [
-            "ideation",
-            "prediction",
-            "application",
-            "firing",
-            "analysis",
-            "documentation",
-        ]
-        return stages.index(self.stage) if self.stage in stages else 0
+        from .lifecycle import stage_index
+
+        return stage_index(self.stage)
