@@ -1,43 +1,16 @@
-# OpenGlaze product
+# OpenGlaze
 
-OpenGlaze helps potters, educators and studios keep a self-hosted glaze notebook
-and reason about recipes before firing real test tiles. The core experience is
-entering/storing a recipe, inspecting its chemistry, adjusting a batch, and
-recording experiments and photographs—not buying a hosted recipe community.
+A ceramic studio workbench for organizing glazes and layered combinations, tracking experiments/photos from idea to fired/documented result, and exploring recipe chemistry before making a test tile. It combines a browser studio, deterministic chemistry tools and optional Kama AI assistance—not a kiln controller or safety certification service.
 
 ## What exists
 
-- Browser/PWA notebook: glaze records, layering combinations, experiment stages,
-  firing logs and photo surfaces (`frontend/`, routes in `server.py`,
-  `core/glazes/`, `core/combinations/`, `core/experiments/`).
-- Chemistry tools: UMF, estimated thermal expansion, batch scaling/cost,
-  comparisons, substitutions, defect heuristics and computational optimization
-  (`core/chemistry/`). These are estimates, not measured firing outcomes or
-  certification that a glaze is food safe.
-- Optional Kama consultation: retrieves notebook/reference context and streams
-  model responses (`core/ai/`, `config/kama-system-prompt.txt`). Providers include
-  local and cloud endpoints; users must consider what context leaves their host.
-- Studio/invite, lab queue, points, streaks, badges and prediction surfaces
-  (`core/studios/`, `core/gamification/`, `core/predictions/`). Simple login is
-  lightweight process-local identity, not durable enterprise authorization.
-- Local CLI and stdio MCP chemistry workflows (`openglaze_cli.py`,
-  `openglaze_mcp.py`, `skills/openglaze/SKILL.md`).
-- Public project/discovery pages in `docs/`; they are not a hosted notebook.
+- A Flask/vanilla-JavaScript studio with combinations, glaze library, photos, experiment progress, predictions, basics and Kama panel. Personal mode uses local SQLite; cloud mode adds auth/multi-user boundaries and requires its own operational verification.
+- A shared chemistry library plus CLI and dependency-free stdio MCP adapter for UMF, predicted surface/CTE, compatibility, color, substitution and search. These are heuristics/calculations, not observed firing outcomes.
+- Kama retrieval/prompt/streaming and provider adapters. AI is optional; model/endpoints determine whether prompts/recipe context leave the host. Personal config advertises Ollama with `kimi-k2.5:cloud`; do not equate “personal” or a localhost API with offline/private inference.
+- Bundled `ceramics-foundation` reference data: 36 materials, 21 oxides, 7 colorants, 8 clay bodies, 8 demo glazes, 15 chemistry rules, 106 seed chemistry rules; plus firing/schedules, UMF target ranges, thermal-expansion, substitutions, layering, surface-prediction and food-safety guidance. These are source counts, not independently validated scientific coverage. Studio schemas/templates are not all valid JSON (the studio-profile schema is a placeholder).
 
-## Reference inputs and limits
+## Evidence and limits
 
-Checked-in `ceramics-foundation/data/` contains materials, oxides, clay bodies,
-colorants, firing schedules/cones, thermal-expansion coefficients, UMF targets,
-layering/substitution rules and safety reference files. Community recipe inputs
-include `cone10-reduction-community.yaml`, `cone6-oxidation-community.yaml` and
-`core/templates/community-glazes.yaml`; studio examples live in
-`ceramics-foundation/recipes/studio/`. Availability in source does not mean every
-file is used by every workflow. `core/chemistry/data_loader.py` documents loading
-and fallback behavior. Preserve source attribution and applicable content terms;
-see `LICENSE`, `README.md` and dataset provenance before redistributing inputs.
+A local personal studio with a fresh synthetic/seeded database rendered real combination cards in Chromium; 54 chemistry tests passed. CLI UMF worked for a synthetic Custer Feldspar/silica/whiting/EPK recipe. No AI request, cloud account, real studio data, upload, kiln action or payment was exercised.
 
-Default deployment is personal SQLite plus local uploads. PostgreSQL-backed
-managers, durable sessions and stronger collaboration authorization are not
-implemented promises (`docs/architecture.md`, `core/db.py`, `core/auth/`).
-Glazy/INSIGHT import and broader future work remain roadmap items, not current
-capabilities (`ROADMAP.md`). Always validate predictions with physical tests.
+Food-safety labels, CTE compatibility and AI advice cannot establish leach resistance, firing safety or fitness for functional ware: test materials/results independently. The seeded library and screenshots are not user firing evidence. Browser assets include a CDN dependency, so a fully offline experience also needs checking. See [ARCHITECTURE.md](ARCHITECTURE.md) and [docs/architecture.md](docs/architecture.md).

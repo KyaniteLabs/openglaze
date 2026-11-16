@@ -1,62 +1,28 @@
 # OpenGlaze architecture
 
-OpenGlaze is a self-hosted ceramic recipe notebook and chemistry calculator.
-This map describes the current source, not the server split proposed in PR #175.
-Engineering owns implementation layers; Product owns product descriptions.
+## Parts and flow
 
-## Parts and one data flow
+```text
+frontend/ vanilla SPA -> server.py Flask REST/SSE -> mode + SQLite / studio assets
+recipe -> core/chemistry parser -> bundled foundation data -> UMF/prediction/compatibility
+CLI / stdio MCP ------------------------------------^ (no web server required)
+Kama request -> conversation/retrieval/context -> selected model endpoint -> streamed answer
+```
 
-- `frontend/index.html`, `frontend/scripts/` and `frontend/styles/` implement the
-  no-build browser UI; `frontend/sw.js` implements its service worker.
-- `server.py` creates the Flask app, registers API/static routes, initializes and
-  seeds SQLite, and constructs request-scoped managers.
-- `core/glazes/`, `core/combinations/`, `core/experiments/` and `core/studios/`
-  implement notebook persistence; `core/gamification/` and `core/predictions/`
-  implement optional participation features.
-- `core/chemistry/` calculates UMF, estimated expansion, substitutions, batches,
-  compatibility and optimization. `core/chemistry/data_loader.py` reads
-  `ceramics-foundation/data/` and modules have fallback data.
-- `core/ai/context.py` retrieves notebook/reference context;
-  `core/ai/kama.py` sends it to a configured model provider and streams answers.
-- `openglaze_cli.py`, `openglaze_mcp.py` and `skills/openglaze/SKILL.md` expose
-  local agent workflows. `docs/` is a separate public discovery/documentation site.
+[server.py](server.py) assembles configuration, personal/cloud mode, rate/security headers, database initialization/seed data and routes. Its module-level app is lazy; direct execution calls `create_app` and binds the configured address. [core/db.py](core/db.py) scopes connections and SQLite WAL/busy timeout. [frontend](frontend/index.html) loads separate scripts/components; the browser is a consumer of real studio APIs, not the source of record.
 
-Example: a browser posts a recipe to `/api/glazes`; `server.py` applies the
-mode-dependent write-auth check and delegates to `GlazeManager`. The manager
-writes SQLite through `core/db.py`; subsequent glaze/chemistry requests return
-stored recipe information and calculated analysis to the browser. CLI/MCP
-chemistry calculations also operate without a running HTTP server.
+[core/chemistry/data_loader.py](core/chemistry/data_loader.py) caches JSON material/oxide/rule/reference tables from `ceramics-foundation/data`, filters metadata keys and exposes deep-copy reads. [UMF](core/chemistry/umf.py) parses ingredient percentages, totals oxide weights, converts to moles and normalizes flux unity before deriving ratios, surface and CTE estimates. Missing materials/warnings remain part of the result. [openglaze_cli.py](openglaze_cli.py) and [openglaze_mcp.py](openglaze_mcp.py) wrap this same local library.
 
-## Trust and persistence
+[core/ai/kama.py](core/ai/kama.py) owns conversations, prompt/retrieval context and network provider adapters; it is not needed for deterministic chemistry. Config/environment can select local or remote-compatible services. Constructor and personal-config defaults differ; inspect effective provider, endpoint and model rather than promising offline behavior.
 
-`config/` selects personal/cloud behavior. Personal mode is not a multi-tenant
-security boundary. `core/auth/` contains simple process-local bearer sessions
-and experimental Kratos integration; `core/security/` provides request controls.
-Review actual route authorization before exposing an installation publicly.
+## Risky paths / recognizable failures
 
-SQLite (`core/schema.sql`, `core/db.py`) and uploaded local files
-(`core/upload_utils.py`) are durable state. `docker-compose.yml` persists database
-and upload volumes; PostgreSQL configuration is not a PostgreSQL-backed manager
-implementation. Simple sessions, rate limiting and AI conversation history are
-process-local and disappear on restart. Optional AI calls cross a network and
-can disclose supplied recipe/context/image data; self-hosting alone does not
-make configured cloud inference private.
+- Opening the app creates/seeds its configured database; use an explicit new database for probes, never an existing studio by accident. Upload/photo/database and cloud authentication paths need separate backup/privacy/access review.
+- Personal mode has no authentication: keep its bind private. Flask health/chemistry success does not prove cloud tenant isolation, billing, production transport or rate-limit deployment behavior.
+- Provider requests may send recipe/conversation context off-host and incur spend. Timeout/fallback output must not become scientific confidence. No model was launched or queried for this docs work.
+- Heuristic chemistry depends on material matching, composition and reference quality; missing ingredients, absent flux, unknown firing context or estimated coefficients weaken conclusions. Risk labels are not food-safety or kiln certification.
+- Frontend DOMPurify is CDN-loaded; unavailable assets/network change browser behavior. JSON reference data and placeholder studio templates have different validation status.
 
-## Risk, failure and verification
+## Bounded verification
 
-Schema/manager changes risk data loss or ownership mistakes; auth/config/upload
-changes risk exposure. Chemistry coefficients, units and reference-data changes
-can silently alter recommendations: predictions are not fired-test or food-safety
-certification. AI endpoint/prompt changes affect disclosure and reliability.
-SQLite contention, missing data and model timeouts are observable in logs/API
-responses; some glaze-read database errors return an empty list. `/health` is
-liveness, not proof of database/model readiness.
-
-Run `pytest tests/`, `black --check .`, and `ruff check .` with
-`requirements-dev.txt`. Tests cover chemistry, API CRUD, launch and agent
-contracts. `tests/e2e/openglaze-ui-smoke.spec.js` supplies browser smoke coverage.
-`.github/workflows/ci.yml` runs Python 3.12–3.14 tests; container smoke is
-push-only. `.forgejo/workflows/ci.yml` now fails closed on dependency/lint/test
-errors and requires Python 3.12+. See
-`qa/FOUNDATION-GAPS.md` for executed results and unresolved remediation; neither
-file presence nor a GitHub PR proves mirror adoption.
+Read README, architecture, config, server/DB, CLI/MCP, data loader, UMF and AI adapter source. A fresh preserved synthetic SQLite studio rendered in Chromium, with `/api/ask` blocked; evidence lives in the session's `evidence/openglaze/`. Pure chemistry suite: 54 passed. CLI recipe calculation passed. No AI, real user data, cloud login, publication or deployment. Independent review, real firing/operator evidence and scientific acceptance remain separate. Rollback: revert these docs; runtime unchanged.
