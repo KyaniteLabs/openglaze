@@ -5,7 +5,8 @@ import sqlite3
 from typing import List, Optional
 from datetime import datetime
 
-from .models import Experiment
+from . import lifecycle
+from .models import Experiment, ExperimentStatus
 
 
 class ExperimentManager:
@@ -82,12 +83,13 @@ class ExperimentManager:
 
         if self.user_id:
             cursor.execute(
-                "SELECT * FROM experiments WHERE status = 'in_progress' AND (user_id = ? OR user_id IS NULL)",
-                (self.user_id,),
+                "SELECT * FROM experiments WHERE status = ? AND (user_id = ? OR user_id IS NULL)",
+                (ExperimentStatus.IN_PROGRESS.value, self.user_id),
             )
         else:
             cursor.execute(
-                "SELECT * FROM experiments WHERE status = 'in_progress' AND user_id IS NULL"
+                "SELECT * FROM experiments WHERE status = ? AND user_id IS NULL",
+                (ExperimentStatus.IN_PROGRESS.value,),
             )
 
         rows = cursor.fetchall()
@@ -137,7 +139,12 @@ class ExperimentManager:
         return Experiment.from_dict(dict(row)) if row else None
 
     def create(self, experiment: Experiment) -> int:
-        """Create a new experiment."""
+        """Create a new experiment.
+
+        Raises ``lifecycle.IllegalExperimentTransition`` (a ``ValueError``)
+        if the requested initial stage/status is not a legal starting state.
+        """
+        initial = lifecycle.validate_initial(experiment.stage, experiment.status)
         conn = self._get_connection()
         cursor = conn.cursor()
 
@@ -150,8 +157,8 @@ class ExperimentManager:
                 experiment.combination_id,
                 experiment.base_glaze,
                 experiment.top_glaze,
-                experiment.stage,
-                experiment.status,
+                initial["stage"],
+                initial["status"],
                 experiment.prediction,
                 experiment.result,
                 experiment.rating,
@@ -168,7 +175,21 @@ class ExperimentManager:
         return last_id
 
     def update(self, exp_id: int, updates: dict) -> bool:
-        """Update an experiment."""
+        """Update non-lifecycle fields of an experiment.
+
+        ``stage``, ``status`` and ``completed_at`` may only change through the
+        named transitions (``advance_stage``, ``set_status``); writing them
+        here is refused.
+        """
+        illegal = lifecycle.LIFECYCLE_COLUMNS.intersection(updates)
+        if illegal:
+            raise lifecycle.IllegalExperimentTransition(
+                f"Use a lifecycle transition to change: {', '.join(sorted(illegal))}"
+            )
+        return self._write(exp_id, updates)
+
+    def _write(self, exp_id: int, updates: dict) -> bool:
+        """Low-level column write; callers must already have validated keys."""
         conn = self._get_connection()
         cursor = conn.cursor()
 
@@ -200,40 +221,34 @@ class ExperimentManager:
 
         return affected > 0
 
-    def advance_stage(self, exp_id: int) -> bool:
-        """Advance experiment to next stage."""
+    def _transition(self, exp_id: int, move) -> bool:
+        """Apply one named lifecycle move; False if missing or illegal."""
         experiment = self.get_by_id(exp_id)
         if not experiment:
             return False
+        state = lifecycle.ExperimentState.read(experiment.stage, experiment.status)
+        try:
+            updates = move(state)
+        except lifecycle.IllegalExperimentTransition:
+            return False
+        return self._write(exp_id, updates)
 
-        stages = [
-            "ideation",
-            "prediction",
-            "application",
-            "firing",
-            "analysis",
-            "documentation",
-        ]
-        current_idx = (
-            stages.index(experiment.stage) if experiment.stage in stages else 0
-        )
+    def advance_stage(self, exp_id: int) -> bool:
+        """Advance experiment to the next stage (or complete it at the end).
 
-        if current_idx >= len(stages) - 1:
-            # Already at documentation, mark as completed
-            return self.update(
-                exp_id,
-                {"status": "completed", "completed_at": datetime.now().isoformat()},
-            )
-
-        next_stage = stages[current_idx + 1]
-        return self.update(exp_id, {"stage": next_stage})
+        Returns False if the experiment is missing or already
+        completed/failed.
+        """
+        return self._transition(exp_id, lifecycle.advance)
 
     def set_status(self, exp_id: int, status: str) -> bool:
-        """Set experiment status."""
-        updates = {"status": status}
-        if status == "completed":
-            updates["completed_at"] = datetime.now().isoformat()
-        return self.update(exp_id, updates)
+        """Move an experiment to ``status`` via the matching transition.
+
+        Returns False if the move is illegal from the current state.
+        """
+        return self._transition(
+            exp_id, lambda state: lifecycle.transition_for_status(state, status)
+        )
 
     def record_result(
         self, exp_id: int, result: str, rating: int = None, photo: str = None
@@ -365,15 +380,7 @@ class ExperimentManager:
         stats["total"] = cursor.fetchone()["count"]
 
         # By stage
-        stages = [
-            "ideation",
-            "prediction",
-            "application",
-            "firing",
-            "analysis",
-            "documentation",
-        ]
-        for stage in stages:
+        for stage in (st.value for st in lifecycle.STAGE_ORDER):
             if self.user_id:
                 cursor.execute(
                     "SELECT COUNT(*) as count FROM experiments WHERE stage = ? AND (user_id = ? OR user_id IS NULL)",
@@ -387,8 +394,7 @@ class ExperimentManager:
             stats["by_stage"][stage] = cursor.fetchone()["count"]
 
         # By status
-        statuses = ["pending", "in_progress", "completed", "failed"]
-        for status in statuses:
+        for status in (st.value for st in ExperimentStatus):
             if self.user_id:
                 cursor.execute(
                     "SELECT COUNT(*) as count FROM experiments WHERE status = ? AND (user_id = ? OR user_id IS NULL)",

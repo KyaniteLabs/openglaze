@@ -9,17 +9,17 @@ jobs:
       - uses: actions/checkout@v4
       - name: Install system deps
         run: apt-get update -qq && apt-get install -y -qq python3 python3-pip libpq-dev libffi-dev libssl-dev gcc
-      - name: Install Python deps
+      - name: Check supported Python and install dependencies
         run: |
-          if [ -f requirements.txt ]; then pip install --break-system-packages -r requirements.txt || true; fi
-          if [ -f pyproject.toml ]; then pip install --break-system-packages -e ".[dev]" 2>/dev/null || true; fi
+          set -eu
+          python3 -c 'import sys; assert sys.version_info >= (3, 12), "OpenGlaze requires Python 3.12+"'
+          python3 -m pip install --break-system-packages -r requirements-dev.txt
       - name: Lint
         run: |
-          pip install --break-system-packages ruff 2>/dev/null
-          ruff check . || true
+          set -eu
+          python3 -m black --check .
+          python3 -m ruff check .
       - name: Test
         run: |
-          if [ -f pytest.ini ] || [ -f setup.cfg ] || [ -d tests ]; then
-            pip install --break-system-packages pytest 2>/dev/null
-            pytest || true
-          fi
+          set -eu
+          python3 -m pytest tests/ --tb=short -q

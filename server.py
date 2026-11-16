@@ -52,6 +52,7 @@ except ImportError:
 # Import core modules
 from core.glazes import GlazeManager, Glaze
 from core.combinations import CombinationManager, Combination
+from core.combinations.stages import count_fired
 from core.experiments import ExperimentManager, Experiment
 from core.ai import get_kama
 from core.ai.context import ContextRetriever
@@ -483,7 +484,10 @@ def create_app(config: dict = None) -> Flask:
             logger.info(f"Shino warning for {combo.top} over {combo.base}")
             # Return warning but still create
 
-        combo_id = g.combo_manager.create(combo)
+        try:
+            combo_id = g.combo_manager.create(combo)
+        except ValueError as e:
+            return jsonify({"error": str(e)}), 400
         return jsonify({"id": combo_id, "warning": warning}), 201
 
     @app.route("/api/combinations/<int:combo_id>/promote", methods=["POST"])
@@ -521,7 +525,10 @@ def create_app(config: dict = None) -> Flask:
         data = request.json
         if not data:
             return jsonify({"error": "No data provided"}), 400
-        success = g.combo_manager.update(combo_id, data)
+        try:
+            success = g.combo_manager.update(combo_id, data)
+        except ValueError as e:
+            return jsonify({"error": str(e)}), 400
         if success:
             return jsonify({"success": True})
         return jsonify({"error": "Update failed"}), 400
@@ -954,7 +961,10 @@ def create_app(config: dict = None) -> Flask:
             return jsonify({"error": "No data provided"}), 400
 
         exp = Experiment.from_dict(data)
-        exp_id = g.exp_manager.create(exp)
+        try:
+            exp_id = g.exp_manager.create(exp)
+        except ValueError as e:
+            return jsonify({"error": str(e)}), 400
         return jsonify({"id": exp_id}), 201
 
     @app.route("/api/experiments/<int:exp_id>/advance", methods=["POST"])
@@ -1416,13 +1426,7 @@ def create_app(config: dict = None) -> Flask:
         confirmation = data.get("confirmation")
         exp = g.exp_manager.get_by_id(exp_id)
         if exp and exp.combination_id and confirmation in ("confirmed", "surprise"):
-            g.combo_manager.update(
-                exp.combination_id,
-                {
-                    "prediction_grade": confirmation,
-                    "type": confirmation,
-                },
-            )
+            g.combo_manager.record_outcome(exp.combination_id, confirmation)
 
             # Complete any lab claim
             if data.get("studio_id") and STUDIOS_AVAILABLE:
@@ -1658,11 +1662,7 @@ def create_app(config: dict = None) -> Flask:
             )
             total_combos = cursor.fetchone()[0]
 
-            cursor.execute(
-                "SELECT COUNT(*) FROM combinations WHERE user_id = ? AND stage IN ('tested', 'proven', 'confirmed')",
-                (user_id,),
-            )
-            tested_combos = cursor.fetchone()[0]
+            tested_combos = count_fired(cursor, user_id)
 
             cursor.execute(
                 "SELECT COUNT(*) FROM combinations WHERE user_id = ? AND type = 'research-backed'",

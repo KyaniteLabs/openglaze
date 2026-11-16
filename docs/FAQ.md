@@ -56,7 +56,7 @@ Frequently asked questions about the open-source ceramic glaze calculator.
 
 ## Q: What license does OpenGlaze use?
 
-**A:** The code is licensed under the MIT License, which means you can use, modify, distribute, and even sell derivative works with minimal restrictions. Glaze templates and documentation use CC-BY-4.0, which requires attribution. There are no CLAs -- contributions stay MIT-licensed permanently.
+**A:** The code, the documentation in this repository, and the glaze templates are all licensed under the MIT License, which means you can use, modify, distribute, and even sell derivative works with minimal restrictions. There are no CLAs -- contributions stay MIT-licensed permanently.
 
 ## Q: What programming languages is OpenGlaze written in?
 

@@ -1,5 +1,8 @@
 # KyaniteLabs Engineering Rules
 
+Before starting any card on this repository, read root `PRODUCT.md` and
+`ARCHITECTURE.md`. Preserve their distinction between implemented and planned work.
+
 **Repository**: openglaze
 **Description**: Free open-source ceramic glaze calculator, UMF analyzer, and recipe manager for potters and studios.
 **Tech Stack**: Python
