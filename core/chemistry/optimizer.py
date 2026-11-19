@@ -439,7 +439,15 @@ class RecipeOptimizer:
         target: str, target_value: Optional[float], original_cte: Optional[float]
     ):
         """Scoring for exact/directional CTE targets."""
-        if target == "target_cte" and target_value is not None:
+        if target == "target_cte":
+            if target_value is None:
+                # An exact-CTE target without a value has no defined goal.
+                # Stay silent (no suggestions) rather than silently scoring
+                # as increase_cte — the pre-split behavior.
+                def no_goal(umf: UMFResult) -> Tuple[float, float]:
+                    return 0.0, 999.0
+
+                return no_goal
 
             def evaluator(umf: UMFResult) -> Tuple[float, float]:
                 if umf.thermal_expansion is None:

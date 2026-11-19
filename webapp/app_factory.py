@@ -169,14 +169,7 @@ def _register_error_handlers(app: Flask) -> None:
         logger.error(f"Server error: {e}")
         return jsonify(error_payload("Internal server error", "server_error")), 500
 
-    @app.errorhandler(429)
-    def rate_limited(e):
-        payload = error_payload(
-            "Rate limit exceeded",
-            "rate_limited",
-            message="Too many requests. Please slow down.",
-            retry_after=60,
-        )
-        response = jsonify(payload)
-        response.headers["Retry-After"] = "60"
-        return response, 429
+    # No 429 handler here: rate-limit denials are built inside the
+    # @rate_limit decorator (core/security), which returns the response
+    # directly with the measured retry_after and a request-specific retry
+    # invocation. A generic handler would only substitute fixed values.

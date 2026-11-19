@@ -51,9 +51,9 @@ def _project_brief() -> dict[str, Any]:
     }
 
 
-def _fail(message: str, code: str) -> NoReturn:
+def _fail(message: str, code: str, **context: Any) -> NoReturn:
     """Print an actionable error with a concrete retry invocation and exit."""
-    print(f"error: {retry_message(message, code)}", file=sys.stderr)
+    print(f"error: {retry_message(message, code, **context)}", file=sys.stderr)
     raise SystemExit(2)
 
 
@@ -66,6 +66,7 @@ def _run(args: argparse.Namespace) -> dict[str, Any]:
             _fail(
                 f"Invalid cone {args.cone!r}. Use an integer or a zero-padded string like '04'.",
                 "invalid_cone",
+                recipe=args.recipe,
             )
         return calculate_umf(args.recipe, cone=cone).to_dict()
     if args.command == "batch":

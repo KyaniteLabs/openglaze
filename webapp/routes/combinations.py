@@ -72,7 +72,10 @@ def create_combination():
         logger.info(f"Shino warning for {combo.top} over {combo.base}")
         # Return warning but still create
 
-    combo_id = g.combo_manager.create(combo)
+    try:
+        combo_id = g.combo_manager.create(combo)
+    except ValueError as e:
+        return jsonify({"error": str(e)}), 400
     return jsonify({"id": combo_id, "warning": warning}), 201
 
 
@@ -112,7 +115,10 @@ def update_combination(combo_id: int):
     data = request.json
     if not data:
         return jsonify({"error": "No data provided"}), 400
-    success = g.combo_manager.update(combo_id, data)
+    try:
+        success = g.combo_manager.update(combo_id, data)
+    except ValueError as e:
+        return jsonify({"error": str(e)}), 400
     if success:
         return jsonify({"success": True})
     return jsonify({"error": "Update failed"}), 400

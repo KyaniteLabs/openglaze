@@ -64,7 +64,9 @@ def scale_recipe():
         return (
             jsonify(
                 error_payload(
-                    "recipe and batch_size_grams are required", "missing_batch_size"
+                    "recipe and batch_size_grams are required",
+                    "missing_batch_size",
+                    context={"recipe": recipe or None},
                 )
             ),
             400,
@@ -170,7 +172,9 @@ def optimize_glaze_recipe():
         return (
             jsonify(
                 error_payload(
-                    "target_value is required for target_cte", "missing_target_value"
+                    "target_value is required for target_cte",
+                    "missing_target_value",
+                    context={"recipe": recipe or None},
                 )
             ),
             400,

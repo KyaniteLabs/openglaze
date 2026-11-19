@@ -64,7 +64,10 @@ def create_experiment():
         return jsonify({"error": "No data provided"}), 400
 
     exp = Experiment.from_dict(data)
-    exp_id = g.exp_manager.create(exp)
+    try:
+        exp_id = g.exp_manager.create(exp)
+    except ValueError as e:
+        return jsonify({"error": str(e)}), 400
     return jsonify({"id": exp_id}), 201
 
 
@@ -134,13 +137,7 @@ def submit_firing_log(exp_id):
     confirmation = data.get("confirmation")
     exp = g.exp_manager.get_by_id(exp_id)
     if exp and exp.combination_id and confirmation in ("confirmed", "surprise"):
-        g.combo_manager.update(
-            exp.combination_id,
-            {
-                "prediction_grade": confirmation,
-                "type": confirmation,
-            },
-        )
+        g.combo_manager.record_outcome(exp.combination_id, confirmation)
 
         # Complete any lab claim
         if data.get("studio_id"):

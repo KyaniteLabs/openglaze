@@ -193,3 +193,33 @@ class TestRecipeOptimizer:
         result = self.optimizer.optimize("Unicorn Dust 50, Silica 50", "reduce_cte")
         assert not result.success
         assert result.error is not None
+
+
+class TestTargetValueRequired:
+    """Security round-1 regression: target_cte without target_value.
+
+    Base (e822f79) gave no advice for an exact-CTE target with no value;
+    the split accidentally scored it as increase_cte. The optimizer must
+    stay silent instead of guessing a direction.
+    """
+
+    def setup_method(self):
+        self.optimizer = RecipeOptimizer()
+        self.base_recipe = "Custer Feldspar 45, Silica 25, Whiting 18, EPK 12"
+
+    def test_target_cte_without_value_gives_no_suggestions(self):
+        result = self.optimizer.optimize(self.base_recipe, "target_cte")
+        assert result.success
+        assert result.suggestions == []
+
+    def test_target_cte_with_value_still_advises(self):
+        result = self.optimizer.optimize(
+            self.base_recipe, "target_cte", target_value=6.5, max_suggestions=3
+        )
+        assert result.suggestions
+        assert abs(result.suggestions[0].predicted_cte - 6.5) < 0.5
+
+    def test_directional_targets_still_advise(self):
+        for target in ("increase_cte", "reduce_cte"):
+            result = self.optimizer.optimize(self.base_recipe, target)
+            assert result.suggestions, target

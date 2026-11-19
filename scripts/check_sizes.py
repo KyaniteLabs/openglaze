@@ -55,37 +55,50 @@ def function_lengths(path: Path) -> list[tuple[int, str, int]]:
     return found
 
 
-def main() -> int:
-    root = Path(__file__).resolve().parents[1]
+def main(root: Path | None = None, allowlist: dict[str, str] | None = None) -> int:
+    """Scan the tree; return 0 only when every rule holds.
+
+    ``root``/``allowlist`` are injectable so tests can drive the gate
+    against fixture trees (CI runs it with no arguments).
+    """
+    scan_root = root if root is not None else Path(__file__).resolve().parents[1]
+    rules = ALLOWLIST if allowlist is None else allowlist
     py_files = [
         p
-        for p in sorted(root.rglob("*.py"))
-        if not (EXCLUDED_PARTS & set(p.relative_to(root).parts))
+        for p in sorted(scan_root.rglob("*.py"))
+        if not (EXCLUDED_PARTS & set(p.relative_to(scan_root).parts))
     ]
 
     violations: list[str] = []
     seen_allowlist: set[str] = set()
 
     for path in py_files:
-        rel = path.relative_to(root).as_posix()
+        rel = path.relative_to(scan_root).as_posix()
         line_count = len(path.read_text().splitlines())
         if line_count > MAX_FILE_LINES:
             violations.append(f"{rel}: file is {line_count} ln (max {MAX_FILE_LINES})")
         for length, name, lineno in function_lengths(path):
             key = f"{rel}:{name}"
-            if key in ALLOWLIST:
-                seen_allowlist.add(key)
+            if key in rules:
+                if length > MAX_FUNCTION_LINES:
+                    seen_allowlist.add(key)
+                    continue
+                # Ratchet honesty: the exemption is only valid while the
+                # function is actually oversized. A retained exception that
+                # shrank must be removed, or the list rots.
+                violations.append(
+                    f"stale allowlist entry ({name}() is now {length} ln "
+                    f"<= {MAX_FUNCTION_LINES}): {key} — remove the entry"
+                )
                 continue
             if length > MAX_FUNCTION_LINES:
                 violations.append(
                     f"{rel}:{lineno} {name}() is {length} ln (max {MAX_FUNCTION_LINES})"
                 )
 
-    stale = sorted(set(ALLOWLIST) - seen_allowlist)
+    stale = sorted(set(rules) - seen_allowlist)
     for key in stale:
-        violations.append(
-            f"stale allowlist entry (function no longer oversized): {key}"
-        )
+        violations.append(f"stale allowlist entry (no such oversized function): {key}")
 
     if violations:
         print("size gate FAILED:")
@@ -95,7 +108,7 @@ def main() -> int:
     print(
         f"size gate OK: {len(py_files)} files "
         f"(<= {MAX_FILE_LINES} ln), all functions <= {MAX_FUNCTION_LINES} ln "
-        f"({len(ALLOWLIST)} allowlisted)"
+        f"({len(rules)} allowlisted)"
     )
     return 0
 

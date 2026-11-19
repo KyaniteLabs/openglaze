@@ -10,7 +10,7 @@ import json
 import pytest
 
 from core.errors import (
-    _RETRY_INVOCATIONS,
+    _RETRY_BUILDERS,
     error_payload,
     retry_invocation,
     retry_message,
@@ -22,7 +22,8 @@ from openglaze_mcp import analyze_glaze_recipe, handle_message
 
 
 def test_every_error_code_maps_to_a_concrete_invocation():
-    for code, invocation in _RETRY_INVOCATIONS.items():
+    for code, builder in _RETRY_BUILDERS.items():
+        invocation = builder()
         assert "retry" not in code
         assert any(marker in invocation for marker in ("MCP", "CLI", "HTTP")), code
 

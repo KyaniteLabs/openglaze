@@ -34,6 +34,7 @@ def analyze_glaze_recipe(args: dict[str, Any]) -> dict[str, Any]:
             retry_message(
                 "Invalid cone. Use an integer or a zero-padded string like '04'.",
                 "invalid_cone",
+                recipe=recipe,
             )
         )
     return _with_retry_hint(calculate_umf(recipe, cone=cone).to_dict())
@@ -47,10 +48,14 @@ def scale_glaze_batch(args: dict[str, Any]) -> dict[str, Any]:
         size = float(args.get("size") or 0)
     except (TypeError, ValueError):
         raise ValueError(
-            retry_message("Provide size as a number, e.g. 300.", "invalid_size")
+            retry_message(
+                "Provide size as a number, e.g. 300.", "invalid_size", recipe=recipe
+            )
         )
     if size <= 0:
-        raise ValueError(retry_message("Provide a positive size.", "invalid_size"))
+        raise ValueError(
+            retry_message("Provide a positive size.", "invalid_size", recipe=recipe)
+        )
     return _with_retry_hint(
         calculate_batch(recipe, size, str(args.get("unit") or "grams"))
     )

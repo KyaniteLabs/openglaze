@@ -4,6 +4,7 @@ import logging
 
 from flask import Blueprint, g, jsonify
 
+from core.combinations.stages import count_fired
 from core.security import rate_limit
 from webapp.helpers import get_current_user_id
 
@@ -87,10 +88,7 @@ def _combo_counts(cursor, user_id) -> dict:
 
     return {
         "total_combos": count("SELECT COUNT(*) FROM combinations WHERE user_id = ?"),
-        "tested_combos": count(
-            "SELECT COUNT(*) FROM combinations "
-            "WHERE user_id = ? AND stage IN ('tested', 'proven', 'confirmed')"
-        ),
+        "tested_combos": count_fired(cursor, user_id),
         "research_combos": count(
             "SELECT COUNT(*) FROM combinations "
             "WHERE user_id = ? AND type = 'research-backed'"
