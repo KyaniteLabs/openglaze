@@ -21,10 +21,29 @@ test('OpenGlaze UI smoke', async () => {
   const apiGlazes = await page.evaluate(async () => {
     const r = await fetch('/api/glazes');
     const data = await r.json();
-    return { ok: r.ok, count: data.length };
+    return { ok: r.ok, count: data.length, blue: data.filter(g => g.family === 'blue').length };
   });
   expect(apiGlazes.ok).toBeTruthy();
   expect(apiGlazes.count).toBeGreaterThan(0);
+
+  // Regression (audit ledger row 11): with the family-key mismatch, the All
+  // Glazes view rendered nothing even though the API served every seeded
+  // glaze. The view must list everything the API returns, and a family
+  // filter must match the API's singular lowercase family values.
+  await page.click('[data-view="glazes"]');
+  await page.waitForTimeout(250);
+  const familySections = await page.locator('.glaze-family-section').count();
+  const renderedCards = await page.locator('.glaze-detail-card').count();
+  expect(familySections).toBeGreaterThan(0);
+  expect(renderedCards).toEqual(apiGlazes.count);
+
+  expect(apiGlazes.blue).toBeGreaterThan(0);
+  await page.click('.family-filter[data-family="Blues"]');
+  await page.waitForTimeout(250);
+  const blueCards = await page.locator('.glaze-detail-card').count();
+  expect(blueCards).toEqual(apiGlazes.blue);
+  await page.click('.family-filter[data-family="all"]');
+  await page.waitForTimeout(250);
 
   for (const view of [
     'glazes',
