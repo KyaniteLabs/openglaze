@@ -37,7 +37,12 @@ const API = {
 
     async getGlazes() {
         const result = await this._fetch('/glazes');
-        return result || [];
+        return (result || []).map(g => ({
+            ...g,
+            // API families are singular lowercase; the UI filters and groups
+            // by the plural title-case keys in FAMILY_ORDER.
+            family: normalizeFamily(g.family),
+        }));
     },
 
     async getCombinations() {
