@@ -13,3 +13,23 @@ concurrency:
 jobs:
   ci:
     uses: KyaniteLabs/.github/.forgejo/workflows/ci-profile.yml@0209ffe2feb69190760cc31491a097fea174550f
+  test:
+    runs-on: docker
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install system deps
+        run: apt-get update -qq && apt-get install -y -qq python3 python3-pip libpq-dev libffi-dev libssl-dev gcc
+      - name: Check supported Python and install dependencies
+        run: |
+          set -eu
+          python3 -c 'import sys; assert sys.version_info >= (3, 12), "OpenGlaze requires Python 3.12+"'
+          python3 -m pip install --break-system-packages -r requirements-dev.txt
+      - name: Lint
+        run: |
+          set -eu
+          python3 -m black --check .
+          python3 -m ruff check .
+      - name: Test
+        run: |
+          set -eu
+          python3 -m pytest tests/ --tb=short -q

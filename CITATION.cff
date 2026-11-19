@@ -5,7 +5,7 @@ type: software
 authors:
   - alias: simongonzalezdc
 repository-code: https://github.com/KyaniteLabs/openglaze
-url: https://openglaze.kyanitelabs.tech
+url: https://kyanitelabs.github.io/openglaze/
 license: MIT
 version: 1.1.0
 abstract: Free open-source ceramic glaze calculator and self-hosted glaze management software with UMF calculation, CTE analysis, oxide analysis, and computational recipe optimization.

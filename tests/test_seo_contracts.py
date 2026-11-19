@@ -8,7 +8,7 @@ import xml.etree.ElementTree as ET
 
 ROOT = Path(__file__).resolve().parents[1]
 DOCS = ROOT / "docs"
-CANONICAL = "https://openglaze.kyanitelabs.tech"
+CANONICAL = "https://kyanitelabs.github.io/openglaze"
 SEO_PAGES = [
     "ceramic-glaze-calculator.html",
     "umf-calculator.html",
@@ -142,14 +142,57 @@ def test_repository_growth_metadata_exists():
 def test_static_pages_use_project_relative_internal_links():
     for path in DOCS.glob("*.html"):
         html = path.read_text()
-        assert (
-            'href="/' not in html
-        ), f"{path.name} has root-relative hrefs that break on project Pages"
+        message = f"{path.name} has root-relative hrefs that break on project Pages"
+        assert 'href="/' not in html, message
 
 
-def test_homepage_visible_stats_are_current():
+def test_homepage_example_matches_the_actual_chemistry_engine():
+    from core.chemistry.umf import calculate_umf
+
     homepage = (DOCS / "index.html").read_text()
-    assert "<strong>139</strong>" in homepage
-    assert "<span>Tests passing</span>" in homepage
-    assert "111 Tests passing" not in homepage
-    assert "without firing test tiles" not in homepage
+    recipe_table = re.search(r'<table id="recipe".*?</table>', homepage, re.S)
+    assert recipe_table, "Show a real recipe rather than an invented swatch preview"
+    rows = re.findall(r'<th scope="row">(.*?)</th><td>([0-9.]+)</td>', recipe_table[0])
+    assert len(rows) == 4
+    assert sum(float(amount) for _, amount in rows) == 100
+    result = calculate_umf(
+        ", ".join(f"{name} {amount}" for name, amount in rows), cone=10
+    )
+    assert not result.missing_materials
+    shown_umf = dict(re.findall(r'data-oxide="(.*?)">([0-9.]+)</td>', homepage))
+    assert set(shown_umf) == set(result.umf_formula)
+    for oxide, value in result.umf_formula.items():
+        assert float(shown_umf[oxide]) == round(value, 4)
+    assert "No fired result is represented" in homepage
+    assert "above the typical cone 10 range" in homepage
+    assert "This is the project website" in homepage
+    assert "Tests passing" not in homepage
+
+
+def test_sitemap_targets_exist_in_pages_source():
+    xml = ET.parse(DOCS / "sitemap.xml")
+    ns = {"sm": "http://www.sitemaps.org/schemas/sitemap/0.9"}
+    for loc in xml.findall("sm:url/sm:loc", ns):
+        assert loc.text.startswith(f"{CANONICAL}/")
+        relative = loc.text.removeprefix(f"{CANONICAL}/") or "index.html"
+        target = DOCS / relative
+        assert target.is_file() or (
+            target.suffix == ".html" and target.with_suffix(".md").is_file()
+        ), f"sitemap target is not published by Pages: {loc.text}"
+
+
+def test_homepage_metadata_uses_public_pages_url():
+    parsed = parse_html(DOCS / "index.html")
+    assert parsed.links["canonical"] == f"{CANONICAL}/"
+    assert parsed.meta["og:url"] == f"{CANONICAL}/"
+    assert parsed.meta["og:image"] == f"{CANONICAL}/social-preview.png"
+
+
+def test_homepage_does_not_present_unverified_firing_outcomes_as_proof():
+    homepage = (DOCS / "index.html").read_text()
+    for claim in (
+        "Compatible with cone 10 stoneware bodies",
+        "Replace all silica with kaolin",
+        "so you fire fewer test tiles and get results faster",
+    ):
+        assert claim not in homepage

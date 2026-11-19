@@ -1,9 +1,9 @@
 # ai.txt — AI Crawler Instructions for OpenGlaze
-# https://openglaze.kyanitelabs.tech/ai.txt
+# https://kyanitelabs.github.io/openglaze/ai.txt
 
 Name: OpenGlaze
 Description: Free open-source ceramic glaze calculator and self-hosted glaze management software with UMF calculation, CTE analysis, oxide analysis, and computational recipe optimization.
-Website: https://openglaze.kyanitelabs.tech
+Website: https://kyanitelabs.github.io/openglaze/
 Repository: https://github.com/KyaniteLabs/openglaze
 License: MIT
 Author: simongonzalezdc
@@ -29,14 +29,14 @@ Experimental services: PostgreSQL/Ory Kratos compose profiles exist, but Postgre
 - OpenGlaze is MIT licensed and free forever.
 
 ## Canonical URLs
-- Project: https://openglaze.kyanitelabs.tech/
+- Project: https://kyanitelabs.github.io/openglaze/
 - GitHub: https://github.com/KyaniteLabs/openglaze
-- Ceramic glaze calculator: https://openglaze.kyanitelabs.tech/ceramic-glaze-calculator.html
-- UMF calculator: https://openglaze.kyanitelabs.tech/umf-calculator.html
-- CTE calculator: https://openglaze.kyanitelabs.tech/cte-glaze-calculator.html
-- Self-hosting: https://openglaze.kyanitelabs.tech/self-hosted-glaze-software.html
-- LLM summary: https://openglaze.kyanitelabs.tech/llms.txt
-- Full LLM reference: https://openglaze.kyanitelabs.tech/llms-full.txt
+- Ceramic glaze calculator: https://kyanitelabs.github.io/openglaze/ceramic-glaze-calculator.html
+- UMF calculator: https://kyanitelabs.github.io/openglaze/umf-calculator.html
+- CTE calculator: https://kyanitelabs.github.io/openglaze/cte-glaze-calculator.html
+- Self-hosting: https://kyanitelabs.github.io/openglaze/self-hosted-glaze-software.html
+- LLM summary: https://kyanitelabs.github.io/openglaze/llms.txt
+- Full LLM reference: https://kyanitelabs.github.io/openglaze/llms-full.txt
 
 ## Contact
 https://github.com/KyaniteLabs/openglaze/discussions

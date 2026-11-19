@@ -1,13 +1,13 @@
 # Cone 10 Reduction - Community Edition
 # A collection of classic reduction glazes for high-fire ceramics
 #
-# License: CC-BY (Free to use, modify, and share with attribution)
+# License: MIT (see ../LICENSE)
 
 id: cone10-reduction-community
 name: Cone 10 Reduction (Community)
 version: 1.0.0
 author: Glaze Lab Community
-license: CC-BY-4.0
+license: MIT
 premium: false
 
 description: |

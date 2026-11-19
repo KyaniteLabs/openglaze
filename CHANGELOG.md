@@ -8,7 +8,49 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Fixed
+- Releasing a studio lab claim now returns the combination to the lab queue
+  instead of hiding it.
+- Experiments move to `in_progress` when advanced, so `/api/experiments/active`
+  lists them; completed or failed experiments can no longer be advanced
+  (which flipped failed ones to completed and rewrote `completed_at`).
+- Confirming a combination through the firing log now marks it `documented`,
+  matching the promote route; `/api/progress` counts documented combinations
+  as tested.
 - Docker install on a fresh clone: `cp .env.example .env && docker compose up -d` now reaches a healthy app. Previously postgres exited on boot twice over — a blank `POSTGRES_PASSWORD` (shipped commented) and the Renovate bump to `postgres:18-alpine`, whose images reject the legacy `/var/lib/postgresql/data` mount. `.env.example` now ships a working `POSTGRES_PASSWORD` default, compose interpolations carry inline defaults, and postgres is pinned to `16-alpine` (re-pin together with the volume change). Kratos also crash-looped on v26: the removed `--watch-courier-templates` flag is dropped, and `kratos/config.yml` now validates against the v26 schema (`in: header` on the webhook api_key auth; no `enabled` key on the error flow). The manual SQLite path is unchanged.
+
+### Changed
+- License statements now agree with the license the repository ships: the README,
+  the templates guide, the FAQ and template metadata all say MIT, and the archived
+  Default Studio dataset ships its CC-BY-SA-4.0 text instead of a bare claim.
+- Experiment, lab-claim and combination-stage lifecycles are named in one
+  module each (`core/experiments/lifecycle.py`, `core/studios/claims.py`,
+  `core/combinations/stages.py`); illegal values or moves return 400.
+
+### Added
+- `pyproject.toml` declaring the supported Python floor (`>=3.12`), matching the
+  README badge, docs, the 3.12–3.14 CI matrix, and the 3.14 Dockerfile base.
+- Docs aligned on the same floor (CONTRIBUTING, FAQ, development, installation
+  previously said Python 3.11+).
+
+### Changed
+- Finish the public notebook layout with a compact guide index, installation steps, restrained controls and responsive editorial hierarchy.
+- Explain chemistry, test planning and firing records as three ruled workflows; remove unverified outcome mockups and repeated feature cards.
+- Replace the public homepage swatch mockup and stale test count with a reproducible recipe/UMF study, firing caveats and a clear installation action.
+
+### Fixed
+- Docker Compose boots first-try on a fresh clone: `POSTGRES_PASSWORD` ships
+  with a working dev default in `.env.example`, and the `postgres_data` volume
+  now mounts at `/var/lib/postgresql` (the postgres 18 image's own volume
+  path) — the old `/var/lib/postgresql/data` mount crashed the 18 entrypoint
+  (docker-library/postgres#37).
+- Ory Kratos actually runs under v26.2.0: `serve` used the nonexistent
+  `--watch-courier-templates` flag (now `--watch-courier`), `migrate sql` now
+  uses the explicit `up` subcommand, and kratos/config.yml gained the
+  v26-required `secrets.cipher` key and webhook auth `in: header` field while
+  dropping `enabled` keys the v26 schema rejects.
+- Keep public-site navigation visible on mobile; improve text/action contrast, keyboard focus and reduced-motion behavior.
+- Point public website links and discovery metadata at the existing GitHub Pages site; the previously advertised custom domain does not resolve (#152, KLH-17).
+- Remove the unpublished README URL from the public sitemap and distinguish self-hosted app examples from the public documentation site.
 
 ## [1.1.0] - 2026-04-27
 

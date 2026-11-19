@@ -294,7 +294,7 @@ function renderArchiveView() {
     const canvas = document.getElementById('canvas')
     const emptyState = document.getElementById('empty-state')
 
-    const archived = state.combinations.filter(c => c.stage === 'proven' || c.stage === 'fired')
+    const archived = state.combinations.filter(c => ['fired', 'documented', 'proven', 'tested', 'confirmed'].includes(c.stage))
 
     canvas.innerHTML = ''
 

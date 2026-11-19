@@ -1,4 +1,4 @@
-version: v1.0.0
+version: v26.2.0
 
 dsn: postgres://openglaze:password@postgres:5432/openglaze
 
@@ -107,8 +107,11 @@ log:
 secrets:
   cookie:
     - PLEASE-CHANGE-ME-THIS-IS-NOT-SECURE
-  # Required when ciphers.algorithm is set; exactly 32 chars. Dev placeholder.
+  # Required by kratos >= v26; must be a 32-byte key for xchacha20-poly1305.
+  # Required when ciphers.algorithm is set; exactly 32 chars. Dev placeholders —
+  # replace for anything exposed publicly.
   cipher:
+    - change-me-cipher-dev-secret-32by
     - PLEASE-CHANGE-ME-CIPHER-SECRET-X
 
 ciphers:

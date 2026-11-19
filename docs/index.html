@@ -4,29 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OpenGlaze — Free Ceramic Glaze Calculator & Recipe Manager (Open Source)</title>
-    <meta name="description" content="Free, self-hosted ceramic glaze calculator with UMF analysis, CTE prediction, and recipe optimization. 44 community-tested cone 6 and cone 10 glazes. MIT licensed. No paywalls.">
+    <meta name="description" content="Free, self-hosted ceramic glaze calculator with UMF analysis, CTE prediction, and recipe optimization. a library of cone 6 and cone 10 recipes. MIT licensed. No paywalls.">
     <meta name="keywords" content="ceramic glaze calculator, glaze recipe calculator, UMF calculator ceramics, glaze management software, open source glaze software, ceramic glaze database, glaze chemistry calculator, cone 10 glaze recipes, cone 6 glaze recipes, glaze recipe optimizer, pottery glaze management, self-hosted glaze software, ceramic studio software, unity molecular formula, glaze CTE calculator, oxide analysis ceramics">
     <meta name="author" content="simongonzalezdc">
-    <link rel="canonical" href="https://openglaze.kyanitelabs.tech/">
+    <link rel="canonical" href="https://kyanitelabs.github.io/openglaze/">
 
     <!-- Open Graph -->
     <meta property="og:title" content="OpenGlaze — Free Ceramic Glaze Calculator & Recipe Manager">
     <meta property="og:description" content="Free, self-hosted ceramic glaze calculator with UMF, CTE, and recipe optimization. 44 community glazes. MIT licensed.">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://openglaze.kyanitelabs.tech">
-    <meta property="og:image" content="https://openglaze.kyanitelabs.tech/social-preview.png">
+    <meta property="og:url" content="https://kyanitelabs.github.io/openglaze/">
+    <meta property="og:image" content="https://kyanitelabs.github.io/openglaze/social-preview.png">
     <meta property="og:image:width" content="1280">
     <meta property="og:image:height" content="640">
     <meta property="og:site_name" content="OpenGlaze">
     <meta property="og:locale" content="en_US">
     <meta property="article:published_time" content="2026-04-24T00:00:00+00:00">
-    <meta property="article:modified_time" content="2026-04-27T00:00:00+00:00">
+    <meta property="article:modified_time" content="2026-10-21T00:00:00+00:00">
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="OpenGlaze — Free Ceramic Glaze Calculator">
     <meta name="twitter:description" content="Open-source glaze management with UMF calculator, CTE analysis, and recipe optimizer. Self-hosted. Free forever.">
-    <meta name="twitter:image" content="https://openglaze.kyanitelabs.tech/social-preview.png">
+    <meta name="twitter:image" content="https://kyanitelabs.github.io/openglaze/social-preview.png">
 
     <!-- Schema Markup: SoftwareApplication -->
     <script type="application/ld+json">
@@ -38,14 +38,14 @@
       "operatingSystem": "Any",
       "softwareVersion": "1.1.0",
       "datePublished": "2026-04-24",
-      "dateModified": "2026-04-27",
+      "dateModified": "2026-10-21",
       "offers": {
         "@type": "Offer",
         "price": "0",
         "priceCurrency": "USD"
       },
       "description": "Open-source ceramic glaze management system with UMF calculator, CTE analysis, and computational recipe optimizer. Self-hosted. Free forever under MIT license.",
-      "url": "https://openglaze.kyanitelabs.tech",
+      "url": "https://kyanitelabs.github.io/openglaze/",
       "sameAs": [
         "https://github.com/KyaniteLabs/openglaze"
       ],
@@ -59,7 +59,7 @@
         "Studio collaboration tools",
         "Self-hosted deployment"
       ],
-      "softwareRequirements": "Python 3.11+, SQLite, Docker (optional)",
+      "softwareRequirements": "Python 3.12+, SQLite, Docker (optional)",
       "license": "https://github.com/KyaniteLabs/openglaze/blob/master/LICENSE",
       "programmingLanguage": "Python",
       "author": {
@@ -79,7 +79,7 @@
           "@type": "ListItem",
           "position": 1,
           "name": "OpenGlaze",
-          "item": "https://openglaze.kyanitelabs.tech/"
+          "item": "https://kyanitelabs.github.io/openglaze/"
         }
       ]
     }
@@ -96,7 +96,7 @@
           "name": "What is OpenGlaze?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "OpenGlaze is a free, open-source ceramic glaze calculator and studio workbench for potters and ceramic studios. It includes a UMF calculator, CTE analysis engine, computational recipe optimizer, 44 community-tested cone 6 and cone 10 glazes, and AI-powered glaze consulting — all self-hosted under the MIT license."
+            "text": "OpenGlaze is a free, open-source ceramic glaze calculator and studio workbench for potters and ceramic studios. It includes a UMF calculator, CTE analysis engine, computational recipe optimizer, a library of cone 6 and cone 10 recipes, and AI-powered glaze consulting — all self-hosted under the MIT license."
           }
         },
         {
@@ -128,7 +128,7 @@
           "name": "Is OpenGlaze a replacement for Glazy or DigitalFire?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "No — OpenGlaze complements them. Glazy is a recipe database and community. DigitalFire provides deep ceramic chemistry education. OpenGlaze is a computational chemistry engine and glaze management tool. Many users export recipes from Glazy into OpenGlaze for UMF analysis and optimization."
+            "text": "No — OpenGlaze complements them. Glazy is a recipe database and community. DigitalFire provides deep ceramic chemistry education. OpenGlaze is a computational chemistry engine and glaze management tool. You can use community recipe references alongside OpenGlaze calculations."
           }
         },
         {
@@ -136,7 +136,7 @@
           "name": "Can I self-host OpenGlaze?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Absolutely. Self-hosting is the primary deployment model. Run it locally with SQLite, or deploy with Docker and SQLite volumes. Works on a VPS, a Raspberry Pi, or any machine running Docker. Your recipes never leave your infrastructure."
+            "text": "Absolutely. Self-hosting is the primary deployment model. Run it locally with SQLite, or deploy with Docker and SQLite volumes. Works on a VPS, a Raspberry Pi, or any machine running Docker. The default installation stores recipes in SQLite; optional cloud integrations have their own data flows."
           }
         }
       ]
@@ -150,13 +150,14 @@
     
     <style>
         :root {
+            color-scheme: light;
             --celadon-50: #f4f9f6;
             --celadon-100: #e3f0ea;
             --celadon-200: #c7e0d4;
             --celadon-300: #9cc9b4;
             --celadon-400: #6ead90;
-            --celadon-500: #5a9078;
-            --celadon-600: #467560;
+            --celadon-500: #315c4b;
+            --celadon-600: #315c4b;
             --celadon-700: #3a5e4e;
             --celadon-800: #314c40;
             --celadon-900: #2a3f36;
@@ -183,9 +184,9 @@
             --clay-800: #735a48;
             --clay-900: #5e4b3d;
             
-            --text-primary: #1a1a1a;
-            --text-secondary: #5a5a5a;
-            --text-muted: #8a8a8a;
+            --text-primary: #1f1a15;
+            --text-secondary: #5c4f40;
+            --text-muted: #5c4f40;
             --bg-primary: #faf8f5;
             --bg-secondary: #ffffff;
             --bg-tertiary: #f2ede6;
@@ -194,8 +195,8 @@
             --font-display: 'Fraunces', Georgia, serif;
             --font-body: 'DM Sans', system-ui, sans-serif;
             
-            --radius-sm: 6px;
-            --radius-md: 12px;
+            --radius-sm: 2px;
+            --radius-md: 4px;
             --radius-lg: 20px;
             --radius-xl: 32px;
             
@@ -214,7 +215,6 @@
             border-radius: var(--radius-sm);
             font-size: 0.9rem;
             z-index: 200;
-            transition: top 0.2s;
         }
 
         .skip-link:focus {
@@ -223,8 +223,9 @@
         }
 
         *:focus-visible {
-            outline: 2px solid var(--celadon-500);
-            outline-offset: 2px;
+            outline: 2px solid var(--text-primary);
+            outline-offset: 4px;
+            box-shadow: 0 0 0 4px white;
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -245,7 +246,7 @@
         }
         
         html {
-            scroll-behavior: smooth;
+            scroll-behavior: auto;
         }
         
         body {
@@ -274,13 +275,12 @@
         
         /* Navigation */
         .nav {
-            position: fixed;
+            position: static;
             top: 0;
             left: 0;
             right: 0;
             z-index: 100;
-            background: rgba(250, 248, 245, 0.85);
-            backdrop-filter: blur(20px);
+            background: var(--bg-primary);
             border-bottom: 1px solid var(--border);
         }
         
@@ -307,8 +307,8 @@
         .logo-mark {
             width: 32px;
             height: 32px;
-            background: linear-gradient(135deg, var(--celadon-400), var(--celadon-600));
-            border-radius: 8px;
+            background: var(--celadon-600);
+            border-radius: 2px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -322,13 +322,13 @@
             align-items: center;
         }
         
-        .nav-links a {
+        .nav-links a:not(.btn-primary) {
             color: var(--text-secondary);
             font-weight: 500;
             font-size: 0.9rem;
         }
         
-        .nav-links a:hover {
+        .nav-links a:not(.btn-primary):hover {
             color: var(--text-primary);
         }
         
@@ -343,25 +343,24 @@
             font-size: 0.9rem;
             cursor: pointer;
             border: none;
-            transition: all 0.2s;
+            transition: background-color 0.16s, color 0.16s;
         }
         
         .btn-primary {
-            background: linear-gradient(135deg, var(--celadon-500), var(--celadon-600));
+            background: var(--celadon-600);
             color: white;
-            box-shadow: 0 2px 8px rgba(90, 144, 120, 0.3);
+            box-shadow: none;
         }
         
         .btn-primary:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 4px 16px rgba(90, 144, 120, 0.4);
+            background: #254638;
             color: white;
         }
         
         .btn-secondary {
             background: var(--bg-secondary);
             color: var(--text-primary);
-            border: 1px solid var(--border);
+            border: 1px solid #7a6b55;
         }
         
         .btn-secondary:hover {
@@ -385,7 +384,7 @@
         
         /* Hero */
         .hero {
-            padding: 140px 24px 80px;
+            padding: 64px 24px 80px;
             max-width: 1200px;
             margin: 0 auto;
             display: grid;
@@ -407,21 +406,8 @@
             margin-bottom: 24px;
         }
         
-        .hero-badge span {
-            width: 8px;
-            height: 8px;
-            background: var(--celadon-500);
-            border-radius: 50%;
-            animation: pulse 2s infinite;
-        }
-        
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
-        
         .hero h1 {
-            font-size: 3.5rem;
+            font-size: 4.5rem;
             margin-bottom: 24px;
             letter-spacing: -0.02em;
         }
@@ -444,112 +430,42 @@
             margin-bottom: 40px;
         }
         
-        .hero-stats {
-            display: flex;
-            gap: 32px;
+        .specimen { border-top: 3px solid var(--celadon-600); background: #f2ede6; padding: 28px; }
+        .specimen-label { display: flex; justify-content: space-between; gap: 12px; font-size: 0.875rem; color: var(--text-secondary); }
+        .specimen h2 { font-size: 1.75rem; margin: 16px 0 24px; }
+        .specimen-tables { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+        .specimen table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+        .specimen caption { text-align: left; padding-bottom: 12px; font-weight: 600; }
+        .specimen th, .specimen td { padding: 8px 0; border-top: 1px solid #b8a890; text-align: left; font-weight: 400; }
+        .specimen td { text-align: right; padding-left: 8px; font-family: ui-monospace, monospace; font-variant-numeric: tabular-nums; }
+        .hero .specimen p { font-size: 0.875rem; margin: 20px 0 0; max-width: none; }
+        .specimen .note { border-left: 2px solid #8b4513; padding-left: 12px; }
+        .hero .site-note { font-size: 0.875rem; margin: 0; max-width: 40ch; }
+        .hero-cta { flex-wrap: wrap; align-items: center; }
+        .example-link { padding: 10px 0; text-decoration: underline; font-size: 0.9rem; }
+        .hero-badge { border-radius: 0; background: none; padding: 0; letter-spacing: 0.08em; text-transform: uppercase; }
+        @media (max-width: 640px) {
+            .specimen { padding: 20px 16px; text-align: left; }
+            .specimen-tables { gap: 16px; }
+            .hero { gap: 24px; text-align: left; padding: 32px 16px; }
+            .hero p { margin-left: 0; margin-right: 0; font-size: 1rem; margin-bottom: 20px; }
+            .hero .hero-cta { justify-content: flex-start; margin-bottom: 16px; }
+            .hero h1 { font-size: 2.75rem; margin-bottom: 16px; }
+            .hero-badge { margin-bottom: 16px; }
         }
-        
-        .hero-stat {
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .hero-stat strong {
-            font-family: var(--font-display);
-            font-size: 1.5rem;
-            color: var(--text-primary);
-        }
-        
-        .hero-stat span {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-        }
-        
-        .hero-visual {
-            position: relative;
-        }
-        
-        .hero-card {
-            background: var(--bg-secondary);
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-lg);
-            padding: 32px;
-            border: 1px solid var(--border);
-        }
-        
-        .hero-card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-        
-        .hero-card h3 {
-            font-size: 1rem;
-            color: var(--text-secondary);
-        }
-        
-        .glaze-row {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 10px 0;
-            border-bottom: 1px solid var(--border);
-        }
-        
-        .glaze-row:last-child {
-            border-bottom: none;
-        }
-        
-        .glaze-swatch {
-            width: 36px;
-            height: 36px;
-            border-radius: var(--radius-sm);
-            flex-shrink: 0;
-        }
-        
-        .glaze-info {
-            flex: 1;
-        }
-        
-        .glaze-info strong {
-            display: block;
-            font-size: 0.9rem;
-        }
-        
-        .glaze-info span {
-            font-size: 0.75rem;
-            color: var(--text-muted);
-        }
-        
-        .glaze-tag {
-            padding: 2px 8px;
-            border-radius: 100px;
-            font-size: 0.7rem;
-            font-weight: 600;
-        }
-        
-        .tag-reduction {
-            background: var(--tenmoku-100);
-            color: var(--tenmoku-700);
-        }
-        
-        .tag-oxidation {
-            background: var(--celadon-100);
-            color: var(--celadon-700);
-        }
-        
         /* Features */
         .features {
-            padding: 80px 24px;
+            padding: 48px 24px 64px;
             max-width: 1200px;
             margin: 0 auto;
         }
         
         .section-header {
-            text-align: center;
-            max-width: 600px;
-            margin: 0 auto 64px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+            text-align: left;
+            margin: 0 0 40px;
         }
         
         .section-header h2 {
@@ -564,36 +480,14 @@
         
         .features-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0 48px;
         }
         
-        .feature-card {
-            background: var(--bg-secondary);
-            border-radius: var(--radius-lg);
-            padding: 32px;
-            border: 1px solid var(--border);
-            transition: all 0.3s;
-        }
-        
-        .feature-card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-lg);
-        }
-        
-        .feature-icon {
-            width: 48px;
-            height: 48px;
-            border-radius: var(--radius-md);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            margin-bottom: 20px;
-        }
-        
+        .feature-card { padding: 20px 0; border-top: 1px solid #7a6b55; }
+        .feature-card a { text-decoration: underline; text-underline-offset: 4px; }
         .feature-card h3 {
-            font-size: 1.1rem;
+            font-size: 1.25rem;
             margin-bottom: 8px;
         }
         
@@ -603,82 +497,18 @@
             line-height: 1.6;
         }
         
-        /* Showcase */
-        .showcase {
-            padding: 80px 24px;
-            background: linear-gradient(180deg, var(--bg-primary) 0%, var(--clay-50) 100%);
+        /* Ruled workflow entries */
+        .workflow { display: grid; grid-template-columns: 64px 1fr 1.25fr; gap: 32px; padding: 32px 0; border-top: 1px solid #7a6b55; }
+        .entry-number { color: #8b4513; font: 0.875rem ui-monospace, monospace; padding-top: 8px; }
+        .workflow h3 { font-size: 1.75rem; }
+        .workflow p { color: var(--text-secondary); margin-bottom: 12px; }
+        .workflow a, .workflow-note a { text-decoration: underline; text-underline-offset: 4px; }
+        .workflow-note { padding-top: 24px; border-top: 1px solid var(--border); color: var(--text-secondary); max-width: 72ch; }
+        @media (max-width: 640px) {
+            .workflow { grid-template-columns: 32px 1fr; gap: 12px; padding: 24px 0; }
+            .workflow h3 { font-size: 1.5rem; }
+            .workflow > div { grid-column: 2; }
         }
-        
-        .showcase-inner {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 64px;
-            align-items: center;
-        }
-        
-        .showcase-content h2 {
-            font-size: 2.25rem;
-            margin-bottom: 20px;
-        }
-        
-        .showcase-content p {
-            color: var(--text-secondary);
-            margin-bottom: 16px;
-        }
-        
-        .showcase-list {
-            list-style: none;
-            margin: 24px 0;
-        }
-        
-        .showcase-list li {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 8px 0;
-            font-size: 0.95rem;
-        }
-        
-        .showcase-list li::before {
-            content: "✓";
-            width: 24px;
-            height: 24px;
-            background: var(--celadon-100);
-            color: var(--celadon-600);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.75rem;
-            font-weight: 700;
-            flex-shrink: 0;
-        }
-        
-        .showcase-visual {
-            background: var(--bg-secondary);
-            border-radius: var(--radius-lg);
-            padding: 40px;
-            box-shadow: var(--shadow-lg);
-            border: 1px solid var(--border);
-        }
-        
-        .umf-demo {
-            font-family: 'Courier New', monospace;
-            font-size: 0.85rem;
-            line-height: 1.8;
-        }
-        
-        .umf-demo .umf-label {
-            color: var(--text-muted);
-        }
-        
-        .umf-demo .umf-value {
-            color: var(--celadon-600);
-            font-weight: 600;
-        }
-        
         /* Open Source */
         .opensource {
             padding: 80px 24px;
@@ -705,45 +535,27 @@
             font-size: 1.1rem;
         }
         
-        .opensource-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 24px;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        
-        .opensource-stat {
-            padding: 24px;
-        }
-        
-        .opensource-stat strong {
-            font-family: var(--font-display);
-            font-size: 2rem;
-            color: var(--celadon-400);
-            display: block;
-        }
-        
-        .opensource-stat span {
-            font-size: 0.85rem;
-            color: var(--clay-400);
-        }
-        
+        .installation-steps { list-style: none; counter-reset: install; }
+        .installation-steps li { counter-increment: install; padding: 20px 0; border-top: 1px solid #9cc9b4; }
+        .installation-steps li::before { content: "0" counter(install) " / "; font-family: ui-monospace, monospace; color: #c7e0d4; }
+        .installation-steps a { color: white; text-decoration: underline; text-underline-offset: 4px; }
+        .opensource-inner { display: grid; grid-template-columns: 1.2fr 1fr; gap: 64px; text-align: left; }
+        .opensource { background: #315c4b; }
+        .opensource p { color: #faf8f5; margin: 0 0 24px; }
+        .opensource .btn-primary { background: #faf8f5; color: #315c4b; }
+        .opensource .btn-primary:hover { background: #e3f0ea; }
         .opensource-cta {
             margin-top: 40px;
             display: flex;
             gap: 16px;
-            justify-content: center;
-        }
-        
-        .opensource .btn-primary {
-            background: var(--celadon-500);
+            justify-content: flex-start;
+            flex-wrap: wrap;
         }
         
         .opensource .btn-secondary {
             background: transparent;
             color: var(--clay-200);
-            border-color: var(--clay-700);
+            border-color: #c7e0d4;
         }
         
         .opensource .btn-secondary:hover {
@@ -817,34 +629,24 @@
         @media (max-width: 1024px) {
             .hero {
                 grid-template-columns: 1fr;
-                gap: 48px;
-                text-align: center;
+                gap: 24px;
+                text-align: left;
             }
             
             .hero p {
-                margin-left: auto;
-                margin-right: auto;
+                margin-left: 0;
+                margin-right: 0;
             }
             
             .hero-cta {
-                justify-content: center;
-            }
-            
-            .hero-stats {
-                justify-content: center;
+                justify-content: flex-start;
             }
             
             .features-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
             
-            .showcase-inner {
-                grid-template-columns: 1fr;
-            }
-            
-            .opensource-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
+            .opensource-inner { grid-template-columns: 1fr; gap: 32px; }
             
             .footer-grid {
                 grid-template-columns: 1fr 1fr;
@@ -853,24 +655,26 @@
         
         @media (max-width: 640px) {
             .nav-links {
-                display: none;
+                display: flex;
             }
             
             .hero {
-                padding-top: 100px;
+                padding-top: 24px;
             }
             
             .hero h1 {
-                font-size: 2.25rem;
+                font-size: 2.75rem;
             }
             
             .features-grid {
                 grid-template-columns: 1fr;
             }
             
-            .opensource-grid {
-                grid-template-columns: 1fr 1fr;
-            }
+            .section-header { grid-template-columns: 1fr; gap: 8px; margin-bottom: 24px; }
+            .features, .faq, .opensource { padding: 40px 16px; }
+            .section-header h2, .faq h2, .opensource h2 { font-size: 2rem; }
+            .section-header p { font-size: 1rem; }
+            .specimen h2 { font-size: 1.5rem; margin: 12px 0 16px; }
             
             .footer-grid {
                 grid-template-columns: 1fr;
@@ -894,9 +698,9 @@
             margin: 0 auto;
         }
         .faq h2 {
-            text-align: center;
+            text-align: left;
             font-size: 2.5rem;
-            margin-bottom: 48px;
+            margin-bottom: 24px;
             color: var(--text-primary);
         }
         .faq-item {
@@ -917,6 +721,17 @@
             color: var(--celadon-600);
             text-decoration: underline;
         }
+        .nav a { min-height: 44px; display: inline-flex; align-items: center; }
+        a:active { text-decoration: underline; }
+        @media (max-width: 900px) {
+            .nav-inner { height: auto; padding: 12px 24px; flex-wrap: wrap; gap: 8px; }
+            .nav-links { width: 100%; gap: 0 20px; flex-wrap: wrap; }
+        }
+        @media (max-width: 400px) {
+            .nav-inner { padding: 8px 16px; }
+            .nav-links { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0 8px; }
+            .nav-links .btn { padding: 6px 8px; justify-content: center; }
+        }
     </style>
 </head>
 <body>
@@ -934,224 +749,80 @@
                 <a href="https://github.com/KyaniteLabs/openglaze">GitHub</a>
                 <a href="https://github.com/KyaniteLabs/openglaze/discussions">Community</a>
                 <a href="https://github.com/KyaniteLabs/openglaze/tree/master/docs">Docs</a>
-                <a href="https://github.com/KyaniteLabs/openglaze" class="btn btn-sm btn-primary">Get Started</a>
+                <a href="https://github.com/KyaniteLabs/openglaze#quick-start" class="btn btn-sm btn-primary">Install</a>
             </div>
         </div>
     </nav>
 
     <!-- Hero -->
-    <main id="main-content">
+    <main id="main-content" tabindex="-1">
     <section class="hero" aria-label="Introduction">
         <div class="hero-content">
-            <div class="hero-badge"><span></span> Free &amp; Open Source · MIT License</div>
-            <h1>The ceramic glaze calculator that runs on <em>your</em> kiln schedule.</h1>
-            <p>OpenGlaze is the self-hosted glaze calculator potters use to calculate UMF, predict CTE, optimize recipes, and track 44 community-tested cone 6 and cone 10 glazes — without sending recipes to the cloud.</p>
+            <div class="hero-badge">Open source / Studio notebook</div>
+            <h1>From recipe<br>to <em>next test.</em></h1>
+            <p>A ceramic glaze calculator for understanding your chemistry, exploring adjustments, and keeping your firing notes together.</p>
             <div class="hero-cta">
-                <a href="https://github.com/KyaniteLabs/openglaze" class="btn btn-primary">Self-Host with Docker</a>
-                <a href="https://github.com/KyaniteLabs/openglaze#quick-start" class="btn btn-secondary">Quick Start</a>
+                <a href="https://github.com/KyaniteLabs/openglaze#quick-start" class="btn btn-primary">Install OpenGlaze <span aria-hidden="true">↗</span></a>
+                <a href="#example" class="example-link">See example <span aria-hidden="true">↓</span></a>
             </div>
-            <div class="hero-stats">
-                <div class="hero-stat">
-                    <strong>139</strong>
-                    <span>Tests passing</span>
-                </div>
-                <div class="hero-stat">
-                    <strong>MIT</strong>
-                    <span>Open license</span>
-                </div>
-                <div class="hero-stat">
-                    <strong>44</strong>
-                    <span>Community glazes</span>
-                </div>
-            </div>
+            <p class="site-note">Free and open-source. This is the project website; install the self-hosted app to use the tools. No paywall. If the calculator saved a firing, <a href="https://github.com/sponsors/KyaniteLabs">sponsor the work</a> or <a href="https://ko-fi.com/kyanitelabs">tip on Ko-fi</a>.</p>
         </div>
-        <div class="hero-visual">
-            <div class="hero-card">
-                <div class="hero-card-header">
-                    <h3>Your Glaze Library</h3>
-                    <span style="font-size:0.8rem;color:var(--text-muted);">44 glazes</span>
-                </div>
-                <div class="glaze-row">
-                    <div class="glaze-swatch" style="background: linear-gradient(135deg, #8FBC8F, #6B8E6B);"></div>
-                    <div class="glaze-info">
-                        <strong>Celadon</strong>
-                        <span>Cone 10 · Reduction</span>
-                    </div>
-                    <span class="glaze-tag tag-reduction">Reduction</span>
-                </div>
-                <div class="glaze-row">
-                    <div class="glaze-swatch" style="background: linear-gradient(135deg, #2F1810, #1a0e0a);"></div>
-                    <div class="glaze-info">
-                        <strong>Tenmoku</strong>
-                        <span>Cone 10 · Reduction</span>
-                    </div>
-                    <span class="glaze-tag tag-reduction">Reduction</span>
-                </div>
-                <div class="glaze-row">
-                    <div class="glaze-swatch" style="background: linear-gradient(135deg, #4A90C8, #357AB8);"></div>
-                    <div class="glaze-info">
-                        <strong>Chun Blue</strong>
-                        <span>Cone 10 · Reduction</span>
-                    </div>
-                    <span class="glaze-tag tag-reduction">Reduction</span>
-                </div>
-                <div class="glaze-row">
-                    <div class="glaze-swatch" style="background: linear-gradient(135deg, #D4A574, #C49464);"></div>
-                    <div class="glaze-info">
-                        <strong>Shino</strong>
-                        <span>Cone 10 · Reduction</span>
-                    </div>
-                    <span class="glaze-tag tag-reduction">Reduction</span>
-                </div>
-                <div class="glaze-row">
-                    <div class="glaze-swatch" style="background: linear-gradient(135deg, #E8DCC8, #D4C8B4);"></div>
-                    <div class="glaze-info">
-                        <strong>Matte White</strong>
-                        <span>Cone 6 · Oxidation</span>
-                    </div>
-                    <span class="glaze-tag tag-oxidation">Oxidation</span>
-                </div>
-                <div class="glaze-row">
-                    <div class="glaze-swatch" style="background: linear-gradient(135deg, #4A90C8, #357AB8);"></div>
-                    <div class="glaze-info">
-                        <strong>Cobalt Blue</strong>
-                        <span>Cone 6 · Oxidation</span>
-                    </div>
-                    <span class="glaze-tag tag-oxidation">Oxidation</span>
-                </div>
+        <figure class="specimen" id="example" aria-labelledby="specimen-title">
+            <div class="specimen-label"><span>Calculation study / 01</span><span>Cone 10</span></div>
+            <h2 id="specimen-title">Four materials.<br>A closer look.</h2>
+            <div class="specimen-tables">
+                <table id="recipe">
+                    <caption>Recipe · 100 parts</caption>
+                    <tbody>
+                        <tr><th scope="row">Custer Feldspar</th><td>45</td></tr>
+                        <tr><th scope="row">Silica</th><td>25</td></tr>
+                        <tr><th scope="row">Whiting</th><td>18</td></tr>
+                        <tr><th scope="row">EPK</th><td>12</td></tr>
+                    </tbody>
+                </table>
+                <table>
+                    <caption>Calculated UMF</caption>
+                    <tbody>
+                        <tr><th scope="row">K₂O</th><td data-oxide="K2O">0.2696</td></tr>
+                        <tr><th scope="row">Na₂O</th><td data-oxide="Na2O">0.1539</td></tr>
+                        <tr><th scope="row">CaO</th><td data-oxide="CaO">0.5765</td></tr>
+                        <tr><th scope="row">Al₂O₃</th><td data-oxide="Al2O3">0.6317</td></tr>
+                        <tr><th scope="row">SiO₂</th><td data-oxide="SiO2">5.6040</td></tr>
+                        <tr><th scope="row">Fe₂O₃</th><td data-oxide="Fe2O3">0.0045</td></tr>
+                    </tbody>
+                </table>
             </div>
-        </div>
+            <p class="note">Test note: alumina is above the typical cone 10 range used by the calculator. Fire a test tile to assess the result.</p>
+            <figcaption><p>Computed from the <a href="https://github.com/KyaniteLabs/openglaze#cli-mcp-and-agent-skill">README example</a>. No fired result is represented. A calculation cannot establish glaze fit or food safety.</p></figcaption>
+        </figure>
     </section>
 
-    <!-- Features -->
-    <section class="features" id="features">
+    <section class="features" id="features" aria-labelledby="workflows-title">
         <div class="section-header">
-            <h2>Ceramic glaze tools that respect your studio</h2>
-            <p>UMF calculation, CTE prediction, recipe optimization, and experiment tracking — all self-hosted, all free, all under your control.</p>
+            <h2 id="workflows-title">A place for the chemistry.<br>And the observations.</h2>
+            <p>Keep the calculation and the firing record in the same workflow. Each new test is something you can return to.</p>
         </div>
-        <div class="features-grid">
-            <div class="feature-card">
-                <div class="feature-icon" style="background: var(--celadon-100);">🎨</div>
-                <h3>Recipe Management</h3>
-                <p>Store unlimited glazes with full chemistry, firing notes, and photos. Organize by cone range, atmosphere, and glaze family. 44 community-tested recipes included.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon" style="background: var(--tenmoku-100);">🔬</div>
-                <h3>UMF Chemistry Engine</h3>
-                <p>Automatic Unity Molecular Formula calculation, oxide role analysis, SiO₂:Al₂O₃ ratio, and batch scaling from any recipe.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon" style="background: #e0e8f4;">🧮</div>
-                <h3>Recipe Optimizer</h3>
-                <p>Computational chemistry engine that suggests exact material adjustments to hit target CTE, surface, or durability — ranked by predicted outcome, before you fire test tiles.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon" style="background: #e8e0f4;">🧠</div>
-                <h3>Kama AI Assistant</h3>
-                <p>Context-aware glaze chemistry consulting powered by local (Ollama) or cloud LLMs. Ask about recipes, substitutions, and firing strategies.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon" style="background: #f4e8e0;">🧪</div>
-                <h3>Experiment Pipeline</h3>
-                <p>Six-stage workflow from ideation to documentation: predict, apply, fire, analyze, and record. Track every variable for reproducible results.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon" style="background: #e0f0e8;">👥</div>
-                <h3>Studio Collaboration</h3>
-                <p>Share glaze libraries with your team. Invite codes, lab assignments, and shared firing logs for group studios.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon" style="background: #f0e8e0;">📸</div>
-                <h3>Photo Documentation</h3>
-                <p>Track results across firings with gallery views. Consistent documentation for reliable comparison.</p>
-            </div>
+        <div class="workflow">
+            <span class="entry-number" aria-hidden="true">01 /</span>
+            <h3>Read the recipe</h3>
+            <div><p>Convert a batch recipe to UMF. Examine oxide roles, silica-to-alumina ratio and estimated thermal expansion. Scale the batch when you're ready to mix.</p><a href="https://github.com/KyaniteLabs/openglaze/tree/master/docs/user-guide.md#the-chemistry-engine">Inside the chemistry engine <span aria-hidden="true">↗</span></a></div>
         </div>
+        <div class="workflow">
+            <span class="entry-number" aria-hidden="true">02 /</span>
+            <h3>Choose the next test</h3>
+            <div><p>Explore material adjustments with the recipe optimizer. Compare calculated changes, then test the candidate on your clay body and firing schedule.</p><a href="https://github.com/KyaniteLabs/openglaze/tree/master/docs/user-guide.md#recipe-optimizer">How optimization works <span aria-hidden="true">↗</span></a></div>
+        </div>
+        <div class="workflow">
+            <span class="entry-number" aria-hidden="true">03 /</span>
+            <h3>Keep the firing story</h3>
+            <div><p>Bring recipes, firing notes and photographs together. Document the experiment from first idea to fired result, and share glaze libraries with your studio.</p><a href="https://github.com/KyaniteLabs/openglaze/tree/master/docs/user-guide.md">Explore the studio tools <span aria-hidden="true">↗</span></a></div>
+        </div>
+        <p class="workflow-note">Also available: recipe organization, studio collaboration and the optional Kama assistant with local or cloud model support. <a href="https://github.com/KyaniteLabs/openglaze/tree/master/docs/configuration.md">Read the configuration guide.</a></p>
     </section>
 
-    <!-- Showcase -->
-    <section class="showcase">
-        <div class="showcase-inner">
-            <div class="showcase-content">
-                <h2>See what your glaze is made of — before you fire it</h2>
-                <p>The Unity Molecular Formula (UMF) engine converts batch recipes into oxide chemistry, revealing the SiO₂:Al₂O₃ ratio and predicted surface — so you adjust with intent, not guesswork.</p>
-                <ul class="showcase-list">
-                    <li>Automatic oxide analysis from batch recipes</li>
-                    <li>Silica-to-alumina ratio calculation</li>
-                    <li>Thermal expansion coefficient estimation</li>
-                    <li>Glaze compatibility risk assessment</li>
-                    <li>Batch scaling with cost estimation</li>
-                    <li>Recipe optimizer — target CTE, surface, or durability computationally</li>
-                </ul>
-                <a href="https://github.com/KyaniteLabs/openglaze/tree/master/docs/user-guide.md#the-chemistry-engine" class="btn btn-primary">Learn More</a>
-            </div>
-            <div class="showcase-visual">
-                <div class="umf-demo">
-                    <div><span class="umf-label">Recipe:</span> Celadon Base</div>
-                    <div style="margin: 12px 0; padding: 12px; background: var(--bg-primary); border-radius: var(--radius-sm);">
-                        <div class="umf-label">Feldspar ............ 45%</div>
-                        <div class="umf-label">Silica .............. 30%</div>
-                        <div class="umf-label">Whiting ............ 15%</div>
-                        <div class="umf-label">Kaolin ............. 10%</div>
-                    </div>
-                    <div style="margin-top: 16px;">
-                        <div><span class="umf-label">UMF Analysis:</span></div>
-                        <div style="margin-top: 8px; padding-left: 16px;">
-                            <div>SiO₂ / Al₂O₃ = <span class="umf-value">7.11</span></div>
-                            <div>CaO (flux) = <span class="umf-value">0.55</span></div>
-                            <div>Surface = <span class="umf-value">glossy</span></div>
-                            <div>CTE = <span class="umf-value">6.2 × 10⁻⁶/°C</span></div>
-                        </div>
-                    </div>
-                    <div style="margin-top: 16px; padding: 12px; background: var(--celadon-50); border-radius: var(--radius-sm); border-left: 3px solid var(--celadon-400);">
-                        <span style="color: var(--celadon-700); font-size: 0.8rem;">💡 Predicted: High-gloss celadon with good durability. Compatible with cone 10 stoneware bodies.</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Optimizer Showcase -->
-    <section class="showcase">
-        <div class="showcase-inner">
-            <div class="showcase-visual">
-                <div class="umf-demo">
-                    <div><span class="umf-label">Original:</span> Cone 10 Celadon</div>
-                    <div style="margin: 12px 0; padding: 12px; background: var(--bg-primary); border-radius: var(--radius-sm);">
-                        <div class="umf-label">Feldspar ............ 45%</div>
-                        <div class="umf-label">Silica .............. 25%</div>
-                        <div class="umf-label">Whiting ............ 18%</div>
-                        <div class="umf-label">Kaolin ............. 12%</div>
-                    </div>
-                    <div style="margin-top: 12px; padding: 12px; background: var(--tenmoku-50); border-radius: var(--radius-sm); border-left: 3px solid var(--tenmoku-400);">
-                        <div style="font-size: 0.75rem; color: var(--tenmoku-700); margin-bottom: 4px;">🎯 Target: More matte</div>
-                        <div class="umf-label" style="font-size: 0.8rem;">SiO₂ / Al₂O₃ = 8.87 → <span style="color: var(--tenmoku-600); font-weight: 600;">3.95</span></div>
-                        <div class="umf-label" style="font-size: 0.8rem;">Surface = glossy → <span style="color: var(--tenmoku-600); font-weight: 600;">matte</span></div>
-                    </div>
-                    <div style="margin-top: 12px; padding: 12px; background: var(--celadon-50); border-radius: var(--radius-sm); border-left: 3px solid var(--celadon-400);">
-                        <span style="color: var(--celadon-700); font-size: 0.8rem;">💡 Suggested tweak: Replace all silica with kaolin. Fire a test tile to confirm.</span>
-                    </div>
-                </div>
-            </div>
-            <div class="showcase-content">
-                <h2>Save clay, materials, and kiln time</h2>
-                <p>The recipe optimizer computes exact material adjustments to hit your target properties — so you fire fewer test tiles and get results faster.</p>
-                <ul class="showcase-list">
-                    <li>Target exact CTE to match your clay body</li>
-                    <li>Shift surface from glossy to matte (or vice versa)</li>
-                    <li>Reduce alkali for better durability</li>
-                    <li>Lower running risk before it ruins a kiln shelf</li>
-                    <li>Ranked suggestions with predicted outcomes</li>
-                </ul>
-                <a href="https://github.com/KyaniteLabs/openglaze/tree/master/docs/user-guide.md#recipe-optimizer" class="btn btn-primary">Learn More</a>
-            </div>
-        </div>
-    </section>
-
-
-    <!-- Discovery Guides -->
     <section class="features" id="guides">
         <div class="section-header">
-            <h2>Glaze chemistry guides for every workflow</h2>
+            <h2>The reference shelf</h2>
             <p>Jump straight to the problem you need solved: UMF calculation, CTE analysis, recipe scaling, Glazy integration, DigitalFire reference, or self-hosting setup.</p>
         </div>
         <div class="features-grid">
@@ -1167,35 +838,21 @@
     </section>
 
     <!-- Open Source -->
-    <section class="opensource">
+    <section class="opensource" aria-labelledby="install-title">
         <div class="opensource-inner">
-            <h2>Free, open-source, self-hosted</h2>
-            <p>OpenGlaze is MIT-licensed. Every line of code is on GitHub. Fork it, modify it, run it on your own server — no subscriptions, no tracking, no restrictions.</p>
-            <div class="opensource-grid">
-                <div class="opensource-stat">
-                    <strong>MIT</strong>
-                    <span>License</span>
-                </div>
-                <div class="opensource-stat">
-                    <strong>139</strong>
-                    <span>Tests</span>
-                </div>
-                <div class="opensource-stat">
-                    <strong>100%</strong>
-                    <span>Open Source</span>
-                </div>
-                <div class="opensource-stat">
-                    <strong>44</strong>
-                    <span>Community glazes</span>
+            <div>
+                <h2 id="install-title">Make room for it<br>in your studio.</h2>
+                <p>This is the project website, not a hosted notebook. Open-source software, on your own machine or server. Start with the documented Docker and SQLite setup.</p>
+                <div class="opensource-cta">
+                    <a href="https://github.com/KyaniteLabs/openglaze#quick-start" class="btn btn-primary">Installation guide <span aria-hidden="true">↗</span></a>
+                    <a href="https://github.com/KyaniteLabs/openglaze/blob/master/CONTRIBUTING.md" class="btn btn-secondary">Contribute</a>
                 </div>
             </div>
-            <div class="opensource-cta">
-                <a href="https://github.com/KyaniteLabs/openglaze" class="btn btn-primary">View on GitHub</a>
-                <a href="https://github.com/KyaniteLabs/openglaze/blob/master/CONTRIBUTING.md" class="btn btn-secondary">Contribute</a>
-            </div>
-            <p style="margin-top: 24px; font-size: 0.9rem; color: var(--clay-400);">
-                OpenGlaze is free and open source. If it saves you a test tile, consider <a href="https://github.com/KyaniteLabs/openglaze" style="color: var(--celadon-400);">starring the repo on GitHub</a>.
-            </p>
+            <ol class="installation-steps">
+                <li><a href="https://github.com/KyaniteLabs/openglaze">Explore the source</a><br>MIT licensed. Read it, adapt it, contribute.</li>
+                <li><a href="https://github.com/KyaniteLabs/openglaze/tree/master/docs/self-hosting.md">Set up your workspace</a><br>Follow the installation and configuration guide.</li>
+                <li><a href="https://github.com/KyaniteLabs/openglaze/tree/master/docs/user-guide.md">Bring a recipe</a><br>Calculate, record, and plan your next test.</li>
+            </ol>
         </div>
     </section>
 
@@ -1206,7 +863,7 @@
 
             <div class="faq-item">
                 <h3>What is OpenGlaze?</h3>
-                <p>OpenGlaze is a <strong>free, open-source ceramic glaze calculator and studio workbench</strong> for potters and ceramic studios. It includes a <a href="#features">UMF calculator</a>, CTE analysis engine, <a href="https://github.com/KyaniteLabs/openglaze/tree/master/docs/user-guide.md#recipe-optimizer">computational recipe optimizer</a>, 44 community-tested cone 6 and cone 10 glazes, and AI-powered glaze consulting — all self-hosted under the MIT license.</p>
+                <p>OpenGlaze is a <strong>free, open-source ceramic glaze calculator and studio workbench</strong> for potters and ceramic studios. It includes a <a href="#features">UMF calculator</a>, CTE analysis engine, <a href="https://github.com/KyaniteLabs/openglaze/tree/master/docs/user-guide.md#recipe-optimizer">computational recipe optimizer</a>, a library of cone 6 and cone 10 recipes, and AI-powered glaze consulting — all self-hosted under the MIT license.</p>
             </div>
 
             <div class="faq-item">
@@ -1226,12 +883,12 @@
 
             <div class="faq-item">
                 <h3>Is OpenGlaze a replacement for Glazy or DigitalFire?</h3>
-                <p>No — OpenGlaze <strong>complements</strong> them. <a href="https://glazy.org">Glazy</a> is a recipe database and community. <a href="https://digitalfire.com">DigitalFire</a> provides deep ceramic chemistry education. OpenGlaze is a computational chemistry engine and glaze management tool. Many users export recipes from Glazy into OpenGlaze for UMF analysis and optimization.</p>
+                <p>No — OpenGlaze <strong>complements</strong> them. <a href="https://glazy.org">Glazy</a> is a recipe database and community. <a href="https://digitalfire.com">DigitalFire</a> provides deep ceramic chemistry education. OpenGlaze is a computational chemistry engine and glaze management tool. You can use community recipe references alongside OpenGlaze calculations.</p>
             </div>
 
             <div class="faq-item">
                 <h3>Can I self-host OpenGlaze?</h3>
-                <p>Absolutely. Self-hosting is the primary deployment model. Run it locally with SQLite, or deploy with <a href="https://github.com/KyaniteLabs/openglaze/tree/master/docs/self-hosting.md">Docker and SQLite</a> for the supported self-hosted path. Works on a VPS, a Raspberry Pi, or any machine running Docker. Your recipes never leave your infrastructure.</p>
+                <p>Absolutely. Self-hosting is the primary deployment model. Run it locally with SQLite, or deploy with <a href="https://github.com/KyaniteLabs/openglaze/tree/master/docs/self-hosting.md">Docker and SQLite</a> for the supported self-hosted path. Works on a VPS, a Raspberry Pi, or any machine running Docker. The default installation stores recipes in SQLite; optional cloud integrations have their own data flows.</p>
             </div>
         </div>
     </section>
@@ -1245,7 +902,7 @@
                     <div class="logo-mark" role="presentation">◇</div>
                     OpenGlaze
                 </a>
-                <p>Open-source glaze management for ceramic artists and studios. Own your data. Build better glazes.</p>
+                <p>Open-source glaze management for ceramic artists and studios. Recipes, chemistry and firing records, together.</p>
             </div>
             <div class="footer-col">
                 <h4>Product</h4>

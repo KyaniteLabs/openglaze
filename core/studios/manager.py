@@ -7,6 +7,8 @@ import logging
 from datetime import datetime, timedelta
 from typing import List, Optional
 
+from . import claims
+from .claims import ClaimStatus
 from .models import Studio, StudioMember, LabAssignment
 
 logger = logging.getLogger(__name__)
@@ -230,16 +232,24 @@ class StudioManager:
         conn = self._get_connection()
         cursor = conn.cursor()
 
+        # Join only the *active* claim; released claims return the combo to
+        # the pool, completed ones take it out of the queue for this studio.
+        active_ph, active_params = claims.sql_in(claims.ACTIVE_STATUSES)
         cursor.execute(
-            """SELECT c.*, la.id as assignment_id, la.assigned_to, la.claimed_at,
+            f"""SELECT c.*, la.id as assignment_id, la.assigned_to, la.claimed_at,
                       la.status as claim_status, la.claimed_by_name
                FROM combinations c
                LEFT JOIN lab_assignments la
                    ON la.combination_id = c.id AND la.studio_id = ?
+                  AND la.status IN ({active_ph})
                WHERE c.prediction_grade IN ('likely', 'possible', 'unlikely', 'unknown')
-                 AND (la.status IS NULL OR la.status NOT IN ('completed', 'released'))
-               ORDER BY c.prediction_grade, c.created_at""",
-            (studio_id,),
+                 AND NOT EXISTS (
+                     SELECT 1 FROM lab_assignments done
+                     WHERE done.combination_id = c.id AND done.studio_id = ?
+                       AND done.status = ?
+                 )
+               ORDER BY c.prediction_grade, c.created_at""",  # nosec B608
+            (studio_id, *active_params, studio_id, ClaimStatus.COMPLETED.value),
         )
         rows = cursor.fetchall()
         conn.close()
@@ -273,11 +283,12 @@ class StudioManager:
         cursor = conn.cursor()
 
         # Check for existing active claim
+        active_ph, active_params = claims.sql_in(claims.ACTIVE_STATUSES)
         cursor.execute(
-            """SELECT id, status FROM lab_assignments
+            f"""SELECT id, status FROM lab_assignments
                WHERE studio_id = ? AND combination_id = ?
-               AND status NOT IN ('completed', 'released')""",
-            (studio_id, combination_id),
+               AND status IN ({active_ph})""",  # nosec B608
+            (studio_id, combination_id, *active_params),
         )
         existing = cursor.fetchone()
         if existing:
@@ -287,7 +298,14 @@ class StudioManager:
         now = datetime.now().isoformat()
         cursor.execute(
             "INSERT INTO lab_assignments (studio_id, combination_id, assigned_to, claimed_at, status, claimed_by_name) VALUES (?, ?, ?, ?, ?, ?)",
-            (studio_id, combination_id, user_id, now, "claimed", display_name),
+            (
+                studio_id,
+                combination_id,
+                user_id,
+                now,
+                claims.INITIAL_STATUS.value,
+                display_name,
+            ),
         )
         assignment_id = cursor.lastrowid
         conn.commit()
@@ -299,7 +317,7 @@ class StudioManager:
             combination_id=combination_id,
             assigned_to=user_id,
             claimed_at=now,
-            status="claimed",
+            status=claims.INITIAL_STATUS.value,
             claimed_by_name=display_name,
         )
 
@@ -308,13 +326,12 @@ class StudioManager:
         conn = self._get_connection()
         cursor = conn.cursor()
 
-        cursor.execute(
-            """UPDATE lab_assignments SET status = 'released'
-               WHERE studio_id = ? AND combination_id = ?
-               AND status IN ('claimed', 'in_progress')""",
+        affected = claims.apply(
+            cursor,
+            "release",
+            "studio_id = ? AND combination_id = ?",
             (studio_id, combination_id),
         )
-        affected = cursor.rowcount
         conn.commit()
         conn.close()
         return affected > 0
@@ -324,14 +341,15 @@ class StudioManager:
         conn = self._get_connection()
         cursor = conn.cursor()
 
+        active_ph, active_params = claims.sql_in(claims.ACTIVE_STATUSES)
         cursor.execute(
-            """SELECT la.*, c.base, c.top, c.prediction_grade
+            f"""SELECT la.*, c.base, c.top, c.prediction_grade
                FROM lab_assignments la
                JOIN combinations c ON la.combination_id = c.id
                WHERE la.studio_id = ? AND la.assigned_to = ?
-               AND la.status IN ('claimed', 'in_progress')
-               ORDER BY la.claimed_at DESC""",
-            (studio_id, user_id),
+               AND la.status IN ({active_ph})
+               ORDER BY la.claimed_at DESC""",  # nosec B608
+            (studio_id, user_id, *active_params),
         )
         rows = cursor.fetchall()
         conn.close()
@@ -344,13 +362,12 @@ class StudioManager:
         conn = self._get_connection()
         cursor = conn.cursor()
 
-        cursor.execute(
-            """UPDATE lab_assignments SET status = 'completed'
-               WHERE studio_id = ? AND combination_id = ?
-               AND status IN ('claimed', 'in_progress')""",
+        affected = claims.apply(
+            cursor,
+            "complete",
+            "studio_id = ? AND combination_id = ?",
             (studio_id, combination_id),
         )
-        affected = cursor.rowcount
         conn.commit()
         conn.close()
         return affected > 0
@@ -362,13 +379,7 @@ class StudioManager:
 
         cutoff = (datetime.now() - timedelta(days=CLAIM_TIMEOUT_DAYS)).isoformat()
 
-        cursor.execute(
-            """UPDATE lab_assignments SET status = 'released'
-               WHERE claimed_at < ?
-               AND status IN ('claimed', 'in_progress')""",
-            (cutoff,),
-        )
-        released = cursor.rowcount
+        released = claims.apply(cursor, "release", "claimed_at < ?", (cutoff,))
         conn.commit()
         conn.close()
 
