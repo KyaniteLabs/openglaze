@@ -108,9 +108,11 @@ secrets:
   cookie:
     - PLEASE-CHANGE-ME-THIS-IS-NOT-SECURE
   # Required by kratos >= v26; must be a 32-byte key for xchacha20-poly1305.
-  # Dev placeholder — replace for anything exposed publicly.
+  # Required when ciphers.algorithm is set; exactly 32 chars. Dev placeholders —
+  # replace for anything exposed publicly.
   cipher:
     - change-me-cipher-dev-secret-32by
+    - PLEASE-CHANGE-ME-CIPHER-SECRET-X
 
 ciphers:
   algorithm: xchacha20-poly1305

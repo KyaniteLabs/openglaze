@@ -1,8 +1,18 @@
+name: CI
 on:
   push:
     branches: [master]
   pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  # Unique per push commit so queued main runs are never replaced; per PR otherwise.
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number && format('pr-{0}', github.event.pull_request.number) || github.sha }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 jobs:
+  ci:
+    uses: KyaniteLabs/.github/.forgejo/workflows/ci-profile.yml@0209ffe2feb69190760cc31491a097fea174550f
   test:
     runs-on: docker
     steps:
