@@ -37,7 +37,11 @@ def suggest_material_substitutions(args: dict[str, Any]) -> dict[str, Any]:
     recipe = str(args.get("recipe") or "").strip()
     if not recipe:
         raise ValueError("Provide recipe.")
-    return suggest_substitutions(recipe).to_dict()
+    materials = args.get("materials")
+    return suggest_substitutions(
+        recipe,
+        materials=[str(m) for m in materials] if isinstance(materials, list) else None,
+    ).to_dict()
 
 
 TOOLS = {
@@ -76,11 +80,24 @@ TOOLS = {
         },
     },
     "suggest_material_substitutions": {
-        "description": "Suggest substitutes for unknown or unavailable recipe materials.",
+        "description": (
+            "Suggest substitutes for unknown recipe materials, "
+            "or for any materials named in 'materials'."
+        ),
         "handler": suggest_material_substitutions,
         "inputSchema": {
             "type": "object",
-            "properties": {"recipe": {"type": "string"}},
+            "properties": {
+                "recipe": {"type": "string"},
+                "materials": {
+                    "type": "array",
+                    "items": {"type": "string"},
+                    "description": (
+                        "Known materials to request alternatives for, "
+                        'e.g. ["Custer Feldspar"].'
+                    ),
+                },
+            },
             "required": ["recipe"],
         },
     },

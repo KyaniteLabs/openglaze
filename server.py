@@ -56,6 +56,8 @@ from core.combinations.stages import count_fired
 from core.experiments import ExperimentManager, Experiment
 from core.ai import get_kama
 from core.ai.context import ContextRetriever
+from core.ai.kama import AIServiceError
+from requests.exceptions import RequestException
 from core.upload_utils import save_uploaded_file
 
 try:
@@ -197,10 +199,13 @@ def create_app(config: dict = None) -> Flask:
         return jsonify({"error": "Authentication required"}), 401
 
     def get_current_user_id() -> Optional[str]:
-        """Get current user ID (cloud mode only)."""
-        if not features["auth_enabled"]:
-            return None
-        return get_user_id()
+        """Get current user ID (simple-auth token in personal mode, Ory in cloud)."""
+        if features["auth_enabled"]:
+            return get_user_id()
+        from core.auth.middleware import get_simple_user
+
+        simple = get_simple_user()
+        return simple["user_id"] if simple else None
 
     # ==========================================
     # HEALTH CHECKS
@@ -392,6 +397,8 @@ def create_app(config: dict = None) -> Flask:
             return jsonify({"error": "No data provided"}), 400
 
         glaze = Glaze.from_dict(data)
+        if not isinstance(glaze.id, str) or not glaze.id.strip():
+            glaze.id = g.glaze_manager.generate_id(glaze.name or "")
         glaze_id = g.glaze_manager.create(glaze)
         return jsonify({"id": glaze_id}), 201
 
@@ -1079,7 +1086,12 @@ def create_app(config: dict = None) -> Flask:
                     images=images,
                 ):
                     yield f"data: {json.dumps(event)}\n\n"
-            except (ConnectionError, TimeoutError) as e:
+            except (
+                AIServiceError,
+                ConnectionError,
+                TimeoutError,
+                RequestException,
+            ) as e:
                 logger.warning(f"AI stream backend unavailable: {e}")
                 yield f"data: {json.dumps({'type': 'error', 'ai_available': False, 'content': 'AI backend unavailable. Please ensure LM Studio is running or configure ANTHROPIC_API_KEY.'})}\n\n"
             except Exception as e:
@@ -1120,7 +1132,7 @@ def create_app(config: dict = None) -> Flask:
             )
             return jsonify({"response": response})
 
-        except (ConnectionError, TimeoutError) as e:
+        except (AIServiceError, ConnectionError, TimeoutError, RequestException) as e:
             logger.warning(f"AI backend unavailable: {e}")
             return (
                 jsonify(
@@ -1807,6 +1819,18 @@ def create_app(config: dict = None) -> Flask:
                 }
             ),
             429,
+        )
+
+    @app.errorhandler(415)
+    def unsupported_media_type(e):
+        return (
+            jsonify(
+                {
+                    "error": "Unsupported Media Type",
+                    "message": "Send JSON request bodies with Content-Type: application/json.",
+                }
+            ),
+            415,
         )
 
     return app

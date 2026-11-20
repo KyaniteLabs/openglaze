@@ -1,10 +1,17 @@
 """Glaze management operations."""
 
+import re
+
 from core.db import connect_db
 import sqlite3
 from typing import List, Optional
 
 from .models import Glaze
+
+
+def _slugify(text: str) -> str:
+    """Collapse text into a lowercase hyphenated slug ('Leach 4/3/2' -> 'leach-4-3-2')."""
+    return re.sub(r"[^a-z0-9]+", "-", text.lower()).strip("-")
 
 
 class GlazeManager:
@@ -122,6 +129,20 @@ class GlazeManager:
         conn.close()
 
         return [Glaze.from_dict(dict(row)) for row in rows]
+
+    def generate_id(self, name: str) -> str:
+        """Generate a unique hyphenated id from a glaze name.
+
+        Used when a client creates a glaze without supplying a usable id,
+        so rows never persist with an empty id.
+        """
+        base = _slugify(name or "") or "glaze"
+        candidate = base
+        suffix = 2
+        while self.get_by_id(candidate) is not None:
+            candidate = f"{base}-{suffix}"
+            suffix += 1
+        return candidate
 
     def create(self, glaze: Glaze) -> str:
         """Create a new glaze."""

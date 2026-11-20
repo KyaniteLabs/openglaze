@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import sys
 from typing import Any
 
 from core.chemistry.batch import calculate_batch
@@ -14,6 +15,21 @@ from core.chemistry.umf import calculate_umf
 
 def _print_json(payload: dict[str, Any]) -> None:
     print(json.dumps(payload, indent=2, sort_keys=True))
+
+
+def _print_json_result(payload: dict[str, Any]) -> None:
+    """Print a result payload and exit non-zero when the calculation failed."""
+    _print_json(payload)
+    if payload.get("success") is False:
+        sys.exit(1)
+
+
+def _split_materials(entries: list[str] | None) -> list[str] | None:
+    """Flatten repeatable --materials values; comma-separated lists allowed."""
+    if not entries:
+        return None
+    names = [part.strip() for entry in entries for part in entry.split(",")]
+    return [name for name in names if name] or None
 
 
 def _parse_cone(value: Any) -> int | str:
@@ -76,17 +92,28 @@ def main() -> None:
     substitutions.add_argument(
         "--recipe", required=True, help="Recipe string to analyze."
     )
+    substitutions.add_argument(
+        "--materials",
+        action="append",
+        help="Known material to request alternatives for. Repeatable or comma-separated.",
+    )
 
     args = parser.parse_args()
 
     if args.command == "brief":
         _print_json(_project_brief())
     elif args.command == "umf":
-        _print_json(calculate_umf(args.recipe, cone=_parse_cone(args.cone)).to_dict())
+        _print_json_result(
+            calculate_umf(args.recipe, cone=_parse_cone(args.cone)).to_dict()
+        )
     elif args.command == "batch":
-        _print_json(calculate_batch(args.recipe, args.size, args.unit))
+        _print_json_result(calculate_batch(args.recipe, args.size, args.unit))
     elif args.command == "substitutions":
-        _print_json(suggest_substitutions(args.recipe).to_dict())
+        _print_json_result(
+            suggest_substitutions(
+                args.recipe, materials=_split_materials(args.materials)
+            ).to_dict()
+        )
 
 
 if __name__ == "__main__":
