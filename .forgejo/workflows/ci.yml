@@ -15,10 +15,16 @@ jobs:
     uses: KyaniteLabs/.github/.forgejo/workflows/ci-profile.yml@0209ffe2feb69190760cc31491a097fea174550f
   test:
     runs-on: docker
+    container:
+      # The docker label's default image (node:26-bookworm) ships Debian
+      # bookworm's python3.11, which dies on the repo's py>=3.12 floor before
+      # lint/tests run. Run the suite at the declared floor itself on the
+      # official python image, digest-pinned like ci-profile.yml pins node.
+      image: python:3.12-bookworm@sha256:4209fae09a3e20afd863e528bfddc235da5fd5977983e1996cd54cc9a72e6267
     steps:
       - uses: actions/checkout@v4
       - name: Install system deps
-        run: apt-get update -qq && apt-get install -y -qq python3 python3-pip libpq-dev libffi-dev libssl-dev gcc
+        run: apt-get update -qq && apt-get install -y -qq libpq-dev libffi-dev libssl-dev gcc
       - name: Check supported Python and install dependencies
         run: |
           set -eu
