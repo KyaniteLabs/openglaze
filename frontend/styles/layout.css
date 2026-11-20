@@ -34,7 +34,7 @@
 }
 
 .logo-mark {
-    color: var(--terracotta);
+    color: var(--terracotta-dark);
 }
 
 .search-trigger {
@@ -92,7 +92,7 @@
     font-size: 0.625rem;
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    color: var(--text-tertiary);
+    color: var(--text-secondary);
     padding: var(--space-2) var(--space-3);
     margin-bottom: var(--space-2);
 }
@@ -170,7 +170,7 @@
 }
 
 .stage-pill.active {
-    background: var(--terracotta);
+    background: var(--terracotta-dark);
     color: white;
 }
 
