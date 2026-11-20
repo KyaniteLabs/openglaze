@@ -645,9 +645,9 @@ class TestCombinationManagerStage:
             assert stages.has_been_fired(stages.outcome_updates(outcome)["stage"])
         import inspect
 
-        import server
+        import webapp.routes.gamification as gamification_routes
 
-        assert "count_fired(cursor, user_id)" in inspect.getsource(server)
+        assert "count_fired(cursor, user_id)" in inspect.getsource(gamification_routes)
 
 
 # ===========================================================================

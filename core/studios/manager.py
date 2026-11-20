@@ -297,7 +297,10 @@ class StudioManager:
 
         now = datetime.now().isoformat()
         cursor.execute(
-            "INSERT INTO lab_assignments (studio_id, combination_id, assigned_to, claimed_at, status, claimed_by_name) VALUES (?, ?, ?, ?, ?, ?)",
+            (
+                "INSERT INTO lab_assignments (studio_id, combination_id, assigned_to, claimed_at, status, "
+                "claimed_by_name) VALUES (?, ?, ?, ?, ?, ?)"
+            ),
             (
                 studio_id,
                 combination_id,

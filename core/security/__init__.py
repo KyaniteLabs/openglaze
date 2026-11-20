@@ -194,14 +194,23 @@ def rate_limit(requests_per_minute: int = None, key_func: callable = None):
             allowed, info = limiter.check_rate_limit(identifier)
 
             if not allowed:
-                response = jsonify(
-                    {
-                        "error": "Rate limit exceeded",
-                        "message": f"Too many requests. Try again in {info['retry_after']} seconds.",
+                # Build the denial where it happens so the measured window
+                # and the caller's actual request reach the payload — the
+                # generic 429 errorhandler never sees decorator returns.
+                from core.errors import error_payload
+
+                payload = error_payload(
+                    "Rate limit exceeded",
+                    "RATE_LIMITED",
+                    context={
+                        "method": request.method,
+                        "path": request.path,
                         "retry_after": info["retry_after"],
-                        "code": "RATE_LIMITED",
-                    }
+                    },
+                    message=f"Too many requests. Try again in {info['retry_after']} seconds.",
+                    retry_after=info["retry_after"],
                 )
+                response = jsonify(payload)
                 response.status_code = 429
                 response.headers["Retry-After"] = str(info["retry_after"])
                 return response

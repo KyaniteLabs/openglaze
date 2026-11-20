@@ -191,7 +191,10 @@ class RecipeComparator:
 
         interpretations = {
             "SiO2": {
-                "increased": "More silica makes glaze more durable, harder, and glossier. May need higher temperature to melt.",
+                "increased": (
+                    "More silica makes glaze more durable, harder, and glossier. May need higher temperature to "
+                    "melt."
+                ),
                 "decreased": "Less silica makes glaze softer, more fluid, and potentially more matte.",
             },
             "Al2O3": {

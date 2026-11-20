@@ -130,7 +130,8 @@ class GlazeManager:
 
         cursor.execute(
             """
-            INSERT INTO glazes (id, name, family, color, hex, chemistry, behavior, layering, warning, recipe, catalog_code, notes, user_id)
+            INSERT INTO glazes (id, name, family, color, hex, chemistry, behavior, layering, warning,
+            recipe, catalog_code, notes, user_id)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         """,
             (

@@ -9,3 +9,15 @@ description = "Free open-source ceramic glaze calculator, UMF analyzer, and reci
 readme = "README.md"
 license = "MIT"
 requires-python = ">=3.12"
+
+[tool.ruff]
+# Size standard (matches kinocut): hard 120-char cap, enforced via E501
+# below. Black remains the formatter at 88 — a repo-wide reformat is not
+# part of the size-discipline change; see scripts/check_sizes.py for the
+# function/file size gate.
+line-length = 120
+
+[tool.ruff.lint]
+# Defaults (E4, E7, E9, F) plus E501 so the 120-char cap is actually
+# enforced on the lines Black never wraps: long strings, comments, prose.
+select = ["E4", "E7", "E9", "F", "E501"]
