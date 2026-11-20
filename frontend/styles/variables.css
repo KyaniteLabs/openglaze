@@ -8,6 +8,8 @@
     /* Accent Colors */
     --terracotta: #C65D5B;
     --terracotta-light: #E8DDD4;
+    /* AA-safe accent: 5.15:1 as text on --cream, 5.50:1 under white text */
+    --terracotta-dark: #B6413F;
     --celadon: #7EB09B;
     --amber: #D4A574;
     --coral: #E07A5F;
