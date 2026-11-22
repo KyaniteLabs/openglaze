@@ -1,5 +1,5 @@
 -r requirements.txt
-black==26.5.1
+black==26.10.1
 ruff==0.15.21
 pytest-cov==7.1.0
 hypothesis==6.170.15
