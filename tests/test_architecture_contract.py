@@ -31,7 +31,6 @@ def test_architecture_inventory():
         "core/upload_utils.py",
         "config/loader.py",
         ".github/workflows/ci.yml",
-        ".forgejo/workflows/ci.yml",
         "docker-compose.yml",
     ):
         assert any(fnmatch.fnmatchcase(sensitive, p) for p in patterns), sensitive

@@ -4,6 +4,9 @@ import json
 import logging
 
 from flask import Blueprint, Response, g, jsonify, request, stream_with_context
+from requests.exceptions import RequestException
+
+from core.ai.kama import AIServiceError
 
 from core.security import rate_limit
 from webapp.helpers import get_current_user_id
@@ -44,7 +47,7 @@ def ask_ai_stream():
                 images=images,
             ):
                 yield f"data: {json.dumps(event)}\n\n"
-        except (ConnectionError, TimeoutError) as e:
+        except (AIServiceError, ConnectionError, TimeoutError, RequestException) as e:
             logger.warning(f"AI stream backend unavailable: {e}")
             offline = {
                 "type": "error",
@@ -94,7 +97,7 @@ def ask_ai():
         )
         return jsonify({"response": response})
 
-    except (ConnectionError, TimeoutError) as e:
+    except (AIServiceError, ConnectionError, TimeoutError, RequestException) as e:
         logger.warning(f"AI backend unavailable: {e}")
         return (
             jsonify(

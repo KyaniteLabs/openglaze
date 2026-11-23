@@ -284,7 +284,30 @@ class SubstitutionEngine:
         return ", ".join(parts) if parts else None
 
 
-def suggest_substitutions(recipe: str) -> SubstitutionResult:
-    """Convenience function to analyze a recipe for substitutions."""
+def suggest_substitutions(
+    recipe: str, materials: Optional[List[str]] = None
+) -> SubstitutionResult:
+    """Analyze a recipe for substitutions, plus explicitly requested materials.
+
+    Unknown recipe materials get suggestions automatically. ``materials`` lets
+    callers also request alternatives for known materials (e.g. "Custer Feldspar").
+    """
     engine = SubstitutionEngine()
-    return engine.analyze_recipe(recipe)
+    result = engine.analyze_recipe(recipe)
+
+    if materials:
+        seen = {(s.original.lower(), s.substitute.lower()) for s in result.suggestions}
+        for raw in materials:
+            name = str(raw).strip()
+            if not name:
+                continue
+            for suggestion in engine.suggest(name):
+                key = (
+                    suggestion.original.lower(),
+                    suggestion.substitute.lower(),
+                )
+                if key not in seen:
+                    seen.add(key)
+                    result.suggestions.append(suggestion)
+
+    return result

@@ -42,8 +42,11 @@ def require_auth_for_write():
 
 
 def get_current_user_id() -> Optional[str]:
-    """Get current user ID (cloud mode only)."""
+    """Get current user ID (simple-auth token in personal mode, Ory in cloud)."""
     features = current_app.config.get("FEATURES", {})
-    if not features.get("auth_enabled") or not AUTH_AVAILABLE:
-        return None
-    return get_user_id()
+    if features.get("auth_enabled") and AUTH_AVAILABLE:
+        return get_user_id()
+    from core.auth.middleware import get_simple_user
+
+    simple = get_simple_user()
+    return simple["user_id"] if simple else None

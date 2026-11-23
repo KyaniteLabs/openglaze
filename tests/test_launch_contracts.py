@@ -17,11 +17,42 @@ def test_default_compose_uses_postgres_with_env_substitution_on_app_port():
 
     env = dict(item.split("=", 1) for item in app["environment"])
     assert "DATABASE_URL" in env
-    assert "${POSTGRES_PASSWORD}" in env["DATABASE_URL"]
+    assert "${POSTGRES_PASSWORD:-openglaze}" in env["DATABASE_URL"]
     assert "${BASE_URL:-http://localhost:8768}" == env["BASE_URL"]
 
     assert "8768:8768" in app["ports"]
     assert "postgres_data" in compose["volumes"]
+
+
+def test_compose_environment_interpolations_all_have_defaults():
+    """Every ${VAR} interpolation in compose environment entries carries an
+    inline default, so `cp .env.example .env && docker compose up -d` boots on
+    a pristine clone instead of crashing on a blank required variable."""
+    import re
+
+    compose = load_compose()
+    offenders = []
+    for name, service in compose["services"].items():
+        for item in service.get("environment", []):
+            for match in re.findall(r"\$\{([^}]*)\}", item):
+                if ":-" not in match:
+                    offenders.append(f"{name}: {item}")
+    assert not offenders, f"compose vars without defaults: {offenders}"
+
+
+def test_postgres_volume_mount_matches_image_major_layout():
+    """postgres 18+ images refuse the legacy /var/lib/postgresql/data mount
+    (docker-library/postgres#37); below 18 they require it."""
+    compose = load_compose()
+    postgres = compose["services"]["postgres"]
+
+    major = int(postgres["image"].split(":")[1].split("-")[0])
+    mounts = [v.split(":")[-1] for v in postgres["volumes"]]
+
+    if major >= 18:
+        assert "/var/lib/postgresql/data" not in mounts
+    else:
+        assert "/var/lib/postgresql/data" in mounts
 
 
 def test_reverse_proxy_profiles_reference_existing_configs():

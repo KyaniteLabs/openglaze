@@ -9,7 +9,7 @@
 **TL;DR:** OpenGlaze — open-source ceramic glaze calculator (UMF, CTE, recipe optimizer) you can self-host. Best for potters, ceramic artists, studios, and educators.
 
 <p align="center">
-  <img src="static/favicon.svg" alt="OpenGlaze — open source ceramic glaze calculator and recipe manager" width="120">
+  <img src="branding/openglaze-512.png" alt="OpenGlaze icon: a split-dipped shino and tenmoku test tile" width="160">
 </p>
 
 <p align="center">
@@ -112,7 +112,7 @@ OpenGlaze is not a replacement for these tools — it complements them. Many use
 
 ### Docker (Recommended, 2 minutes)
 
-The default Docker path is a single-user, self-hosted SQLite install with persistent Docker volumes. It does not require PostgreSQL or Ory Kratos.
+The default Docker path is a single-user, self-hosted install: the app keeps its data in SQLite on persistent Docker volumes, and the stack also starts PostgreSQL and Ory Kratos for the experimental cloud-auth profile. The defaults in `.env.example` work out of the box on a fresh clone; set a real `SECRET_KEY` and a strong `POSTGRES_PASSWORD` before exposing the app publicly.
 
 ```bash
 # Clone the repository
