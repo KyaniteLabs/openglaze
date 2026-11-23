@@ -18,6 +18,21 @@ def _print_json(payload: dict[str, Any]) -> None:
     print(json.dumps(payload, indent=2, sort_keys=True))
 
 
+def _print_json_result(payload: dict[str, Any]) -> None:
+    """Print a result payload and exit non-zero when the calculation failed."""
+    _print_json(payload)
+    if payload.get("success") is False:
+        sys.exit(1)
+
+
+def _split_materials(entries: list[str] | None) -> list[str] | None:
+    """Flatten repeatable --materials values; comma-separated lists allowed."""
+    if not entries:
+        return None
+    names = [part.strip() for entry in entries for part in entry.split(",")]
+    return [name for name in names if name] or None
+
+
 def _parse_cone(value: Any) -> int | str:
     raw = str(value).strip()
     if raw.startswith("0") and len(raw) > 1:
@@ -71,7 +86,9 @@ def _run(args: argparse.Namespace) -> dict[str, Any]:
         return calculate_umf(args.recipe, cone=cone).to_dict()
     if args.command == "batch":
         return calculate_batch(args.recipe, args.size, args.unit)
-    return suggest_substitutions(args.recipe).to_dict()
+    return suggest_substitutions(
+        args.recipe, materials=_split_materials(args.materials)
+    ).to_dict()
 
 
 def main(argv: list[str] | None = None) -> None:
@@ -106,6 +123,11 @@ def main(argv: list[str] | None = None) -> None:
     )
     substitutions.add_argument(
         "--recipe", required=True, help="Recipe string to analyze."
+    )
+    substitutions.add_argument(
+        "--materials",
+        action="append",
+        help="Known material to request alternatives for. Repeatable or comma-separated.",
     )
 
     args = parser.parse_args(argv)

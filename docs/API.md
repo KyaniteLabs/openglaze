@@ -11,9 +11,10 @@ Current REST API for the Flask app in this repository.
 ```http
 GET /health
 GET /api/health
+GET /api/mode
 ```
 
-`/health` returns a basic status/version payload. `/api/health` also reports mode, feature flags, and rate-limit stats.
+`/health` returns a basic status/version payload. `/api/health` also reports mode, feature flags, and rate-limit stats. `/api/mode` returns the current run mode (`personal` or `cloud`) with its feature flags.
 
 ## Auth
 
@@ -153,6 +154,30 @@ GET /api/photos
 
 Upload expects multipart form-data with a `photo` field. Supported extensions are JPG, JPEG, PNG, and WebP; max size is 5 MB.
 
+## AI assistant (Kama)
+
+```http
+POST /api/ask
+POST /api/ask/stream
+```
+
+Both take a JSON body with `question` (required), optional `clear` (reset conversation memory), and optional `images` (list of base64-encoded strings).
+
+`/api/ask` returns `{"response": "..."}`. When no AI backend is reachable (Ollama, LM Studio, or a configured cloud provider), it returns HTTP `503` with `{"ai_available": false, ...}` and setup hints — not a 500.
+
+`/api/ask/stream` returns `text/event-stream` (SSE) with `data: {"type": "content"|"error", ...}` events; when the backend is down the error event carries `"ai_available": false`.
+
+AI backends are self-hosted by default; nothing calls out to a cloud provider unless an API key is configured.
+
+## Inbox
+
+```http
+GET /api/inbox
+POST /api/inbox
+```
+
+Idea capture for the studio. `POST` takes a JSON body with `content` (required) plus optional `base`, `top`, and `notes`. Items are attributed to the simple-auth user when a Bearer token is sent.
+
 ## Studio collaboration
 
 Studio endpoints require simple-auth or Ory user context.
@@ -173,7 +198,7 @@ GET /api/studios/<studio_id>/experiments
 
 ## Progress, stats, and predictions
 
-These endpoints require authenticated user context and may return `401` in default unauthenticated personal mode.
+These endpoints identify the caller from the simple-auth Bearer token (or Ory in cloud mode); without one they return `401`.
 
 ```http
 GET /api/stats
@@ -190,7 +215,7 @@ GET /api/templates/<template_id>
 POST /api/templates/<template_id>/apply
 ```
 
-Applying a template requires authenticated user context.
+Applying a template identifies the caller the same way as the stats endpoints (simple-auth Bearer token in personal mode).
 
 ## Demo endpoints
 
@@ -203,7 +228,7 @@ These are public demo/reference endpoints backed by curated demo glaze data when
 
 ## Error format
 
-Most errors are returned as JSON:
+Errors are returned as JSON:
 
 ```json
 {
@@ -211,4 +236,4 @@ Most errors are returned as JSON:
 }
 ```
 
-Rate limits return HTTP `429` with a `Retry-After` header.
+Rate limits return HTTP `429` with a `Retry-After` header. JSON-body endpoints invoked without a JSON content-type return HTTP `415` as JSON — always send `Content-Type: application/json` with JSON payloads.

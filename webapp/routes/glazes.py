@@ -50,6 +50,8 @@ def create_glaze():
         return jsonify({"error": "No data provided"}), 400
 
     glaze = Glaze.from_dict(data)
+    if not isinstance(glaze.id, str) or not glaze.id.strip():
+        glaze.id = g.glaze_manager.generate_id(glaze.name or "")
     glaze_id = g.glaze_manager.create(glaze)
     return jsonify({"id": glaze_id}), 201
 

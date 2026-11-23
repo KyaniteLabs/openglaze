@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Confirming a combination through the firing log now marks it `documented`,
   matching the promote route; `/api/progress` counts documented combinations
   as tested.
+- Docker install on a fresh clone: `cp .env.example .env && docker compose up -d` now reaches a healthy app. Previously postgres exited on boot twice over — a blank `POSTGRES_PASSWORD` (shipped commented) and the Renovate bump to `postgres:18-alpine`, whose images reject the legacy `/var/lib/postgresql/data` mount. `.env.example` now ships a working `POSTGRES_PASSWORD` default, compose interpolations carry inline defaults, and postgres is pinned to `16-alpine` (re-pin together with the volume change). Kratos also crash-looped on v26: the removed `--watch-courier-templates` flag is dropped, and `kratos/config.yml` now validates against the v26 schema (`in: header` on the webhook api_key auth; no `enabled` key on the error flow). The manual SQLite path is unchanged.
 
 ### Changed
 - License statements now agree with the license the repository ships: the README,

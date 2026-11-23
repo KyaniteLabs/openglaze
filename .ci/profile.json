@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "test_globs": ["tests/test_*.py"],
+  "dependency_files": ["requirements.txt", "requirements-dev.txt", ".ci/profile.json"],
+  "junit_reports": [".ci-results/tests.xml"],
+  "steps": [
+    {"name": "Install production Python 3.14 and pinned dev requirements", "phase": "install", "argv": ["bash", "-euo", "pipefail", "-c", "apt-get update -qq && apt-get install -y -qq python3-venv && python3 -m venv /tmp/uv-bootstrap && /tmp/uv-bootstrap/bin/pip install --quiet uv==0.10.2 && /tmp/uv-bootstrap/bin/uv venv --python 3.14 .venv && /tmp/uv-bootstrap/bin/uv pip install --python .venv -r requirements-dev.txt"], "timeout_seconds": 900},
+    {"name": "Check formatting with Black", "phase": "verify", "argv": [".venv/bin/black", "--check", "--diff", "--extend-exclude", "/\\.ci-contract/", "."]},
+    {"name": "Lint with Ruff", "phase": "verify", "argv": [".venv/bin/ruff", "check", "--extend-exclude", ".ci-contract", "."]},
+    {"name": "Compile shipped modules", "phase": "build", "argv": [".venv/bin/python", "-m", "compileall", "-q", "-x", "/(\\.venv|\\.ci-contract|archive)/", "."]},
+    {"name": "Run all tests", "phase": "test", "argv": [".venv/bin/python", "-m", "pytest", "tests", "-q", "--tb=short", "--junitxml=.ci-results/tests.xml"]},
+    {"name": "Boot the server and fetch health and home", "phase": "acceptance", "argv": ["bash", "-euo", "pipefail", "-c", "data=$(mktemp -d); OPENGLAZE_MODE=personal FLASK_HOST=127.0.0.1 FLASK_PORT=8768 DATABASE_PATH=$data/glaze.db .venv/bin/python server.py > $data/server.log 2>&1 & pid=$!; trap 'kill $pid' EXIT; for i in $(seq 1 30); do curl -sf -o /dev/null http://127.0.0.1:8768/health && break; sleep 1; done; for path in /health /api/health /; do code=$(curl -s -o /dev/null -w '%{http_code}' http://127.0.0.1:8768$path); echo \"$path $code\"; test \"$code\" = 200 || { cat $data/server.log; exit 1; }; done"], "timeout_seconds": 120}
+  ]
+}

@@ -164,6 +164,18 @@ def _register_error_handlers(app: Flask) -> None:
     def not_found(e):
         return jsonify(error_payload("Not found", "not_found")), 404
 
+    @app.errorhandler(415)
+    def unsupported_media_type(e):
+        return (
+            jsonify(
+                error_payload(
+                    "Unsupported Media Type: send JSON request bodies with Content-Type: application/json.",
+                    "unsupported_media_type",
+                )
+            ),
+            415,
+        )
+
     @app.errorhandler(500)
     def server_error(e):
         logger.error(f"Server error: {e}")
