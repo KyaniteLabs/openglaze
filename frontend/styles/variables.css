@@ -13,6 +13,12 @@
     --celadon: #7EB09B;
     --amber: #D4A574;
     --coral: #E07A5F;
+    /* Ink tones: the same hues darkened so a label clears WCAG AA (4.5:1) when it
+       sits on a 15% tint of its own hue. Measured on the composited badge
+       background: celadon 6.21:1, amber 6.44:1, coral 5.82:1. */
+    --celadon-ink: #2F6349;
+    --amber-ink: #7A4E1E;
+    --coral-ink: #9C3D26;
 
     /* Text */
     --text-primary: #2D2A26;
