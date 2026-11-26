@@ -59,23 +59,23 @@
 
 .badge-proven {
     background: rgba(126, 176, 155, 0.15);
-    color: var(--celadon);
+    color: var(--celadon-ink);
 }
 
 .badge-hypothesis {
     background: rgba(212, 165, 116, 0.15);
-    color: var(--amber);
+    color: var(--amber-ink);
 }
 
 /* Prediction grade badges */
 .badge-grade-likely {
     background: rgba(126, 176, 155, 0.15);
-    color: var(--celadon);
+    color: var(--celadon-ink);
 }
 
 .badge-grade-possible {
     background: rgba(212, 165, 116, 0.15);
-    color: var(--amber);
+    color: var(--amber-ink);
 }
 
 .badge-grade-unlikely {
@@ -100,17 +100,17 @@
 
 .badge-risk-low {
     background: rgba(126, 176, 155, 0.15);
-    color: var(--celadon);
+    color: var(--celadon-ink);
 }
 
 .badge-risk-medium {
     background: rgba(212, 165, 116, 0.15);
-    color: var(--amber);
+    color: var(--amber-ink);
 }
 
 .badge-risk-high {
     background: rgba(224, 122, 95, 0.15);
-    color: var(--coral);
+    color: var(--coral-ink);
 }
 
 /* Modal */
@@ -853,12 +853,12 @@
 /* Food safety badges */
 .badge-food-safe {
     background: rgba(126, 176, 155, 0.15);
-    color: var(--celadon);
+    color: var(--celadon-ink);
 }
 
 .badge-food-unsafe {
     background: rgba(224, 122, 95, 0.15);
-    color: var(--coral);
+    color: var(--coral-ink);
 }
 
 .badge-food-unknown {
@@ -1047,7 +1047,7 @@
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    color: var(--text-tertiary);
+    color: var(--text-secondary);
     padding: var(--space-2) var(--space-3);
 }
 
@@ -1419,7 +1419,7 @@
 .pwa-install-btn {
     display: none;
     padding: var(--space-2) var(--space-3);
-    background: var(--terracotta);
+    background: var(--terracotta-dark);
     color: white;
     border: none;
     border-radius: var(--radius-sm);

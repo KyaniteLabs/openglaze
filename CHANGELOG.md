@@ -8,6 +8,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Fixed
+- Main-screen contrast now meets WCAG AA: the logo mark and active stage pill
+  use a new `--terracotta-dark` accent token (5.15:1 as text on cream, 5.50:1
+  under its white pill text), and sidebar section labels use the existing
+  `--text-secondary` gray (4.99:1) instead of `--text-tertiary` (2.60:1).
+- The main screen now passes the tastecheck page-wide a11y ship gate: badge
+  and grade labels use AA-safe ink tones (`--celadon-ink`, `--amber-ink`,
+  `--coral-ink`) on their 15% tints, the PWA install button uses
+  `--terracotta-dark`, the stage-count chip on the active pill is legible, and
+  a narrow-viewport rule keeps the header inside a 320px viewport. The gate's
+  own contrast probe now reports 75 text pairs all at or above AA (worst
+  4.58:1); the reflow320 and zoom400 probes no longer fail (the gate reports
+  only a sticky-sidebar warning for them).
 - Releasing a studio lab claim now returns the combination to the lab queue
   instead of hiding it.
 - Experiments move to `in_progress` when advanced, so `/api/experiments/active`

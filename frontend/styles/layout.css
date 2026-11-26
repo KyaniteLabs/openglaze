@@ -34,7 +34,7 @@
 }
 
 .logo-mark {
-    color: var(--terracotta);
+    color: var(--terracotta-dark);
 }
 
 .search-trigger {
@@ -92,7 +92,7 @@
     font-size: 0.625rem;
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    color: var(--text-tertiary);
+    color: var(--text-secondary);
     padding: var(--space-2) var(--space-3);
     margin-bottom: var(--space-2);
 }
@@ -170,7 +170,7 @@
 }
 
 .stage-pill.active {
-    background: var(--terracotta);
+    background: var(--terracotta-dark);
     color: white;
 }
 
@@ -183,7 +183,8 @@
 }
 
 .stage-pill.active .stage-count {
-    background: rgba(255,255,255,0.25);
+    background: rgba(255,255,255,0.85);
+    color: var(--text-primary);
 }
 
 /* Canvas Grid */
@@ -262,5 +263,34 @@
     .canvas {
         grid-template-columns: 1fr;
         gap: var(--space-3);
+    }
+}
+
+/* Narrow header: keep the fixed header inside a 320px viewport.
+   The header-right group (PWA install + Kama) overflowed the viewport at
+   320px wide, which the reflow320 and zoom400 ship-gate probes flag.
+   0,2,0 selectors are required here: .btn and .header-right are declared in
+   components.css, which is loaded AFTER layout.css, so equal specificity
+   would lose the cascade. */
+@media (max-width: 480px) {
+    .header {
+        padding: 0 var(--space-2);
+    }
+
+    .header-left {
+        gap: var(--space-2);
+    }
+
+    .logo {
+        font-size: var(--text-base);
+    }
+
+    .header .header-right {
+        gap: var(--space-2);
+    }
+
+    .header .kama-trigger {
+        padding: var(--space-2) var(--space-3);
+        font-size: var(--text-xs);
     }
 }
