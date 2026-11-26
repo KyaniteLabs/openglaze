@@ -18,7 +18,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   `--terracotta-dark`, the stage-count chip on the active pill is legible, and
   a narrow-viewport rule keeps the header inside a 320px viewport. The gate's
   own contrast probe now reports 75 text pairs all at or above AA (worst
-  4.58:1), with the reflow320 and zoom400 probes passing.
+  4.58:1); the reflow320 and zoom400 probes no longer fail (the gate reports
+  only a sticky-sidebar warning for them).
 - Releasing a studio lab claim now returns the combination to the lab queue
   instead of hiding it.
 - Experiments move to `in_progress` when advanced, so `/api/experiments/active`
